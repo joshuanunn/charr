@@ -10,9 +10,8 @@
         }}};
      Asm.Function {name = "target"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 40), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 45), (Asm.Stack -12)));
-         (Asm.Mov ((Asm.Imm 45), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 45), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target";

@@ -5,7 +5,6 @@ target:
     movq        %rsp, %rbp
     subq        $32, %rsp
     movl        %edi, -28(%rbp)
-    movl        $0, -4(%rbp)
     cmpl        $1, -28(%rbp)
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
@@ -39,7 +38,6 @@ target:
     movl        -24(%rbp), %r10d
     movl        %r10d, globvar(%rip)
 .Lswit.df.1:
-    movl        $3, -4(%rbp)
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -53,8 +51,6 @@ main:
     movl        $2, %edi
     call        target@PLT
     movl        %eax, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     cmpl        $3, -8(%rbp)
     movl        $0, -12(%rbp)
     setne       -12(%rbp)

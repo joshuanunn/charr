@@ -20,7 +20,6 @@
        instructions =
        [(Asm.AllocateStack 16);
          (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -12)));
-         (Asm.Mov ((Asm.Imm 3), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
          (Asm.JmpCC (Asm.E, "target.if.en.0")); (Asm.Call "callee");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));

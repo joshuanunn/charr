@@ -83,8 +83,6 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $4, -4(%rbp)
-    movl        $6, -8(%rbp)
     movl        $1, %edi
     movl        $2, %esi
     movl        $3, %edx

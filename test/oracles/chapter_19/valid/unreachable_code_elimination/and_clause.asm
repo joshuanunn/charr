@@ -1,8 +1,8 @@
 (Asm.Program
    [Asm.Function {name = "target"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX)));
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "target";

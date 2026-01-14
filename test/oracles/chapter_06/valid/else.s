@@ -4,7 +4,6 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -4(%rbp)
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp

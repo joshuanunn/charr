@@ -37,14 +37,9 @@
        instructions =
        [(Asm.AllocateStack 32);
          (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -20)));
-         (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
          (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.DI)));
          (Asm.Call "set_globvar");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -12)));
-         (Asm.Mov ((Asm.Imm 10), (Asm.Stack -4)));
          (Asm.Mov ((Asm.Imm 10), (Asm.Reg Asm.DI)));
          (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.SI))); (Asm.Call "callee");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -16)));

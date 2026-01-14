@@ -28,8 +28,8 @@
          }}};
      Asm.Function {name = "target_conditional_true"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 2), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target_conditional_true";
@@ -40,8 +40,8 @@
          }}};
      Asm.Function {name = "target_conditional_false"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 5), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 5), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 5), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target_conditional_false";
@@ -52,9 +52,8 @@
          }}};
      Asm.Function {name = "target_do_loop"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 10), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 10), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 10), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target_do_loop";
@@ -65,8 +64,8 @@
          }}};
      Asm.Function {name = "target_while_loop_false"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target_while_loop_false";
@@ -77,9 +76,8 @@
          }}};
      Asm.Function {name = "target_while_loop_true"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 10), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 10), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 10), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target_while_loop_true";
@@ -90,10 +88,8 @@
          }}};
      Asm.Function {name = "target_for_loop_true"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 100), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Imm 100), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 100), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 100), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target_for_loop_true";
@@ -105,9 +101,8 @@
          }}};
      Asm.Function {name = "target_for_loop_false"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 100), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX)));
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target_for_loop_false";

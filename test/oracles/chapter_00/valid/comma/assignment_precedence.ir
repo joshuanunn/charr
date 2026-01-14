@@ -1,13 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body =
-      [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant 2); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant 2); dst = (Ir.Var "b.1")};
-        Ir.Copy {src = (Ir.Constant 20); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Constant 22); dst = (Ir.Var "tmp.1")};
-        (Ir.Return (Ir.Constant 22))];
+      body = [(Ir.Return (Ir.Constant 22))];
       frame =
       Env.lenv {
         namespace = "main";

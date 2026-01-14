@@ -53,8 +53,6 @@ main:
 .Lmain.and.fl.10:
     movl        $0, -44(%rbp)
 .Lmain.and.en.11:
-    movl        -44(%rbp), %r10d
-    movl        %r10d, -28(%rbp)
     movl        -44(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp

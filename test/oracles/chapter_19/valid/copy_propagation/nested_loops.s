@@ -623,7 +623,6 @@ target:
     movl        $3, -12(%rbp)
     movl        $4, -16(%rbp)
     movl        $5, -20(%rbp)
-    movl        $100, -24(%rbp)
 .Lloop.ct.1:
     cmpl        $2, outer_flag(%rip)
     movl        $0, -28(%rbp)

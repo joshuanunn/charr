@@ -8,29 +8,22 @@ target:
     movl        $3, -4(%rbp)
     cmpl        $0, -108(%rbp)
     je          .Ltarget.if.en.0
-    movl        $3, -8(%rbp)
     movl        $4, -4(%rbp)
 .Ltarget.if.en.0:
     movl        $10, -12(%rbp)
     cmpl        $0, -108(%rbp)
     je          .Ltarget.if.en.2
-    movl        $10, -16(%rbp)
     movl        $9, -12(%rbp)
 .Ltarget.if.en.2:
-    movl        $-12, -24(%rbp)
     movl        $-12, -20(%rbp)
     cmpl        $0, -108(%rbp)
     je          .Ltarget.if.en.5
     movl        $-11, -20(%rbp)
 .Ltarget.if.en.5:
-    movl        $-100, -32(%rbp)
-    movl        -32(%rbp), %r10d
-    movl        %r10d, -28(%rbp)
+    movl        $-100, -28(%rbp)
     cmpl        $0, -108(%rbp)
     je          .Ltarget.if.en.7
-    movl        -32(%rbp), %r10d
-    movl        %r10d, -28(%rbp)
-    subl        $1, -28(%rbp)
+    movl        $-101, -28(%rbp)
 .Ltarget.if.en.7:
     cmpl        $0, -108(%rbp)
     je          .Ltarget.if.el.9
@@ -51,7 +44,6 @@ target:
 .Ltarget.and.en.14:
     cmpl        $0, -44(%rbp)
     je          .Ltarget.and.fl.18
-    movl        $-11, -48(%rbp)
     cmpl        $-11, -20(%rbp)
     movl        $0, -52(%rbp)
     sete        -52(%rbp)
@@ -64,9 +56,7 @@ target:
 .Ltarget.and.en.19:
     cmpl        $0, -56(%rbp)
     je          .Ltarget.and.fl.23
-    movl        $-101, -60(%rbp)
-    movl        -60(%rbp), %r10d
-    cmpl        %r10d, -28(%rbp)
+    cmpl        $-101, -28(%rbp)
     movl        $0, -64(%rbp)
     sete        -64(%rbp)
     cmpl        $0, -64(%rbp)
@@ -105,9 +95,7 @@ target:
 .Ltarget.and.en.30:
     cmpl        $0, -80(%rbp)
     je          .Ltarget.and.fl.34
-    movl        $-12, -84(%rbp)
-    movl        -84(%rbp), %r10d
-    cmpl        %r10d, -20(%rbp)
+    cmpl        $-12, -20(%rbp)
     movl        $0, -88(%rbp)
     sete        -88(%rbp)
     cmpl        $0, -88(%rbp)
@@ -119,9 +107,7 @@ target:
 .Ltarget.and.en.35:
     cmpl        $0, -92(%rbp)
     je          .Ltarget.and.fl.39
-    movl        $-100, -96(%rbp)
-    movl        -96(%rbp), %r10d
-    cmpl        %r10d, -28(%rbp)
+    cmpl        $-100, -28(%rbp)
     movl        $0, -100(%rbp)
     sete        -100(%rbp)
     cmpl        $0, -100(%rbp)

@@ -47,8 +47,6 @@
        instructions =
        [(Asm.AllocateStack 32); (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.DI)));
          (Asm.Call "target"); (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 200), (Asm.Stack -8)));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
          (Asm.SetCC (Asm.NE, (Asm.Stack -12)));
@@ -58,8 +56,6 @@
          (Asm.Label "main.if.en.2");
          (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.DI))); (Asm.Call "target");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -16)));
-         (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 40), (Asm.Stack -16)));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -20)));
          (Asm.SetCC (Asm.NE, (Asm.Stack -20)));

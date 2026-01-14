@@ -5,7 +5,6 @@ main:
     movq        %rsp, %rbp
     subq        $32, %rsp
     movl        $0, -4(%rbp)
-    movl        $3, -8(%rbp)
     movl        $0, -12(%rbp)
 .Lloop.st.1:
     movl        -4(%rbp), %r10d

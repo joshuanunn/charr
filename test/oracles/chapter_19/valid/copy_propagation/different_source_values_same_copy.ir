@@ -40,14 +40,12 @@
        body =
        [Ir.FunCall {fun_name = "target"; args = [(Ir.Constant 0)];
           dst = (Ir.Var "tmp.0")};
-         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "result.5")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
            src2 = (Ir.Constant 200); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
          (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "target"; args = [(Ir.Constant 1)];
            dst = (Ir.Var "tmp.3")};
-         Ir.Copy {src = (Ir.Var "tmp.3"); dst = (Ir.Var "result.5")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
            src2 = (Ir.Constant 40); dst = (Ir.Var "tmp.4")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};

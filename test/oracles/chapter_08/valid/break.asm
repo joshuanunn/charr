@@ -2,7 +2,6 @@
    [Asm.Function {name = "main"; global = true;
       instructions =
       [(Asm.AllocateStack 48); (Asm.Mov ((Asm.Imm 10), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 20), (Asm.Stack -8)));
         (Asm.Mov ((Asm.Imm -20), (Asm.Stack -12)));
         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -8)));
@@ -32,7 +31,6 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -32)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -32)));
         (Asm.JmpCC (Asm.E, "main.and.fl.10"));
-        (Asm.Mov ((Asm.Imm -11), (Asm.Stack -36)));
         (Asm.Cmp ((Asm.Imm -11), (Asm.Stack -8)));
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -40)));
         (Asm.SetCC (Asm.E, (Asm.Stack -40)));

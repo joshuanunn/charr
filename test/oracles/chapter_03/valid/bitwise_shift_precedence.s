@@ -4,10 +4,7 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $16, -4(%rbp)
-    movl        $2621440, -8(%rbp)
-    movl        $1310720, -12(%rbp)
-    movl        -12(%rbp), %eax
+    movl        $1310720, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

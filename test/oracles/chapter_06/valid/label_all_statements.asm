@@ -10,8 +10,7 @@
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4))); (Asm.Jmp "label_if.0");
         (Asm.Label "label_return.3");
         (Asm.Mov ((Asm.Imm 100), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Label "label_empty.4");
-        (Asm.Mov ((Asm.Imm 100), (Asm.Stack -4))); (Asm.Jmp "label_goto.1")];
+        (Asm.Label "label_empty.4"); (Asm.Jmp "label_goto.1")];
       frame =
       Env.lenv {
         namespace = "main";

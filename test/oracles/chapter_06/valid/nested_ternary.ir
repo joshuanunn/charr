@@ -1,22 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body =
-      [Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant 2); dst = (Ir.Var "b.1")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "flag.2")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1");
-          target = "main.cond.el.3"};
-        Ir.Copy {src = (Ir.Constant 5); dst = (Ir.Var "tmp.0")};
-        Ir.Jump {target = "main.cond.en.2"}; (Ir.Label "main.cond.el.3");
-        Ir.JumpIfZero {condition = (Ir.Var "flag.2");
-          target = "main.cond.el.6"};
-        Ir.Copy {src = (Ir.Constant 6); dst = (Ir.Var "tmp.4")};
-        Ir.Jump {target = "main.cond.en.5"}; (Ir.Label "main.cond.el.6");
-        Ir.Copy {src = (Ir.Constant 7); dst = (Ir.Var "tmp.4")};
-        (Ir.Label "main.cond.en.5");
-        Ir.Copy {src = (Ir.Var "tmp.4"); dst = (Ir.Var "tmp.0")};
-        (Ir.Label "main.cond.en.2"); (Ir.Return (Ir.Var "tmp.0"))];
+      body = [(Ir.Return (Ir.Constant 7))];
       frame =
       Env.lenv {
         namespace = "main";

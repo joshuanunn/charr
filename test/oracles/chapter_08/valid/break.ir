@@ -2,7 +2,6 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant 20); dst = (Ir.Var "b.1")};
         Ir.Copy {src = (Ir.Constant -20); dst = (Ir.Var "tmp.0")};
         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "b.1")};
         (Ir.Label "loop.st.1");
@@ -24,7 +23,6 @@
           src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.6")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.6");
           target = "main.and.fl.10"};
-        Ir.Copy {src = (Ir.Constant -11); dst = (Ir.Var "tmp.7")};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "b.1");
           src2 = (Ir.Constant -11); dst = (Ir.Var "tmp.8")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.8");

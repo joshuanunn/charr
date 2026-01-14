@@ -83,9 +83,7 @@
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 4), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 6), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.DI)));
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.DI)));
          (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.SI)));
          (Asm.Mov ((Asm.Imm 3), (Asm.Reg Asm.DX)));
          (Asm.Mov ((Asm.Imm 4), (Asm.Reg Asm.CX)));

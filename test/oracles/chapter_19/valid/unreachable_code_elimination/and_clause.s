@@ -4,7 +4,6 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -8(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp

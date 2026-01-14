@@ -4,8 +4,6 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $64, %rsp
-    movl        $0, -4(%rbp)
-    movl        $0, -8(%rbp)
     movl        $1, -12(%rbp)
     movl        $100, -16(%rbp)
 .Lloop.st.1:
@@ -14,12 +12,9 @@ main:
     setg        -20(%rbp)
     cmpl        $0, -20(%rbp)
     je          .Lloop.br.1
-    movl        $1, -24(%rbp)
     movl        $1, -32(%rbp)
     movl        -12(%rbp), %r10d
     addl        %r10d, -32(%rbp)
-    movl        -32(%rbp), %r10d
-    movl        %r10d, -28(%rbp)
     movl        -32(%rbp), %r10d
     movl        %r10d, -12(%rbp)
     movl        -16(%rbp), %r10d
@@ -34,7 +29,6 @@ main:
     sete        -40(%rbp)
     cmpl        $0, -40(%rbp)
     je          .Lmain.and.fl.6
-    movl        $1, -44(%rbp)
     movl        $1, -48(%rbp)
     jmp         .Lmain.and.en.7
 .Lmain.and.fl.6:
@@ -42,7 +36,6 @@ main:
 .Lmain.and.en.7:
     cmpl        $0, -48(%rbp)
     je          .Lmain.and.fl.10
-    movl        $1, -52(%rbp)
     movl        $1, -56(%rbp)
     jmp         .Lmain.and.en.11
 .Lmain.and.fl.10:

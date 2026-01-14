@@ -4,9 +4,7 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        $3, -4(%rbp)
     movl        $4, -8(%rbp)
-    movl        $7, -12(%rbp)
     movl        $1, -16(%rbp)
     cmpl        $0, -16(%rbp)
     je          .Lmain.if.en.2

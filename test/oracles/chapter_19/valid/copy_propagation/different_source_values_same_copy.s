@@ -47,8 +47,6 @@ main:
     movl        $0, %edi
     call        target@PLT
     movl        %eax, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     cmpl        $200, -8(%rbp)
     movl        $0, -12(%rbp)
     setne       -12(%rbp)
@@ -62,8 +60,6 @@ main:
     movl        $1, %edi
     call        target@PLT
     movl        %eax, -16(%rbp)
-    movl        -16(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     cmpl        $40, -16(%rbp)
     movl        $0, -20(%rbp)
     setne       -20(%rbp)

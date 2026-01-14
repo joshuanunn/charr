@@ -34,14 +34,9 @@ target:
     movq        %rsp, %rbp
     subq        $32, %rsp
     movl        %edi, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     movl        -20(%rbp), %edi
     call        set_globvar@PLT
     movl        %eax, -8(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
-    movl        $10, -4(%rbp)
     movl        $10, %edi
     movl        -20(%rbp), %esi
     call        callee@PLT

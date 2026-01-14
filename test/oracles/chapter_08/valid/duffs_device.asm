@@ -2,7 +2,6 @@
    [Asm.Function {name = "main"; global = true;
       instructions =
       [(Asm.AllocateStack 80); (Asm.Mov ((Asm.Imm 37), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 41), (Asm.Stack -12)));
         (Asm.Mov ((Asm.Imm 8), (Asm.Stack -16)));
         (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -8)));

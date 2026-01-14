@@ -52,9 +52,8 @@
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 6), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 6), (Asm.Reg Asm.DI))); (Asm.Call "fib");
-         (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
+       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 6), (Asm.Reg Asm.DI)));
+         (Asm.Call "fib"); (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
          (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {

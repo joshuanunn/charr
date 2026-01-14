@@ -42,20 +42,14 @@ target:
     subq        $32, %rsp
     movl        %edi, -28(%rbp)
     movl        %esi, -32(%rbp)
-    movl        -28(%rbp), %r10d
-    movl        %r10d, -32(%rbp)
     call        set_globvar@PLT
     movl        %eax, -4(%rbp)
     movl        -28(%rbp), %edi
     movl        -28(%rbp), %esi
     call        callee@PLT
     movl        %eax, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
     call        f@PLT
     movl        %eax, -16(%rbp)
-    movl        -16(%rbp), %r10d
-    movl        %r10d, -32(%rbp)
     movl        -12(%rbp), %r10d
     movl        %r10d, -20(%rbp)
     movl        -28(%rbp), %r10d

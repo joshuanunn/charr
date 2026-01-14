@@ -1,11 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body =
-      [Ir.Copy {src = (Ir.Constant 1234); dst = (Ir.Var "var_to_shift.0")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "x.1")};
-        Ir.Copy {src = (Ir.Constant 77); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x.1")};
-        (Ir.Return (Ir.Constant 77))];
+      body = [(Ir.Return (Ir.Constant 77))];
       frame =
       Env.lenv {
         namespace = "main";

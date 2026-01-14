@@ -1,22 +1,17 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 64); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -12)));
+      [(Asm.AllocateStack 64); (Asm.Mov ((Asm.Imm 1), (Asm.Stack -12)));
         (Asm.Mov ((Asm.Imm 100), (Asm.Stack -16))); (Asm.Label "loop.st.1");
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -16)));
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -20)));
         (Asm.SetCC (Asm.G, (Asm.Stack -20)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -20)));
         (Asm.JmpCC (Asm.E, "loop.br.1"));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -24)));
         (Asm.Mov ((Asm.Imm 1), (Asm.Stack -32)));
         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.R10)));
         Asm.Binary {op = Asm.Add; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -32)};
-        (Asm.Mov ((Asm.Stack -32), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -28)));
         (Asm.Mov ((Asm.Stack -32), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -12)));
         (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
@@ -30,14 +25,12 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -40)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -40)));
         (Asm.JmpCC (Asm.E, "main.and.fl.6"));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -44)));
         (Asm.Mov ((Asm.Imm 1), (Asm.Stack -48))); (Asm.Jmp "main.and.en.7");
         (Asm.Label "main.and.fl.6");
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -48)));
         (Asm.Label "main.and.en.7");
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -48)));
         (Asm.JmpCC (Asm.E, "main.and.fl.10"));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -52)));
         (Asm.Mov ((Asm.Imm 1), (Asm.Stack -56))); (Asm.Jmp "main.and.en.11");
         (Asm.Label "main.and.fl.10");
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -56)));

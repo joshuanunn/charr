@@ -18,8 +18,8 @@
         }}};
      Asm.Function {name = "target"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 3), (Asm.Stack -4)));
-         (Asm.Label "loop.st.1"); (Asm.Call "increment_counter");
+       [(Asm.AllocateStack 16); (Asm.Label "loop.st.1");
+         (Asm.Call "increment_counter");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
          (Asm.Cmp ((Asm.Imm 5), (Asm.Data "counter")));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
@@ -41,8 +41,6 @@
        instructions =
        [(Asm.AllocateStack 16); (Asm.Call "target");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 3), (Asm.Stack -8)));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
          (Asm.SetCC (Asm.NE, (Asm.Stack -12)));

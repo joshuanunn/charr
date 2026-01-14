@@ -1,8 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target_negate"; global = true; params = [];
-      body =
-      [Ir.Copy {src = (Ir.Constant -3); dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Constant -3))];
+      body = [(Ir.Return (Ir.Constant -3))];
       frame =
       Env.lenv {
         namespace = "target_negate";
@@ -12,9 +10,7 @@
           tmp.0 -> -4,
         }}};
      Ir.Function {name = "target_negate_zero"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant 0))];
        frame =
        Env.lenv {
          namespace = "target_negate_zero";
@@ -24,9 +20,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_not"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant 0))];
        frame =
        Env.lenv {
          namespace = "target_not";
@@ -36,9 +30,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_not_zero"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant 1))];
        frame =
        Env.lenv {
          namespace = "target_not_zero";
@@ -48,9 +40,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_complement"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant -2); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant -2))];
+       body = [(Ir.Return (Ir.Constant -2))];
        frame =
        Env.lenv {
          namespace = "target_complement";

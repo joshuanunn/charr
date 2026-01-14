@@ -1,7 +1,7 @@
 (Asm.Program
    [Asm.Function {name = "target_and"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 983055), (Asm.Stack -4)));
+      [(Asm.AllocateStack 16);
         (Asm.Mov ((Asm.Imm 983055), (Asm.Reg Asm.AX))); Asm.Ret];
       frame =
       Env.lenv {
@@ -14,7 +14,6 @@
      Asm.Function {name = "target_or"; global = true;
        instructions =
        [(Asm.AllocateStack 16);
-         (Asm.Mov ((Asm.Imm 268374015), (Asm.Stack -4)));
          (Asm.Mov ((Asm.Imm 268374015), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {
@@ -27,7 +26,6 @@
      Asm.Function {name = "target_xor"; global = true;
        instructions =
        [(Asm.AllocateStack 16);
-         (Asm.Mov ((Asm.Imm 267390960), (Asm.Stack -4)));
          (Asm.Mov ((Asm.Imm 267390960), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {
@@ -40,7 +38,6 @@
      Asm.Function {name = "target_shift_left"; global = true;
        instructions =
        [(Asm.AllocateStack 16);
-         (Asm.Mov ((Asm.Imm 76283904), (Asm.Stack -4)));
          (Asm.Mov ((Asm.Imm 76283904), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {
@@ -52,7 +49,7 @@
          }}};
      Asm.Function {name = "target_shift_right"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 493447), (Asm.Stack -4)));
+       [(Asm.AllocateStack 16);
          (Asm.Mov ((Asm.Imm 493447), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {

@@ -2,7 +2,6 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.Copy {src = (Ir.Constant 37); dst = (Ir.Var "count.0")};
-        Ir.Copy {src = (Ir.Constant 41); dst = (Ir.Var "tmp.0")};
         Ir.Copy {src = (Ir.Constant 8); dst = (Ir.Var "tmp.1")};
         Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "iterations.1")};
         Ir.Copy {src = (Ir.Constant 2); dst = (Ir.Var "tmp.2")};

@@ -8,8 +8,6 @@ target:
     movl        %esi, -16(%rbp)
     movl        %edx, -20(%rbp)
     movl        -20(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    movl        -20(%rbp), %r10d
     movl        %r10d, -8(%rbp)
     movl        -20(%rbp), %r10d
     addl        %r10d, -8(%rbp)

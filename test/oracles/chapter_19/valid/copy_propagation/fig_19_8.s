@@ -51,7 +51,6 @@ callee:
     popq        %rbp
     ret         
 .Lcallee.if.en.11:
-    movl        $-1, -28(%rbp)
     movl        $-1, called_counter(%rip)
     movl        $0, %eax
     movq        %rbp, %rsp
@@ -68,8 +67,6 @@ target:
     movl        -4(%rbp), %edi
     call        callee@PLT
     movl        %eax, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
     movl        $4, -4(%rbp)
     cmpl        $0, -12(%rbp)
     jne         .Lloop.st.1
@@ -85,8 +82,6 @@ main:
     subq        $16, %rsp
     call        target@PLT
     movl        %eax, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     cmpl        $4, -8(%rbp)
     movl        $0, -12(%rbp)
     setne       -12(%rbp)

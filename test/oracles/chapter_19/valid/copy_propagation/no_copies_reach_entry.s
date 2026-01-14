@@ -13,7 +13,6 @@ target:
     popq        %rbp
     ret         
 .Ltarget.if.en.0:
-    movl        $10, -4(%rbp)
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp

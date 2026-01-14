@@ -10,9 +10,7 @@
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.Copy {src = (Ir.Constant 3); dst = (Ir.Var "x.0")};
-         Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "tmp.0")};
-         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x.0")};
+       [Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "tmp.0")};
          (Ir.Return (Ir.Var "tmp.0"))];
        frame =
        Env.lenv {

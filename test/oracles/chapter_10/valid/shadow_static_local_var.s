@@ -39,8 +39,6 @@ main:
     movl        $10, %esi
     call        update_static_or_global@PLT
     movl        %eax, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
     cmpl        $0, -12(%rbp)
     movl        $0, -16(%rbp)
     setne       -16(%rbp)
@@ -65,8 +63,6 @@ main:
     movl        $9, %esi
     call        update_static_or_global@PLT
     movl        %eax, -24(%rbp)
-    movl        -24(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
     cmpl        $9, -24(%rbp)
     movl        $0, -28(%rbp)
     setne       -28(%rbp)
@@ -91,8 +87,6 @@ main:
     movl        $11, %esi
     call        update_static_or_global@PLT
     movl        %eax, -36(%rbp)
-    movl        -36(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
     cmpl        $9, -36(%rbp)
     movl        $0, -40(%rbp)
     setne       -40(%rbp)

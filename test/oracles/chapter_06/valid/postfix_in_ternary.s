@@ -8,12 +8,9 @@ main:
     movl        $0, -12(%rbp)
     cmpl        $0, -12(%rbp)
     je          .Lmain.cond.el.3
-    movl        $0, -8(%rbp)
     jmp         .Lmain.cond.en.2
 .Lmain.cond.el.3:
-    movl        $10, -16(%rbp)
     movl        $9, -4(%rbp)
-    movl        $10, -8(%rbp)
 .Lmain.cond.en.2:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp

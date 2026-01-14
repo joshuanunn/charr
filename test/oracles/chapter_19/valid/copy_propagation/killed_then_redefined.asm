@@ -21,8 +21,6 @@
        instructions =
        [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 2), (Asm.Data "x")));
          (Asm.Call "callee"); (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Data "x")));
          (Asm.Mov ((Asm.Imm 2), (Asm.Data "x")));
          (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
@@ -37,8 +35,6 @@
        instructions =
        [(Asm.AllocateStack 32); (Asm.Call "target");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 2), (Asm.Stack -8)));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
          (Asm.SetCC (Asm.NE, (Asm.Stack -12)));

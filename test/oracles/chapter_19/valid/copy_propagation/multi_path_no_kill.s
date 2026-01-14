@@ -20,7 +20,6 @@ target:
     movq        %rsp, %rbp
     subq        $16, %rsp
     movl        %edi, -12(%rbp)
-    movl        $3, -4(%rbp)
     cmpl        $0, -12(%rbp)
     je          .Ltarget.if.en.0
     call        callee@PLT

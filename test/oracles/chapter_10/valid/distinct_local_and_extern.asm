@@ -10,8 +10,7 @@
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 3), (Asm.Stack -4)));
-         (Asm.Cmp ((Asm.Imm 5), (Asm.Data "a")));
+       [(Asm.AllocateStack 16); (Asm.Cmp ((Asm.Imm 5), (Asm.Data "a")));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
          (Asm.SetCC (Asm.NE, (Asm.Stack -8)));
          (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));

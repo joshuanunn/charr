@@ -2,7 +2,6 @@
    [Asm.Function {name = "main"; global = true;
       instructions =
       [(Asm.AllocateStack 32);
-        (Asm.Mov ((Asm.Imm -2147483647), (Asm.Stack -8)));
         (Asm.Mov ((Asm.Imm -2147483647), (Asm.Stack -4)));
         (Asm.Label "loop.st.1");
         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Cdq;

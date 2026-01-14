@@ -40,7 +40,6 @@
         (Asm.Mov ((Asm.Imm 2), (Asm.Data "called_counter")));
         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret;
         (Asm.Label "callee.if.en.11");
-        (Asm.Mov ((Asm.Imm -1), (Asm.Stack -28)));
         (Asm.Mov ((Asm.Imm -1), (Asm.Data "called_counter")));
         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
       frame =
@@ -64,8 +63,6 @@
          (Asm.Label "loop.st.1");
          (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.DI))); (Asm.Call "callee");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -12)));
-         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -8)));
          (Asm.Mov ((Asm.Imm 4), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
          (Asm.JmpCC (Asm.NE, "loop.st.1"));
@@ -84,8 +81,6 @@
        instructions =
        [(Asm.AllocateStack 16); (Asm.Call "target");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 4), (Asm.Stack -8)));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
          (Asm.SetCC (Asm.NE, (Asm.Stack -12)));

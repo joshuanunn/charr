@@ -1,9 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = ["flag.0"];
-      body =
-      [Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "x.2")};
-        Ir.Copy {src = (Ir.Constant 20); dst = (Ir.Var "x.2")};
-        (Ir.Return (Ir.Constant 20))];
+      body = [(Ir.Return (Ir.Constant 20))];
       frame =
       Env.lenv {
         namespace = "target";

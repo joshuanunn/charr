@@ -26,8 +26,6 @@ target:
     movl        x.2(%rip), %esi
     call        callee@PLT
     movl        %eax, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     movl        x.2(%rip), %r10d
     movl        %r10d, -12(%rbp)
     addl        $1, -12(%rbp)

@@ -43,23 +43,15 @@ target:
     movl        %eax, -8(%rbp)
     movl        -8(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     addl        $1, -4(%rbp)
-    movl        -4(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
     call        set_globvar@PLT
     movl        %eax, -16(%rbp)
     movl        -4(%rbp), %edi
     movl        -4(%rbp), %esi
     call        callee@PLT
     movl        %eax, -24(%rbp)
-    movl        -24(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
     call        f@PLT
     movl        %eax, -28(%rbp)
-    movl        -28(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
     movl        -4(%rbp), %r10d
     movl        %r10d, -32(%rbp)
     movl        -32(%rbp), %r11d

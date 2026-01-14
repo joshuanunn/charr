@@ -16,8 +16,6 @@ main:
     subq        $16, %rsp
     call        target@PLT
     movl        %eax, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     cmpl        $10, -8(%rbp)
     movl        $0, -12(%rbp)
     setne       -12(%rbp)

@@ -1,12 +1,9 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = ["flag.0"];
       body =
-      [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "x.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "flag.0");
-          target = "target.if.el.1"};
-        Ir.Copy {src = (Ir.Constant 3); dst = (Ir.Var "x.1")};
+      [Ir.JumpIfZero {condition = (Ir.Var "flag.0");
+         target = "target.if.el.1"};
         Ir.Jump {target = "target.if.en.0"}; (Ir.Label "target.if.el.1");
-        Ir.Copy {src = (Ir.Constant 3); dst = (Ir.Var "x.1")};
         (Ir.Label "target.if.en.0"); (Ir.Return (Ir.Constant 3))];
       frame =
       Env.lenv {

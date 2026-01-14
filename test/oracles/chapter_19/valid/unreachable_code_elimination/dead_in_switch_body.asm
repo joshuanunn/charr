@@ -1,8 +1,8 @@
 (Asm.Program
    [Asm.Function {name = "callee"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm -1), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm -1), (Asm.Reg Asm.AX))); Asm.Ret];
+      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm -1), (Asm.Reg Asm.AX)));
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "callee";
@@ -15,7 +15,6 @@
        instructions =
        [(Asm.AllocateStack 32);
          (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -32)));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -4)));
          (Asm.Cmp ((Asm.Imm 1), (Asm.Stack -32)));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
@@ -36,8 +35,7 @@
          (Asm.Mov ((Asm.Imm 2), (Asm.Stack -4))); (Asm.Jmp "swit.br.1");
          (Asm.Label "swit.cs.1.3"); (Asm.Mov ((Asm.Imm 10), (Asm.Stack -4)));
          (Asm.Jmp "swit.br.1"); (Asm.Label "swit.df.1");
-         (Asm.Mov ((Asm.Imm -1), (Asm.Stack -24)));
-         (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.AX))); Asm.Ret;
+         (Asm.Mov ((Asm.Imm -1), (Asm.Reg Asm.AX))); Asm.Ret;
          (Asm.Label "swit.br.1");
          (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =

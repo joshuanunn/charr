@@ -12,8 +12,6 @@ main:
     subl        $1, -4(%rbp)
     cmpl        $0, -12(%rbp)
     je          .Lloop.br.1
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -16(%rbp)
     addl        $1, -8(%rbp)
     jmp         .Lloop.ct.1
 .Lloop.br.1:
@@ -33,8 +31,6 @@ main:
     subl        $1, -4(%rbp)
     cmpl        $0, -4(%rbp)
     je          .Lloop.br.2
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -24(%rbp)
     addl        $1, -8(%rbp)
     jmp         .Lloop.ct.2
 .Lloop.br.2:

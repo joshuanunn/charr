@@ -1,31 +1,8 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 48);
-        (Asm.Mov ((Asm.Imm 2147483646), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 357913941), (Asm.Stack -16)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -20)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -20)));
-        (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -24)));
-        (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.R10)));
-        Asm.Binary {op = Asm.Add; src = (Asm.Reg Asm.R10);
-          dst = (Asm.Stack -24)};
-        (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -12)));
-        (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -28)));
-        (Asm.Mov ((Asm.Stack -28), (Asm.Reg Asm.R11)));
-        Asm.Binary {op = Asm.Mult; src = (Asm.Imm 2); dst = (Asm.Reg Asm.R11)};
-        (Asm.Mov ((Asm.Reg Asm.R11), (Asm.Stack -28)));
-        (Asm.Mov ((Asm.Imm 715827884), (Asm.Stack -32)));
-        (Asm.Mov ((Asm.Stack -32), (Asm.Reg Asm.R10)));
-        (Asm.Cmp ((Asm.Reg Asm.R10), (Asm.Stack -28)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -36)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -36)));
-        (Asm.Mov ((Asm.Stack -36), (Asm.Reg Asm.AX))); Asm.Ret];
+      [(Asm.AllocateStack 48); (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.AX)));
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";

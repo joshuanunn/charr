@@ -2,9 +2,8 @@
    [Ir.Function {name = "target"; global = true;
       params = ["flag.0"; "flag2.1"; "y.2"];
       body =
-      [Ir.Copy {src = (Ir.Var "y.2"); dst = (Ir.Var "x.3")};
-        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "y.2"); src2 = (Ir.Var "y.2");
-          dst = (Ir.Var "tmp.2")};
+      [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "y.2"); src2 = (Ir.Var "y.2");
+         dst = (Ir.Var "tmp.2")};
         (Ir.Return (Ir.Var "tmp.2"))];
       frame =
       Env.lenv {

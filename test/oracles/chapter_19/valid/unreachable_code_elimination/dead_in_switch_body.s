@@ -4,7 +4,6 @@ callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $-1, -4(%rbp)
     movl        $-1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -16,7 +15,6 @@ target:
     movq        %rsp, %rbp
     subq        $32, %rsp
     movl        %edi, -32(%rbp)
-    movl        $0, -4(%rbp)
     cmpl        $1, -32(%rbp)
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
@@ -43,8 +41,7 @@ target:
     movl        $10, -4(%rbp)
     jmp         .Lswit.br.1
 .Lswit.df.1:
-    movl        $-1, -24(%rbp)
-    movl        -24(%rbp), %eax
+    movl        $-1, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

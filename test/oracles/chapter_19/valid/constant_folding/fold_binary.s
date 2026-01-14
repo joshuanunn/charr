@@ -4,7 +4,6 @@ target_add:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $300, -4(%rbp)
     movl        $300, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -15,7 +14,6 @@ target_sub:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $-2147483645, -4(%rbp)
     movl        $-2147483645, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -26,7 +24,6 @@ target_mult:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1000000, -4(%rbp)
     movl        $1000000, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -37,7 +34,6 @@ target_div:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $277, -4(%rbp)
     movl        $277, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -48,7 +44,6 @@ target_rem:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -59,7 +54,6 @@ target_eq_true:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -70,7 +64,6 @@ target_eq_false:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -4(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -81,7 +74,6 @@ target_neq_true:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -92,7 +84,6 @@ target_neq_false:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -4(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -103,7 +94,6 @@ target_gt_true:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -114,7 +104,6 @@ target_gt_false:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -4(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -125,7 +114,6 @@ target_ge_true:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -136,7 +124,6 @@ target_ge_false:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -4(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -147,7 +134,6 @@ target_lt_true:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -158,7 +144,6 @@ target_lt_false:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -4(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -169,7 +154,6 @@ target_le_true:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -180,7 +164,6 @@ target_le_false:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $0, -4(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp

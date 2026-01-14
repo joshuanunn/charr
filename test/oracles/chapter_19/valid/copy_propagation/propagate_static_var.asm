@@ -27,8 +27,6 @@
          (Asm.Mov ((Asm.Data "x.2"), (Asm.Reg Asm.DI)));
          (Asm.Mov ((Asm.Data "x.2"), (Asm.Reg Asm.SI))); (Asm.Call "callee");
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
          (Asm.Mov ((Asm.Data "x.2"), (Asm.Reg Asm.R10)));
          (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -12)));
          Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -12)};

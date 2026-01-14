@@ -4,7 +4,6 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $48, %rsp
-    movl        $1, -4(%rbp)
     movl        $0, -8(%rbp)
     movl        $0, -12(%rbp)
 .Lloop.st.1:
@@ -31,7 +30,6 @@ main:
     sete        -28(%rbp)
     cmpl        $0, -28(%rbp)
     je          .Lmain.and.fl.6
-    movl        $1, -32(%rbp)
     movl        $1, -36(%rbp)
     jmp         .Lmain.and.en.7
 .Lmain.and.fl.6:

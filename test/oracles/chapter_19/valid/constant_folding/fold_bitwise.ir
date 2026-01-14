@@ -1,8 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target_and"; global = true; params = [];
-      body =
-      [Ir.Copy {src = (Ir.Constant 983055); dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Constant 983055))];
+      body = [(Ir.Return (Ir.Constant 983055))];
       frame =
       Env.lenv {
         namespace = "target_and";
@@ -12,9 +10,7 @@
           tmp.0 -> -4,
         }}};
      Ir.Function {name = "target_or"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 268374015); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 268374015))];
+       body = [(Ir.Return (Ir.Constant 268374015))];
        frame =
        Env.lenv {
          namespace = "target_or";
@@ -24,9 +20,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_xor"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 267390960); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 267390960))];
+       body = [(Ir.Return (Ir.Constant 267390960))];
        frame =
        Env.lenv {
          namespace = "target_xor";
@@ -36,9 +30,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_shift_left"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 76283904); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 76283904))];
+       body = [(Ir.Return (Ir.Constant 76283904))];
        frame =
        Env.lenv {
          namespace = "target_shift_left";
@@ -48,9 +40,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_shift_right"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 493447); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 493447))];
+       body = [(Ir.Return (Ir.Constant 493447))];
        frame =
        Env.lenv {
          namespace = "target_shift_right";

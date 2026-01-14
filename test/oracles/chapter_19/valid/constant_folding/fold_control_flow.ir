@@ -27,10 +27,7 @@
          stack slots = {
          }}};
      Ir.Function {name = "target_conditional_true"; global = true;
-       params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 2); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 2))];
+       params = []; body = [(Ir.Return (Ir.Constant 2))];
        frame =
        Env.lenv {
          namespace = "target_conditional_true";
@@ -40,10 +37,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_conditional_false"; global = true;
-       params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 5); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 5))];
+       params = []; body = [(Ir.Return (Ir.Constant 5))];
        frame =
        Env.lenv {
          namespace = "target_conditional_false";
@@ -53,10 +47,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_do_loop"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "retval.0")};
-         Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "retval.0")};
-         (Ir.Return (Ir.Constant 10))];
+       body = [(Ir.Return (Ir.Constant 10))];
        frame =
        Env.lenv {
          namespace = "target_do_loop";
@@ -66,10 +57,7 @@
            retval.0 -> -4,
          }}};
      Ir.Function {name = "target_while_loop_false"; global = true;
-       params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "retval.1")};
-         (Ir.Return (Ir.Constant 0))];
+       params = []; body = [(Ir.Return (Ir.Constant 0))];
        frame =
        Env.lenv {
          namespace = "target_while_loop_false";
@@ -79,11 +67,7 @@
            retval.1 -> -4,
          }}};
      Ir.Function {name = "target_while_loop_true"; global = true;
-       params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "retval.2")};
-         Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "retval.2")};
-         (Ir.Return (Ir.Constant 10))];
+       params = []; body = [(Ir.Return (Ir.Constant 10))];
        frame =
        Env.lenv {
          namespace = "target_while_loop_true";
@@ -93,11 +77,7 @@
            retval.2 -> -4,
          }}};
      Ir.Function {name = "target_for_loop_true"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "retval.3")};
-         Ir.Copy {src = (Ir.Constant 100); dst = (Ir.Var "i.4")};
-         Ir.Copy {src = (Ir.Constant 100); dst = (Ir.Var "retval.3")};
-         (Ir.Return (Ir.Constant 100))];
+       body = [(Ir.Return (Ir.Constant 100))];
        frame =
        Env.lenv {
          namespace = "target_for_loop_true";
@@ -108,10 +88,7 @@
            i.4      -> -8,
          }}};
      Ir.Function {name = "target_for_loop_false"; global = true; params = [];
-       body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "retval.5")};
-         Ir.Copy {src = (Ir.Constant 100); dst = (Ir.Var "i.6")};
-         (Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant 0))];
        frame =
        Env.lenv {
          namespace = "target_for_loop_false";

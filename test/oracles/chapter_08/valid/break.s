@@ -5,7 +5,6 @@ main:
     movq        %rsp, %rbp
     subq        $48, %rsp
     movl        $10, -4(%rbp)
-    movl        $20, -8(%rbp)
     movl        $-20, -12(%rbp)
     movl        -12(%rbp), %r10d
     movl        %r10d, -8(%rbp)
@@ -39,7 +38,6 @@ main:
     sete        -32(%rbp)
     cmpl        $0, -32(%rbp)
     je          .Lmain.and.fl.10
-    movl        $-11, -36(%rbp)
     cmpl        $-11, -8(%rbp)
     movl        $0, -40(%rbp)
     sete        -40(%rbp)

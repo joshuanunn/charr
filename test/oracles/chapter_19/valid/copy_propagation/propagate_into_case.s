@@ -18,7 +18,6 @@ target:
     movq        %rsp, %rbp
     subq        $32, %rsp
     movl        %edi, -24(%rbp)
-    movl        $10, -4(%rbp)
     cmpl        $1, -24(%rbp)
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
@@ -31,7 +30,6 @@ target:
     jne         .Lswit.cs.1.2
     jmp         .Lswit.df.1
 .Lswit.cs.1.1:
-    movl        $20, -4(%rbp)
     jmp         .Lswit.br.1
 .Lswit.cs.1.2:
     movl        $10, %edi
@@ -39,9 +37,7 @@ target:
     movl        %eax, -16(%rbp)
     jmp         .Lswit.br.1
 .Lswit.df.1:
-    movl        $-1, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, globvar(%rip)
+    movl        $-1, globvar(%rip)
 .Lswit.br.1:
     movl        $0, %eax
     movq        %rbp, %rsp

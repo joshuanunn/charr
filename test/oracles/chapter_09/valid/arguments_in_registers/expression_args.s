@@ -20,13 +20,10 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $3, -8(%rbp)
     movl        $3, %edi
     movl        $1, %esi
     call        sub@PLT
     movl        %eax, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp

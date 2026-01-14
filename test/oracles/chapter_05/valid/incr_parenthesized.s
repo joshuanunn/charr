@@ -4,61 +4,7 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $64, %rsp
-    movl        $1, -4(%rbp)
-    movl        $2, -8(%rbp)
-    movl        $2, -4(%rbp)
-    movl        -4(%rbp), %r10d
-    movl        %r10d, -16(%rbp)
-    negl        -16(%rbp)
-    movl        -16(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
-    movl        $2, -24(%rbp)
-    movl        $1, -8(%rbp)
-    movl        $0, -28(%rbp)
-    movl        -28(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
-    cmpl        $2, -4(%rbp)
-    movl        $0, -32(%rbp)
-    sete        -32(%rbp)
-    cmpl        $0, -32(%rbp)
-    je          .Lmain.and.fl.6
-    cmpl        $1, -8(%rbp)
-    movl        $0, -36(%rbp)
-    sete        -36(%rbp)
-    cmpl        $0, -36(%rbp)
-    je          .Lmain.and.fl.6
-    movl        $1, -40(%rbp)
-    jmp         .Lmain.and.en.7
-.Lmain.and.fl.6:
-    movl        $0, -40(%rbp)
-.Lmain.and.en.7:
-    cmpl        $0, -40(%rbp)
-    je          .Lmain.and.fl.11
-    movl        $-2, -44(%rbp)
-    movl        -44(%rbp), %r10d
-    cmpl        %r10d, -16(%rbp)
-    movl        $0, -48(%rbp)
-    sete        -48(%rbp)
-    cmpl        $0, -48(%rbp)
-    je          .Lmain.and.fl.11
-    movl        $1, -52(%rbp)
-    jmp         .Lmain.and.en.12
-.Lmain.and.fl.11:
-    movl        $0, -52(%rbp)
-.Lmain.and.en.12:
-    cmpl        $0, -52(%rbp)
-    je          .Lmain.and.fl.15
-    cmpl        $0, -28(%rbp)
-    movl        $0, -56(%rbp)
-    sete        -56(%rbp)
-    cmpl        $0, -56(%rbp)
-    je          .Lmain.and.fl.15
-    movl        $1, -60(%rbp)
-    jmp         .Lmain.and.en.16
-.Lmain.and.fl.15:
-    movl        $0, -60(%rbp)
-.Lmain.and.en.16:
-    movl        -60(%rbp), %eax
+    movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

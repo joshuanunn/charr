@@ -17,8 +17,6 @@ main:
     addl        $2, -16(%rbp)
     movl        -16(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
     addl        $1, -8(%rbp)
     jmp         .Lloop.st.1
 .Lloop.br.1:

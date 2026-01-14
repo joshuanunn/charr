@@ -24,8 +24,6 @@ target:
     movl        $2, x(%rip)
     call        callee@PLT
     movl        %eax, -4(%rbp)
-    movl        -4(%rbp), %r10d
-    movl        %r10d, x(%rip)
     movl        $2, x(%rip)
     movl        $2, %eax
     movq        %rbp, %rsp
@@ -39,8 +37,6 @@ main:
     subq        $32, %rsp
     call        target@PLT
     movl        %eax, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     cmpl        $2, -8(%rbp)
     movl        $0, -12(%rbp)
     setne       -12(%rbp)

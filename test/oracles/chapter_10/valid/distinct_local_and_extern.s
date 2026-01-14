@@ -13,7 +13,6 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $3, -4(%rbp)
     cmpl        $5, a(%rip)
     movl        $0, -8(%rbp)
     setne       -8(%rbp)

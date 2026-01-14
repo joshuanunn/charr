@@ -83,17 +83,12 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $4, -4(%rbp)
-    movl        $2, -8(%rbp)
-    movl        $24, -12(%rbp)
-    movl        -8(%rbp), %ecx
-    sarl        %cl, -12(%rbp)
     movl        $1, %edi
     movl        $2, %esi
     movl        $3, %edx
     movl        $4, %ecx
     movl        $5, %r8d
-    movl        -12(%rbp), %r9d
+    movl        $6, %r9d
     call        x@PLT
     movl        %eax, -16(%rbp)
     movl        -16(%rbp), %eax

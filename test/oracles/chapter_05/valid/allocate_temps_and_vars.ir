@@ -1,19 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body =
-      [Ir.Copy {src = (Ir.Constant 2147483646); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "b.1")};
-        Ir.Copy {src = (Ir.Constant 357913941); dst = (Ir.Var "tmp.0")};
-        Ir.Unary {op = Ir.Not; src = (Ir.Var "b.1"); dst = (Ir.Var "tmp.1")};
-        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
-          src2 = (Ir.Var "tmp.1"); dst = (Ir.Var "tmp.2")};
-        Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "c.2")};
-        Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "tmp.2");
-          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.3")};
-        Ir.Copy {src = (Ir.Constant 715827884); dst = (Ir.Var "tmp.4")};
-        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.3");
-          src2 = (Ir.Var "tmp.4"); dst = (Ir.Var "tmp.5")};
-        (Ir.Return (Ir.Var "tmp.5"))];
+      body = [(Ir.Return (Ir.Constant 1))];
       frame =
       Env.lenv {
         namespace = "main";

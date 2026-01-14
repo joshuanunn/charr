@@ -22,6 +22,5 @@ main:
     popq        %rbp
     ret         
 .Llabel_empty.4:
-    movl        $100, -4(%rbp)
     jmp         .Llabel_goto.1
     .section    .note.GNU-stack,"",@progbits

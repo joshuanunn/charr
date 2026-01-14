@@ -5,13 +5,10 @@ target:
     movq        %rsp, %rbp
     subq        $16, %rsp
     movl        %edi, -8(%rbp)
-    movl        $0, -4(%rbp)
     cmpl        $0, -8(%rbp)
     je          .Ltarget.if.el.1
-    movl        $3, -4(%rbp)
     jmp         .Ltarget.if.en.0
 .Ltarget.if.el.1:
-    movl        $3, -4(%rbp)
 .Ltarget.if.en.0:
     movl        $3, %eax
     movq        %rbp, %rsp
