@@ -1,0 +1,19 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "putchar");
+         params = [(Ast.Identifier "c.0")]; body = None; storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "x.1");
+                            init =
+                            (Some Ast.FunctionCall {
+                                    name = (Ast.Identifier "putchar");
+                                    args = [(Ast.LiteralInt 67)]});
+                            storage = None }));
+                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+          storage = None })
+     ])

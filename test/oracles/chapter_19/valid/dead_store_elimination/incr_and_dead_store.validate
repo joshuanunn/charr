@@ -1,0 +1,18 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "x"); init = (Some (Ast.LiteralInt 10));
+         storage = (Some Ast.Static) });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "y.0");
+                            init =
+                            (Some Ast.Unary {op = Ast.PreIncrement;
+                                    exp = (Ast.Var (Ast.Identifier "x"))});
+                            storage = None }));
+                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))))]));
+          storage = None })
+     ])

@@ -1,0 +1,65 @@
+(Ir.Program
+   [Ir.Function {name = "target"; global = true; params = [];
+      body =
+      [Ir.Copy {src = (Ir.Constant 65); dst = (Ir.Var "y.2")};
+        (Ir.Label "loop.st.1");
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "y.2");
+          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.0")};
+        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x.1")};
+        Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "y.2");
+          src2 = (Ir.Constant 70); dst = (Ir.Var "tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.1");
+          target = "target.if.en.2"};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "y.2");
+          src2 = (Ir.Constant 3); dst = (Ir.Var "tmp.3")};
+        Ir.Copy {src = (Ir.Var "tmp.3"); dst = (Ir.Var "x.1")};
+        (Ir.Label "target.if.en.2");
+        Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "x.1")];
+          dst = (Ir.Var "tmp.4")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.4");
+          src2 = (Ir.Constant 3); dst = (Ir.Var "tmp.5")};
+        Ir.Copy {src = (Ir.Var "tmp.5"); dst = (Ir.Var "y.2")};
+        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "tmp.5");
+          src2 = (Ir.Constant 90); dst = (Ir.Var "tmp.6")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.6"); target = "loop.st.1"};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "x.1");
+          src2 = (Ir.Constant 90); dst = (Ir.Var "tmp.7")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.7");
+          target = "target.if.en.8"};
+        (Ir.Return (Ir.Constant 1)); (Ir.Label "target.if.en.8");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.5");
+          src2 = (Ir.Constant 93); dst = (Ir.Var "tmp.9")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.9");
+          target = "target.if.en.10"};
+        (Ir.Return (Ir.Constant 2)); (Ir.Label "target.if.en.10");
+        (Ir.Return (Ir.Constant 0))];
+      frame =
+      Env.lenv {
+        namespace = "target";
+        counter = 11;
+        offset = -40;
+        stack slots = {
+          x.1   -> -4,
+          y.2   -> -8,
+          tmp.0 -> -12,
+          tmp.1 -> -16,
+          tmp.3 -> -20,
+          tmp.4 -> -24,
+          tmp.5 -> -28,
+          tmp.6 -> -32,
+          tmp.7 -> -36,
+          tmp.9 -> -40,
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "target"; args = []; dst = (Ir.Var "tmp.0")};
+         (Ir.Return (Ir.Var "tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 1;
+         offset = -4;
+         stack slots = {
+           tmp.0 -> -4,
+         }}}
+     ])

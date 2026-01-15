@@ -1,0 +1,79 @@
+(Ir.Program
+   [Ir.Function {name = "target"; global = true;
+      params = ["a.1"; "b.2"; "c.3"; "d.4"];
+      body =
+      [(Ir.Label "loop.ct.1");
+        Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "a.1");
+          src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
+        (Ir.Label "loop.ct.2");
+        Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "c.3");
+          src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "loop.br.2"};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "c.3"); src2 = (Ir.Var "d.4");
+          dst = (Ir.Var "tmp.2")};
+        Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "tmp.2")];
+          dst = (Ir.Var "tmp.3")};
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "c.3");
+          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.4")};
+        Ir.Copy {src = (Ir.Var "tmp.4"); dst = (Ir.Var "c.3")};
+        Ir.Binary {op = Ir.Remainder; src1 = (Ir.Var "d.4");
+          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.5")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.5");
+          target = "target.if.en.6"};
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "tmp.4");
+          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.7")};
+        Ir.Copy {src = (Ir.Var "tmp.7"); dst = (Ir.Var "c.3")};
+        (Ir.Label "target.if.en.6"); Ir.Jump {target = "loop.ct.2"};
+        (Ir.Label "loop.br.2"); (Ir.Label "loop.ct.3");
+        Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "b.2");
+          src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.8")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.8"); target = "loop.br.3"};
+        Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "c.3")};
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "b.2");
+          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.9")};
+        Ir.Copy {src = (Ir.Var "tmp.9"); dst = (Ir.Var "b.2")};
+        Ir.Jump {target = "loop.ct.3"}; (Ir.Label "loop.br.3");
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "a.1");
+          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.10")};
+        Ir.Copy {src = (Ir.Var "tmp.10"); dst = (Ir.Var "a.1")};
+        Ir.Jump {target = "loop.ct.1"}; (Ir.Label "loop.br.1");
+        (Ir.Return (Ir.Constant 0))];
+      frame =
+      Env.lenv {
+        namespace = "target";
+        counter = 11;
+        offset = -56;
+        stack slots = {
+          tmp.0  -> -4,
+          tmp.1  -> -8,
+          tmp.2  -> -12,
+          tmp.3  -> -16,
+          tmp.4  -> -20,
+          tmp.5  -> -24,
+          tmp.7  -> -28,
+          tmp.8  -> -32,
+          tmp.9  -> -36,
+          tmp.10 -> -40,
+          a.1    -> -44,
+          b.2    -> -48,
+          c.3    -> -52,
+          d.4    -> -56,
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "target";
+          args =
+          [(Ir.Constant 5); (Ir.Constant 4); (Ir.Constant 3);
+            (Ir.Constant 65)];
+          dst = (Ir.Var "tmp.0")};
+         (Ir.Return (Ir.Var "tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 1;
+         offset = -4;
+         stack slots = {
+           tmp.0 -> -4,
+         }}}
+     ])

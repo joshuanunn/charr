@@ -1,0 +1,15 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x"); src2 = (Ir.Constant 1);
+         dst = (Ir.Var "x")};
+        (Ir.Return (Ir.Var "x"))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 0;
+        offset = -4;
+        stack slots = {
+          y.0 -> -4,
+        }}};
+     Ir.StaticVariable {name = "x"; global = false; init = 10}])

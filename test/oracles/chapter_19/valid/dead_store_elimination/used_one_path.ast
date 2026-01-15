@@ -1,0 +1,54 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "f");
+         params = [(Ast.Identifier "arg"); (Ast.Identifier "flag")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "x");
+                           init =
+                           (Some Ast.Binary {op = Ast.Multiply;
+                                   left = (Ast.Var (Ast.Identifier "arg"));
+                                   right = (Ast.LiteralInt 2)});
+                           storage = None }));
+                    (Ast.S
+                       Ast.If {cond_exp = (Ast.Var (Ast.Identifier "flag"));
+                         then_smt =
+                         (Ast.Return (Ast.Var (Ast.Identifier "x")));
+                         else_smt = None});
+                    (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.FunctionCall {name = (Ast.Identifier "f");
+                             args = [(Ast.LiteralInt 20); (Ast.LiteralInt 1)]};
+                           right = (Ast.LiteralInt 40)};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Binary {op = Ast.NotEqual;
+                            left =
+                            Ast.FunctionCall {name = (Ast.Identifier "f");
+                              args = [(Ast.LiteralInt 3); (Ast.LiteralInt 0)]};
+                            right = (Ast.LiteralInt 0)};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                          else_smt = None});
+                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+          storage = None })
+     ])

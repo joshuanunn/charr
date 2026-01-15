@@ -1,0 +1,57 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "glob"); init = None;
+         storage = (Some Ast.Static) });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "target"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "a.0");
+                            init = (Some (Ast.Var (Ast.Identifier "glob")));
+                            storage = None }));
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "b.1");
+                             init = (Some (Ast.Var (Ast.Identifier "glob")));
+                             storage = None }));
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "c.2");
+                             init = (Some (Ast.Var (Ast.Identifier "glob")));
+                             storage = None }));
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "d.3");
+                             init = (Some (Ast.Var (Ast.Identifier "glob")));
+                             storage = None }));
+                     (Ast.S
+                        (Ast.Expression
+                           Ast.Unary {op = Ast.PostIncrement;
+                             exp = (Ast.Var (Ast.Identifier "a.0"))}));
+                     (Ast.S
+                        (Ast.Expression
+                           Ast.Unary {op = Ast.PostDecrement;
+                             exp = (Ast.Var (Ast.Identifier "b.1"))}));
+                     (Ast.S
+                        (Ast.Expression
+                           Ast.Unary {op = Ast.PreIncrement;
+                             exp = (Ast.Var (Ast.Identifier "c.2"))}));
+                     (Ast.S
+                        (Ast.Expression
+                           Ast.Unary {op = Ast.PreDecrement;
+                             exp = (Ast.Var (Ast.Identifier "d.3"))}));
+                     (Ast.S (Ast.Return (Ast.LiteralInt 10)))]));
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.FunctionCall {name = (Ast.Identifier "target");
+                            args = []}))
+                     ]));
+          storage = None })
+     ])
