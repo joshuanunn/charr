@@ -18,9 +18,6 @@ module InstrMap = Map.Make (struct
   let compare = compare
 end)
 
-(* This builds a lookup of reaching copies for each instruction in a block *)
-type reaching_copies_info = CopySet.t InstrMap.t
-
 type node =
   | BasicBlock of {
       id : int;
@@ -28,6 +25,7 @@ type node =
       mutable predecessors : node_id list;
       mutable successors : node_id list;
       mutable reaching_copies : CopySet.t;
+      mutable live_variables : StringSet.t;
     }
   | EntryNode of { mutable successors : node_id list }
   | ExitNode of { mutable predecessors : node_id list }
@@ -57,6 +55,7 @@ let insert_block (cfg : graph) (ins : Ir.instruction list) : unit =
         predecessors = [];
         successors = [];
         reaching_copies = CopySet.empty;
+        live_variables = StringSet.empty;
       }
   in
   Hashtbl.add cfg.blocks id block;
@@ -381,6 +380,19 @@ let get_block_annotation (cfg : graph) (id : node_id) =
   | EntryNode _ | ExitNode _ ->
       failwith "cannot get block annotation for EntryNode or ExitNode"
 
+let set_block_annotation_live (cfg : graph) (id : node_id) (vars : StringSet.t)
+    =
+  match get_node cfg id with
+  | BasicBlock r -> r.live_variables <- vars
+  | EntryNode _ | ExitNode _ ->
+      failwith "cannot set a block annotation for EntryNode or ExitNode"
+
+let get_block_annotation_live (cfg : graph) (id : node_id) =
+  match get_node cfg id with
+  | BasicBlock r -> r.live_variables
+  | EntryNode _ | ExitNode _ ->
+      failwith "cannot get block annotation for EntryNode or ExitNode"
+
 (** Meet operator for reaching copies analysis. Computes the set of copy
     instructions that reach the beginning of a basic block by taking the
     intersection of the reaching copies at the end of all predecessor blocks. If
@@ -402,6 +414,27 @@ let meet (cfg : graph) (id : node_id) (all_copies : CopySet.t) =
       | Exit -> failwith "malformed control-flow graph")
     all_copies predecessors
 
+(** Meet operator for liveness analysis. Calculates if variables are live at the
+    end of a basic block, by looking backwards and taking the union of live
+    variables present at the start of all successor blocks. It is assumed that
+    all_copies static variables are live at the Exit node. *)
+let meet_live (cfg : graph) (id : node_id) (all_static_vars : StringSet.t) =
+  let successors =
+    match get_node cfg id with
+    | BasicBlock r -> r.successors
+    | _ -> failwith "meet applied to a non-BasicBlock"
+  in
+
+  List.fold_left
+    (fun acc succ_id ->
+      match succ_id with
+      | Entry -> failwith "malformed control-flow graph"
+      | Block _ ->
+          let live_vars = get_block_annotation_live cfg succ_id in
+          StringSet.union acc live_vars
+      | Exit -> StringSet.union acc all_static_vars)
+    StringSet.empty successors
+
 (** Special case where x = y reaches y = x, which has no effect. *)
 let is_inverse_copy instr copies =
   match instr with
@@ -417,6 +450,14 @@ let kill_copy_dest dst copies =
       | Ir.Copy { src; dst = d } -> src <> dst && d <> dst
       | _ -> true)
     copies
+
+(** Kill any live variables which are written to. *)
+let kill_live_dest dst live_vars =
+  match dst with Ir.Var n -> StringSet.remove n live_vars | _ -> live_vars
+
+(** Add live variables. *)
+let add_live_var src live_vars =
+  match src with Ir.Var n -> StringSet.add n live_vars | _ -> live_vars
 
 (** Check if variable is static. *)
 let is_static (value : Ir.value) (static_names : StringSet.t) : bool =
@@ -474,6 +515,60 @@ let transfer (cfg : graph) (id : node_id) initial_reaching_copies static_names
   (* Finally, update block (end) reaching copies with surviving copies *)
   set_block_annotation cfg id !current_reaching_copies
 
+(** Transfer function for liveness analysis. Given the set of variables that are
+    live at the end of a basic block, iterates over the block’s instructions in
+    reverse order, annotating each instruction with the set of variables that
+    are live immediately after it executes. As each instruction is processed,
+    the current live-variable set is updated by killing variables written by the
+    instruction and generating variables read by it. Function calls are treated
+    conservatively by marking all static variables as live. At the end of the
+    block, records the set of variables that are live at the block’s entry. *)
+let transfer_live (cfg : graph) (id : node_id) end_live_variables static_names
+    instr_info =
+  let live_variables = ref end_live_variables in
+
+  let block_instructions =
+    match get_node cfg id with
+    | BasicBlock r -> r.instructions
+    | _ -> failwith "transfer applied to a non-BasicBlock"
+  in
+
+  let len = List.length block_instructions in
+  List.iteri
+    (fun rev_idx instruction ->
+      (* Annotate instruction with all live variables to just after instruction *)
+      let idx = len - 1 - rev_idx in
+      instr_info := InstrMap.add (id, idx) !live_variables !instr_info;
+
+      (* Update live variables *)
+      match instruction with
+      | Ir.Binary { src1; src2; dst; _ } ->
+          live_variables := kill_live_dest dst !live_variables;
+          live_variables := add_live_var src1 !live_variables;
+          live_variables := add_live_var src2 !live_variables
+      | Ir.Unary { src; dst; _ } ->
+          live_variables := kill_live_dest dst !live_variables;
+          live_variables := add_live_var src !live_variables
+      | Ir.Return value -> live_variables := add_live_var value !live_variables
+      | Ir.Copy { src; dst } ->
+          live_variables := kill_live_dest dst !live_variables;
+          live_variables := add_live_var src !live_variables
+      | Ir.JumpIfZero { condition; _ } ->
+          live_variables := add_live_var condition !live_variables
+      | Ir.JumpIfNotZero { condition; _ } ->
+          live_variables := add_live_var condition !live_variables
+      | Ir.FunCall { args; dst; _ } ->
+          live_variables := kill_live_dest dst !live_variables;
+          List.iter
+            (fun v -> live_variables := add_live_var v !live_variables)
+            args;
+          live_variables := StringSet.union static_names !live_variables
+      | Ir.Jump _ | Ir.Label _ -> ())
+    (List.rev block_instructions);
+
+  (* Finally, update block (start) live variables *)
+  set_block_annotation_live cfg id !live_variables
+
 (** Add successors of processed block to worklist, if not already present *)
 let update_worklist (cfg : graph) (id : node_id) (worklist : IntSet.t) =
   match get_node cfg id with
@@ -485,6 +580,20 @@ let update_worklist (cfg : graph) (id : node_id) (worklist : IntSet.t) =
           | EntryNode _ -> failwith "malformed control-flow graph"
           | BasicBlock { id; _ } -> IntSet.add id wl)
         worklist successors
+  | _ -> failwith "can only update worklist from a processed BasicBlock"
+
+(** Add predecessors of processed block to worklist, if not already present *)
+let update_worklist_backward (cfg : graph) (id : node_id) (worklist : IntSet.t)
+    =
+  match get_node cfg id with
+  | BasicBlock { predecessors; _ } ->
+      List.fold_left
+        (fun wl pred ->
+          match get_node cfg pred with
+          | ExitNode _ -> failwith "malformed control-flow graph"
+          | EntryNode _ -> wl
+          | BasicBlock { id; _ } -> IntSet.add id wl)
+        worklist predecessors
   | _ -> failwith "can only update worklist from a processed BasicBlock"
 
 (** Preliminary annotation of reaching copies for each block. Sort basic blocks
@@ -608,6 +717,76 @@ let rewrite_cfg (cfg : graph) (instr_info : CopySet.t InstrMap.t) =
       | _ -> ())
     cfg.blocks
 
+let is_dead_store instr live_variables =
+  match instr with
+  | Ir.FunCall _ -> false
+  | Ir.Copy { dst; _ } | Ir.Unary { dst; _ } | Ir.Binary { dst; _ } -> (
+      match dst with
+      | Ir.Var n -> not (StringSet.mem n live_variables)
+      | _ -> false)
+  | _ -> false
+
+let rewrite_block_live (block_id : int) (instrs : Ir.instruction list)
+    (instr_info : StringSet.t InstrMap.t) : Ir.instruction list =
+  instrs
+  |> List.mapi (fun idx instr ->
+      let live_vars = InstrMap.find (Block block_id, idx) instr_info in
+      match is_dead_store instr live_vars with
+      | true -> None
+      | false -> Some instr)
+  |> List.filter_map Fun.id
+
+(** Rewrite all basic blocks in a control-flow graph using instruction-level
+    liveness analysis information. Instructions representing dead stores are
+    removed, and the instructions within each basic block updated in place. *)
+let rewrite_cfg_live (cfg : graph) (instr_info : StringSet.t InstrMap.t) =
+  Hashtbl.iter
+    (fun _ node ->
+      match node with
+      | BasicBlock r ->
+          r.instructions <- rewrite_block_live r.id r.instructions instr_info
+      | _ -> ())
+    cfg.blocks
+
+let remove_dead_stores (cfg : graph) (static_names : StringSet.t) =
+  let sorted_blocks =
+    Hashtbl.fold (fun id node acc -> (id, node) :: acc) cfg.blocks []
+    |> List.sort (fun (a, _) (b, _) -> compare a b)
+    |> List.map snd
+  in
+
+  (* Annotate all BasicBlocks with empty set to create work items to process. *)
+  let worklist = ref IntSet.empty in
+  List.iter
+    (fun block ->
+      match block with
+      | BasicBlock r ->
+          r.live_variables <- StringSet.empty;
+          worklist := IntSet.add r.id !worklist
+      | _ -> ())
+    sorted_blocks;
+
+  let instr_info = ref InstrMap.empty in
+
+  (* Iteratively resolve liveness analysis for each block *)
+  while not (IntSet.is_empty !worklist) do
+    (* Remove first block from worklist *)
+    let block_id = IntSet.min_elt !worklist in
+    worklist := IntSet.remove block_id !worklist;
+    let block = Block block_id in
+    let old_annotation = get_block_annotation_live cfg block in
+
+    (* Apply meet and transfer functions to block *)
+    let incoming_vars = meet_live cfg block static_names in
+    transfer_live cfg block incoming_vars static_names instr_info;
+
+    (* Update worklist *)
+    if old_annotation <> get_block_annotation_live cfg block then begin
+      worklist := update_worklist_backward cfg block !worklist
+    end
+  done;
+  !instr_info
+
 let string_of_node_id = function
   | Entry -> "ENTRY"
   | Exit -> "EXIT"
@@ -628,8 +807,8 @@ let pp_node fmt = function
       Format.fprintf fmt "ExitNode\n";
       Format.fprintf fmt "  predecessors: [%s]\n"
         (String.concat ", " (List.map string_of_node_id predecessors))
-  | BasicBlock { id; instructions; predecessors; successors; reaching_copies }
-    ->
+  | BasicBlock
+      { id; instructions; predecessors; successors; reaching_copies; _ } ->
       Format.fprintf fmt "BasicBlock B%d\n" id;
       Format.fprintf fmt "  instructions:\n";
       List.iter (pp_instruction_line fmt) instructions;

@@ -105,6 +105,11 @@ let copy_propagation (cfg : Cfg.graph) (statics : Cfg.StringSet.t) : unit =
   let reaching_copies = Cfg.find_reaching_copies cfg statics in
   Cfg.rewrite_cfg cfg reaching_copies
 
+let dead_store_elimination (cfg : Cfg.graph) (statics : Cfg.StringSet.t) : unit
+    =
+  let live_variables = Cfg.remove_dead_stores cfg statics in
+  Cfg.rewrite_cfg_live cfg live_variables
+
 let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
     : Ir.instruction list =
   let rec loop body =
@@ -118,8 +123,7 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
 
       if o.unreachable then unreachable_code_elimination cfg;
       if o.propagation then copy_propagation cfg statics;
-
-      (*if o.deadstores then dead_store_elimination cfg;*)
+      if o.deadstores then dead_store_elimination cfg statics;
       let body_opt = cfg_to_instructions cfg in
       if body_opt = body || body_opt = [] then body_opt else loop body_opt
   in
