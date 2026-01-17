@@ -18,15 +18,17 @@ module InstrMap = Map.Make (struct
   let compare = compare
 end)
 
+type basic_block = {
+  id : int;
+  mutable instructions : Ir.instruction list;
+  mutable predecessors : node_id list;
+  mutable successors : node_id list;
+  mutable reaching_copies : CopySet.t;
+  mutable live_variables : StringSet.t;
+}
+
 type node =
-  | BasicBlock of {
-      id : int;
-      mutable instructions : Ir.instruction list;
-      mutable predecessors : node_id list;
-      mutable successors : node_id list;
-      mutable reaching_copies : CopySet.t;
-      mutable live_variables : StringSet.t;
-    }
+  | BasicBlock of basic_block
   | EntryNode of { mutable successors : node_id list }
   | ExitNode of { mutable predecessors : node_id list }
 
@@ -77,6 +79,11 @@ let get_instructions = function
   | BasicBlock r -> r.instructions
   | EntryNode _ | ExitNode _ ->
       failwith "only BasicBlock nodes contain instructions"
+
+let with_basicblock (cfg : graph) (id : node_id) f =
+  match get_node cfg id with
+  | BasicBlock r -> f r
+  | _ -> failwith "expected BasicBlock"
 
 let add_unique (x : node_id) (xs : node_id list) : node_id list =
   if List.mem x xs then xs else x :: xs
@@ -285,22 +292,18 @@ let empty_blocks (cfg : graph) : IntSet.t =
     (fun id node acc -> if is_empty_block node then IntSet.add id acc else acc)
     cfg.blocks IntSet.empty
 
-let splice_out_block (cfg : graph) (id : int) =
+let splice_out_block (cfg : graph) (id : node_id) =
   (* Get the predecessors and successors of the block being removed *)
   let predecessors, successors =
-    match Hashtbl.find cfg.blocks id with
-    | BasicBlock { predecessors; successors; _ } -> (predecessors, successors)
-    | _ -> failwith "expected basic block"
+    with_basicblock cfg id (fun r -> (r.predecessors, r.successors))
   in
 
   (* Remove this block from its successors' predecessors *)
   List.iter
     (fun succ ->
       match get_node cfg succ with
-      | BasicBlock r ->
-          r.predecessors <- List.filter (( <> ) (Block id)) r.predecessors
-      | ExitNode r ->
-          r.predecessors <- List.filter (( <> ) (Block id)) r.predecessors
+      | BasicBlock r -> r.predecessors <- List.filter (( <> ) id) r.predecessors
+      | ExitNode r -> r.predecessors <- List.filter (( <> ) id) r.predecessors
       | EntryNode _ -> ())
     successors;
 
@@ -309,11 +312,9 @@ let splice_out_block (cfg : graph) (id : int) =
     (fun pred ->
       match get_node cfg pred with
       | EntryNode r ->
-          r.successors <-
-            List.filter (( <> ) (Block id)) r.successors @ successors
+          r.successors <- List.filter (( <> ) id) r.successors @ successors
       | BasicBlock r ->
-          r.successors <-
-            List.filter (( <> ) (Block id)) r.successors @ successors
+          r.successors <- List.filter (( <> ) id) r.successors @ successors
       | ExitNode _ -> ())
     predecessors;
 
@@ -339,7 +340,7 @@ let remove_empty_blocks (cfg : graph) : unit =
   (* Identify empty block nodes *)
   let empties = empty_blocks cfg in
   (* Update edges to route around empty block nodes *)
-  IntSet.iter (splice_out_block cfg) empties;
+  IntSet.iter (fun i -> splice_out_block cfg (Block i)) empties;
   (* Finally, remove the empty block nodes *)
   Hashtbl.filter_map_inplace
     (fun id node -> if IntSet.mem id empties then None else Some node)
@@ -363,48 +364,21 @@ let find_all_copy_instructions (blocks : node list) : CopySet.t =
       | _ -> acc)
     CopySet.empty blocks
 
-let set_block_annotation (cfg : graph) (id : node_id) (copies : CopySet.t) =
-  match get_node cfg id with
-  | BasicBlock r -> r.reaching_copies <- copies
-  | EntryNode _ | ExitNode _ ->
-      failwith "cannot set a block annotation for EntryNode or ExitNode"
-
-let get_block_annotation (cfg : graph) (id : node_id) =
-  match get_node cfg id with
-  | BasicBlock r -> r.reaching_copies
-  | EntryNode _ | ExitNode _ ->
-      failwith "cannot get block annotation for EntryNode or ExitNode"
-
-let set_block_annotation_live (cfg : graph) (id : node_id) (vars : StringSet.t)
-    =
-  match get_node cfg id with
-  | BasicBlock r -> r.live_variables <- vars
-  | EntryNode _ | ExitNode _ ->
-      failwith "cannot set a block annotation for EntryNode or ExitNode"
-
-let get_block_annotation_live (cfg : graph) (id : node_id) =
-  match get_node cfg id with
-  | BasicBlock r -> r.live_variables
-  | EntryNode _ | ExitNode _ ->
-      failwith "cannot get block annotation for EntryNode or ExitNode"
-
 (** Meet operator for reaching copies analysis. Computes the set of copy
     instructions that reach the beginning of a basic block by taking the
     intersection of the reaching copies at the end of all predecessor blocks. If
     the block has Entry as a predecessor, the result is the empty set. *)
 let meet (cfg : graph) (id : node_id) (all_copies : CopySet.t) =
-  let predecessors =
-    match get_node cfg id with
-    | BasicBlock r -> r.predecessors
-    | _ -> failwith "meet applied to a non-BasicBlock"
-  in
+  let predecessors = with_basicblock cfg id (fun r -> r.predecessors) in
 
   List.fold_left
     (fun incoming_copies prec_id ->
       match prec_id with
       | Entry -> CopySet.empty
       | Block _ ->
-          let pred_out_copies = get_block_annotation cfg prec_id in
+          let pred_out_copies =
+            with_basicblock cfg prec_id (fun r -> r.reaching_copies)
+          in
           CopySet.inter incoming_copies pred_out_copies
       | Exit -> failwith "malformed control-flow graph")
     all_copies predecessors
@@ -414,18 +388,16 @@ let meet (cfg : graph) (id : node_id) (all_copies : CopySet.t) =
     variables present at the start of all successor blocks. It is assumed that
     all_copies static variables are live at the Exit node. *)
 let meet_live (cfg : graph) (id : node_id) (all_static_vars : StringSet.t) =
-  let successors =
-    match get_node cfg id with
-    | BasicBlock r -> r.successors
-    | _ -> failwith "meet applied to a non-BasicBlock"
-  in
+  let successors = with_basicblock cfg id (fun r -> r.successors) in
 
   List.fold_left
     (fun acc succ_id ->
       match succ_id with
       | Entry -> failwith "malformed control-flow graph"
       | Block _ ->
-          let live_vars = get_block_annotation_live cfg succ_id in
+          let live_vars =
+            with_basicblock cfg succ_id (fun r -> r.live_variables)
+          in
           StringSet.union acc live_vars
       | Exit -> StringSet.union acc all_static_vars)
     StringSet.empty successors
@@ -479,12 +451,7 @@ let kill_for_fun_call dst static_names copies =
 let transfer (cfg : graph) (id : node_id) initial_reaching_copies static_names
     instr_info =
   let current_reaching_copies = ref initial_reaching_copies in
-
-  let block_instructions =
-    match get_node cfg id with
-    | BasicBlock r -> r.instructions
-    | _ -> failwith "transfer applied to a non-BasicBlock"
-  in
+  let block_instructions = with_basicblock cfg id (fun r -> r.instructions) in
 
   List.iteri
     (fun idx instruction ->
@@ -508,7 +475,8 @@ let transfer (cfg : graph) (id : node_id) initial_reaching_copies static_names
     block_instructions;
 
   (* Finally, update block (end) reaching copies with surviving copies *)
-  set_block_annotation cfg id !current_reaching_copies
+  with_basicblock cfg id (fun r ->
+      r.reaching_copies <- !current_reaching_copies)
 
 (** Transfer function for liveness analysis. Given the set of variables that are
     live at the end of a basic block, iterates over the block’s instructions in
@@ -521,13 +489,7 @@ let transfer (cfg : graph) (id : node_id) initial_reaching_copies static_names
 let transfer_live (cfg : graph) (id : node_id) end_live_variables static_names
     instr_info =
   let live_variables = ref end_live_variables in
-
-  let block_instructions =
-    match get_node cfg id with
-    | BasicBlock r -> r.instructions
-    | _ -> failwith "transfer applied to a non-BasicBlock"
-  in
-
+  let block_instructions = with_basicblock cfg id (fun r -> r.instructions) in
   let len = List.length block_instructions in
   List.iteri
     (fun rev_idx instruction ->
@@ -562,34 +524,29 @@ let transfer_live (cfg : graph) (id : node_id) end_live_variables static_names
     (List.rev block_instructions);
 
   (* Finally, update block (start) live variables *)
-  set_block_annotation_live cfg id !live_variables
+  with_basicblock cfg id (fun r -> r.live_variables <- !live_variables)
 
 (** Add successors of processed block to worklist, if not already present *)
-let update_worklist (cfg : graph) (id : node_id) (worklist : IntSet.t) =
-  match get_node cfg id with
-  | BasicBlock { successors; _ } ->
-      List.fold_left
-        (fun wl succ ->
-          match get_node cfg succ with
-          | ExitNode _ -> wl
-          | EntryNode _ -> failwith "malformed control-flow graph"
-          | BasicBlock { id; _ } -> IntSet.add id wl)
-        worklist successors
-  | _ -> failwith "can only update worklist from a processed BasicBlock"
+let update_worklist (cfg : graph) (id : node_id) worklist =
+  let successors = with_basicblock cfg id (fun r -> r.successors) in
+  List.fold_left
+    (fun wl succ ->
+      match get_node cfg succ with
+      | ExitNode _ -> wl
+      | EntryNode _ -> failwith "malformed control-flow graph"
+      | BasicBlock { id; _ } -> IntSet.add id wl)
+    worklist successors
 
 (** Add predecessors of processed block to worklist, if not already present *)
-let update_worklist_backward (cfg : graph) (id : node_id) (worklist : IntSet.t)
-    =
-  match get_node cfg id with
-  | BasicBlock { predecessors; _ } ->
-      List.fold_left
-        (fun wl pred ->
-          match get_node cfg pred with
-          | ExitNode _ -> failwith "malformed control-flow graph"
-          | EntryNode _ -> wl
-          | BasicBlock { id; _ } -> IntSet.add id wl)
-        worklist predecessors
-  | _ -> failwith "can only update worklist from a processed BasicBlock"
+let update_worklist_backward (cfg : graph) (id : node_id) worklist =
+  let predecessors = with_basicblock cfg id (fun r -> r.predecessors) in
+  List.fold_left
+    (fun wl pred ->
+      match get_node cfg pred with
+      | ExitNode _ -> failwith "malformed control-flow graph"
+      | EntryNode _ -> wl
+      | BasicBlock { id; _ } -> IntSet.add id wl)
+    worklist predecessors
 
 (** Preliminary annotation of reaching copies for each block. Sort basic blocks
     by ID, then annotate each block with the set of cumulative copy instructions
@@ -619,14 +576,17 @@ let find_reaching_copies (cfg : graph) (static_names : StringSet.t) =
     let block_id = IntSet.min_elt !worklist in
     worklist := IntSet.remove block_id !worklist;
     let block = Block block_id in
-    let old_annotation = get_block_annotation cfg block in
+    let old_annotation =
+      with_basicblock cfg block (fun r -> r.reaching_copies)
+    in
 
     (* Apply meet and transfer functions to block *)
     let incoming_copies = meet cfg block all_copies in
     transfer cfg block incoming_copies static_names instr_info;
 
     (* Update worklist *)
-    if old_annotation <> get_block_annotation cfg block then begin
+    if old_annotation <> with_basicblock cfg block (fun r -> r.reaching_copies)
+    then begin
       worklist := update_worklist cfg block !worklist
     end
   done;
@@ -759,14 +719,17 @@ let remove_dead_stores (cfg : graph) (static_names : StringSet.t) =
     let block_id = IntSet.min_elt !worklist in
     worklist := IntSet.remove block_id !worklist;
     let block = Block block_id in
-    let old_annotation = get_block_annotation_live cfg block in
+    let old_annotation =
+      with_basicblock cfg block (fun r -> r.live_variables)
+    in
 
     (* Apply meet and transfer functions to block *)
     let incoming_vars = meet_live cfg block static_names in
     transfer_live cfg block incoming_vars static_names instr_info;
 
     (* Update worklist *)
-    if old_annotation <> get_block_annotation_live cfg block then begin
+    if old_annotation <> with_basicblock cfg block (fun r -> r.live_variables)
+    then begin
       worklist := update_worklist_backward cfg block !worklist
     end
   done;
