@@ -26,16 +26,16 @@ end)
 type basic_block = {
   id : int;
   mutable instructions : Ir.instruction list;
-  mutable predecessors : node_id list;
-  mutable successors : node_id list;
+  mutable predecessors : NodeIdSet.t;
+  mutable successors : NodeIdSet.t;
   mutable reaching_copies : CopySet.t;
   mutable live_variables : StringSet.t;
 }
 
 type node =
   | BasicBlock of basic_block
-  | EntryNode of { mutable successors : node_id list }
-  | ExitNode of { mutable predecessors : node_id list }
+  | EntryNode of { mutable successors : NodeIdSet.t }
+  | ExitNode of { mutable predecessors : NodeIdSet.t }
 
 type graph = {
   entry : node;
@@ -46,8 +46,8 @@ type graph = {
 
 (** Create a new, empty control-flow graph *)
 let make_cfg () : graph =
-  let entry = EntryNode { successors = [] } in
-  let exit = ExitNode { predecessors = [] } in
+  let entry = EntryNode { successors = NodeIdSet.empty } in
+  let exit = ExitNode { predecessors = NodeIdSet.empty } in
   let blocks = Hashtbl.create 16 in
 
   { entry; exit; blocks; counter = 0 }
@@ -64,8 +64,8 @@ let insert_block (cfg : graph) (ins : Ir.instruction list) : unit =
       {
         id;
         instructions = ins;
-        predecessors = [];
-        successors = [];
+        predecessors = NodeIdSet.empty;
+        successors = NodeIdSet.empty;
         reaching_copies = CopySet.empty;
         live_variables = StringSet.empty;
       }
@@ -90,26 +90,33 @@ let with_basicblock (cfg : graph) (id : node_id) f =
   | BasicBlock r -> f r
   | _ -> failwith "expected BasicBlock"
 
-let add_unique (x : node_id) (xs : node_id list) : node_id list =
-  if List.mem x xs then xs else x :: xs
-
-let add_successor (n : node) (id : node_id) =
-  match n with
-  | EntryNode r -> r.successors <- add_unique id r.successors
-  | BasicBlock r -> r.successors <- add_unique id r.successors
+let add_successor (cfg : graph) from succ =
+  match get_node cfg from with
+  | EntryNode r -> r.successors <- NodeIdSet.add succ r.successors
+  | BasicBlock r -> r.successors <- NodeIdSet.add succ r.successors
   | ExitNode _ -> failwith "ExitNodes cannot have successors"
 
-let add_predecessor (n : node) (id : node_id) =
-  match n with
-  | ExitNode r -> r.predecessors <- add_unique id r.predecessors
-  | BasicBlock r -> r.predecessors <- add_unique id r.predecessors
+let add_predecessor (cfg : graph) from pred =
+  match get_node cfg from with
+  | ExitNode r -> r.predecessors <- NodeIdSet.add pred r.predecessors
+  | BasicBlock r -> r.predecessors <- NodeIdSet.add pred r.predecessors
   | EntryNode _ -> failwith "EntryNodes cannot have predecessors"
 
-let add_edge (cfg : graph) (from_id : node_id) (to_id : node_id) =
-  let from_node = get_node cfg from_id in
-  let to_node = get_node cfg to_id in
-  add_successor from_node to_id;
-  add_predecessor to_node from_id
+let add_edge (cfg : graph) from_id to_id =
+  add_successor cfg from_id to_id;
+  add_predecessor cfg to_id from_id
+
+let remove_successor (cfg : graph) from succ =
+  match get_node cfg from with
+  | EntryNode r -> r.successors <- NodeIdSet.remove succ r.successors
+  | BasicBlock r -> r.successors <- NodeIdSet.remove succ r.successors
+  | ExitNode _ -> failwith "ExitNodes cannot have successors"
+
+let remove_predecessor (cfg : graph) from pred =
+  match get_node cfg from with
+  | ExitNode r -> r.predecessors <- NodeIdSet.remove pred r.predecessors
+  | BasicBlock r -> r.predecessors <- NodeIdSet.remove pred r.predecessors
+  | EntryNode _ -> failwith "EntryNodes cannot have predecessors"
 
 (** Build a map from labels to block IDs *)
 let build_label_map (cfg : graph) : (string, int) Hashtbl.t =
@@ -177,7 +184,7 @@ let reachable_nodes (cfg : graph) : NodeIdSet.t =
       visited := NodeIdSet.add id !visited;
       match get_node cfg id with
       | EntryNode { successors } | BasicBlock { successors; _ } ->
-          List.iter dfs successors
+          NodeIdSet.iter dfs successors
       | ExitNode _ -> ()
     end
   in
@@ -187,6 +194,9 @@ let reachable_nodes (cfg : graph) : NodeIdSet.t =
   !visited
 
 let block_is_reachable reachable id = NodeIdSet.mem (Block id) reachable
+
+let keep_only_reachable reachable edges =
+  NodeIdSet.filter (fun nid -> NodeIdSet.mem nid reachable) edges
 
 let remove_unreachable_blocks (cfg : graph) : unit =
   let reachable = reachable_nodes cfg in
@@ -201,21 +211,16 @@ let remove_unreachable_blocks (cfg : graph) : unit =
     (fun _ node ->
       match node with
       | BasicBlock r ->
-          r.predecessors <-
-            List.filter (fun nid -> NodeIdSet.mem nid reachable) r.predecessors;
-          r.successors <-
-            List.filter (fun nid -> NodeIdSet.mem nid reachable) r.successors
+          r.predecessors <- keep_only_reachable reachable r.predecessors;
+          r.successors <- keep_only_reachable reachable r.successors
       | EntryNode r ->
-          r.successors <-
-            List.filter (fun nid -> NodeIdSet.mem nid reachable) r.successors
+          r.successors <- keep_only_reachable reachable r.successors
       | ExitNode _ -> ())
     cfg.blocks;
 
   (* Finally clean up edges on ExitNode *)
   match cfg.exit with
-  | ExitNode r ->
-      r.predecessors <-
-        List.filter (fun nid -> NodeIdSet.mem nid reachable) r.predecessors
+  | ExitNode r -> r.predecessors <- keep_only_reachable reachable r.predecessors
   | _ -> ()
 
 let is_jump = function
@@ -248,13 +253,16 @@ let remove_redundant_jumps (cfg : graph) : unit =
           | last :: _ when is_jump last ->
               let default_succ = Block r_next.id in
               let keep_jump =
-                List.exists (fun succ -> succ <> default_succ) r.successors
+                NodeIdSet.exists (fun succ -> succ <> default_succ) r.successors
               in
               if not keep_jump then
                 r.instructions <- remove_last_instruction r.instructions
           | _ -> ())
       | _ -> ())
     (pairwise (blocks_sorted cfg.blocks))
+
+let has_exact_predecessor preds p =
+  NodeIdSet.cardinal preds = 1 && NodeIdSet.mem p preds
 
 (** Remove redundant labels. Sort basic blocks by ID, then delete any Label
     instruction at the start of a block if it's only entered by "falling
@@ -268,7 +276,7 @@ let remove_redundant_labels (cfg : graph) : unit =
   (* Handle first block *)
   (match sorted_blocks with
   | BasicBlock r :: _ ->
-      if r.predecessors = [ Entry ] then
+      if has_exact_predecessor r.predecessors Entry then
         r.instructions <- remove_leading_label r.instructions
   | _ -> ());
 
@@ -277,7 +285,7 @@ let remove_redundant_labels (cfg : graph) : unit =
     (fun (prev_block, block) ->
       match (prev_block, block) with
       | BasicBlock r_prev, BasicBlock r ->
-          if r.predecessors = [ Block r_prev.id ] then
+          if has_exact_predecessor r.predecessors (Block r_prev.id) then
             r.instructions <- remove_leading_label r.instructions
       | _ -> ())
     (pairwise sorted_blocks)
@@ -298,42 +306,14 @@ let splice_out_block (cfg : graph) (id : node_id) =
     with_basicblock cfg id (fun r -> (r.predecessors, r.successors))
   in
 
-  (* Remove this block from its successors' predecessors *)
-  List.iter
-    (fun succ ->
-      match get_node cfg succ with
-      | BasicBlock r -> r.predecessors <- List.filter (( <> ) id) r.predecessors
-      | ExitNode r -> r.predecessors <- List.filter (( <> ) id) r.predecessors
-      | EntryNode _ -> ())
-    successors;
+  (* Rewire CFG to skip over this block *)
+  NodeIdSet.iter (fun pred -> remove_successor cfg pred id) predecessors;
+  NodeIdSet.iter (fun succ -> remove_predecessor cfg succ id) successors;
 
-  (* Update predecessors to skip over the removed block *)
-  List.iter
-    (fun pred ->
-      match get_node cfg pred with
-      | EntryNode r ->
-          r.successors <- List.filter (( <> ) id) r.successors @ successors
-      | BasicBlock r ->
-          r.successors <- List.filter (( <> ) id) r.successors @ successors
-      | ExitNode _ -> ())
-    predecessors;
-
-  (* Update successors to include the predecessors of the removed block *)
-  List.iter
-    (fun succ ->
-      match get_node cfg succ with
-      | BasicBlock r ->
-          r.predecessors <-
-            List.fold_left
-              (fun acc p -> if List.mem p acc then acc else p :: acc)
-              r.predecessors predecessors
-      | ExitNode r ->
-          r.predecessors <-
-            List.fold_left
-              (fun acc p -> if List.mem p acc then acc else p :: acc)
-              r.predecessors predecessors
-      | EntryNode _ -> ())
-    successors
+  (* Add edges between the removed blocks successors and predecessors *)
+  NodeIdSet.iter
+    (fun pred -> NodeIdSet.iter (fun succ -> add_edge cfg pred succ) successors)
+    predecessors
 
 (** Remove any empty blocks *)
 let remove_empty_blocks (cfg : graph) : unit =
@@ -374,17 +354,20 @@ let find_all_copy_instructions (blocks : node list) : CopySet.t =
 let meet (cfg : graph) (id : node_id) (all_copies : CopySet.t) =
   let predecessors = with_basicblock cfg id (fun r -> r.predecessors) in
 
-  List.fold_left
-    (fun incoming_copies prec_id ->
-      match prec_id with
-      | Entry -> CopySet.empty
-      | Block _ ->
-          let pred_out_copies =
-            with_basicblock cfg prec_id (fun r -> r.reaching_copies)
-          in
-          CopySet.inter incoming_copies pred_out_copies
-      | Exit -> failwith "malformed control-flow graph")
-    all_copies predecessors
+  (* If Entry is a predecessor, the meet is empty *)
+  if NodeIdSet.mem Entry predecessors then CopySet.empty
+  else
+    NodeIdSet.fold
+      (fun pred_id incoming_copies ->
+        match pred_id with
+        | Block _ ->
+            let pred_out_copies =
+              with_basicblock cfg pred_id (fun r -> r.reaching_copies)
+            in
+            CopySet.inter incoming_copies pred_out_copies
+        | Entry -> failwith "already handled Entry case"
+        | Exit -> failwith "malformed control-flow graph")
+      predecessors all_copies
 
 (** Meet operator for liveness analysis. Calculates if variables are live at the
     end of a basic block, by looking backwards and taking the union of live
@@ -393,8 +376,8 @@ let meet (cfg : graph) (id : node_id) (all_copies : CopySet.t) =
 let meet_live (cfg : graph) (id : node_id) (all_static_vars : StringSet.t) =
   let successors = with_basicblock cfg id (fun r -> r.successors) in
 
-  List.fold_left
-    (fun acc succ_id ->
+  NodeIdSet.fold
+    (fun succ_id acc ->
       match succ_id with
       | Entry -> failwith "malformed control-flow graph"
       | Block _ ->
@@ -403,7 +386,7 @@ let meet_live (cfg : graph) (id : node_id) (all_static_vars : StringSet.t) =
           in
           StringSet.union acc live_vars
       | Exit -> StringSet.union acc all_static_vars)
-    StringSet.empty successors
+    successors StringSet.empty
 
 (** Special case where x = y reaches y = x, which has no effect. *)
 let is_inverse_copy instr copies =
@@ -532,24 +515,24 @@ let transfer_live (cfg : graph) (id : node_id) end_live_variables static_names
 (** Add successors of processed block to worklist, if not already present *)
 let update_worklist (cfg : graph) (id : node_id) worklist =
   let successors = with_basicblock cfg id (fun r -> r.successors) in
-  List.fold_left
-    (fun wl succ ->
+  NodeIdSet.fold
+    (fun succ wl ->
       match succ with
       | Exit -> wl
       | Entry -> failwith "malformed control-flow graph"
       | Block _ -> NodeIdSet.add succ wl)
-    worklist successors
+    successors worklist
 
 (** Add predecessors of processed block to worklist, if not already present *)
 let update_worklist_backward (cfg : graph) (id : node_id) worklist =
   let predecessors = with_basicblock cfg id (fun r -> r.predecessors) in
-  List.fold_left
-    (fun wl pred ->
+  NodeIdSet.fold
+    (fun pred wl ->
       match pred with
       | Exit -> failwith "malformed control-flow graph"
       | Entry -> wl
       | Block _ -> NodeIdSet.add pred wl)
-    worklist predecessors
+    predecessors worklist
 
 (** Preliminary annotation of reaching copies for each block. Sort basic blocks
     by ID, then annotate each block with the set of cumulative copy instructions
@@ -761,20 +744,24 @@ let pp_node fmt = function
   | EntryNode { successors } ->
       Format.fprintf fmt "EntryNode\n";
       Format.fprintf fmt "  successors: [%s]\n\n"
-        (String.concat ", " (List.map string_of_node_id successors))
+        (NodeIdSet.elements successors
+        |> List.map string_of_node_id |> String.concat ", ")
   | ExitNode { predecessors } ->
       Format.fprintf fmt "ExitNode\n";
       Format.fprintf fmt "  predecessors: [%s]\n"
-        (String.concat ", " (List.map string_of_node_id predecessors))
+        (NodeIdSet.elements predecessors
+        |> List.map string_of_node_id |> String.concat ", ")
   | BasicBlock
       { id; instructions; predecessors; successors; reaching_copies; _ } ->
       Format.fprintf fmt "BasicBlock B%d\n" id;
       Format.fprintf fmt "  instructions:\n";
       List.iter (pp_instruction_line fmt) instructions;
       Format.fprintf fmt "  predecessors: [%s]\n"
-        (String.concat ", " (List.map string_of_node_id predecessors));
+        (NodeIdSet.elements predecessors
+        |> List.map string_of_node_id |> String.concat ", ");
       Format.fprintf fmt "  successors: [%s]\n"
-        (String.concat ", " (List.map string_of_node_id successors));
+        (NodeIdSet.elements successors
+        |> List.map string_of_node_id |> String.concat ", ");
       Format.fprintf fmt "  reaching_copies:\n";
       pp_copyset fmt reaching_copies
 
