@@ -1,0 +1,83 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "callee"); params = [];
+         body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "target"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "switch_var");
+                            init = (Some (Ast.LiteralInt 10)); storage = None
+                            }));
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "retval");
+                             init =
+                             (Some Ast.Unary {op = Ast.Negate;
+                                     exp = (Ast.LiteralInt 1)});
+                             storage = None }));
+                     (Ast.S
+                        Ast.Switch {
+                          cond = (Ast.Var (Ast.Identifier "switch_var"));
+                          body =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    Ast.Case {value = (Ast.LiteralInt 1);
+                                      body =
+                                      (Ast.Expression
+                                         Ast.FunctionCall {
+                                           name = (Ast.Identifier "callee");
+                                           args = []});
+                                      id = None});
+                                  (Ast.S (Ast.Return (Ast.LiteralInt 1)));
+                                  (Ast.S
+                                     Ast.Case {value = (Ast.LiteralInt 2);
+                                       body =
+                                       (Ast.Expression
+                                          (Ast.Assignment (
+                                             (Ast.Var
+                                                (Ast.Identifier "retval")),
+                                             Ast.Unary {op = Ast.Negate;
+                                               exp = (Ast.LiteralInt 2)}
+                                             )));
+                                       id = None});
+                                  (Ast.S (Ast.Break None));
+                                  (Ast.S
+                                     Ast.Case {value = (Ast.LiteralInt 10);
+                                       body =
+                                       (Ast.Expression
+                                          (Ast.Assignment (
+                                             (Ast.Var
+                                                (Ast.Identifier "retval")),
+                                             (Ast.LiteralInt 0))));
+                                       id = None});
+                                  (Ast.S (Ast.Break None));
+                                  (Ast.S
+                                     Ast.Default {
+                                       body =
+                                       (Ast.Expression
+                                          (Ast.Assignment (
+                                             (Ast.Var
+                                                (Ast.Identifier "retval")),
+                                             (Ast.LiteralInt 1000))));
+                                       id = None});
+                                  (Ast.S (Ast.Break None))]));
+                          id = None});
+                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                     ]));
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.FunctionCall {name = (Ast.Identifier "target");
+                            args = []}))
+                     ]));
+          storage = None })
+     ])
