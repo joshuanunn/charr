@@ -45,6 +45,11 @@ let make_cfg () : graph =
 
   { entry; exit; blocks; counter = 0 }
 
+let blocks_sorted blocks =
+  Hashtbl.fold (fun id node acc -> (id, node) :: acc) blocks []
+  |> List.sort (fun (a, _) (b, _) -> compare a b)
+  |> List.map snd
+
 let insert_block (cfg : graph) (ins : Ir.instruction list) : unit =
   let id = cfg.counter in
   let block =
@@ -229,12 +234,6 @@ let pairwise lst =
     block can be removed as these have no effect. Any associated redundant
     labels will be removed in the next step.*)
 let remove_redundant_jumps (cfg : graph) : unit =
-  let sorted_blocks =
-    Hashtbl.fold (fun id node acc -> (id, node) :: acc) cfg.blocks []
-    |> List.sort (fun (a, _) (b, _) -> compare a b)
-    |> List.map snd
-  in
-
   List.iter
     (fun (block, next_block) ->
       match (block, next_block) with
@@ -249,7 +248,7 @@ let remove_redundant_jumps (cfg : graph) : unit =
                 r.instructions <- remove_last_instruction r.instructions
           | _ -> ())
       | _ -> ())
-    (pairwise sorted_blocks)
+    (pairwise (blocks_sorted cfg.blocks))
 
 (** Remove redundant labels. Sort basic blocks by ID, then delete any Label
     instruction at the start of a block if it's only entered by "falling
@@ -258,11 +257,7 @@ let remove_redundant_jumps (cfg : graph) : unit =
     predecessor is sorted_blocks[i - 1]. The Label at the start of
     sorted_blocks[0] is deleted if its only predecessor is Entry.*)
 let remove_redundant_labels (cfg : graph) : unit =
-  let sorted_blocks =
-    Hashtbl.fold (fun id node acc -> (id, node) :: acc) cfg.blocks []
-    |> List.sort (fun (a, _) (b, _) -> compare a b)
-    |> List.map snd
-  in
+  let sorted_blocks = blocks_sorted cfg.blocks in
 
   (* Handle first block *)
   (match sorted_blocks with
@@ -601,11 +596,7 @@ let update_worklist_backward (cfg : graph) (id : node_id) (worklist : IntSet.t)
     which are assumed to have reached the end of each block. Entry and Exit
     nodes are not annotated. *)
 let find_reaching_copies (cfg : graph) (static_names : StringSet.t) =
-  let sorted_blocks =
-    Hashtbl.fold (fun id node acc -> (id, node) :: acc) cfg.blocks []
-    |> List.sort (fun (a, _) (b, _) -> compare a b)
-    |> List.map snd
-  in
+  let sorted_blocks = blocks_sorted cfg.blocks in
   let all_copies = find_all_copy_instructions sorted_blocks in
 
   (* Preliminary annotation of all BasicBlocks with copies from all blocks and
@@ -749,12 +740,6 @@ let rewrite_cfg_live (cfg : graph) (instr_info : StringSet.t InstrMap.t) =
     cfg.blocks
 
 let remove_dead_stores (cfg : graph) (static_names : StringSet.t) =
-  let sorted_blocks =
-    Hashtbl.fold (fun id node acc -> (id, node) :: acc) cfg.blocks []
-    |> List.sort (fun (a, _) (b, _) -> compare a b)
-    |> List.map snd
-  in
-
   (* Annotate all BasicBlocks with empty set to create work items to process. *)
   let worklist = ref IntSet.empty in
   List.iter
@@ -764,7 +749,7 @@ let remove_dead_stores (cfg : graph) (static_names : StringSet.t) =
           r.live_variables <- StringSet.empty;
           worklist := IntSet.add r.id !worklist
       | _ -> ())
-    sorted_blocks;
+    (blocks_sorted cfg.blocks);
 
   let instr_info = ref InstrMap.empty in
 
@@ -823,17 +808,11 @@ let pp_graph fmt { entry; exit; blocks; counter } =
   Format.fprintf fmt "=== CFG ===\n";
   pp_node fmt entry;
 
-  let blocks_sorted =
-    Hashtbl.fold (fun id node acc -> (id, node) :: acc) blocks []
-    |> List.sort (fun (a, _) (b, _) -> compare a b)
-    |> List.map snd
-  in
-
   List.iter
     (fun node ->
       pp_node fmt node;
       Format.fprintf fmt "\n")
-    blocks_sorted;
+    (blocks_sorted blocks);
 
   pp_node fmt exit;
 
