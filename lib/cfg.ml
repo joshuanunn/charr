@@ -1,7 +1,14 @@
 (** Define control-flow graph data structures. Used in IR optimisation for copy
     propagation, unreachable code elimination and dead store elimination.*)
 
-module IntSet = Set.Make (Int)
+type node_id = Entry | Exit | Block of int
+
+module NodeIdSet = Set.Make (struct
+  type t = node_id
+
+  let compare = compare
+end)
+
 module StringSet = Set.Make (String)
 
 module CopySet = Set.Make (struct
@@ -9,8 +16,6 @@ module CopySet = Set.Make (struct
 
   let compare = compare
 end)
-
-type node_id = Entry | Exit | Block of int
 
 module InstrMap = Map.Make (struct
   type t = node_id * int (* block_id, instruction index *)
@@ -163,43 +168,32 @@ let add_all_edges (cfg : graph) : unit =
       | _ -> ())
     cfg.blocks
 
-let reachable_blocks (cfg : graph) : IntSet.t =
-  let visited = ref IntSet.empty in
+let reachable_nodes (cfg : graph) : NodeIdSet.t =
+  let visited = ref NodeIdSet.empty in
 
-  let rec dfs_block id =
-    if IntSet.mem id !visited then ()
+  let rec dfs id =
+    if NodeIdSet.mem id !visited then ()
     else begin
-      visited := IntSet.add id !visited;
-      let node = Hashtbl.find cfg.blocks id in
-      match node with
-      | BasicBlock { successors; _ } ->
-          List.iter
-            (function Block i -> dfs_block i | Exit -> () | Entry -> ())
-            successors
-      | _ -> ()
+      visited := NodeIdSet.add id !visited;
+      match get_node cfg id with
+      | EntryNode { successors } | BasicBlock { successors; _ } ->
+          List.iter dfs successors
+      | ExitNode _ -> ()
     end
   in
 
-  (* EntryNode always goes to block 0 *)
-  dfs_block 0;
+  (* Start with Entry *)
+  dfs Entry;
   !visited
 
-let clean_edges (valid : IntSet.t) =
-  List.filter (function Block i -> IntSet.mem i valid | _ -> true)
-
-let valid_blocks (cfg : graph) =
-  Hashtbl.fold (fun id _ acc -> IntSet.add id acc) cfg.blocks IntSet.empty
-
-let valid_node_id (cfg : graph) = function
-  | Block i -> IntSet.mem i (valid_blocks cfg)
-  | Entry | Exit -> true
+let block_is_reachable reachable id = NodeIdSet.mem (Block id) reachable
 
 let remove_unreachable_blocks (cfg : graph) : unit =
-  let reachable = reachable_blocks cfg in
+  let reachable = reachable_nodes cfg in
 
   (* Remove unreachable blocks *)
   Hashtbl.filter_map_inplace
-    (fun id node -> if IntSet.mem id reachable then Some node else None)
+    (fun id node -> if block_is_reachable reachable id then Some node else None)
     cfg.blocks;
 
   (* Update edges *)
@@ -207,16 +201,21 @@ let remove_unreachable_blocks (cfg : graph) : unit =
     (fun _ node ->
       match node with
       | BasicBlock r ->
-          r.predecessors <- clean_edges reachable r.predecessors;
-          r.successors <- clean_edges reachable r.successors
-      | EntryNode r -> r.successors <- clean_edges reachable r.successors
+          r.predecessors <-
+            List.filter (fun nid -> NodeIdSet.mem nid reachable) r.predecessors;
+          r.successors <-
+            List.filter (fun nid -> NodeIdSet.mem nid reachable) r.successors
+      | EntryNode r ->
+          r.successors <-
+            List.filter (fun nid -> NodeIdSet.mem nid reachable) r.successors
       | ExitNode _ -> ())
     cfg.blocks;
 
   (* Finally clean up edges on ExitNode *)
   match cfg.exit with
   | ExitNode r ->
-      r.predecessors <- List.filter (valid_node_id cfg) r.predecessors
+      r.predecessors <-
+        List.filter (fun nid -> NodeIdSet.mem nid reachable) r.predecessors
   | _ -> ()
 
 let is_jump = function
@@ -287,10 +286,11 @@ let is_empty_block = function
   | BasicBlock { instructions = []; _ } -> true
   | _ -> false
 
-let empty_blocks (cfg : graph) : IntSet.t =
+let empty_blocks (cfg : graph) : NodeIdSet.t =
   Hashtbl.fold
-    (fun id node acc -> if is_empty_block node then IntSet.add id acc else acc)
-    cfg.blocks IntSet.empty
+    (fun id node acc ->
+      if is_empty_block node then NodeIdSet.add (Block id) acc else acc)
+    cfg.blocks NodeIdSet.empty
 
 let splice_out_block (cfg : graph) (id : node_id) =
   (* Get the predecessors and successors of the block being removed *)
@@ -340,10 +340,13 @@ let remove_empty_blocks (cfg : graph) : unit =
   (* Identify empty block nodes *)
   let empties = empty_blocks cfg in
   (* Update edges to route around empty block nodes *)
-  IntSet.iter (fun i -> splice_out_block cfg (Block i)) empties;
+  NodeIdSet.iter
+    (function Block id -> splice_out_block cfg (Block id) | _ -> ())
+    empties;
   (* Finally, remove the empty block nodes *)
   Hashtbl.filter_map_inplace
-    (fun id node -> if IntSet.mem id empties then None else Some node)
+    (fun id node ->
+      if NodeIdSet.mem (Block id) empties then None else Some node)
     cfg.blocks
 
 let get_block_copies (n : node) : CopySet.t =
@@ -531,10 +534,10 @@ let update_worklist (cfg : graph) (id : node_id) worklist =
   let successors = with_basicblock cfg id (fun r -> r.successors) in
   List.fold_left
     (fun wl succ ->
-      match get_node cfg succ with
-      | ExitNode _ -> wl
-      | EntryNode _ -> failwith "malformed control-flow graph"
-      | BasicBlock { id; _ } -> IntSet.add id wl)
+      match succ with
+      | Exit -> wl
+      | Entry -> failwith "malformed control-flow graph"
+      | Block _ -> NodeIdSet.add succ wl)
     worklist successors
 
 (** Add predecessors of processed block to worklist, if not already present *)
@@ -542,10 +545,10 @@ let update_worklist_backward (cfg : graph) (id : node_id) worklist =
   let predecessors = with_basicblock cfg id (fun r -> r.predecessors) in
   List.fold_left
     (fun wl pred ->
-      match get_node cfg pred with
-      | ExitNode _ -> failwith "malformed control-flow graph"
-      | EntryNode _ -> wl
-      | BasicBlock { id; _ } -> IntSet.add id wl)
+      match pred with
+      | Exit -> failwith "malformed control-flow graph"
+      | Entry -> wl
+      | Block _ -> NodeIdSet.add pred wl)
     worklist predecessors
 
 (** Preliminary annotation of reaching copies for each block. Sort basic blocks
@@ -558,24 +561,28 @@ let find_reaching_copies (cfg : graph) (static_names : StringSet.t) =
 
   (* Preliminary annotation of all BasicBlocks with copies from all blocks and
   build a set of work items to process. *)
-  let worklist = ref IntSet.empty in
+  let worklist = ref NodeIdSet.empty in
   List.iter
     (fun block ->
       match block with
       | BasicBlock r ->
           r.reaching_copies <- all_copies;
-          worklist := IntSet.add r.id !worklist
+          worklist := NodeIdSet.add (Block r.id) !worklist
       | _ -> ())
     sorted_blocks;
 
   let instr_info = ref InstrMap.empty in
 
   (* Iteratively resolve reaching copies for each block *)
-  while not (IntSet.is_empty !worklist) do
+  while not (NodeIdSet.is_empty !worklist) do
     (* Remove first block from worklist *)
-    let block_id = IntSet.min_elt !worklist in
-    worklist := IntSet.remove block_id !worklist;
-    let block = Block block_id in
+    let block =
+      match NodeIdSet.min_elt !worklist with
+      | Block _ as b -> b
+      | _ -> failwith "worklist contains non-block node"
+    in
+    worklist := NodeIdSet.remove block !worklist;
+
     let old_annotation =
       with_basicblock cfg block (fun r -> r.reaching_copies)
     in
@@ -701,24 +708,28 @@ let rewrite_cfg_live (cfg : graph) (instr_info : StringSet.t InstrMap.t) =
 
 let remove_dead_stores (cfg : graph) (static_names : StringSet.t) =
   (* Annotate all BasicBlocks with empty set to create work items to process. *)
-  let worklist = ref IntSet.empty in
+  let worklist = ref NodeIdSet.empty in
   List.iter
     (fun block ->
       match block with
       | BasicBlock r ->
           r.live_variables <- StringSet.empty;
-          worklist := IntSet.add r.id !worklist
+          worklist := NodeIdSet.add (Block r.id) !worklist
       | _ -> ())
     (blocks_sorted cfg.blocks);
 
   let instr_info = ref InstrMap.empty in
 
   (* Iteratively resolve liveness analysis for each block *)
-  while not (IntSet.is_empty !worklist) do
+  while not (NodeIdSet.is_empty !worklist) do
     (* Remove first block from worklist *)
-    let block_id = IntSet.min_elt !worklist in
-    worklist := IntSet.remove block_id !worklist;
-    let block = Block block_id in
+    let block =
+      match NodeIdSet.min_elt !worklist with
+      | Block _ as b -> b
+      | _ -> failwith "worklist contains non-block node"
+    in
+    worklist := NodeIdSet.remove block !worklist;
+
     let old_annotation =
       with_basicblock cfg block (fun r -> r.live_variables)
     in
