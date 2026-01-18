@@ -21,7 +21,7 @@ let () =
         exit 1
   in
 
-  let enabled_opts = Subc.Irgen_opt.unpack_opts opt_flags in
+  let enabled_opts = Subc.Passes.unpack_opts opt_flags in
 
   (* Initialise new environments *)
   let s_env = Subc.Env.make_senv () in
