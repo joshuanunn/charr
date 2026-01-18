@@ -87,17 +87,6 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
   in
   loop body
 
-let extract_static_names (f : Ir.top_level) : Cfg.StringSet.t =
-  match f with
-  | Function _ -> Cfg.StringSet.empty
-  | StaticVariable { name; _ } -> Cfg.StringSet.singleton name
-
-(** Construct a set of all static variable names. *)
-let collect_static_names (prog : Ir.top_level list) : Cfg.StringSet.t =
-  List.fold_left
-    (fun acc f -> Cfg.StringSet.union acc (extract_static_names f))
-    Cfg.StringSet.empty prog
-
 let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t) :
     Ir.top_level =
   (* only optimise function bodies *)
@@ -108,7 +97,14 @@ let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t) :
   | StaticVariable { name; global; init } ->
       StaticVariable { name; global; init }
 
-let optimise_prog (Program p : Ir.prog) (o : opts) : Ir.prog =
-  let statics = collect_static_names p in
+(** Construct a set of variable names whose storage is static and whose value
+    may be observed across function boundaries or translation units. *)
+let collect_escaping_globals (te : Env.tenv) =
+  Env.static_vars te
+  |> List.map (fun (name, _, _) -> name)
+  |> Cfg.StringSet.of_list
+
+let optimise_prog (Program p : Ir.prog) (o : opts) (te : Env.tenv) : Ir.prog =
+  let statics = collect_escaping_globals te in
   let compiled_funcs = List.map (function f -> optimise_func f o statics) p in
   Ir.Program compiled_funcs
