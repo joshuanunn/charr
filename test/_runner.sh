@@ -87,7 +87,7 @@ for chapter in "${CHAPTERS[@]}"; do
 
         # Skip if oracle doesn't exist
         if [[ ! -f "$oracle_file" ]]; then
-          echo "SKIP: $rel_path ($phase)"
+          echo "[SKIP] $rel_path ($phase)"
           ((skipped++))
           continue
         fi
@@ -95,7 +95,7 @@ for chapter in "${CHAPTERS[@]}"; do
         # Exit status test
         if [[ "$phase" == "exe" ]]; then
           # Compile executable
-          subc "$test_file" -o "$binary_file"
+          subc "$test_file" -O -o "$binary_file"
 
           # Capture stdout and exit status
           program_stdout="$("$binary_file" 2>&1)"
@@ -113,7 +113,7 @@ for chapter in "${CHAPTERS[@]}"; do
 
           # Exit status mismatch?
           if [[ $program_status -ne $expected_status ]]; then
-            echo "FAIL: $rel_path ($phase)"
+            echo "[FAIL] $rel_path ($phase)"
             echo "  subc exited with status $program_status, expected $expected_status"
             ((failed++))
             ((total++))
@@ -126,10 +126,10 @@ for chapter in "${CHAPTERS[@]}"; do
             expected_stdout=$(<"$stdout_oracle")
 
             if diff -u <(echo "$expected_stdout") <(echo "$program_stdout") >/dev/null; then
-              echo "PASS: $rel_path ($phase)"
+              echo "[PASS] $rel_path ($phase)"
               ((passed++))
             else
-              echo "FAIL: $rel_path ($phase)"
+              echo "[FAIL] $rel_path ($phase)"
               echo "  stdout mismatch:"
               diff -u <(echo "$expected_stdout") <(echo "$program_stdout") || true
               ((failed++))
@@ -137,7 +137,7 @@ for chapter in "${CHAPTERS[@]}"; do
 
           else
             # No stdout oracle, so ignore stdout
-            echo "PASS: $rel_path ($phase)"
+            echo "[PASS] $rel_path ($phase)"
             ((passed++))
           fi
 
@@ -147,14 +147,14 @@ for chapter in "${CHAPTERS[@]}"; do
 
         # Lexer, parser, validation, codegen and emit tests
         if [[ "$phase" == "lex" || "$phase" == "parse" || "$phase" == "validate" || "$phase" == "irgen" || "$phase" == "codegen" || "$phase" == "emit" ]]; then
-            output=$(subc "$test_file" --"$phase" 2>&1)
+            output=$(subc "$test_file" --"$phase" -O 2>&1)
             expected=$(<"$oracle_file")
 
             if diff -u <(echo "$expected") <(echo "$output") > /dev/null; then
-              echo "PASS: $rel_path ($phase)"
+              echo "[PASS] $rel_path ($phase)"
               ((passed++))
             else
-              echo "FAIL: $rel_path ($phase)"
+              echo "[FAIL] $rel_path ($phase)"
               diff -u <(echo "$expected") <(echo "$output") || true
               ((failed++))
             fi
@@ -191,7 +191,7 @@ for chapter in "${CHAPTERS[@]}"; do
       stdout_oracle="${exit_oracle%.exit_status}.stdout"
 
       if [[ ! -f "$exit_oracle" ]]; then
-        echo "SKIP: $rel_path (libraries)"
+        echo "[SKIP] $rel_path (libraries)"
         ((skipped++))
         continue
       fi
@@ -209,7 +209,7 @@ for chapter in "${CHAPTERS[@]}"; do
 
       # Build the library
       if [[ "$lib" == *.c ]]; then
-        subc "$lib" -c
+        subc "$lib" -c -O
       else
         cc -c "$lib" -o "$subc_lib_o"
       fi
@@ -233,10 +233,10 @@ for chapter in "${CHAPTERS[@]}"; do
       fi
 
       if [[ "$interop_fail" -eq 1 ]]; then
-        echo "FAIL: $rel_path (interop A: subc lib)"
+        echo "[FAIL] $rel_path (interop A: subc lib)"
         ((failed++))
       else
-        echo "PASS: $rel_path (interop A: subc lib)"
+        echo "[PASS] $rel_path (interop A: subc lib)"
         ((passed++))
       fi
       ((total++))
@@ -254,7 +254,7 @@ for chapter in "${CHAPTERS[@]}"; do
       fi
 
       # subc compiler builds client
-      subc "$client" -c
+      subc "$client" -c -O
 
       # Link and run
       cc "$sys_lib_o" "$subc_client_o" -o "$libdir/a.out"
@@ -272,10 +272,10 @@ for chapter in "${CHAPTERS[@]}"; do
       fi
 
       if [[ "$interop_fail" -eq 1 ]]; then
-        echo "FAIL: $rel_path (interop B: subc client)"
+        echo "[FAIL] $rel_path (interop B: subc client)"
         ((failed++))
       else
-        echo "PASS: $rel_path (interop B: subc client)"
+        echo "[PASS] $rel_path (interop B: subc client)"
         ((passed++))
       fi
       ((total++))
@@ -298,14 +298,14 @@ for chapter in "${CHAPTERS[@]}"; do
       rel_path="${test_file#$TEST_DIR/}"
 
       # Run executable, capture exit status code and cleanup
-      output=$(subc "$test_file" --"$phase" 2>&1)
+      output=$(subc "$test_file" --"$phase" -O 2>&1)
       status=$?
 
       if [ $status -ne 0 ]; then
-        echo "PASS: $rel_path ($phase)"
+        echo "[PASS] $rel_path ($phase)"
         ((passed++))
       else
-        echo "FAIL: $rel_path ($phase)"
+        echo "[FAIL] $rel_path ($phase)"
         echo "  subc exited with a zero status"
         ((failed++))
       fi
@@ -329,14 +329,14 @@ for chapter in "${CHAPTERS[@]}"; do
       rel_path="${test_file#$TEST_DIR/}"
 
       # Run executable, capture exit status code and cleanup
-      output=$(subc "$test_file" --"$phase" 2>&1)
+      output=$(subc "$test_file" --"$phase" -O 2>&1)
       status=$?
 
       if [ $status -ne 0 ]; then
-        echo "PASS: $rel_path ($phase)"
+        echo "[PASS] $rel_path ($phase)"
         ((passed++))
       else
-        echo "FAIL: $rel_path ($phase)"
+        echo "[FAIL] $rel_path ($phase)"
         echo "  subc exited with a zero status"
         ((failed++))
       fi
@@ -360,14 +360,14 @@ for chapter in "${CHAPTERS[@]}"; do
       rel_path="${test_file#$TEST_DIR/}"
 
       # Run executable, capture exit status code and cleanup
-      output=$(subc "$test_file" --"$phase" 2>&1)
+      output=$(subc "$test_file" --"$phase" -O 2>&1)
       status=$?
 
       if [ $status -ne 0 ]; then
-        echo "PASS: $rel_path ($phase)"
+        echo "[PASS] $rel_path ($phase)"
         ((passed++))
       else
-        echo "FAIL: $rel_path ($phase)"
+        echo "[FAIL] $rel_path ($phase)"
         echo "  subc exited with a zero status"
         ((failed++))
       fi

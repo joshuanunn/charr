@@ -4,41 +4,13 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        $0, -4(%rbp)
-    movl        $1, %r11d
-    cmpl        $0, %r11d
-    je          .Lif.en.0
-    movl        $5, -8(%rbp)
     jmp         .Lother_if.1
-    movl        $0, -4(%rbp)
 .Lfirst_if.0:
-    movl        $5, -8(%rbp)
-    movl        -4(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
-    movl        -8(%rbp), %r10d
-    addl        %r10d, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-.Lif.en.0:
-    movl        $0, %r11d
-    cmpl        $0, %r11d
-    je          .Lif.en.2
+    jmp         .Lmain.if.en.2
 .Lother_if.1:
-    movl        $6, -16(%rbp)
-    movl        -4(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
-    movl        -16(%rbp), %r10d
-    addl        %r10d, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
     jmp         .Lfirst_if.0
-    movl        $0, -4(%rbp)
-.Lif.en.2:
-    movl        -4(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
+.Lmain.if.en.2:
+    movl        $11, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

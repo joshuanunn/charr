@@ -9,25 +9,24 @@ fib:
     movl        $0, -4(%rbp)
     sete        -4(%rbp)
     cmpl        $0, -4(%rbp)
-    jne         .Lor.tr.3
+    jne         .Lfib.or.tr.3
     cmpl        $1, -36(%rbp)
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
-    jne         .Lor.tr.3
+    jne         .Lfib.or.tr.3
     movl        $0, -12(%rbp)
-    jmp         .Lor.en.4
-.Lor.tr.3:
+    jmp         .Lfib.or.en.4
+.Lfib.or.tr.3:
     movl        $1, -12(%rbp)
-.Lor.en.4:
+.Lfib.or.en.4:
     cmpl        $0, -12(%rbp)
-    je          .Lif.el.6
+    je          .Lfib.if.el.6
     movl        -36(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
-    jmp         .Lif.en.5
-.Lif.el.6:
+.Lfib.if.el.6:
     movl        -36(%rbp), %r10d
     movl        %r10d, -16(%rbp)
     subl        $1, -16(%rbp)
@@ -48,26 +47,16 @@ fib:
     movq        %rbp, %rsp
     popq        %rbp
     ret         
-.Lif.en.5:
-    movl        $0, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
     .globl      main
     .text       
 main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $6, -4(%rbp)
-    movl        -4(%rbp), %edi
+    movl        $6, %edi
     call        fib@PLT
     movl        %eax, -8(%rbp)
     movl        -8(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

@@ -4,10 +4,7 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        $2147483647, -8(%rbp)
-    negl        -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
+    movl        $-2147483647, -4(%rbp)
 .Lloop.st.1:
     movl        -4(%rbp), %eax
     cdq         
@@ -24,7 +21,6 @@ main:
     addl        $1, -20(%rbp)
     movl        -20(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-.Lloop.ct.1:
     jmp         .Lloop.st.1
 .Lloop.br.1:
     movl        -4(%rbp), %eax
@@ -33,22 +29,18 @@ main:
     idivl       %r10d
     movl        %edx, -24(%rbp)
     cmpl        $0, -24(%rbp)
-    jne         .Lor.tr.7
+    jne         .Lmain.or.tr.7
     cmpl        $0, -4(%rbp)
     movl        $0, -28(%rbp)
     setg        -28(%rbp)
     cmpl        $0, -28(%rbp)
-    jne         .Lor.tr.7
+    jne         .Lmain.or.tr.7
     movl        $0, -32(%rbp)
-    jmp         .Lor.en.8
-.Lor.tr.7:
+    jmp         .Lmain.or.en.8
+.Lmain.or.tr.7:
     movl        $1, -32(%rbp)
-.Lor.en.8:
+.Lmain.or.en.8:
     movl        -32(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

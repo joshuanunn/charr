@@ -4,25 +4,6 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        $4, %r11d
-    cmpl        $0, %r11d
-    movl        $0, -4(%rbp)
-    sete        -4(%rbp)
-    cmpl        $0, -4(%rbp)
-    jne         .Lswit.cs.1.0
-    movl        $4, %r11d
-    cmpl        $4, %r11d
-    movl        $0, -8(%rbp)
-    sete        -8(%rbp)
-    cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.4
-    jmp         .Lswit.br.1
-.Lswit.cs.1.0:
-    movl        $0, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-.Lswit.cs.1.4:
     movl        $0, -12(%rbp)
     movl        $0, -16(%rbp)
 .Lloop.st.2:
@@ -37,9 +18,9 @@ main:
     idivl       %r10d
     movl        %edx, -24(%rbp)
     cmpl        $0, -24(%rbp)
-    je          .Lif.en.4
+    je          .Lmain.if.en.4
     jmp         .Lloop.ct.2
-.Lif.en.4:
+.Lmain.if.en.4:
     movl        -12(%rbp), %r10d
     movl        %r10d, -28(%rbp)
     addl        $1, -28(%rbp)
@@ -54,15 +35,6 @@ main:
     jmp         .Lloop.st.2
 .Lloop.br.2:
     movl        -12(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-.Lswit.br.1:
-    movl        $0, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

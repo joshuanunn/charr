@@ -12,8 +12,6 @@ main:
     subl        $1, -4(%rbp)
     cmpl        $0, -12(%rbp)
     je          .Lloop.br.1
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -16(%rbp)
     addl        $1, -8(%rbp)
     jmp         .Lloop.ct.1
 .Lloop.br.1:
@@ -21,20 +19,18 @@ main:
     movl        $0, -20(%rbp)
     setne       -20(%rbp)
     cmpl        $0, -20(%rbp)
-    je          .Lif.en.3
+    je          .Lmain.if.en.3
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
-.Lif.en.3:
+.Lmain.if.en.3:
     movl        $100, -4(%rbp)
     movl        $0, -8(%rbp)
 .Lloop.ct.2:
     subl        $1, -4(%rbp)
     cmpl        $0, -4(%rbp)
     je          .Lloop.br.2
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -24(%rbp)
     addl        $1, -8(%rbp)
     jmp         .Lloop.ct.2
 .Lloop.br.2:
@@ -42,17 +38,13 @@ main:
     movl        $0, -28(%rbp)
     setne       -28(%rbp)
     cmpl        $0, -28(%rbp)
-    je          .Lif.en.6
+    je          .Lmain.if.en.6
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
-.Lif.en.6:
+.Lmain.if.en.6:
     movl        $1, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

@@ -1,13 +1,9 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body =
-      [Ir.Unary {op = Ir.Negate; src = (Ir.Constant 3);
-         dst = (Ir.Var "tmp.0")};
-        Ir.Unary {op = Ir.BwNot; src = (Ir.Var "tmp.0");
-          dst = (Ir.Var "tmp.1")};
-        (Ir.Return (Ir.Var "tmp.1")); (Ir.Return (Ir.Constant 0))];
+      body = [(Ir.Return (Ir.Constant 2))];
       frame =
       Env.lenv {
+        namespace = "main";
         counter = 2;
         offset = -8;
         stack slots = {

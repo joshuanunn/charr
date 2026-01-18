@@ -9,11 +9,7 @@ foo:
     addl        $1, -4(%rbp)
     movl        -4(%rbp), %r10d
     movl        %r10d, x.0(%rip)
-    movl        x.0(%rip), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
+    movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -34,7 +30,6 @@ main:
     movl        %eax, -16(%rbp)
     movl        -16(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-.Lloop.ct.1:
     movl        -8(%rbp), %r10d
     movl        %r10d, -20(%rbp)
     addl        $1, -20(%rbp)
@@ -43,10 +38,6 @@ main:
     jmp         .Lloop.st.1
 .Lloop.br.1:
     movl        -4(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

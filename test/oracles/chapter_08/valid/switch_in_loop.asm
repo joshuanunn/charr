@@ -53,7 +53,6 @@
         Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -44)};
         (Asm.Mov ((Asm.Stack -44), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -8)));
-        (Asm.Label "loop.ct.1");
         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -48)));
         Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -48)};
@@ -64,19 +63,20 @@
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -52)));
         (Asm.SetCC (Asm.E, (Asm.Stack -52)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -52)));
-        (Asm.JmpCC (Asm.E, "and.fl.12"));
+        (Asm.JmpCC (Asm.E, "main.and.fl.12"));
         (Asm.Cmp ((Asm.Imm 31), (Asm.Stack -4)));
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -56)));
         (Asm.SetCC (Asm.E, (Asm.Stack -56)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -56)));
-        (Asm.JmpCC (Asm.E, "and.fl.12"));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -60))); (Asm.Jmp "and.en.13");
-        (Asm.Label "and.fl.12"); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -60)));
-        (Asm.Label "and.en.13");
-        (Asm.Mov ((Asm.Stack -60), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+        (Asm.JmpCC (Asm.E, "main.and.fl.12"));
+        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -60))); (Asm.Jmp "main.and.en.13");
+        (Asm.Label "main.and.fl.12");
+        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -60)));
+        (Asm.Label "main.and.en.13");
+        (Asm.Mov ((Asm.Stack -60), (Asm.Reg Asm.AX))); Asm.Ret];
       frame =
       Env.lenv {
+        namespace = "main";
         counter = 14;
         offset = -60;
         stack slots = {

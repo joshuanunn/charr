@@ -3,17 +3,17 @@
       body =
       [Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "tmp.0")};
         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x.0")};
-        Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "x.0");
+        Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "tmp.0");
           src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "if.en.2"};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
         Ir.Copy {src = (Ir.Constant 3); dst = (Ir.Var "foo.1")};
-        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.0");
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
           src2 = (Ir.Var "foo.1"); dst = (Ir.Var "tmp.3")};
         Ir.Copy {src = (Ir.Var "tmp.3"); dst = (Ir.Var "x.0")};
-        (Ir.Label "if.en.2"); (Ir.Return (Ir.Var "x.0"));
-        (Ir.Return (Ir.Constant 0))];
+        (Ir.Label "main.if.en.2"); (Ir.Return (Ir.Var "x.0"))];
       frame =
       Env.lenv {
+        namespace = "main";
         counter = 4;
         offset = -20;
         stack slots = {
@@ -24,10 +24,12 @@
           tmp.3 -> -20,
         }}};
      Ir.Function {name = "foo"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 4)); (Ir.Return (Ir.Constant 0))];
-       frame = Env.lenv {
-                 counter = 0;
-                 offset = 0;
-                 stack slots = {
-                 }}}
+       body = [(Ir.Return (Ir.Constant 4))];
+       frame =
+       Env.lenv {
+         namespace = "foo";
+         counter = 0;
+         offset = 0;
+         stack slots = {
+         }}}
      ])

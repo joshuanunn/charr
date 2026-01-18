@@ -15,19 +15,15 @@ print_alphabet:
     addl        $1, -12(%rbp)
     movl        -12(%rbp), %r10d
     movl        %r10d, count.1(%rip)
-    cmpl        $26, count.1(%rip)
+    cmpl        $26, -12(%rbp)
     movl        $0, -16(%rbp)
     setl        -16(%rbp)
     cmpl        $0, -16(%rbp)
-    je          .Lif.en.4
+    je          .Lprint_alphabet.if.en.4
     call        print_alphabet@PLT
     movl        %eax, -20(%rbp)
-.Lif.en.4:
+.Lprint_alphabet.if.en.4:
     movl        count.1(%rip), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

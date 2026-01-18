@@ -12,16 +12,18 @@
         Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -12)};
         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Data "count.1")));
-        (Asm.Cmp ((Asm.Imm 26), (Asm.Data "count.1")));
+        (Asm.Cmp ((Asm.Imm 26), (Asm.Stack -12)));
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -16)));
         (Asm.SetCC (Asm.L, (Asm.Stack -16)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -16)));
-        (Asm.JmpCC (Asm.E, "if.en.4")); (Asm.Call "print_alphabet");
-        (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -20))); (Asm.Label "if.en.4");
-        (Asm.Mov ((Asm.Data "count.1"), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+        (Asm.JmpCC (Asm.E, "print_alphabet.if.en.4"));
+        (Asm.Call "print_alphabet");
+        (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -20)));
+        (Asm.Label "print_alphabet.if.en.4");
+        (Asm.Mov ((Asm.Data "count.1"), (Asm.Reg Asm.AX))); Asm.Ret];
       frame =
       Env.lenv {
+        namespace = "print_alphabet";
         counter = 6;
         offset = -20;
         stack slots = {
@@ -38,6 +40,7 @@
          (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {
+         namespace = "main";
          counter = 1;
          offset = -4;
          stack slots = {

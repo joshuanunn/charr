@@ -4,20 +4,7 @@ main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
-    movl        $0, -8(%rbp)
-    cmpl        $0, -4(%rbp)
-    je          .Lif.en.0
     movl        foo(%rip), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-.Lif.en.0:
-    movl        $0, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

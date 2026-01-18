@@ -2,14 +2,10 @@
    [Asm.Function {name = "main"; global = true;
       instructions =
       [(Asm.AllocateStack 32); (Asm.Mov ((Asm.Imm 10), (Asm.Stack -4)));
-        (Asm.Cmp ((Asm.Imm 1), (Asm.Stack -4)));
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -8)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
         (Asm.JmpCC (Asm.NE, "swit.cs.1.1"));
-        (Asm.Cmp ((Asm.Imm 10), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -12)));
+        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -12)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
         (Asm.JmpCC (Asm.NE, "swit.cs.1.10")); (Asm.Jmp "swit.df.1");
         (Asm.Label "swit.cs.1.1"); (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX)));
@@ -25,12 +21,12 @@
         Asm.Binary {op = Asm.Sub; src = (Asm.Imm 1); dst = (Asm.Stack -24)};
         (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
-        (Asm.Cmp ((Asm.Imm 8), (Asm.Stack -4)));
+        (Asm.Cmp ((Asm.Imm 8), (Asm.Stack -24)));
         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -28)));
         (Asm.SetCC (Asm.E, (Asm.Stack -28)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -28)));
-        (Asm.JmpCC (Asm.E, "if.en.5")); (Asm.Jmp "loop.br.2");
-        (Asm.Label "if.en.5"); (Asm.Label "loop.ct.2");
+        (Asm.JmpCC (Asm.E, "main.if.en.5")); (Asm.Jmp "loop.br.2");
+        (Asm.Label "main.if.en.5");
         (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -32)));
         Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -32)};
@@ -39,11 +35,10 @@
         (Asm.Jmp "loop.st.2"); (Asm.Label "loop.br.2");
         (Asm.Mov ((Asm.Imm 123), (Asm.Reg Asm.AX))); Asm.Ret;
         (Asm.Label "swit.df.1"); (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX)));
-        Asm.Ret; (Asm.Label "swit.br.1");
-        (Asm.Mov ((Asm.Imm 3), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+        Asm.Ret];
       frame =
       Env.lenv {
+        namespace = "main";
         counter = 7;
         offset = -32;
         stack slots = {

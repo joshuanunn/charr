@@ -223,6 +223,7 @@ let compile_instruction (s : Ir.instruction) : Asm.instruction list =
   | Copy { src; dst } -> [ Mov (compile_val src, compile_val dst) ]
   | Label i -> [ Label i ]
   | FunCall { fun_name; args; dst } ->
+      (* TODO: need renormalise stack following optimisation *)
       (* Adjust stack alignment by padding with 8 bytes if odd number of args *)
       let register_args, stack_args = split_at 6 args in
       let odd_stack = List.length stack_args mod 2 = 1 in

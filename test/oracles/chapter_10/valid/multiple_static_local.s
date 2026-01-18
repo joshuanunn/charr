@@ -11,11 +11,7 @@ foo:
     movl        %r11d, -4(%rbp)
     movl        -4(%rbp), %r10d
     movl        %r10d, a.0(%rip)
-    movl        a.0(%rip), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
+    movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -30,11 +26,7 @@ bar:
     addl        $1, -4(%rbp)
     movl        -4(%rbp), %r10d
     movl        %r10d, a.1(%rip)
-    movl        a.1(%rip), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
+    movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -65,10 +57,6 @@ main:
     movl        -24(%rbp), %r10d
     addl        %r10d, -28(%rbp)
     movl        -28(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

@@ -30,10 +30,10 @@
         (Asm.Mov ((Asm.Stack -64), (Asm.Reg Asm.R10)));
         Asm.Binary {op = Asm.Add; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -4)};
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
       frame =
       Env.lenv {
+        namespace = "lots_of_args";
         counter = 1;
         offset = -64;
         stack slots = {
@@ -78,7 +78,6 @@
          (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -16)));
          (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
          (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
-         (Asm.Label "loop.ct.1");
          (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
          (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -20)));
          Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -20)};
@@ -88,10 +87,10 @@
          (Asm.Cmp ((Asm.Imm 150000000), (Asm.Stack -4)));
          (Asm.Mov ((Asm.Imm 0), (Asm.Stack -24)));
          (Asm.SetCC (Asm.E, (Asm.Stack -24)));
-         (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.AX))); Asm.Ret;
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+         (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {
+         namespace = "main";
          counter = 4;
          offset = -24;
          stack slots = {

@@ -25,15 +25,15 @@ main:
     addl        $1, -24(%rbp)
     movl        -24(%rbp), %r10d
     movl        %r10d, -16(%rbp)
-    movl        -16(%rbp), %eax
+    movl        -24(%rbp), %eax
     cdq         
     movl        $2, %r10d
     idivl       %r10d
     movl        %edx, -28(%rbp)
     cmpl        $0, -28(%rbp)
-    je          .Lif.en.4
+    je          .Lmain.if.en.4
     jmp         .Lloop.ct.2
-.Lif.en.4:
+.Lmain.if.en.4:
     movl        -8(%rbp), %r10d
     movl        %r10d, -32(%rbp)
     addl        $1, -32(%rbp)
@@ -49,10 +49,6 @@ main:
     jmp         .Lloop.ct.1
 .Lloop.br.1:
     movl        -8(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

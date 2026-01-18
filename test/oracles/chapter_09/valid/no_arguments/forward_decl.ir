@@ -2,19 +2,22 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0")); (Ir.Return (Ir.Constant 0))];
+        (Ir.Return (Ir.Var "tmp.0"))];
       frame =
       Env.lenv {
+        namespace = "main";
         counter = 1;
         offset = -4;
         stack slots = {
           tmp.0 -> -4,
         }}};
      Ir.Function {name = "foo"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 3)); (Ir.Return (Ir.Constant 0))];
-       frame = Env.lenv {
-                 counter = 0;
-                 offset = 0;
-                 stack slots = {
-                 }}}
+       body = [(Ir.Return (Ir.Constant 3))];
+       frame =
+       Env.lenv {
+         namespace = "foo";
+         counter = 0;
+         offset = 0;
+         stack slots = {
+         }}}
      ])

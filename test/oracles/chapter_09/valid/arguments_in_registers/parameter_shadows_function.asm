@@ -1,20 +1,20 @@
 (Asm.Program
    [Asm.Function {name = "a"; global = true;
-      instructions =
-      [(Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
-      frame = Env.lenv {
-                counter = 0;
-                offset = 0;
-                stack slots = {
-                }}};
+      instructions = [(Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.AX))); Asm.Ret];
+      frame =
+      Env.lenv {
+        namespace = "a";
+        counter = 0;
+        offset = 0;
+        stack slots = {
+        }}};
      Asm.Function {name = "b"; global = true;
        instructions =
        [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret;
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {
+         namespace = "b";
          counter = 0;
          offset = -4;
          stack slots = {
@@ -31,10 +31,10 @@
          (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
          Asm.Binary {op = Asm.Add; src = (Asm.Reg Asm.R10);
            dst = (Asm.Stack -12)};
-         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.AX))); Asm.Ret;
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.AX))); Asm.Ret];
        frame =
        Env.lenv {
+         namespace = "main";
          counter = 3;
          offset = -12;
          stack slots = {

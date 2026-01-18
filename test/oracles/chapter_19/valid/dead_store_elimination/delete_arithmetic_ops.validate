@@ -1,0 +1,34 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "a"); init = (Some (Ast.LiteralInt 1));
+         storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "b"); init = (Some (Ast.LiteralInt 2));
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "target"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "unused.0");
+                            init =
+                            (Some Ast.Binary {op = Ast.Multiply;
+                                    left = (Ast.Var (Ast.Identifier "a"));
+                                    right =
+                                    Ast.Unary {op = Ast.Negate;
+                                      exp = (Ast.Var (Ast.Identifier "b"))}});
+                            storage = None }));
+                     (Ast.S (Ast.Return (Ast.LiteralInt 5)))]));
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.FunctionCall {name = (Ast.Identifier "target");
+                            args = []}))
+                     ]));
+          storage = None })
+     ])

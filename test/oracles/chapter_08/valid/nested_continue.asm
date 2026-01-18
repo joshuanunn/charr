@@ -20,13 +20,14 @@
         Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -24)};
         (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -16)));
-        (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.AX))); Asm.Cdq;
+        (Asm.Mov ((Asm.Stack -24), (Asm.Reg Asm.AX))); Asm.Cdq;
         (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.R10)));
         (Asm.Idiv (Asm.Reg Asm.R10));
         (Asm.Mov ((Asm.Reg Asm.DX), (Asm.Stack -28)));
         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -28)));
-        (Asm.JmpCC (Asm.E, "if.en.4")); (Asm.Jmp "loop.ct.2");
-        (Asm.Label "if.en.4"); (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
+        (Asm.JmpCC (Asm.E, "main.if.en.4")); (Asm.Jmp "loop.ct.2");
+        (Asm.Label "main.if.en.4");
+        (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -32)));
         Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -32)};
         (Asm.Mov ((Asm.Stack -32), (Asm.Reg Asm.R10)));
@@ -38,10 +39,10 @@
         (Asm.Mov ((Asm.Stack -36), (Asm.Reg Asm.R10)));
         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4))); (Asm.Jmp "loop.ct.1");
         (Asm.Label "loop.br.1");
-        (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+        (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.AX))); Asm.Ret];
       frame =
       Env.lenv {
+        namespace = "main";
         counter = 7;
         offset = -36;
         stack slots = {

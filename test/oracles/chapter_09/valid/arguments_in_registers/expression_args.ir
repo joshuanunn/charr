@@ -3,9 +3,10 @@
       body =
       [Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "a.0");
          src2 = (Ir.Var "b.1"); dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0")); (Ir.Return (Ir.Constant 0))];
+        (Ir.Return (Ir.Var "tmp.0"))];
       frame =
       Env.lenv {
+        namespace = "sub";
         counter = 1;
         offset = -12;
         stack slots = {
@@ -15,14 +16,12 @@
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.Binary {op = Ir.Add; src1 = (Ir.Constant 1);
-          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.0")};
-         Ir.FunCall {fun_name = "sub";
-           args = [(Ir.Var "tmp.0"); (Ir.Constant 1)]; dst = (Ir.Var "tmp.1")};
-         Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "sum.2")};
-         (Ir.Return (Ir.Var "sum.2")); (Ir.Return (Ir.Constant 0))];
+       [Ir.FunCall {fun_name = "sub";
+          args = [(Ir.Constant 3); (Ir.Constant 1)]; dst = (Ir.Var "tmp.1")};
+         (Ir.Return (Ir.Var "tmp.1"))];
        frame =
        Env.lenv {
+         namespace = "main";
          counter = 2;
          offset = -12;
          stack slots = {

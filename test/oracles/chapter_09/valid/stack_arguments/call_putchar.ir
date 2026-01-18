@@ -6,9 +6,10 @@
          dst = (Ir.Var "tmp.0")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "a.1"); src2 = (Ir.Var "g.7");
           dst = (Ir.Var "tmp.1")};
-        (Ir.Return (Ir.Var "tmp.1")); (Ir.Return (Ir.Constant 0))];
+        (Ir.Return (Ir.Var "tmp.1"))];
       frame =
       Env.lenv {
+        namespace = "foo";
         counter = 2;
         offset = -40;
         stack slots = {
@@ -31,9 +32,10 @@
             (Ir.Constant 4); (Ir.Constant 5); (Ir.Constant 6);
             (Ir.Constant 7); (Ir.Constant 65)];
           dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0")); (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Var "tmp.0"))];
        frame =
        Env.lenv {
+         namespace = "main";
          counter = 1;
          offset = -4;
          stack slots = {

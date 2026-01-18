@@ -6,7 +6,6 @@ main:
     subq        $32, %rsp
     movl        $0, -4(%rbp)
     movl        $0, -8(%rbp)
-.Lloop.st.1:
 .Llbl.0:
     movl        -4(%rbp), %r10d
     movl        %r10d, -12(%rbp)
@@ -18,23 +17,16 @@ main:
     addl        $1, -16(%rbp)
     movl        -16(%rbp), %r10d
     movl        %r10d, -8(%rbp)
-    cmpl        $10, -8(%rbp)
+    cmpl        $10, -16(%rbp)
     movl        $0, -20(%rbp)
     setg        -20(%rbp)
     cmpl        $0, -20(%rbp)
-    je          .Lif.en.3
+    je          .Lmain.if.en.3
     jmp         .Lloop.br.1
-.Lif.en.3:
+.Lmain.if.en.3:
     jmp         .Llbl.0
-.Lloop.ct.1:
-    movl        $0, -8(%rbp)
-    jmp         .Lloop.st.1
 .Lloop.br.1:
-    movl        -4(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

@@ -1,8 +1,12 @@
+(include_subdirs unqualified)
+
 (library
  (name subc)
  (modules
+  debug
   io
   env
+  cfg
   lexer
   lexer_pp
   parser
@@ -12,6 +16,11 @@
   ast_flow_label
   ast_type_check
   irgen
+  passes
+  constant_folding
+  copy_propagation
+  dead_store_elimination
+  unreachable_code_elimination
   ir
   codegen
   codegen_lower

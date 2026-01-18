@@ -8,16 +8,10 @@ incr_i:
     movl        $0, -4(%rbp)
     sete        -4(%rbp)
     cmpl        $0, -4(%rbp)
-    je          .Lif.en.1
-    movl        i(%rip), %r10d
-    movl        %r10d, -8(%rbp)
+    je          .Lincr_i.if.en.1
     addl        $1, i(%rip)
     addl        $1, i(%rip)
-.Lif.en.1:
-    movl        $0, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
+.Lincr_i.if.en.1:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -28,22 +22,13 @@ decr_j:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        $1, -4(%rbp)
-    negl        -4(%rbp)
-    movl        -4(%rbp), %r10d
-    cmpl        %r10d, j(%rip)
+    cmpl        $-1, j(%rip)
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
-    je          .Lif.en.2
-    movl        j(%rip), %r10d
-    movl        %r10d, -12(%rbp)
+    je          .Ldecr_j.if.en.2
     subl        $1, j(%rip)
-.Lif.en.2:
-    movl        $0, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
+.Ldecr_j.if.en.2:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -58,53 +43,40 @@ main:
     movl        %r10d, -8(%rbp)
     addl        $1, i(%rip)
     cmpl        $0, -8(%rbp)
-    je          .Lcond.el.3
-    movl        $0, -4(%rbp)
-    jmp         .Lcond.en.2
-.Lcond.el.3:
+    je          .Lmain.cond.el.3
+    jmp         .Lmain.cond.en.2
+.Lmain.cond.el.3:
     call        incr_i@PLT
     movl        %eax, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-.Lcond.en.2:
+.Lmain.cond.en.2:
     cmpl        $3, i(%rip)
     movl        $0, -16(%rbp)
     setne       -16(%rbp)
     cmpl        $0, -16(%rbp)
-    je          .Lif.en.6
+    je          .Lmain.if.en.6
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
-.Lif.en.6:
+.Lmain.if.en.6:
     subl        $1, j(%rip)
     cmpl        $0, j(%rip)
-    je          .Lcond.el.9
+    je          .Lmain.cond.el.9
     call        decr_j@PLT
     movl        %eax, -24(%rbp)
-    movl        -24(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
-    jmp         .Lcond.en.8
-.Lcond.el.9:
-    movl        $0, -20(%rbp)
-.Lcond.en.8:
-    movl        $2, -28(%rbp)
-    negl        -28(%rbp)
-    movl        -28(%rbp), %r10d
-    cmpl        %r10d, j(%rip)
+    jmp         .Lmain.cond.en.8
+.Lmain.cond.el.9:
+.Lmain.cond.en.8:
+    cmpl        $-2, j(%rip)
     movl        $0, -32(%rbp)
     setne       -32(%rbp)
     cmpl        $0, -32(%rbp)
-    je          .Lif.en.13
+    je          .Lmain.if.en.13
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
-.Lif.en.13:
-    movl        $0, %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
+.Lmain.if.en.13:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp

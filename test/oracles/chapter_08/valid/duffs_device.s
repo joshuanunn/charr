@@ -5,21 +5,10 @@ main:
     movq        %rsp, %rbp
     subq        $80, %rsp
     movl        $37, -4(%rbp)
-    movl        -4(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
-    addl        $4, -12(%rbp)
-    movl        -12(%rbp), %eax
-    cdq         
-    movl        $5, %r10d
-    idivl       %r10d
-    movl        %eax, -16(%rbp)
+    movl        $8, -16(%rbp)
     movl        -16(%rbp), %r10d
     movl        %r10d, -8(%rbp)
-    movl        -4(%rbp), %eax
-    cdq         
-    movl        $5, %r10d
-    idivl       %r10d
-    movl        %edx, -20(%rbp)
+    movl        $2, -20(%rbp)
     cmpl        $0, -20(%rbp)
     movl        $0, -24(%rbp)
     sete        -24(%rbp)
@@ -77,39 +66,33 @@ main:
     subl        $1, -60(%rbp)
     movl        -60(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-.Lloop.ct.2:
     movl        -8(%rbp), %r10d
     movl        %r10d, -64(%rbp)
     subl        $1, -64(%rbp)
     movl        -64(%rbp), %r10d
     movl        %r10d, -8(%rbp)
-    cmpl        $0, -8(%rbp)
+    cmpl        $0, -64(%rbp)
     movl        $0, -68(%rbp)
     setg        -68(%rbp)
     cmpl        $0, -68(%rbp)
     jne         .Lloop.st.2
-.Lloop.br.2:
 .Lswit.br.1:
     cmpl        $0, -4(%rbp)
     movl        $0, -72(%rbp)
     sete        -72(%rbp)
     cmpl        $0, -72(%rbp)
-    je          .Land.fl.18
+    je          .Lmain.and.fl.18
     cmpl        $0, -8(%rbp)
     movl        $0, -76(%rbp)
     sete        -76(%rbp)
     cmpl        $0, -76(%rbp)
-    je          .Land.fl.18
+    je          .Lmain.and.fl.18
     movl        $1, -80(%rbp)
-    jmp         .Land.en.19
-.Land.fl.18:
+    jmp         .Lmain.and.en.19
+.Lmain.and.fl.18:
     movl        $0, -80(%rbp)
-.Land.en.19:
+.Lmain.and.en.19:
     movl        -80(%rbp), %eax
-    movq        %rbp, %rsp
-    popq        %rbp
-    ret         
-    movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

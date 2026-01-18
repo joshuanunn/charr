@@ -8,15 +8,16 @@
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "count.1");
           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.2")};
         Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "count.1")};
-        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "count.1");
+        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "tmp.2");
           src2 = (Ir.Constant 26); dst = (Ir.Var "tmp.3")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "if.en.4"};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.3");
+          target = "print_alphabet.if.en.4"};
         Ir.FunCall {fun_name = "print_alphabet"; args = [];
           dst = (Ir.Var "tmp.5")};
-        (Ir.Label "if.en.4"); (Ir.Return (Ir.Var "count.1"));
-        (Ir.Return (Ir.Constant 0))];
+        (Ir.Label "print_alphabet.if.en.4"); (Ir.Return (Ir.Var "count.1"))];
       frame =
       Env.lenv {
+        namespace = "print_alphabet";
         counter = 6;
         offset = -20;
         stack slots = {
@@ -33,6 +34,7 @@
          (Ir.Return (Ir.Constant 0))];
        frame =
        Env.lenv {
+         namespace = "main";
          counter = 1;
          offset = -4;
          stack slots = {

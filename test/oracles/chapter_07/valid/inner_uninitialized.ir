@@ -1,10 +1,9 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body =
-      [Ir.Copy {src = (Ir.Constant 4); dst = (Ir.Var "x.0")};
-        (Ir.Return (Ir.Var "x.0")); (Ir.Return (Ir.Constant 0))];
+      body = [(Ir.Return (Ir.Constant 4))];
       frame =
       Env.lenv {
+        namespace = "main";
         counter = 0;
         offset = -8;
         stack slots = {

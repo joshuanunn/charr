@@ -385,7 +385,8 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
         ^ identifier_to_string f.name)
   | Some (Block items) ->
       (* Create a new environment for the function to track frame contents *)
-      let le = Env.make_lenv () in
+      let func_name = identifier_to_string f.name in
+      let le = Env.make_lenv func_name in
       let body =
         List.map
           (fun node ->
@@ -400,7 +401,7 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
       let global = Env.fun_is_global te f.name in
       Function
         {
-          name = identifier_to_string f.name;
+          name = func_name;
           global;
           params =
             List.map
