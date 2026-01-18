@@ -1,6 +1,6 @@
 let () =
-  if Array.length Sys.argv <> 4 then (
-    prerr_endline "Usage: .subc <file.c> <phase> <opt_flags>";
+  if Array.length Sys.argv <> 5 then (
+    prerr_endline "Usage: .subc <file.c> <phase> <opt_flags> <debug>";
     exit 1);
 
   let source_path = Sys.argv.(1) in
@@ -22,6 +22,15 @@ let () =
   in
 
   let enabled_opts = Subc.Passes.unpack_opts opt_flags in
+
+  let () =
+    match int_of_string_opt Sys.argv.(4) with
+    | Some 0 -> ()
+    | Some 1 -> Subc.Debug.enable ()
+    | Some _ | None ->
+        prerr_endline "Debug mode must be set to 0 (disabled) or 1 (enabled)";
+        exit 1
+  in
 
   (* Initialise new environments *)
   let s_env = Subc.Env.make_senv () in

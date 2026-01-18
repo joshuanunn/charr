@@ -61,10 +61,27 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
       in
 
       let cfg = instructions_to_cfg post_folding in
+      Debug.log (fun () ->
+          Format.eprintf "=== Initial CFG ===\n%a\n" Cfg.pp_graph cfg);
 
-      if o.unreachable then Unreachable_code_elimination.apply cfg;
-      if o.propagation then Copy_propagation.apply cfg statics;
-      if o.deadstores then Dead_store_elimination.apply cfg statics;
+      if o.unreachable then begin
+        Unreachable_code_elimination.apply cfg;
+        Debug.log (fun () ->
+            Format.eprintf "=== After Unreachable Code Elimination ===\n%a\n"
+              Cfg.pp_graph cfg)
+      end;
+      if o.propagation then begin
+        Copy_propagation.apply cfg statics;
+        Debug.log (fun () ->
+            Format.eprintf "=== After Copy Propagation ===\n%a\n" Cfg.pp_graph
+              cfg)
+      end;
+      if o.deadstores then begin
+        Dead_store_elimination.apply cfg statics;
+        Debug.log (fun () ->
+            Format.eprintf "=== After Dead Store Elimination ===\n%a\n"
+              Cfg.pp_graph cfg)
+      end;
       let body_opt = cfg_to_instructions cfg in
       if body_opt = body || body_opt = [] then body_opt else loop body_opt
   in

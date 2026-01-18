@@ -82,6 +82,7 @@ parse_params() {
   phase=7
   assy_link=2
   modes=0
+  debug=0
 
   # optimisation bitmask defaults
   OPT_NONE=0
@@ -97,7 +98,7 @@ parse_params() {
   while [[ $# -gt 0 ]]; do
     case "${1-}" in
     -h | --help) usage ;;
-    -d | --debug) set -x ;;
+    -d | --debug) debug=1 ;;
 
     # Compilation stages [mutually exclusive]
     --lex)       ((modes+=1)); phase=1; assy_link=0 ;;
@@ -160,7 +161,7 @@ for source_file in "${args[@]}"; do
   $CC -E -P "$source_file" -o "$preprocessed_file"
 
   # run sub-c compiler on preprocessed input
-  $SUBC "$preprocessed_file" $phase $opt_flags
+  $SUBC "$preprocessed_file" $phase $opt_flags $debug
   #$CC -S -O -fno-asynchronous-unwind-tables -fcf-protection=none $preprocessed_file
 
   # output object files if assembling
