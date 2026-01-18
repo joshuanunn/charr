@@ -49,6 +49,13 @@ A compiler for a large subset of the C programming language, implemented in OCam
   - Storage duration
 - Code generation for global data
 
+### Optimisation
+- IR optimisations:
+  - Constant folding
+  - Dead store elimination
+  - Unreachable code elimination
+  - Copy propagation
+
 ## In Progress Features
 
 ### Types Beyond `int`
@@ -62,11 +69,6 @@ A compiler for a large subset of the C programming language, implemented in OCam
 - Structures (`struct`, `.`, `->`)
 
 ### Optimisation
-- IR optimisations:
-  - Constant folding
-  - Dead store elimination
-  - Unreachable code elimination
-  - Copy propagation
 - Register allocation
   - graph colouring
   - Register coalescing
