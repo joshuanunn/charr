@@ -186,30 +186,53 @@ let pp_instruction_line fmt ins =
 let pp_copyset fmt copies =
   CopySet.elements copies |> List.iter (pp_instruction_line fmt)
 
+let pp_stringset fmt set =
+  StringSet.elements set |> List.sort String.compare |> String.concat ", "
+  |> Format.fprintf fmt "[%s]"
+
+let pp_nodeidset fmt set =
+  NodeIdSet.elements set |> List.map string_of_node_id |> String.concat ", "
+  |> Format.fprintf fmt "[%s]"
+
 let pp_node fmt = function
   | EntryNode { successors } ->
       Format.fprintf fmt "EntryNode\n";
-      Format.fprintf fmt "  successors: [%s]\n\n"
-        (NodeIdSet.elements successors
-        |> List.map string_of_node_id |> String.concat ", ")
+      Format.fprintf fmt "  successors: ";
+      pp_nodeidset fmt successors;
+      Format.fprintf fmt "\n\n"
   | ExitNode { predecessors } ->
       Format.fprintf fmt "ExitNode\n";
-      Format.fprintf fmt "  predecessors: [%s]\n"
-        (NodeIdSet.elements predecessors
-        |> List.map string_of_node_id |> String.concat ", ")
+      Format.fprintf fmt "  predecessors: ";
+      pp_nodeidset fmt predecessors;
+      Format.fprintf fmt "\n"
   | BasicBlock
-      { id; instructions; predecessors; successors; reaching_copies; _ } ->
+      {
+        id;
+        instructions;
+        predecessors;
+        successors;
+        reaching_copies;
+        live_variables;
+      } ->
       Format.fprintf fmt "BasicBlock B%d\n" id;
+
       Format.fprintf fmt "  instructions:\n";
       List.iter (pp_instruction_line fmt) instructions;
-      Format.fprintf fmt "  predecessors: [%s]\n"
-        (NodeIdSet.elements predecessors
-        |> List.map string_of_node_id |> String.concat ", ");
-      Format.fprintf fmt "  successors: [%s]\n"
-        (NodeIdSet.elements successors
-        |> List.map string_of_node_id |> String.concat ", ");
+
+      Format.fprintf fmt "  predecessors: ";
+      pp_nodeidset fmt predecessors;
+      Format.fprintf fmt "\n";
+
+      Format.fprintf fmt "  successors: ";
+      pp_nodeidset fmt successors;
+      Format.fprintf fmt "\n";
+
       Format.fprintf fmt "  reaching_copies:\n";
-      pp_copyset fmt reaching_copies
+      pp_copyset fmt reaching_copies;
+
+      Format.fprintf fmt "  live_variables: ";
+      pp_stringset fmt live_variables;
+      Format.fprintf fmt "\n"
 
 let pp_graph fmt { entry; exit; blocks; counter } =
   Format.fprintf fmt "=== CFG ===\n";
