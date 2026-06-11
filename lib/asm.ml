@@ -1,4 +1,38 @@
-type reg = AX | CX | DX | DI | SI | R8 | R9 | R10 | R11 [@@deriving show]
+type reg =
+  | AX
+  | BX
+  | CX
+  | DX
+  | DI
+  | SI
+  | R8
+  | R9
+  | R10
+  | R11
+  | R12
+  | R13
+  | R14
+  | R15
+  | SP
+  | BP
+  | XMM0
+  | XMM1
+  | XMM2
+  | XMM3
+  | XMM4
+  | XMM5
+  | XMM6
+  | XMM7
+  | XMM8
+  | XMM9
+  | XMM10
+  | XMM11
+  | XMM12
+  | XMM13
+  | XMM14
+  | XMM15
+[@@deriving show]
+
 type cond_code = E | NE | G | GE | L | LE [@@deriving show]
 
 type operand =
@@ -30,6 +64,7 @@ type instruction =
   | AllocateStack of int
   | DeallocateStack of int
   | Push of operand
+  | Pop of reg
   | Call of string
   | Ret
 [@@deriving show]

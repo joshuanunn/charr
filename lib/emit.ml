@@ -1,4 +1,4 @@
-type size = Byte | Long | Quad
+type size = Byte | Long | Quad | General
 
 let emit_cc (o : Asm.cond_code) : string =
   match o with
@@ -12,6 +12,7 @@ let emit_cc (o : Asm.cond_code) : string =
 let emit_op (s : size) (o : Asm.operand) : string =
   let reg64 = function
     | Asm.AX -> "%rax"
+    | Asm.BX -> "%rbx"
     | Asm.CX -> "%rcx"
     | Asm.DX -> "%rdx"
     | Asm.DI -> "%rdi"
@@ -20,9 +21,15 @@ let emit_op (s : size) (o : Asm.operand) : string =
     | Asm.R9 -> "%r9"
     | Asm.R10 -> "%r10"
     | Asm.R11 -> "%r11"
+    | Asm.R12 -> "%r12"
+    | Asm.R13 -> "%r13"
+    | Asm.R14 -> "%r14"
+    | Asm.R15 -> "%r15"
+    | _ -> failwith "not a valid 64-bit integer register"
   in
   let reg32 = function
     | Asm.AX -> "%eax"
+    | Asm.BX -> "%ebx"
     | Asm.CX -> "%ecx"
     | Asm.DX -> "%edx"
     | Asm.DI -> "%edi"
@@ -31,9 +38,15 @@ let emit_op (s : size) (o : Asm.operand) : string =
     | Asm.R9 -> "%r9d"
     | Asm.R10 -> "%r10d"
     | Asm.R11 -> "%r11d"
+    | Asm.R12 -> "%r12d"
+    | Asm.R13 -> "%r13d"
+    | Asm.R14 -> "%r14d"
+    | Asm.R15 -> "%r15d"
+    | _ -> failwith "not a valid 32-bit integer register"
   in
   let reg8 = function
     | Asm.AX -> "%al"
+    | Asm.BX -> "%bl"
     | Asm.CX -> "%cl"
     | Asm.DX -> "%dl"
     | Asm.DI -> "%dil"
@@ -42,10 +55,40 @@ let emit_op (s : size) (o : Asm.operand) : string =
     | Asm.R9 -> "%r9b"
     | Asm.R10 -> "%r10b"
     | Asm.R11 -> "%r11b"
+    | Asm.R12 -> "%r12b"
+    | Asm.R13 -> "%r13b"
+    | Asm.R14 -> "%r14b"
+    | Asm.R15 -> "%r15b"
+    | _ -> failwith "not a valid 8-bit integer register"
+  in
+  let general_purpose = function
+    | Asm.SP -> "%rsp"
+    | Asm.BP -> "%rbp"
+    | Asm.XMM0 -> "%xmm0"
+    | Asm.XMM1 -> "%xmm1"
+    | Asm.XMM2 -> "%xmm2"
+    | Asm.XMM3 -> "%xmm3"
+    | Asm.XMM4 -> "%xmm4"
+    | Asm.XMM5 -> "%xmm5"
+    | Asm.XMM6 -> "%xmm6"
+    | Asm.XMM7 -> "%xmm7"
+    | Asm.XMM8 -> "%xmm8"
+    | Asm.XMM9 -> "%xmm9"
+    | Asm.XMM10 -> "%xmm10"
+    | Asm.XMM11 -> "%xmm11"
+    | Asm.XMM12 -> "%xmm12"
+    | Asm.XMM13 -> "%xmm13"
+    | Asm.XMM14 -> "%xmm14"
+    | Asm.XMM15 -> "%xmm15"
+    | _ -> failwith "not a valid general-purpose register"
   in
   match o with
   | Reg r -> (
-      match s with Byte -> reg8 r | Long -> reg32 r | Quad -> reg64 r)
+      match s with
+      | Byte -> reg8 r
+      | Long -> reg32 r
+      | Quad -> reg64 r
+      | General -> general_purpose r)
   | Stack i -> Printf.sprintf "%d(%%rbp)" i
   | Imm i -> Printf.sprintf "$%d" i
   | Data s -> Printf.sprintf "%s(%%rip)" s
@@ -118,6 +161,7 @@ let emit_instruction (i : Asm.instruction) : string list =
   | Push o ->
       let ops = Printf.sprintf "%s" (emit_op Quad o) in
       [ format_instruction "pushq" ops ]
+  | Pop _ -> failwith "TBC"
   | Call l -> [ format_instruction "call" (l ^ "@PLT") ]
 
 let emit_top_level (f : Asm.top_level) : string list =
