@@ -1,0 +1,20 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "add_variables");
+         params =
+         [(Ast.Identifier "x"); (Ast.Identifier "y"); (Ast.Identifier "z")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      (Ast.Return
+                         Ast.Binary {op = Ast.Add;
+                           left =
+                           Ast.Binary {op = Ast.Add;
+                             left = (Ast.Var (Ast.Identifier "x"));
+                             right = (Ast.Var (Ast.Identifier "y"))};
+                           right = (Ast.Var (Ast.Identifier "z"))}))
+                    ]));
+         fun_type =
+         Ast.FunType {params = [Ast.Long; Ast.Long; Ast.Int]; ret = Ast.Long};
+         storage = None })
+     ])

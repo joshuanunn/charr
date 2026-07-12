@@ -1,0 +1,40 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "add_variables");
+         params =
+         [(Ast.Identifier "x"); (Ast.Identifier "y"); (Ast.Identifier "z")];
+         body = None;
+         fun_type =
+         Ast.FunType {params = [Ast.Long; Ast.Long; Ast.Int]; ret = Ast.Long};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "x");
+                            init = (Some (Ast.Constant (Ast.ConstInt 3l)));
+                            var_type = Ast.Long; storage = None }));
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "y");
+                             init = (Some (Ast.Constant (Ast.ConstInt 4l)));
+                             var_type = Ast.Long; storage = None }));
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "z");
+                             init = (Some (Ast.Constant (Ast.ConstInt 5l)));
+                             var_type = Ast.Int; storage = None }));
+                     (Ast.S
+                        (Ast.Return
+                           Ast.FunctionCall {
+                             name = (Ast.Identifier "add_variables");
+                             args =
+                             [(Ast.Var (Ast.Identifier "x"));
+                               (Ast.Var (Ast.Identifier "y"));
+                               (Ast.Var (Ast.Identifier "z"))]}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
+     ])

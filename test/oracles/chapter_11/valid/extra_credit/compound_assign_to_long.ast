@@ -1,0 +1,48 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "l");
+                           init =
+                           (Some Ast.Unary {op = Ast.Negate;
+                                   exp =
+                                   (Ast.Constant (Ast.ConstLong 34359738368L))});
+                           var_type = Ast.Long; storage = None }));
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "i");
+                            init =
+                            (Some Ast.Unary {op = Ast.Negate;
+                                    exp = (Ast.Constant (Ast.ConstInt 10l))});
+                            var_type = Ast.Int; storage = None }));
+                    (Ast.S
+                       (Ast.Expression
+                          (Ast.Assignment ((Ast.Var (Ast.Identifier "l")),
+                             Ast.Binary {op = Ast.Subtract;
+                               left = (Ast.Var (Ast.Identifier "l"));
+                               right = (Ast.Var (Ast.Identifier "i"))}
+                             ))));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left = (Ast.Var (Ast.Identifier "l"));
+                           right =
+                           Ast.Unary {op = Ast.Negate;
+                             exp =
+                             (Ast.Constant (Ast.ConstLong 34359738358L))}};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
+     ])

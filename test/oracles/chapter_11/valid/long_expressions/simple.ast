@@ -1,0 +1,26 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "l");
+                           init =
+                           (Some (Ast.Constant
+                                    (Ast.ConstLong 9223372036854775807L)));
+                           var_type = Ast.Long; storage = None }));
+                    (Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.Equal;
+                            left =
+                            Ast.Binary {op = Ast.Subtract;
+                              left = (Ast.Var (Ast.Identifier "l"));
+                              right = (Ast.Constant (Ast.ConstLong 2L))};
+                            right =
+                            (Ast.Constant
+                               (Ast.ConstLong 9223372036854775805L))}))
+                    ]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
+     ])

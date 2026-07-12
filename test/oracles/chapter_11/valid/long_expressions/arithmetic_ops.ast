@@ -1,0 +1,255 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "a"); init = None; var_type = Ast.Long;
+         storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "b"); init = None; var_type = Ast.Long;
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "addition"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.Equal;
+                            left =
+                            Ast.Binary {op = Ast.Add;
+                              left = (Ast.Var (Ast.Identifier "a"));
+                              right = (Ast.Var (Ast.Identifier "b"))};
+                            right =
+                            (Ast.Constant (Ast.ConstLong 4294967295L))}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "subtraction"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.Equal;
+                            left =
+                            Ast.Binary {op = Ast.Subtract;
+                              left = (Ast.Var (Ast.Identifier "a"));
+                              right = (Ast.Var (Ast.Identifier "b"))};
+                            right =
+                            Ast.Unary {op = Ast.Negate;
+                              exp =
+                              (Ast.Constant (Ast.ConstLong 4294967380L))}}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "multiplication"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.Equal;
+                            left =
+                            Ast.Binary {op = Ast.Multiply;
+                              left = (Ast.Var (Ast.Identifier "a"));
+                              right = (Ast.Constant (Ast.ConstLong 4L))};
+                            right =
+                            (Ast.Constant (Ast.ConstLong 17179869160L))}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "division"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Expression
+                          (Ast.Assignment ((Ast.Var (Ast.Identifier "b")),
+                             Ast.Binary {op = Ast.Divide;
+                               left = (Ast.Var (Ast.Identifier "a"));
+                               right = (Ast.Constant (Ast.ConstLong 128L))}
+                             ))));
+                     (Ast.S
+                        (Ast.Return
+                           Ast.Binary {op = Ast.Equal;
+                             left = (Ast.Var (Ast.Identifier "b"));
+                             right = (Ast.Constant (Ast.ConstLong 33554431L))}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "remaind"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Expression
+                          (Ast.Assignment ((Ast.Var (Ast.Identifier "b")),
+                             Ast.Binary {op = Ast.Remainder;
+                               left =
+                               Ast.Unary {op = Ast.Negate;
+                                 exp = (Ast.Var (Ast.Identifier "a"))};
+                               right =
+                               (Ast.Constant (Ast.ConstLong 4294967290L))}
+                             ))));
+                     (Ast.S
+                        (Ast.Return
+                           Ast.Binary {op = Ast.Equal;
+                             left = (Ast.Var (Ast.Identifier "b"));
+                             right =
+                             Ast.Unary {op = Ast.Negate;
+                               exp = (Ast.Constant (Ast.ConstLong 5L))}}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "complement"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.Equal;
+                            left =
+                            Ast.Unary {op = Ast.BwNot;
+                              exp = (Ast.Var (Ast.Identifier "a"))};
+                            right =
+                            Ast.Unary {op = Ast.Negate;
+                              exp =
+                              (Ast.Constant
+                                 (Ast.ConstLong 9223372036854775807L))}}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Expression
+                          (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
+                             (Ast.Constant (Ast.ConstLong 4294967290L))))));
+                     (Ast.S
+                        (Ast.Expression
+                           (Ast.Assignment ((Ast.Var (Ast.Identifier "b")),
+                              (Ast.Constant (Ast.ConstLong 5L))))));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "addition"); args = []}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 1l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
+                              Ast.Unary {op = Ast.Negate;
+                                exp =
+                                (Ast.Constant (Ast.ConstLong 4294967290L))}
+                              ))));
+                     (Ast.S
+                        (Ast.Expression
+                           (Ast.Assignment ((Ast.Var (Ast.Identifier "b")),
+                              (Ast.Constant (Ast.ConstLong 90L))))));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "subtraction");
+                              args = []}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
+                              (Ast.Constant (Ast.ConstLong 4294967290L))))));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "multiplication");
+                              args = []}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 3l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
+                              (Ast.Constant (Ast.ConstLong 4294967290L))))));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "division"); args = []}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 4l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
+                              (Ast.Constant (Ast.ConstLong 8589934585L))))));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "remaind"); args = []}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 5l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
+                              (Ast.Constant
+                                 (Ast.ConstLong 9223372036854775806L))
+                              ))));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "complement"); args = []}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 6l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
+     ])

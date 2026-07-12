@@ -1,0 +1,168 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "not"); params = [(Ast.Identifier "l")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      (Ast.Return
+                         Ast.Unary {op = Ast.Not;
+                           exp = (Ast.Var (Ast.Identifier "l"))}))
+                    ]));
+         fun_type = Ast.FunType {params = [Ast.Long]; ret = Ast.Int};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "if_cond");
+          params = [(Ast.Identifier "l")];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {cond_exp = (Ast.Var (Ast.Identifier "l"));
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
+                         else_smt = None});
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = [Ast.Long]; ret = Ast.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "and");
+          params = [(Ast.Identifier "l1"); (Ast.Identifier "l2")];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.And;
+                            left = (Ast.Var (Ast.Identifier "l1"));
+                            right = (Ast.Var (Ast.Identifier "l2"))}))
+                     ]));
+          fun_type =
+          Ast.FunType {params = [Ast.Long; Ast.Int]; ret = Ast.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "or");
+          params = [(Ast.Identifier "l1"); (Ast.Identifier "l2")];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.Or;
+                            left = (Ast.Var (Ast.Identifier "l1"));
+                            right = (Ast.Var (Ast.Identifier "l2"))}))
+                     ]));
+          fun_type =
+          Ast.FunType {params = [Ast.Int; Ast.Long]; ret = Ast.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "l");
+                            init =
+                            (Some (Ast.Constant
+                                     (Ast.ConstLong 1152921504606846976L)));
+                            var_type = Ast.Long; storage = None }));
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "zero");
+                             init = (Some (Ast.Constant (Ast.ConstLong 0L)));
+                             var_type = Ast.Long; storage = None }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.FunctionCall {name = (Ast.Identifier "not");
+                            args = [(Ast.Var (Ast.Identifier "l"))]};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 1l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {name = (Ast.Identifier "not");
+                              args = [(Ast.Var (Ast.Identifier "zero"))]}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "if_cond");
+                              args = [(Ast.Var (Ast.Identifier "l"))]}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 3l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.FunctionCall {
+                            name = (Ast.Identifier "if_cond");
+                            args = [(Ast.Var (Ast.Identifier "zero"))]};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 4l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.FunctionCall {name = (Ast.Identifier "and");
+                            args =
+                            [(Ast.Var (Ast.Identifier "zero"));
+                              (Ast.Constant (Ast.ConstInt 1l))]};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 5l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {name = (Ast.Identifier "or");
+                              args =
+                              [(Ast.Constant (Ast.ConstInt 1l));
+                                (Ast.Var (Ast.Identifier "l"))]}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 6l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
+     ])

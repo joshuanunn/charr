@@ -1,0 +1,49 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "target");
+         params = [(Ast.Identifier "a")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "b");
+                           init =
+                           (Some Ast.Binary {op = Ast.Subtract;
+                                   left =
+                                   Ast.Binary {op = Ast.Multiply;
+                                     left = (Ast.Var (Ast.Identifier "a"));
+                                     right =
+                                     (Ast.Constant (Ast.ConstLong 5L))};
+                                   right = (Ast.Constant (Ast.ConstLong 10L))});
+                           var_type = Ast.Long; storage = None }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.Equal;
+                           left = (Ast.Var (Ast.Identifier "b"));
+                           right =
+                           (Ast.Constant (Ast.ConstLong 21474836440L))};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+         fun_type = Ast.FunType {params = [Ast.Long]; ret = Ast.Int};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          Ast.FunctionCall {name = (Ast.Identifier "target");
+                            args =
+                            [(Ast.Constant (Ast.ConstLong 4294967290L))]}))
+                     ]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
+     ])

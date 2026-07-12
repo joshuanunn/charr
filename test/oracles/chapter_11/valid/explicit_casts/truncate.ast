@@ -1,0 +1,124 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "truncate");
+         params = [(Ast.Identifier "l"); (Ast.Identifier "expected")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "result");
+                           init =
+                           (Some Ast.Cast {target_type = Ast.Int;
+                                   exp = (Ast.Var (Ast.Identifier "l"))});
+                           var_type = Ast.Int; storage = None }));
+                    (Ast.S
+                       (Ast.Return
+                          Ast.Binary {op = Ast.Equal;
+                            left = (Ast.Var (Ast.Identifier "result"));
+                            right = (Ast.Var (Ast.Identifier "expected"))}))
+                    ]));
+         fun_type = Ast.FunType {params = [Ast.Long; Ast.Int]; ret = Ast.Int};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Unary {op = Ast.Not;
+                           exp =
+                           Ast.FunctionCall {
+                             name = (Ast.Identifier "truncate");
+                             args =
+                             [(Ast.Constant (Ast.ConstLong 10L));
+                               (Ast.Constant (Ast.ConstInt 10l))]}};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "truncate");
+                              args =
+                              [Ast.Unary {op = Ast.Negate;
+                                 exp = (Ast.Constant (Ast.ConstLong 10L))};
+                                Ast.Unary {op = Ast.Negate;
+                                  exp = (Ast.Constant (Ast.ConstInt 10l))}
+                                ]}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "truncate");
+                              args =
+                              [(Ast.Constant (Ast.ConstLong 17179869189L));
+                                (Ast.Constant (Ast.ConstInt 5l))]}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 3l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Unary {op = Ast.Not;
+                            exp =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "truncate");
+                              args =
+                              [Ast.Unary {op = Ast.Negate;
+                                 exp =
+                                 (Ast.Constant (Ast.ConstLong 17179869179L))};
+                                (Ast.Constant (Ast.ConstLong 5L))]}};
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 4l))))
+                                  ]));
+                          else_smt = None});
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "i");
+                             init =
+                             (Some Ast.Cast {target_type = Ast.Int;
+                                     exp =
+                                     (Ast.Constant
+                                        (Ast.ConstLong 17179869189L))});
+                             var_type = Ast.Int; storage = None }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          Ast.Binary {op = Ast.NotEqual;
+                            left = (Ast.Var (Ast.Identifier "i"));
+                            right = (Ast.Constant (Ast.ConstInt 5l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 5l)));
+                          else_smt = None});
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
+     ])

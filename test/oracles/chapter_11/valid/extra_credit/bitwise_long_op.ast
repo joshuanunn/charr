@@ -1,0 +1,244 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "l1");
+                           init =
+                           (Some (Ast.Constant
+                                    (Ast.ConstLong 71777214294589695L)));
+                           var_type = Ast.Long; storage = None }));
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "l2");
+                            init =
+                            (Some Ast.Unary {op = Ast.Negate;
+                                    exp =
+                                    (Ast.Constant (Ast.ConstLong 4294967296L))});
+                            var_type = Ast.Long; storage = None }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwAnd;
+                             left = (Ast.Var (Ast.Identifier "l1"));
+                             right = (Ast.Var (Ast.Identifier "l2"))};
+                           right =
+                           (Ast.Constant (Ast.ConstLong 71777214277877760L))};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwOr;
+                             left = (Ast.Var (Ast.Identifier "l1"));
+                             right = (Ast.Var (Ast.Identifier "l2"))};
+                           right =
+                           Ast.Unary {op = Ast.Negate;
+                             exp = (Ast.Constant (Ast.ConstLong 4278255361L))}};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 2l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwXor;
+                             left = (Ast.Var (Ast.Identifier "l1"));
+                             right = (Ast.Var (Ast.Identifier "l2"))};
+                           right =
+                           Ast.Unary {op = Ast.Negate;
+                             exp =
+                             (Ast.Constant (Ast.ConstLong 71777218556133121L))}};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 3l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwAnd;
+                             left =
+                             Ast.Unary {op = Ast.Negate;
+                               exp = (Ast.Constant (Ast.ConstLong 1L))};
+                             right =
+                             (Ast.Constant (Ast.ConstLong 34359738368L))};
+                           right =
+                           (Ast.Constant (Ast.ConstLong 34359738368L))};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 4l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwOr;
+                             left = (Ast.Constant (Ast.ConstLong 0L));
+                             right =
+                             (Ast.Constant (Ast.ConstLong 34359738368L))};
+                           right =
+                           (Ast.Constant (Ast.ConstLong 34359738368L))};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 5l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwXor;
+                             left =
+                             (Ast.Constant (Ast.ConstLong 34359738368L));
+                             right =
+                             (Ast.Constant (Ast.ConstLong 137438953472L))};
+                           right =
+                           (Ast.Constant (Ast.ConstLong 171798691840L))};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 6l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "l");
+                            init =
+                            (Some (Ast.Constant
+                                     (Ast.ConstLong 4611686018427387903L)));
+                            var_type = Ast.Long; storage = None }));
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "i");
+                            init =
+                            (Some Ast.Unary {op = Ast.Negate;
+                                    exp =
+                                    (Ast.Constant (Ast.ConstInt 1073741824l))});
+                            var_type = Ast.Int; storage = None }));
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "i2");
+                            init =
+                            (Some Ast.Unary {op = Ast.Negate;
+                                    exp = (Ast.Constant (Ast.ConstInt 1l))});
+                            var_type = Ast.Int; storage = None }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwAnd;
+                             left = (Ast.Var (Ast.Identifier "i"));
+                             right = (Ast.Var (Ast.Identifier "l"))};
+                           right =
+                           (Ast.Constant (Ast.ConstLong 4611686017353646080L))};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 7l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwOr;
+                             left = (Ast.Var (Ast.Identifier "l"));
+                             right = (Ast.Var (Ast.Identifier "i"))};
+                           right =
+                           Ast.Unary {op = Ast.Negate;
+                             exp = (Ast.Constant (Ast.ConstInt 1l))}};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 8l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwXor;
+                             left = (Ast.Var (Ast.Identifier "l"));
+                             right = (Ast.Var (Ast.Identifier "i"))};
+                           right =
+                           Ast.Unary {op = Ast.Negate;
+                             exp =
+                             (Ast.Constant
+                                (Ast.ConstLong 4611686017353646081L))}};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 9l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         Ast.Binary {op = Ast.NotEqual;
+                           left =
+                           Ast.Binary {op = Ast.BwXor;
+                             left = (Ast.Var (Ast.Identifier "i2"));
+                             right =
+                             (Ast.Constant
+                                (Ast.ConstLong 4611686018427387903L))};
+                           right =
+                           Ast.Unary {op = Ast.BwNot;
+                             exp =
+                             (Ast.Constant
+                                (Ast.ConstLong 4611686018427387903L))}};
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 10l))))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
+     ])
