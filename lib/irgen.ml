@@ -67,12 +67,16 @@ let rec collect_cases (s : Ast.stmt) : (Ast.expr option * string) list =
 let rec convert_expr (e : Ast.expr) (le : Env.lenv) :
     Ir.value * Ir.instruction list =
   match e with
-  | LiteralInt n -> (Constant n, [])
+  | Constant c -> (
+      match c with
+      | ConstInt i -> (Constant (Int32.to_int i), [])
+      | ConstLong _ -> failwith "Not implemented")
   (* Insert any AST Vars into IR Vars, as names are gaurunteed unique *)
   | Var id -> (
       match id with
       | Identifier v -> (Var v, [])
       | _ -> failwith "Var name must be Identifier")
+  | Cast _ -> failwith "Not implemented"
   | Unary { op : Ast.unop; exp : Ast.expr } -> (
       let src, src_instructions = convert_expr exp le in
       match op with

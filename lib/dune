@@ -28,7 +28,7 @@
   asm
   emit)
  (preprocess
-  (pps ppx_deriving.show)))
+  (pps ppx_deriving.show ppx_deriving.ord)))
 
 (menhir
  (modules parser))

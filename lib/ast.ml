@@ -1,7 +1,11 @@
 type storage_class = Static | Extern [@@deriving show]
-type typ = Int [@@deriving show]
 
-type specifier = SpecType of typ | SpecStorage of storage_class
+type ctype = Int | Long | FunType of { params : ctype list; ret : ctype }
+[@@deriving show, ord]
+
+type const = ConstInt of int32 | ConstLong of int64 [@@deriving show]
+
+type specifier = SpecType of ctype | SpecStorage of storage_class
 [@@deriving show]
 
 type ident =
@@ -43,8 +47,9 @@ type binop =
 [@@deriving show]
 
 type expr =
-  | LiteralInt of int
+  | Constant of const
   | Var of ident
+  | Cast of { target_type : ctype; exp : expr }
   | Unary of { op : unop; exp : expr }
   | Binary of { op : binop; left : expr; right : expr }
   | Assignment of expr * expr
@@ -86,6 +91,7 @@ and fun_decl = {
   name : ident;
   params : ident list;
   body : block option;
+  fun_type : ctype;
   storage : storage_class option;
 }
 [@@deriving show]
@@ -93,50 +99,64 @@ and fun_decl = {
 and var_decl = {
   name : ident;
   init : expr option;
+  var_type : ctype;
   storage : storage_class option;
 }
 [@@deriving show]
 
 type prog = Program of decl list [@@deriving show]
 
-let literal_to_int : expr -> int = function
-  | LiteralInt i -> i
-  | _ -> failwith "Expected LiteralInt"
-
-type decl_specs = { spec_type : typ; spec_storage : storage_class option }
+type decl_specs = { spec_type : ctype; spec_storage : storage_class option }
 [@@deriving show]
 
+let extract_type types =
+  match List.sort compare_ctype types with
+  | [] -> failwith "No type specifier"
+  | [ Int ] -> Int
+  | [ Long ] | [ Int; Long ] -> Long
+  | _ ->
+      failwith
+        ("Invalid type specifier: "
+        ^ String.concat " " (List.map show_ctype types))
+
 let extract_specifiers (sl : specifier list) : decl_specs =
-  let typ_opt = ref None in
-  let storage_class_opt = ref None in
+  let types, storages =
+    List.partition_map
+      (function SpecType t -> Either.left t | SpecStorage s -> Either.right s)
+      sl
+  in
 
-  List.iter
-    (function
-      | SpecType t -> begin
-          match !typ_opt with
-          | None -> typ_opt := Some t
-          | Some _ -> failwith "Invalid type specifier"
-        end
-      | SpecStorage s -> begin
-          match !storage_class_opt with
-          | None -> storage_class_opt := Some s
-          | Some _ -> failwith "Invalid storage class"
-        end)
-    sl;
-
-  match !typ_opt with
-  | None -> failwith "No type specifier"
-  | Some t -> { spec_type = t; spec_storage = !storage_class_opt }
+  let spec_storage =
+    match storages with
+    | [] -> None
+    | [ s ] -> Some s
+    | _ -> failwith "Invalid storage specifier"
+  in
+  { spec_type = extract_type types; spec_storage }
 
 let mk_prog f = Program f
 
 let mk_func_defn specs name params body =
   let ds = extract_specifiers specs in
-  FunDecl { name; params; body = Some (Block body); storage = ds.spec_storage }
+  FunDecl
+    {
+      name;
+      params = List.map snd params;
+      body = Some (Block body);
+      fun_type = FunType { params = List.map fst params; ret = ds.spec_type };
+      storage = ds.spec_storage;
+    }
 
 let mk_func_decl specs name params =
   let ds = extract_specifiers specs in
-  FunDecl { name; params; body = None; storage = ds.spec_storage }
+  FunDecl
+    {
+      name;
+      params = List.map snd params;
+      body = None;
+      fun_type = FunType { params = List.map fst params; ret = ds.spec_type };
+      storage = ds.spec_storage;
+    }
 
 let mk_func_call e args =
   match e with
@@ -144,7 +164,13 @@ let mk_func_call e args =
   | _ -> failwith "Called object is not a function"
 
 let mk_ident i = Identifier i
-let mk_int_expr n = LiteralInt n
+
+let mk_int_const i =
+  if Int64.compare i (Int64.of_int32 Int32.max_int) <= 0 then
+    Constant (ConstInt (Int64.to_int32 i))
+  else Constant (ConstLong i)
+
+let mk_long_const i = Constant (ConstLong i)
 let mk_binop_expr op left right = Binary { op; left; right }
 let mk_unop_expr op exp = Unary { op; exp }
 
@@ -177,11 +203,16 @@ let mk_default_stmt s = Default { body = s; id = None }
 
 let mk_decl_init_stmt specs i v =
   let ds = extract_specifiers specs in
-  { name = i; init = Some v; storage = ds.spec_storage }
+  {
+    name = i;
+    init = Some v;
+    var_type = ds.spec_type;
+    storage = ds.spec_storage;
+  }
 
 let mk_decl_stmt specs i =
   let ds = extract_specifiers specs in
-  { name = i; init = None; storage = ds.spec_storage }
+  { name = i; init = None; var_type = ds.spec_type; storage = ds.spec_storage }
 
 let mk_stmt_block_item s = S s
 let mk_decl_block_item d = D d
@@ -199,3 +230,11 @@ let mk_unary_update_expr (op : unop) (exp : expr) =
   match exp with
   | Var _ -> mk_unop_expr op exp
   | _ -> failwith "Unary increment/decrement can only be applied to variables"
+
+let mk_param types name = (extract_type types, name)
+let mk_cast_expr types exp = Cast { target_type = extract_type types; exp }
+
+let literal_to_int = function
+  | Constant (ConstInt i) -> Int32.to_int i
+  | Constant (ConstLong _) -> failwith "Not implemented"
+  | _ -> failwith "Expected constant"

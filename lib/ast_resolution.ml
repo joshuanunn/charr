@@ -35,8 +35,9 @@ and predeclare_stmt_labels (stmt : Ast.stmt) (se : Env.senv) : unit =
     replaced by their unique scoped names. *)
 let rec resolve_expr (e : Ast.expr) (se : Env.senv) : Ast.expr =
   match e with
-  | LiteralInt i -> LiteralInt i
+  | Constant i -> Constant i
   | Var v -> Var (Env.resolve_var se v)
+  | Cast { target_type; exp } -> Cast { target_type; exp = resolve_expr exp se }
   | Unary { op; exp } -> Unary { op; exp = resolve_expr exp se }
   | Binary { op; left; right } ->
       Binary { op; left = resolve_expr left se; right = resolve_expr right se }
@@ -71,13 +72,13 @@ let resolve_opt_expr (e : Ast.expr option) (se : Env.senv) : Ast.expr option =
     returning a new [Ast.for_init] with declared variables resolved. *)
 let resolve_for_init (i : Ast.for_init) (se : Env.senv) : Ast.for_init =
   match i with
-  | InclDecl { name; init = None; storage } ->
+  | InclDecl { name; init = None; var_type; storage } ->
       let var = Env.declare_var se name in
-      InclDecl { name = var; init = None; storage }
-  | InclDecl { name; init = Some expr; storage } ->
+      InclDecl { name = var; init = None; var_type; storage }
+  | InclDecl { name; init = Some expr; var_type; storage } ->
       let var = Env.declare_var se name in
       let init = Some (resolve_expr expr se) in
-      InclDecl { name = var; init; storage }
+      InclDecl { name = var; init; var_type; storage }
   | InitExp e -> InitExp (resolve_opt_expr e se)
 
 (** [resolve_stmt s se] resolves all expressions, variables, and labels in
@@ -134,7 +135,7 @@ let rec resolve_stmt (s : Ast.stmt) (se : Env.senv) : Ast.stmt =
       let body' = resolve_stmt body se in
       match value' with
       (* TODO: add support for other integer types once implemented *)
-      | LiteralInt _ -> Case { value = value'; body = body'; id }
+      | Constant _ -> Case { value = value'; body = body'; id }
       | _ -> failwith "case label must be a constant integer expression")
   | Default { body; id } -> Default { body = resolve_stmt body se; id }
   (* goto labels can now be resolved following label predeclaration pass *)
@@ -165,14 +166,14 @@ and resolve_decl (d : Ast.decl) (se : Env.senv) : Ast.decl =
       failwith "block-scope static function declarations are not allowed"
   | FunDecl { body = Some _; _ } ->
       failwith "local function definitions are not allowed"
-  | FunDecl { name; params; body = None; storage } ->
+  | FunDecl { name; params; body = None; fun_type; storage } ->
       let name' = Env.declare_fun se name in
       (* Push new scope for function parameter declaration *)
       Env.push_ident_scope se;
       let params' = List.map (fun e -> Env.declare_var se e) params in
       Env.pop_ident_scope se;
-      FunDecl { name = name'; params = params'; body = None; storage }
-  | VarDecl { name; init; storage } ->
+      FunDecl { name = name'; params = params'; body = None; fun_type; storage }
+  | VarDecl { name; init; var_type; storage } ->
       let has_linkage = storage = Some Extern in
 
       (* check var not defined with and without linkage in the same scope *)
@@ -197,7 +198,7 @@ and resolve_decl (d : Ast.decl) (se : Env.senv) : Ast.decl =
         else Option.map (fun e -> resolve_expr e se) init
       in
 
-      VarDecl { name = name'; init = init'; storage }
+      VarDecl { name = name'; init = init'; var_type; storage }
 
 (** [resolve_func f se] resolves all identifiers, variables, and labels in
     function [f] using environment [se]. Predeclares all labels before resolving
@@ -217,7 +218,13 @@ and resolve_func (f : Ast.fun_decl) (se : Env.senv) : Ast.fun_decl =
 
   Env.pop_ident_scope se;
   Env.pop_label_scope se;
-  { name = f.name; params = params'; body = body'; storage = f.storage }
+  {
+    name = f.name;
+    params = params';
+    body = body';
+    fun_type = f.fun_type;
+    storage = f.storage;
+  }
 
 (** [resolve_block b se] resolves all statements and declarations in block [b]
     using environment [se], returning a new resolved block. *)

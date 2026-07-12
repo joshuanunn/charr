@@ -8,7 +8,10 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
   let init = v.init in
   let init_val =
     match init with
-    | Some (Ast.LiteralInt i) -> Env.Initial i
+    | Some (Ast.Constant i) -> (
+        match i with
+        | ConstInt i -> Env.Initial (Int32.to_int i)
+        | ConstLong _ -> failwith "Not implemented")
     | None -> (
         match storage with
         | Some Extern -> Env.NoInitialiser
@@ -80,7 +83,10 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
       let init =
         match v.init with
         | None -> Env.Initial 0
-        | Some (Ast.LiteralInt i) -> Env.Initial i
+        | Some (Ast.Constant i) -> (
+            match i with
+            | ConstInt i -> Env.Initial (Int32.to_int i)
+            | ConstLong _ -> failwith "Not implemented")
         | Some _ -> failwith "non-constant initialiser on local static variable"
       in
       Env.add te v.name
@@ -141,8 +147,12 @@ and type_fun_decl (f : Ast.fun_decl) (te : Env.tenv) : unit =
     types and recursively checks all subexpressions. *)
 and type_expr (e : Ast.expr) (te : Env.tenv) : unit =
   match e with
-  | LiteralInt _ -> ()
+  | Constant c -> (
+      match c with
+      | ConstInt _ -> ()
+      | ConstLong _ -> failwith "Not implemented")
   | Var v -> Env.assert_var te v
+  | Cast _ -> failwith "Not implemented"
   | Unary { exp; _ } -> type_expr exp te
   | Binary { left; right; _ } ->
       type_expr left te;
