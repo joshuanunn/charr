@@ -5,7 +5,8 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Label ((Ast.Identifier "unused"),
-                         (Ast.Return (Ast.LiteralInt 0)))))
+                         (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

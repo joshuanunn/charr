@@ -2,6 +2,8 @@
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "main"); params = [];
          body =
-         (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 100)))]));
-         storage = None })
+         (Some (Ast.Block
+                  [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 100l))))]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

@@ -6,15 +6,17 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_and");
-                           init = (Some (Ast.LiteralInt 3)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 3l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment (
                              (Ast.Var (Ast.Identifier "to_and")),
                              Ast.Binary {op = Ast.BwAnd;
                                left = (Ast.Var (Ast.Identifier "to_and"));
-                               right = (Ast.LiteralInt 6)}
+                               right = (Ast.Constant (Ast.ConstInt 6l))}
                              ))));
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "to_and"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

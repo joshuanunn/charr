@@ -6,7 +6,8 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 1)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 1l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.DoWhile {
                          body =
@@ -19,14 +20,16 @@
                                          Ast.Binary {op = Ast.Multiply;
                                            left =
                                            (Ast.Var (Ast.Identifier "a"));
-                                           right = (Ast.LiteralInt 2)}
+                                           right =
+                                           (Ast.Constant (Ast.ConstInt 2l))}
                                          ))))
                                  ]));
                          cond =
                          Ast.Binary {op = Ast.LessThan;
                            left = (Ast.Var (Ast.Identifier "a"));
-                           right = (Ast.LiteralInt 11)};
+                           right = (Ast.Constant (Ast.ConstInt 11l))};
                          id = None});
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

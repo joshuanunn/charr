@@ -26,37 +26,46 @@
                                        Ast.Binary {op = Ast.Equal;
                                          left =
                                          (Ast.Var (Ast.Identifier "a"));
-                                         right = (Ast.LiteralInt 1)};
+                                         right =
+                                         (Ast.Constant (Ast.ConstInt 1l))};
                                        right =
                                        Ast.Binary {op = Ast.Equal;
                                          left =
                                          (Ast.Var (Ast.Identifier "b"));
-                                         right = (Ast.LiteralInt 2)}};
+                                         right =
+                                         (Ast.Constant (Ast.ConstInt 2l))}};
                                      right =
                                      Ast.Binary {op = Ast.Equal;
                                        left = (Ast.Var (Ast.Identifier "c"));
-                                       right = (Ast.LiteralInt 3)}};
+                                       right =
+                                       (Ast.Constant (Ast.ConstInt 3l))}};
                                    right =
                                    Ast.Binary {op = Ast.Equal;
                                      left = (Ast.Var (Ast.Identifier "d"));
-                                     right = (Ast.LiteralInt 4)}};
+                                     right = (Ast.Constant (Ast.ConstInt 4l))}};
                                  right =
                                  Ast.Binary {op = Ast.Equal;
                                    left = (Ast.Var (Ast.Identifier "e"));
-                                   right = (Ast.LiteralInt 5)}};
+                                   right = (Ast.Constant (Ast.ConstInt 5l))}};
                                right =
                                Ast.Binary {op = Ast.Equal;
                                  left = (Ast.Var (Ast.Identifier "f"));
-                                 right = (Ast.LiteralInt 6)}};
+                                 right = (Ast.Constant (Ast.ConstInt 6l))}};
                              right =
                              Ast.Binary {op = Ast.Equal;
                                left = (Ast.Var (Ast.Identifier "g"));
-                               right = (Ast.LiteralInt 7)}};
+                               right = (Ast.Constant (Ast.ConstInt 7l))}};
                            right =
                            Ast.Binary {op = Ast.Equal;
                              left = (Ast.Var (Ast.Identifier "h"));
-                             right = (Ast.LiteralInt 8)}}))
+                             right = (Ast.Constant (Ast.ConstInt 8l))}}))
                     ]));
+         fun_type =
+         Ast.FunType {
+           params =
+           [Ast.Int; Ast.Int; Ast.Int; Ast.Int; Ast.Int; Ast.Int; Ast.Int;
+             Ast.Int];
+           ret = Ast.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -66,10 +75,15 @@
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "foo");
                             args =
-                            [(Ast.LiteralInt 1); (Ast.LiteralInt 2);
-                              (Ast.LiteralInt 3); (Ast.LiteralInt 4);
-                              (Ast.LiteralInt 5); (Ast.LiteralInt 6);
-                              (Ast.LiteralInt 7); (Ast.LiteralInt 8)]}))
+                            [(Ast.Constant (Ast.ConstInt 1l));
+                              (Ast.Constant (Ast.ConstInt 2l));
+                              (Ast.Constant (Ast.ConstInt 3l));
+                              (Ast.Constant (Ast.ConstInt 4l));
+                              (Ast.Constant (Ast.ConstInt 5l));
+                              (Ast.Constant (Ast.ConstInt 6l));
+                              (Ast.Constant (Ast.ConstInt 7l));
+                              (Ast.Constant (Ast.ConstInt 8l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

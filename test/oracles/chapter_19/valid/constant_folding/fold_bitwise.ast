@@ -6,10 +6,11 @@
                   [(Ast.S
                       (Ast.Return
                          Ast.Binary {op = Ast.BwAnd;
-                           left = (Ast.LiteralInt 252645135);
-                           right = (Ast.LiteralInt 16711935)}))
+                           left = (Ast.Constant (Ast.ConstInt 252645135l));
+                           right = (Ast.Constant (Ast.ConstInt 16711935l))}))
                     ]));
-         storage = None });
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_or"); params = [];
           body =
@@ -17,10 +18,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.BwOr;
-                            left = (Ast.LiteralInt 252645135);
-                            right = (Ast.LiteralInt 16711935)}))
+                            left = (Ast.Constant (Ast.ConstInt 252645135l));
+                            right = (Ast.Constant (Ast.ConstInt 16711935l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_xor"); params = [];
           body =
@@ -28,10 +30,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.BwXor;
-                            left = (Ast.LiteralInt 252645135);
-                            right = (Ast.LiteralInt 16711935)}))
+                            left = (Ast.Constant (Ast.ConstInt 252645135l));
+                            right = (Ast.Constant (Ast.ConstInt 16711935l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_shift_left"); params = [];
           body =
@@ -39,10 +42,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.BwLeftShift;
-                            left = (Ast.LiteralInt 291);
-                            right = (Ast.LiteralInt 18)}))
+                            left = (Ast.Constant (Ast.ConstInt 291l));
+                            right = (Ast.Constant (Ast.ConstInt 18l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_shift_right"); params = [];
           body =
@@ -50,10 +54,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.BwRightShift;
-                            left = (Ast.LiteralInt 252645135);
-                            right = (Ast.LiteralInt 9)}))
+                            left = (Ast.Constant (Ast.ConstInt 252645135l));
+                            right = (Ast.Constant (Ast.ConstInt 9l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -65,11 +70,14 @@
                            left =
                            Ast.FunctionCall {
                              name = (Ast.Identifier "target_and"); args = []};
-                           right = (Ast.LiteralInt 983055)};
+                           right = (Ast.Constant (Ast.ConstInt 983055l))};
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -78,11 +86,14 @@
                             left =
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_or"); args = []};
-                            right = (Ast.LiteralInt 268374015)};
+                            right = (Ast.Constant (Ast.ConstInt 268374015l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -91,11 +102,14 @@
                             left =
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_xor"); args = []};
-                            right = (Ast.LiteralInt 267390960)};
+                            right = (Ast.Constant (Ast.ConstInt 267390960l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 3l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -105,11 +119,14 @@
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_shift_left");
                               args = []};
-                            right = (Ast.LiteralInt 76283904)};
+                            right = (Ast.Constant (Ast.ConstInt 76283904l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 4)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 4l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -119,12 +136,16 @@
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_shift_right");
                               args = []};
-                            right = (Ast.LiteralInt 493447)};
+                            right = (Ast.Constant (Ast.ConstInt 493447l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 5)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 5l))))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

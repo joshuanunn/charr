@@ -8,8 +8,9 @@
                          Ast.Unary {op = Ast.BwNot;
                            exp =
                            Ast.Binary {op = Ast.Add;
-                             left = (Ast.LiteralInt 1);
-                             right = (Ast.LiteralInt 1)}}))
+                             left = (Ast.Constant (Ast.ConstInt 1l));
+                             right = (Ast.Constant (Ast.ConstInt 1l))}}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

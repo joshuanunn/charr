@@ -1,11 +1,15 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "foo"); params = [];
-         body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+         body =
+         (Some (Ast.Block
+                  [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 3l))))]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int};
          storage = (Some Ast.Static) });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "bar");
-          init = (Some (Ast.LiteralInt 4)); storage = (Some Ast.Static) });
+          init = (Some (Ast.Constant (Ast.ConstInt 4l))); var_type = Ast.Int;
+          storage = (Some Ast.Static) });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -13,11 +17,15 @@
                    [(Ast.D
                        (Ast.FunDecl
                           { Ast.name = (Ast.Identifier "foo"); params = [];
-                            body = None; storage = (Some Ast.Extern) }));
+                            body = None;
+                            fun_type =
+                            Ast.FunType {params = []; ret = Ast.Int};
+                            storage = (Some Ast.Extern) }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "bar"); init = None;
-                             storage = (Some Ast.Extern) }));
+                             var_type = Ast.Int; storage = (Some Ast.Extern)
+                             }));
                      (Ast.S
                         (Ast.Return
                            Ast.Binary {op = Ast.Add;
@@ -26,5 +34,6 @@
                                args = []};
                              right = (Ast.Var (Ast.Identifier "bar"))}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

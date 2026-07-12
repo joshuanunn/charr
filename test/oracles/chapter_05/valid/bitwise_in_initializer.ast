@@ -6,21 +6,22 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 15)); storage = None
-                           }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 15l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
                             init =
                             (Some Ast.Binary {op = Ast.BwXor;
                                     left = (Ast.Var (Ast.Identifier "a"));
-                                    right = (Ast.LiteralInt 5)});
-                            storage = None }));
+                                    right = (Ast.Constant (Ast.ConstInt 5l))});
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.BwOr;
-                            left = (Ast.LiteralInt 1);
+                            left = (Ast.Constant (Ast.ConstInt 1l));
                             right = (Ast.Var (Ast.Identifier "b"))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

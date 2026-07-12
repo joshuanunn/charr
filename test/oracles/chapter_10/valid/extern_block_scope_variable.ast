@@ -6,12 +6,13 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "outer");
-                           init = (Some (Ast.LiteralInt 1)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 1l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "foo");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.If {cond_exp = (Ast.Var (Ast.Identifier "outer"));
                          then_smt =
@@ -20,21 +21,23 @@
                                [(Ast.D
                                    (Ast.VarDecl
                                       { Ast.name = (Ast.Identifier "foo");
-                                        init = None;
+                                        init = None; var_type = Ast.Int;
                                         storage = (Some Ast.Extern) }));
                                  (Ast.D
                                     (Ast.VarDecl
                                        { Ast.name = (Ast.Identifier "foo");
-                                         init = None;
+                                         init = None; var_type = Ast.Int;
                                          storage = (Some Ast.Extern) }));
                                  (Ast.S
                                     (Ast.Return
                                        (Ast.Var (Ast.Identifier "foo"))))
                                  ]));
                          else_smt = None});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-         storage = None });
+                    (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "foo");
-          init = (Some (Ast.LiteralInt 3)); storage = None })
+          init = (Some (Ast.Constant (Ast.ConstInt 3l))); var_type = Ast.Int;
+          storage = None })
      ])

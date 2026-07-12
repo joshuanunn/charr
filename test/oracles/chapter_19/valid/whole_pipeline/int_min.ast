@@ -8,10 +8,11 @@
                          Ast.Binary {op = Ast.Subtract;
                            left =
                            Ast.Unary {op = Ast.Negate;
-                             exp = (Ast.LiteralInt 2147483647)};
-                           right = (Ast.LiteralInt 1)}))
+                             exp = (Ast.Constant (Ast.ConstInt 2147483647l))};
+                           right = (Ast.Constant (Ast.ConstInt 1l))}))
                     ]));
-         storage = None });
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -25,12 +26,16 @@
                              exp =
                              Ast.FunctionCall {
                                name = (Ast.Identifier "target"); args = []}};
-                           right = (Ast.LiteralInt 2147483647)};
+                           right = (Ast.Constant (Ast.ConstInt 2147483647l))};
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
                          else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

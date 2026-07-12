@@ -8,25 +8,27 @@
                         init =
                         (Ast.InclDecl
                            { Ast.name = (Ast.Identifier "i");
-                             init = (Some (Ast.LiteralInt 400));
-                             storage = None });
+                             init = (Some (Ast.Constant (Ast.ConstInt 400l)));
+                             var_type = Ast.Int; storage = None });
                         cond = None;
                         post =
                         (Some (Ast.Assignment (
                                  (Ast.Var (Ast.Identifier "i")),
                                  Ast.Binary {op = Ast.Subtract;
                                    left = (Ast.Var (Ast.Identifier "i"));
-                                   right = (Ast.LiteralInt 100)}
+                                   right = (Ast.Constant (Ast.ConstInt 100l))}
                                  )));
                         body =
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.Equal;
                             left = (Ast.Var (Ast.Identifier "i"));
-                            right = (Ast.LiteralInt 100)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 0));
+                            right = (Ast.Constant (Ast.ConstInt 100l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 0l)));
                           else_smt = None};
                         id = None})
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

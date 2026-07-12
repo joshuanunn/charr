@@ -16,8 +16,9 @@
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
-                             (Ast.LiteralInt 10)))));
+                             (Ast.Constant (Ast.ConstInt 10l))))));
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
+         fun_type = Ast.FunType {params = [Ast.Int; Ast.Int]; ret = Ast.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -26,7 +27,10 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = [(Ast.LiteralInt 4); (Ast.LiteralInt 1)]}))
+                            args =
+                            [(Ast.Constant (Ast.ConstInt 4l));
+                              (Ast.Constant (Ast.ConstInt 1l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

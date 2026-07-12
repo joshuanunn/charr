@@ -1,7 +1,8 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "indirect_update"); params = [];
-         body = None; storage = None });
+         body = None; fun_type = Ast.FunType {params = []; ret = Ast.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f");
           params = [(Ast.Identifier "new_total")];
@@ -10,8 +11,8 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "total");
-                            init = (Some (Ast.LiteralInt 0));
-                            storage = (Some Ast.Static) }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = (Some Ast.Static) }));
                      (Ast.S
                         (Ast.Expression
                            (Ast.Assignment (
@@ -22,20 +23,22 @@
                           cond_exp =
                           Ast.Binary {op = Ast.GreaterThan;
                             left = (Ast.Var (Ast.Identifier "total"));
-                            right = (Ast.LiteralInt 100)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 0));
+                            right = (Ast.Constant (Ast.ConstInt 100l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 0l)));
                           else_smt = None});
                      (Ast.S
                         (Ast.Expression
                            (Ast.Assignment (
                               (Ast.Var (Ast.Identifier "total")),
-                              (Ast.LiteralInt 10)))));
+                              (Ast.Constant (Ast.ConstInt 10l))))));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "indirect_update");
                              args = []}));
                      (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "total"))))]));
+          fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "indirect_update"); params = [];
@@ -44,9 +47,10 @@
                    [(Ast.S
                        (Ast.Expression
                           Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = [(Ast.LiteralInt 101)]}));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None });
+                            args = [(Ast.Constant (Ast.ConstInt 101l))]}));
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -54,7 +58,8 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = [(Ast.LiteralInt 1)]}))
+                            args = [(Ast.Constant (Ast.ConstInt 1l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

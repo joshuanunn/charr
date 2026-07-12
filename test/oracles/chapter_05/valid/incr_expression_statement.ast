@@ -6,12 +6,13 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           Ast.Unary {op = Ast.PostIncrement;
@@ -38,13 +39,14 @@
                             left =
                             Ast.Binary {op = Ast.Equal;
                               left = (Ast.Var (Ast.Identifier "a"));
-                              right = (Ast.LiteralInt 3)};
+                              right = (Ast.Constant (Ast.ConstInt 3l))};
                             right =
                             Ast.Binary {op = Ast.Equal;
                               left = (Ast.Var (Ast.Identifier "b"));
                               right =
                               Ast.Unary {op = Ast.Negate;
-                                exp = (Ast.LiteralInt 2)}}}))
+                                exp = (Ast.Constant (Ast.ConstInt 2l))}}}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

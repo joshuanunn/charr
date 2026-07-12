@@ -1,7 +1,8 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "update_x"); params = []; body = None;
-         storage = None });
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -13,34 +14,51 @@
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "x"); init = None;
-                             storage = (Some Ast.Extern) }));
+                             var_type = Ast.Int; storage = (Some Ast.Extern)
+                             }));
                      (Ast.S
                         Ast.Switch {cond = (Ast.Var (Ast.Identifier "x"));
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 0);
-                                      body = (Ast.Return (Ast.LiteralInt 1));
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 0l));
+                                      body =
+                                      (Ast.Return
+                                         (Ast.Constant (Ast.ConstInt 1l)));
                                       id = None});
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 1);
-                                       body = (Ast.Return (Ast.LiteralInt 2));
+                                     Ast.Case {
+                                       value =
+                                       (Ast.Constant (Ast.ConstInt 1l));
+                                       body =
+                                       (Ast.Return
+                                          (Ast.Constant (Ast.ConstInt 2l)));
                                        id = None});
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 4);
-                                       body = (Ast.Return (Ast.LiteralInt 0));
+                                     Ast.Case {
+                                       value =
+                                       (Ast.Constant (Ast.ConstInt 4l));
+                                       body =
+                                       (Ast.Return
+                                          (Ast.Constant (Ast.ConstInt 0l)));
                                        id = None});
                                   (Ast.S
                                      Ast.Default {
-                                       body = (Ast.Return (Ast.LiteralInt 4));
+                                       body =
+                                       (Ast.Return
+                                          (Ast.Constant (Ast.ConstInt 4l)));
                                        id = None})
                                   ]));
                           id = None})
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.VarDecl
-        { Ast.name = (Ast.Identifier "x"); init = None; storage = None });
+        { Ast.name = (Ast.Identifier "x"); init = None; var_type = Ast.Int;
+          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "update_x"); params = [];
           body =
@@ -48,7 +66,8 @@
                    [(Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
-                             (Ast.LiteralInt 4)))));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                             (Ast.Constant (Ast.ConstInt 4l))))));
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

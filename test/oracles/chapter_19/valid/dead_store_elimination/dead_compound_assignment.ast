@@ -1,7 +1,8 @@
 (Ast.Program
    [(Ast.VarDecl
        { Ast.name = (Ast.Identifier "glob");
-         init = (Some (Ast.LiteralInt 0)); storage = None });
+         init = (Some (Ast.Constant (Ast.ConstInt 0l))); var_type = Ast.Int;
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
           body =
@@ -10,20 +11,21 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
                             init = (Some (Ast.Var (Ast.Identifier "glob")));
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                      (Ast.S
                         (Ast.Expression
                            (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
                               Ast.Binary {op = Ast.Multiply;
                                 left = (Ast.Var (Ast.Identifier "x"));
-                                right = (Ast.LiteralInt 20)}
+                                right = (Ast.Constant (Ast.ConstInt 20l))}
                               ))));
                      (Ast.S
                         (Ast.Expression
                            (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
-                              (Ast.LiteralInt 10)))));
+                              (Ast.Constant (Ast.ConstInt 10l))))));
                      (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))))]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -33,5 +35,6 @@
                           Ast.FunctionCall {name = (Ast.Identifier "target");
                             args = []}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

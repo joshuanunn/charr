@@ -6,31 +6,38 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 5)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 5l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.Switch {cond = (Ast.Var (Ast.Identifier "a"));
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 5);
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 5l));
                                      body =
                                      (Ast.Expression
                                         (Ast.Assignment (
                                            (Ast.Var (Ast.Identifier "a")),
-                                           (Ast.LiteralInt 10))));
+                                           (Ast.Constant (Ast.ConstInt 10l))
+                                           )));
                                      id = None});
                                  (Ast.S (Ast.Break None));
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 6);
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 6l));
                                       body =
                                       (Ast.Expression
                                          (Ast.Assignment (
                                             (Ast.Var (Ast.Identifier "a")),
-                                            (Ast.LiteralInt 0))));
+                                            (Ast.Constant (Ast.ConstInt 0l))
+                                            )));
                                       id = None});
                                  (Ast.S (Ast.Break None))]));
                          id = None});
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

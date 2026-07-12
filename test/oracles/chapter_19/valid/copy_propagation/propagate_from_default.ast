@@ -1,7 +1,8 @@
 (Ast.Program
    [(Ast.VarDecl
        { Ast.name = (Ast.Identifier "globvar");
-         init = (Some (Ast.LiteralInt 0)); storage = None });
+         init = (Some (Ast.Constant (Ast.ConstInt 0l))); var_type = Ast.Int;
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target");
           params = [(Ast.Identifier "x")];
@@ -10,24 +11,29 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                      (Ast.S
                         Ast.Switch {cond = (Ast.Var (Ast.Identifier "x"));
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 1);
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 1l));
                                       body =
                                       (Ast.Expression
                                          (Ast.Assignment (
                                             (Ast.Var
                                                (Ast.Identifier "globvar")),
-                                            (Ast.LiteralInt 1))));
+                                            (Ast.Constant (Ast.ConstInt 1l))
+                                            )));
                                       id = None});
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 2);
+                                     Ast.Case {
+                                       value =
+                                       (Ast.Constant (Ast.ConstInt 2l));
                                        body =
                                        (Ast.Expression
                                           (Ast.Assignment (
@@ -37,11 +43,15 @@
                                                left =
                                                (Ast.Var
                                                   (Ast.Identifier "globvar"));
-                                               right = (Ast.LiteralInt 3)}
+                                               right =
+                                               (Ast.Constant
+                                                  (Ast.ConstInt 3l))}
                                              )));
                                        id = None});
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 3);
+                                     Ast.Case {
+                                       value =
+                                       (Ast.Constant (Ast.ConstInt 3l));
                                        body =
                                        (Ast.Expression
                                           (Ast.Assignment (
@@ -51,7 +61,9 @@
                                                left =
                                                (Ast.Var
                                                   (Ast.Identifier "globvar"));
-                                               right = (Ast.LiteralInt 2)}
+                                               right =
+                                               (Ast.Constant
+                                                  (Ast.ConstInt 2l))}
                                              )));
                                        id = None});
                                   (Ast.S
@@ -61,12 +73,14 @@
                                           (Ast.Assignment (
                                              (Ast.Var
                                                 (Ast.Identifier "retval")),
-                                             (Ast.LiteralInt 3))));
+                                             (Ast.Constant (Ast.ConstInt 3l))
+                                             )));
                                        id = None})
                                   ]));
                           id = None});
                      (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
                      ]));
+          fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -78,30 +92,37 @@
                             init =
                             (Some Ast.FunctionCall {
                                     name = (Ast.Identifier "target");
-                                    args = [(Ast.LiteralInt 2)]});
-                            storage = None }));
+                                    args = [(Ast.Constant (Ast.ConstInt 2l))]});
+                            var_type = Ast.Int; storage = None }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "retval"));
-                            right = (Ast.LiteralInt 3)};
+                            right = (Ast.Constant (Ast.ConstInt 3l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 1l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "globvar"));
-                            right = (Ast.LiteralInt 6)};
+                            right = (Ast.Constant (Ast.ConstInt 6l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

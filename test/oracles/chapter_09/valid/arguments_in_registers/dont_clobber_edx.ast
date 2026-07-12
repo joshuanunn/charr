@@ -20,28 +20,32 @@
                                    left =
                                    Ast.Binary {op = Ast.Equal;
                                      left = (Ast.Var (Ast.Identifier "a"));
-                                     right = (Ast.LiteralInt 1)};
+                                     right = (Ast.Constant (Ast.ConstInt 1l))};
                                    right =
                                    Ast.Binary {op = Ast.Equal;
                                      left = (Ast.Var (Ast.Identifier "b"));
-                                     right = (Ast.LiteralInt 2)}};
+                                     right = (Ast.Constant (Ast.ConstInt 2l))}};
                                  right =
                                  Ast.Binary {op = Ast.Equal;
                                    left = (Ast.Var (Ast.Identifier "c"));
-                                   right = (Ast.LiteralInt 3)}};
+                                   right = (Ast.Constant (Ast.ConstInt 3l))}};
                                right =
                                Ast.Binary {op = Ast.Equal;
                                  left = (Ast.Var (Ast.Identifier "d"));
-                                 right = (Ast.LiteralInt 4)}};
+                                 right = (Ast.Constant (Ast.ConstInt 4l))}};
                              right =
                              Ast.Binary {op = Ast.Equal;
                                left = (Ast.Var (Ast.Identifier "e"));
-                               right = (Ast.LiteralInt 5)}};
+                               right = (Ast.Constant (Ast.ConstInt 5l))}};
                            right =
                            Ast.Binary {op = Ast.Equal;
                              left = (Ast.Var (Ast.Identifier "f"));
-                             right = (Ast.LiteralInt 6)}}))
+                             right = (Ast.Constant (Ast.ConstInt 6l))}}))
                     ]));
+         fun_type =
+         Ast.FunType {
+           params = [Ast.Int; Ast.Int; Ast.Int; Ast.Int; Ast.Int; Ast.Int];
+           ret = Ast.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -50,19 +54,22 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "a");
-                            init = (Some (Ast.LiteralInt 4)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 4l)));
+                            var_type = Ast.Int; storage = None }));
                      (Ast.S
                         (Ast.Return
                            Ast.FunctionCall {name = (Ast.Identifier "x");
                              args =
-                             [(Ast.LiteralInt 1); (Ast.LiteralInt 2);
-                               (Ast.LiteralInt 3); (Ast.LiteralInt 4);
-                               (Ast.LiteralInt 5);
+                             [(Ast.Constant (Ast.ConstInt 1l));
+                               (Ast.Constant (Ast.ConstInt 2l));
+                               (Ast.Constant (Ast.ConstInt 3l));
+                               (Ast.Constant (Ast.ConstInt 4l));
+                               (Ast.Constant (Ast.ConstInt 5l));
                                Ast.Binary {op = Ast.Divide;
-                                 left = (Ast.LiteralInt 24);
+                                 left = (Ast.Constant (Ast.ConstInt 24l));
                                  right = (Ast.Var (Ast.Identifier "a"))}
                                ]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

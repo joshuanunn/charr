@@ -6,17 +6,17 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "ten");
-                           init = (Some (Ast.LiteralInt 10)); storage = None
-                           }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 10l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S (Ast.Compound (Ast.Block [])));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "twenty");
                             init =
                             (Some Ast.Binary {op = Ast.Multiply;
-                                    left = (Ast.LiteralInt 10);
-                                    right = (Ast.LiteralInt 2)});
-                            storage = None }));
+                                    left = (Ast.Constant (Ast.ConstInt 10l));
+                                    right = (Ast.Constant (Ast.ConstInt 2l))});
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Compound
                           (Ast.Block [(Ast.S (Ast.Compound (Ast.Block [])))])));
@@ -26,5 +26,6 @@
                             left = (Ast.Var (Ast.Identifier "ten"));
                             right = (Ast.Var (Ast.Identifier "twenty"))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

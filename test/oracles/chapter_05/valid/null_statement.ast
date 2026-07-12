@@ -1,5 +1,7 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "main"); params = [];
-         body = (Some (Ast.Block [(Ast.S Ast.Null)])); storage = None })
+         body = (Some (Ast.Block [(Ast.S Ast.Null)]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

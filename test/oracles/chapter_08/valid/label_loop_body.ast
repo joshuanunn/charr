@@ -6,10 +6,11 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "result");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S (Ast.Goto (Ast.Identifier "label")));
                     (Ast.S
-                       Ast.While {cond = (Ast.LiteralInt 0);
+                       Ast.While {cond = (Ast.Constant (Ast.ConstInt 0l));
                          body =
                          (Ast.Label ((Ast.Identifier "label"),
                             (Ast.Compound
@@ -19,10 +20,12 @@
                                          (Ast.Assignment (
                                             (Ast.Var
                                                (Ast.Identifier "result")),
-                                            (Ast.LiteralInt 1)))))
+                                            (Ast.Constant (Ast.ConstInt 1l))
+                                            ))))
                                     ]))
                             ));
                          id = None});
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "result"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

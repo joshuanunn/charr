@@ -6,38 +6,39 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 12345));
-                           storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 12345l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "i"); init = None;
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.For {
                          init =
                          (Ast.InitExp
                             (Some (Ast.Assignment (
                                      (Ast.Var (Ast.Identifier "i")),
-                                     (Ast.LiteralInt 5)))));
+                                     (Ast.Constant (Ast.ConstInt 5l))))));
                          cond =
                          (Some Ast.Binary {op = Ast.GreaterOrEqual;
                                  left = (Ast.Var (Ast.Identifier "i"));
-                                 right = (Ast.LiteralInt 0)});
+                                 right = (Ast.Constant (Ast.ConstInt 0l))});
                          post =
                          (Some (Ast.Assignment (
                                   (Ast.Var (Ast.Identifier "i")),
                                   Ast.Binary {op = Ast.Subtract;
                                     left = (Ast.Var (Ast.Identifier "i"));
-                                    right = (Ast.LiteralInt 1)}
+                                    right = (Ast.Constant (Ast.ConstInt 1l))}
                                   )));
                          body =
                          (Ast.Expression
                             (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
                                Ast.Binary {op = Ast.Divide;
                                  left = (Ast.Var (Ast.Identifier "a"));
-                                 right = (Ast.LiteralInt 3)}
+                                 right = (Ast.Constant (Ast.ConstInt 3l))}
                                )));
                          id = None});
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

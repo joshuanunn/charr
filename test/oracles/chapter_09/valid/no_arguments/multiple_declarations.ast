@@ -6,19 +6,29 @@
                   [(Ast.D
                       (Ast.FunDecl
                          { Ast.name = (Ast.Identifier "f"); params = [];
-                           body = None; storage = None }));
+                           body = None;
+                           fun_type =
+                           Ast.FunType {params = []; ret = Ast.Int};
+                           storage = None }));
                     (Ast.D
                        (Ast.FunDecl
                           { Ast.name = (Ast.Identifier "f"); params = [];
-                            body = None; storage = None }));
+                            body = None;
+                            fun_type =
+                            Ast.FunType {params = []; ret = Ast.Int};
+                            storage = None }));
                     (Ast.S
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "f");
                             args = []}))
                     ]));
-         storage = None });
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f"); params = [];
-          body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
-          storage = None })
+          body =
+          (Some (Ast.Block
+                   [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 3l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

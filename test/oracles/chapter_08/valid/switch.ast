@@ -4,28 +4,41 @@
          body =
          (Some (Ast.Block
                   [(Ast.S
-                      Ast.Switch {cond = (Ast.LiteralInt 3);
+                      Ast.Switch {cond = (Ast.Constant (Ast.ConstInt 3l));
                         body =
                         (Ast.Compound
                            (Ast.Block
                               [(Ast.S
-                                  Ast.Case {value = (Ast.LiteralInt 0);
-                                    body = (Ast.Return (Ast.LiteralInt 0));
+                                  Ast.Case {
+                                    value = (Ast.Constant (Ast.ConstInt 0l));
+                                    body =
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 0l)));
                                     id = None});
                                 (Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 1);
-                                     body = (Ast.Return (Ast.LiteralInt 1));
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 1l));
+                                     body =
+                                     (Ast.Return
+                                        (Ast.Constant (Ast.ConstInt 1l)));
                                      id = None});
                                 (Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 3);
-                                     body = (Ast.Return (Ast.LiteralInt 3));
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 3l));
+                                     body =
+                                     (Ast.Return
+                                        (Ast.Constant (Ast.ConstInt 3l)));
                                      id = None});
                                 (Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 5);
-                                     body = (Ast.Return (Ast.LiteralInt 5));
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 5l));
+                                     body =
+                                     (Ast.Return
+                                        (Ast.Constant (Ast.ConstInt 5l)));
                                      id = None})
                                 ]));
                         id = None})
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

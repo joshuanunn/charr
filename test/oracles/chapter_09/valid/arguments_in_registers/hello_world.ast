@@ -1,7 +1,9 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "putchar");
-         params = [(Ast.Identifier "c")]; body = None; storage = None });
+         params = [(Ast.Identifier "c")]; body = None;
+         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -10,72 +12,73 @@
                        (Ast.Expression
                           Ast.FunctionCall {
                             name = (Ast.Identifier "putchar");
-                            args = [(Ast.LiteralInt 72)]}));
+                            args = [(Ast.Constant (Ast.ConstInt 72l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 101)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 101l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 108)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 108l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 108)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 108l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 111)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 111l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 44)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 44l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 32)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 32l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 87)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 87l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 111)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 111l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 114)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 114l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 108)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 108l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 100)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 100l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 33)]}));
+                             args = [(Ast.Constant (Ast.ConstInt 33l))]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 10)]}))
+                             args = [(Ast.Constant (Ast.ConstInt 10l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

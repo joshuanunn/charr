@@ -5,9 +5,11 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Unary {op = Ast.Negate; exp = (Ast.LiteralInt 3)}))
+                         Ast.Unary {op = Ast.Negate;
+                           exp = (Ast.Constant (Ast.ConstInt 3l))}))
                     ]));
-         storage = None });
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_negate_zero"); params = [];
           body =
@@ -15,9 +17,10 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Unary {op = Ast.Negate;
-                            exp = (Ast.LiteralInt 0)}))
+                            exp = (Ast.Constant (Ast.ConstInt 0l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_not"); params = [];
           body =
@@ -25,33 +28,40 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Unary {op = Ast.Not;
-                            exp = (Ast.LiteralInt 1024)}))
+                            exp = (Ast.Constant (Ast.ConstInt 1024l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_not_zero"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.Unary {op = Ast.Not; exp = (Ast.LiteralInt 0)}))
+                          Ast.Unary {op = Ast.Not;
+                            exp = (Ast.Constant (Ast.ConstInt 0l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_complement"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.Unary {op = Ast.BwNot; exp = (Ast.LiteralInt 1)}))
+                          Ast.Unary {op = Ast.BwNot;
+                            exp = (Ast.Constant (Ast.ConstInt 1l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "three");
-          init = (Some (Ast.LiteralInt 3)); storage = None });
+          init = (Some (Ast.Constant (Ast.ConstInt 3l))); var_type = Ast.Int;
+          storage = None });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "two");
-          init = (Some (Ast.LiteralInt 2)); storage = None });
+          init = (Some (Ast.Constant (Ast.ConstInt 2l))); var_type = Ast.Int;
+          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -67,7 +77,8 @@
                            right =
                            Ast.Unary {op = Ast.Negate;
                              exp = (Ast.Var (Ast.Identifier "three"))}};
-                         then_smt = (Ast.Return (Ast.LiteralInt 1));
+                         then_smt =
+                         (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -77,11 +88,14 @@
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_negate_zero");
                               args = []};
-                            right = (Ast.LiteralInt 0)};
+                            right = (Ast.Constant (Ast.ConstInt 0l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -90,11 +104,14 @@
                             left =
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_not"); args = []};
-                            right = (Ast.LiteralInt 0)};
+                            right = (Ast.Constant (Ast.ConstInt 0l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 3l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -104,11 +121,14 @@
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_not_zero");
                               args = []};
-                            right = (Ast.LiteralInt 1)};
+                            right = (Ast.Constant (Ast.ConstInt 1l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 4)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 4l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -124,8 +144,12 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 5)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 5l))))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

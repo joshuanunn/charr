@@ -6,17 +6,18 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 10)); storage = None
-                           }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 10l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
                           Ast.Conditional {
                             cond_exp =
                             Ast.Binary {op = Ast.Or;
                               left = (Ast.Var (Ast.Identifier "a"));
-                              right = (Ast.LiteralInt 0)};
-                            then_exp = (Ast.LiteralInt 20);
-                            else_exp = (Ast.LiteralInt 0)}))
+                              right = (Ast.Constant (Ast.ConstInt 0l))};
+                            then_exp = (Ast.Constant (Ast.ConstInt 20l));
+                            else_exp = (Ast.Constant (Ast.ConstInt 0l))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

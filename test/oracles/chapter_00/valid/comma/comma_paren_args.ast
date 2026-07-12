@@ -1,7 +1,9 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "putchar");
-         params = [(Ast.Identifier "c")]; body = None; storage = None });
+         params = [(Ast.Identifier "c")]; body = None;
+         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -11,14 +13,15 @@
                           Ast.FunctionCall {
                             name = (Ast.Identifier "putchar");
                             args =
-                            [(Ast.Comma ((Ast.LiteralInt 65),
-                                (Ast.LiteralInt 66)))
+                            [(Ast.Comma ((Ast.Constant (Ast.ConstInt 65l)),
+                                (Ast.Constant (Ast.ConstInt 66l))))
                               ]}));
                      (Ast.S
                         (Ast.Expression
                            Ast.FunctionCall {
                              name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 10)]}));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                             args = [(Ast.Constant (Ast.ConstInt 10l))]}));
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

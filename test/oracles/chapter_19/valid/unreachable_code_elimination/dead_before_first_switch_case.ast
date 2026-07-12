@@ -1,8 +1,11 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "callee"); params = [];
-         body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-         storage = None });
+         body =
+         (Some (Ast.Block
+                  [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target");
           params = [(Ast.Identifier "x")];
@@ -19,16 +22,23 @@
                                         name = (Ast.Identifier "callee");
                                         args = []}));
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 1);
-                                      body = (Ast.Return (Ast.LiteralInt 1));
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 1l));
+                                      body =
+                                      (Ast.Return
+                                         (Ast.Constant (Ast.ConstInt 1l)));
                                       id = None});
                                  (Ast.S
                                     Ast.Default {
-                                      body = (Ast.Return (Ast.LiteralInt 2));
+                                      body =
+                                      (Ast.Return
+                                         (Ast.Constant (Ast.ConstInt 2l)));
                                       id = None})
                                  ]));
                          id = None})
                      ]));
+          fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -37,7 +47,8 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = [(Ast.LiteralInt 1)]}))
+                            args = [(Ast.Constant (Ast.ConstInt 1l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

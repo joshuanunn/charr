@@ -1,6 +1,7 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "j"); init = (Some (Ast.LiteralInt 3));
+       { Ast.name = (Ast.Identifier "j");
+         init = (Some (Ast.Constant (Ast.ConstInt 3l))); var_type = Ast.Int;
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
@@ -9,17 +10,17 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "i"); init = None;
-                            storage = (Some Ast.Static) }));
+                            var_type = Ast.Int; storage = (Some Ast.Static) }));
                      (Ast.S
                         (Ast.Expression
                            (Ast.Assignment ((Ast.Var (Ast.Identifier "i")),
-                              (Ast.LiteralInt 10)))));
+                              (Ast.Constant (Ast.ConstInt 10l))))));
                      (Ast.S
                         Ast.While {
                           cond =
                           Ast.Binary {op = Ast.GreaterThan;
                             left = (Ast.Var (Ast.Identifier "j"));
-                            right = (Ast.LiteralInt 0)};
+                            right = (Ast.Constant (Ast.ConstInt 0l))};
                           body =
                           (Ast.Compound
                              (Ast.Block
@@ -30,16 +31,18 @@
                                           Ast.Binary {op = Ast.Subtract;
                                             left =
                                             (Ast.Var (Ast.Identifier "j"));
-                                            right = (Ast.LiteralInt 1)}
+                                            right =
+                                            (Ast.Constant (Ast.ConstInt 1l))}
                                           ))))
                                   ]));
                           id = None});
                      (Ast.S
                         (Ast.Expression
                            (Ast.Assignment ((Ast.Var (Ast.Identifier "i")),
-                              (Ast.LiteralInt 0)))));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None });
+                              (Ast.Constant (Ast.ConstInt 0l))))));
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -52,7 +55,8 @@
                         (Ast.Return
                            Ast.Binary {op = Ast.Equal;
                              left = (Ast.Var (Ast.Identifier "j"));
-                             right = (Ast.LiteralInt 0)}))
+                             right = (Ast.Constant (Ast.ConstInt 0l))}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

@@ -6,27 +6,38 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.Switch {cond = (Ast.Var (Ast.Identifier "a"));
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 1);
-                                     body = (Ast.Return (Ast.LiteralInt 1));
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 1l));
+                                     body =
+                                     (Ast.Return
+                                        (Ast.Constant (Ast.ConstInt 1l)));
                                      id = None});
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 2);
-                                      body = (Ast.Return (Ast.LiteralInt 9));
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 2l));
+                                      body =
+                                      (Ast.Return
+                                         (Ast.Constant (Ast.ConstInt 9l)));
                                       id = None});
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 4);
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 4l));
                                       body =
                                       (Ast.Expression
                                          (Ast.Assignment (
                                             (Ast.Var (Ast.Identifier "a")),
-                                            (Ast.LiteralInt 11))));
+                                            (Ast.Constant (Ast.ConstInt 11l))
+                                            )));
                                       id = None});
                                  (Ast.S (Ast.Break None));
                                  (Ast.S
@@ -35,10 +46,12 @@
                                       (Ast.Expression
                                          (Ast.Assignment (
                                             (Ast.Var (Ast.Identifier "a")),
-                                            (Ast.LiteralInt 22))));
+                                            (Ast.Constant (Ast.ConstInt 22l))
+                                            )));
                                       id = None})
                                  ]));
                          id = None});
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

@@ -8,14 +8,14 @@
                          { Ast.name = (Ast.Identifier "a");
                            init =
                            (Some Ast.Unary {op = Ast.Negate;
-                                   exp = (Ast.LiteralInt 2593)});
-                           storage = None }));
+                                   exp = (Ast.Constant (Ast.ConstInt 2593l))});
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
                              Ast.Binary {op = Ast.Remainder;
                                left = (Ast.Var (Ast.Identifier "a"));
-                               right = (Ast.LiteralInt 3)}
+                               right = (Ast.Constant (Ast.ConstInt 3l))}
                              ))));
                     (Ast.D
                        (Ast.VarDecl
@@ -23,7 +23,8 @@
                             init =
                             (Some Ast.Unary {op = Ast.Negate;
                                     exp = (Ast.Var (Ast.Identifier "a"))});
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "b"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

@@ -5,9 +5,11 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Unary {op = Ast.Negate; exp = (Ast.LiteralInt 1)}))
+                         Ast.Unary {op = Ast.Negate;
+                           exp = (Ast.Constant (Ast.ConstInt 1l))}))
                     ]));
-         storage = None });
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target");
           params = [(Ast.Identifier "x")];
@@ -16,31 +18,37 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                      (Ast.S
                         Ast.Switch {cond = (Ast.Var (Ast.Identifier "x"));
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 1);
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 1l));
                                       body =
                                       (Ast.Expression
                                          (Ast.Assignment (
                                             (Ast.Var
                                                (Ast.Identifier "retval")),
-                                            (Ast.LiteralInt 1))));
+                                            (Ast.Constant (Ast.ConstInt 1l))
+                                            )));
                                       id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 2);
+                                     Ast.Case {
+                                       value =
+                                       (Ast.Constant (Ast.ConstInt 2l));
                                        body =
                                        (Ast.Expression
                                           (Ast.Assignment (
                                              (Ast.Var
                                                 (Ast.Identifier "retval")),
-                                             (Ast.LiteralInt 2))));
+                                             (Ast.Constant (Ast.ConstInt 2l))
+                                             )));
                                        id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
@@ -49,13 +57,16 @@
                                           name = (Ast.Identifier "callee");
                                           args = []}));
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 3);
+                                     Ast.Case {
+                                       value =
+                                       (Ast.Constant (Ast.ConstInt 3l));
                                        body =
                                        (Ast.Expression
                                           (Ast.Assignment (
                                              (Ast.Var
                                                 (Ast.Identifier "retval")),
-                                             (Ast.LiteralInt 10))));
+                                             (Ast.Constant (Ast.ConstInt 10l))
+                                             )));
                                        id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
@@ -63,7 +74,8 @@
                                        body =
                                        (Ast.Return
                                           Ast.Unary {op = Ast.Negate;
-                                            exp = (Ast.LiteralInt 1)});
+                                            exp =
+                                            (Ast.Constant (Ast.ConstInt 1l))});
                                        id = None});
                                   (Ast.S
                                      (Ast.Expression
@@ -74,6 +86,7 @@
                           id = None});
                      (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
                      ]));
+          fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -82,7 +95,8 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = [(Ast.LiteralInt 3)]}))
+                            args = [(Ast.Constant (Ast.ConstInt 3l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

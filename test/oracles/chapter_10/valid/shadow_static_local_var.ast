@@ -1,6 +1,7 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "i"); init = None; storage = None });
+       { Ast.name = (Ast.Identifier "i"); init = None; var_type = Ast.Int;
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "update_static_or_global");
           params =
@@ -10,7 +11,7 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "i"); init = None;
-                            storage = (Some Ast.Static) }));
+                            var_type = Ast.Int; storage = (Some Ast.Static) }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
@@ -21,7 +22,7 @@
                                 [(Ast.D
                                     (Ast.VarDecl
                                        { Ast.name = (Ast.Identifier "i");
-                                         init = None;
+                                         init = None; var_type = Ast.Int;
                                          storage = (Some Ast.Extern) }));
                                   (Ast.S
                                      (Ast.Expression
@@ -37,6 +38,7 @@
                                       (Ast.Var (Ast.Identifier "i")),
                                       (Ast.Var (Ast.Identifier "new_val"))))))});
                      (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "i"))))]));
+          fun_type = Ast.FunType {params = [Ast.Int; Ast.Int]; ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -47,8 +49,9 @@
                          cond_exp =
                          Ast.Binary {op = Ast.NotEqual;
                            left = (Ast.Var (Ast.Identifier "i"));
-                           right = (Ast.LiteralInt 0)};
-                         then_smt = (Ast.Return (Ast.LiteralInt 1));
+                           right = (Ast.Constant (Ast.ConstInt 0l))};
+                         then_smt =
+                         (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                          else_smt = None});
                      (Ast.D
                         (Ast.VarDecl
@@ -59,24 +62,26 @@
                                      (Ast.Identifier
                                         "update_static_or_global");
                                      args =
-                                     [(Ast.LiteralInt 1); (Ast.LiteralInt 10)
-                                       ]});
-                             storage = None }));
+                                     [(Ast.Constant (Ast.ConstInt 1l));
+                                       (Ast.Constant (Ast.ConstInt 10l))]});
+                             var_type = Ast.Int; storage = None }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "result"));
-                            right = (Ast.LiteralInt 0)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 1));
+                            right = (Ast.Constant (Ast.ConstInt 0l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "i"));
-                            right = (Ast.LiteralInt 10)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 1));
+                            right = (Ast.Constant (Ast.ConstInt 10l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                           else_smt = None});
                      (Ast.S
                         (Ast.Expression
@@ -86,23 +91,26 @@
                                 name =
                                 (Ast.Identifier "update_static_or_global");
                                 args =
-                                [(Ast.LiteralInt 0); (Ast.LiteralInt 9)]}
+                                [(Ast.Constant (Ast.ConstInt 0l));
+                                  (Ast.Constant (Ast.ConstInt 9l))]}
                               ))));
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "result"));
-                            right = (Ast.LiteralInt 9)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 1));
+                            right = (Ast.Constant (Ast.ConstInt 9l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "i"));
-                            right = (Ast.LiteralInt 10)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 1));
+                            right = (Ast.Constant (Ast.ConstInt 10l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                           else_smt = None});
                      (Ast.S
                         (Ast.Expression
@@ -112,24 +120,28 @@
                                 name =
                                 (Ast.Identifier "update_static_or_global");
                                 args =
-                                [(Ast.LiteralInt 1); (Ast.LiteralInt 11)]}
+                                [(Ast.Constant (Ast.ConstInt 1l));
+                                  (Ast.Constant (Ast.ConstInt 11l))]}
                               ))));
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "result"));
-                            right = (Ast.LiteralInt 9)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 1));
+                            right = (Ast.Constant (Ast.ConstInt 9l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
                           Ast.Binary {op = Ast.NotEqual;
                             left = (Ast.Var (Ast.Identifier "i"));
-                            right = (Ast.LiteralInt 11)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 1));
+                            right = (Ast.Constant (Ast.ConstInt 11l))};
+                          then_smt =
+                          (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

@@ -6,7 +6,8 @@
                   [(Ast.S
                       (Ast.Return
                          Ast.Unary {op = Ast.Negate;
-                           exp = (Ast.LiteralInt 10)}))
+                           exp = (Ast.Constant (Ast.ConstInt 10l))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

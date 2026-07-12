@@ -10,19 +10,20 @@
                            Ast.Binary {op = Ast.And;
                              left =
                              Ast.Binary {op = Ast.Equal;
-                               left = (Ast.LiteralInt 0);
-                               right = (Ast.LiteralInt 0)};
+                               left = (Ast.Constant (Ast.ConstInt 0l));
+                               right = (Ast.Constant (Ast.ConstInt 0l))};
                              right =
                              Ast.Binary {op = Ast.Equal;
-                               left = (Ast.LiteralInt 3);
+                               left = (Ast.Constant (Ast.ConstInt 3l));
                                right =
                                Ast.Binary {op = Ast.GreaterThan;
                                  left =
                                  Ast.Binary {op = Ast.Add;
-                                   left = (Ast.LiteralInt 2);
-                                   right = (Ast.LiteralInt 1)};
-                                 right = (Ast.LiteralInt 1)}}};
-                           right = (Ast.LiteralInt 1)}))
+                                   left = (Ast.Constant (Ast.ConstInt 2l));
+                                   right = (Ast.Constant (Ast.ConstInt 1l))};
+                                 right = (Ast.Constant (Ast.ConstInt 1l))}}};
+                           right = (Ast.Constant (Ast.ConstInt 1l))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

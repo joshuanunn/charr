@@ -6,34 +6,36 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "i");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "j");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "k");
-                            init = (Some (Ast.LiteralInt 1)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 1l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.For {
                          init =
                          (Ast.InclDecl
                             { Ast.name = (Ast.Identifier "i");
-                              init = (Some (Ast.LiteralInt 100));
-                              storage = None });
+                              init =
+                              (Some (Ast.Constant (Ast.ConstInt 100l)));
+                              var_type = Ast.Int; storage = None });
                          cond =
                          (Some Ast.Binary {op = Ast.GreaterThan;
                                  left = (Ast.Var (Ast.Identifier "i"));
-                                 right = (Ast.LiteralInt 0)});
+                                 right = (Ast.Constant (Ast.ConstInt 0l))});
                          post =
                          (Some (Ast.Assignment (
                                   (Ast.Var (Ast.Identifier "i")),
                                   Ast.Binary {op = Ast.Subtract;
                                     left = (Ast.Var (Ast.Identifier "i"));
-                                    right = (Ast.LiteralInt 1)}
+                                    right = (Ast.Constant (Ast.ConstInt 1l))}
                                   )));
                          body =
                          (Ast.Compound
@@ -41,8 +43,9 @@
                                [(Ast.D
                                    (Ast.VarDecl
                                       { Ast.name = (Ast.Identifier "i");
-                                        init = (Some (Ast.LiteralInt 1));
-                                        storage = None }));
+                                        init =
+                                        (Some (Ast.Constant (Ast.ConstInt 1l)));
+                                        var_type = Ast.Int; storage = None }));
                                  (Ast.D
                                     (Ast.VarDecl
                                        { Ast.name = (Ast.Identifier "j");
@@ -54,7 +57,7 @@
                                                  right =
                                                  (Ast.Var
                                                     (Ast.Identifier "k"))});
-                                         storage = None }));
+                                         var_type = Ast.Int; storage = None }));
                                  (Ast.S
                                     (Ast.Expression
                                        (Ast.Assignment (
@@ -70,15 +73,16 @@
                               left =
                               Ast.Binary {op = Ast.Equal;
                                 left = (Ast.Var (Ast.Identifier "k"));
-                                right = (Ast.LiteralInt 101)};
+                                right = (Ast.Constant (Ast.ConstInt 101l))};
                               right =
                               Ast.Binary {op = Ast.Equal;
                                 left = (Ast.Var (Ast.Identifier "i"));
-                                right = (Ast.LiteralInt 0)}};
+                                right = (Ast.Constant (Ast.ConstInt 0l))}};
                             right =
                             Ast.Binary {op = Ast.Equal;
                               left = (Ast.Var (Ast.Identifier "j"));
-                              right = (Ast.LiteralInt 0)}}))
+                              right = (Ast.Constant (Ast.ConstInt 0l))}}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

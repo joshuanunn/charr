@@ -6,29 +6,29 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x"); init = None;
-                           storage = None }));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "y"); init = None;
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
-                             (Ast.LiteralInt 0)))));
+                             (Ast.Constant (Ast.ConstInt 0l))))));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "y")),
-                             (Ast.LiteralInt 0)))));
+                             (Ast.Constant (Ast.ConstInt 0l))))));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Comma (
                              (Ast.Comma (
                                 (Ast.Assignment (
                                    (Ast.Var (Ast.Identifier "x")),
-                                   (Ast.LiteralInt 1))),
+                                   (Ast.Constant (Ast.ConstInt 1l)))),
                                 (Ast.Assignment (
                                    (Ast.Var (Ast.Identifier "y")),
-                                   (Ast.LiteralInt 2)))
+                                   (Ast.Constant (Ast.ConstInt 2l))))
                                 )),
                              (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
                                 Ast.Binary {op = Ast.Add;
@@ -42,8 +42,9 @@
                             left =
                             Ast.Binary {op = Ast.Multiply;
                               left = (Ast.Var (Ast.Identifier "x"));
-                              right = (Ast.LiteralInt 10)};
+                              right = (Ast.Constant (Ast.ConstInt 10l))};
                             right = (Ast.Var (Ast.Identifier "y"))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

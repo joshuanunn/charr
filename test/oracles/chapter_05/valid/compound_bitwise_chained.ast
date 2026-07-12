@@ -6,53 +6,53 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 250)); storage = None
-                           }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 250l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
-                            init = (Some (Ast.LiteralInt 200));
-                            storage = None }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 200l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "c");
-                            init = (Some (Ast.LiteralInt 100));
-                            storage = None }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 100l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "d");
-                            init = (Some (Ast.LiteralInt 75)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 75l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "e");
-                            init = (Some (Ast.LiteralInt 50)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 50l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "f");
-                            init = (Some (Ast.LiteralInt 25)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 25l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "g");
-                            init = (Some (Ast.LiteralInt 10)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 10l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "h");
-                            init = (Some (Ast.LiteralInt 1)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 1l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "j");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
@@ -120,8 +120,9 @@
                                                                     (Ast.Var
                                                                     (Ast.Identifier
                                                                     "j")),
-                                                                    (Ast.LiteralInt
-                                                                    1)))}
+                                                                    (Ast.Constant
+                                                                    (Ast.ConstInt
+                                                                    1l))))}
                                                                  ))}
                                                             ))}
                                                        ))}
@@ -154,46 +155,55 @@
                                             Ast.Binary {op = Ast.Equal;
                                               left =
                                               (Ast.Var (Ast.Identifier "a"));
-                                              right = (Ast.LiteralInt 40)};
+                                              right =
+                                              (Ast.Constant
+                                                 (Ast.ConstInt 40l))};
                                             right =
                                             Ast.Binary {op = Ast.Equal;
                                               left =
                                               (Ast.Var (Ast.Identifier "b"));
-                                              right = (Ast.LiteralInt 21800)}};
+                                              right =
+                                              (Ast.Constant
+                                                 (Ast.ConstInt 21800l))}};
                                           right =
                                           Ast.Binary {op = Ast.Equal;
                                             left =
                                             (Ast.Var (Ast.Identifier "c"));
-                                            right = (Ast.LiteralInt 109)}};
+                                            right =
+                                            (Ast.Constant (Ast.ConstInt 109l))}};
                                         right =
                                         Ast.Binary {op = Ast.Equal;
                                           left =
                                           (Ast.Var (Ast.Identifier "d"));
-                                          right = (Ast.LiteralInt 41)}};
+                                          right =
+                                          (Ast.Constant (Ast.ConstInt 41l))}};
                                       right =
                                       Ast.Binary {op = Ast.Equal;
                                         left = (Ast.Var (Ast.Identifier "e"));
-                                        right = (Ast.LiteralInt 41)}};
+                                        right =
+                                        (Ast.Constant (Ast.ConstInt 41l))}};
                                     right =
                                     Ast.Binary {op = Ast.Equal;
                                       left = (Ast.Var (Ast.Identifier "f"));
-                                      right = (Ast.LiteralInt 27)}};
+                                      right =
+                                      (Ast.Constant (Ast.ConstInt 27l))}};
                                   right =
                                   Ast.Binary {op = Ast.Equal;
                                     left = (Ast.Var (Ast.Identifier "g"));
-                                    right = (Ast.LiteralInt 2)}};
+                                    right = (Ast.Constant (Ast.ConstInt 2l))}};
                                 right =
                                 Ast.Binary {op = Ast.Equal;
                                   left = (Ast.Var (Ast.Identifier "h"));
-                                  right = (Ast.LiteralInt 2)}};
+                                  right = (Ast.Constant (Ast.ConstInt 2l))}};
                               right =
                               Ast.Binary {op = Ast.Equal;
                                 left = (Ast.Var (Ast.Identifier "j"));
-                                right = (Ast.LiteralInt 1)}};
+                                right = (Ast.Constant (Ast.ConstInt 1l))}};
                             right =
                             Ast.Binary {op = Ast.Equal;
                               left = (Ast.Var (Ast.Identifier "x"));
-                              right = (Ast.LiteralInt 40)}}))
+                              right = (Ast.Constant (Ast.ConstInt 40l))}}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

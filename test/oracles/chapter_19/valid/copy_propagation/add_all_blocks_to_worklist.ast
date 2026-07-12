@@ -1,9 +1,11 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "global"); init = None; storage = None });
+       { Ast.name = (Ast.Identifier "global"); init = None;
+         var_type = Ast.Int; storage = None });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "flag");
-          init = (Some (Ast.LiteralInt 1)); storage = None });
+          init = (Some (Ast.Constant (Ast.ConstInt 1l))); var_type = Ast.Int;
+          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f"); params = [];
           body =
@@ -12,9 +14,10 @@
                        (Ast.Expression
                           (Ast.Assignment (
                              (Ast.Var (Ast.Identifier "global")),
-                             (Ast.LiteralInt 100)))));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None });
+                             (Ast.Constant (Ast.ConstInt 100l))))));
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -23,7 +26,7 @@
                        (Ast.Expression
                           (Ast.Assignment (
                              (Ast.Var (Ast.Identifier "global")),
-                             (Ast.LiteralInt 0)))));
+                             (Ast.Constant (Ast.ConstInt 0l))))));
                      (Ast.S
                         Ast.If {cond_exp = (Ast.Var (Ast.Identifier "flag"));
                           then_smt =
@@ -38,5 +41,6 @@
                           else_smt = None});
                      (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "global"))))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

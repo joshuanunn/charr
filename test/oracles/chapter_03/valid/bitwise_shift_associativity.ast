@@ -8,9 +8,10 @@
                          Ast.Binary {op = Ast.BwRightShift;
                            left =
                            Ast.Binary {op = Ast.BwLeftShift;
-                             left = (Ast.LiteralInt 33);
-                             right = (Ast.LiteralInt 4)};
-                           right = (Ast.LiteralInt 2)}))
+                             left = (Ast.Constant (Ast.ConstInt 33l));
+                             right = (Ast.Constant (Ast.ConstInt 4l))};
+                           right = (Ast.Constant (Ast.ConstInt 2l))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

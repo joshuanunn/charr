@@ -6,44 +6,54 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "switch1");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "switch2");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "switch3");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
-                       Ast.Switch {cond = (Ast.LiteralInt 3);
+                       Ast.Switch {cond = (Ast.Constant (Ast.ConstInt 3l));
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 0);
-                                     body = (Ast.Return (Ast.LiteralInt 0));
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 0l));
+                                     body =
+                                     (Ast.Return
+                                        (Ast.Constant (Ast.ConstInt 0l)));
                                      id = None});
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 1);
+                                    Ast.Case {
+                                      value =
+                                      (Ast.Constant (Ast.ConstInt 1l));
                                       body =
-                                      Ast.If {cond_exp = (Ast.LiteralInt 0);
+                                      Ast.If {
+                                        cond_exp =
+                                        (Ast.Constant (Ast.ConstInt 0l));
                                         then_smt =
                                         (Ast.Compound
                                            (Ast.Block
                                               [(Ast.S
                                                   Ast.Case {
                                                     value =
-                                                    (Ast.LiteralInt 3);
+                                                    (Ast.Constant
+                                                       (Ast.ConstInt 3l));
                                                     body =
                                                     (Ast.Expression
                                                        (Ast.Assignment (
                                                           (Ast.Var
                                                              (Ast.Identifier
                                                                 "switch1")),
-                                                          (Ast.LiteralInt 1)
+                                                          (Ast.Constant
+                                                             (Ast.ConstInt 1l))
                                                           )));
                                                     id = None});
                                                 (Ast.S (Ast.Break None))]));
@@ -51,27 +61,35 @@
                                       id = None});
                                  (Ast.S
                                     Ast.Default {
-                                      body = (Ast.Return (Ast.LiteralInt 0));
+                                      body =
+                                      (Ast.Return
+                                         (Ast.Constant (Ast.ConstInt 0l)));
                                       id = None})
                                  ]));
                          id = None});
                     (Ast.S
-                       Ast.Switch {cond = (Ast.LiteralInt 4);
+                       Ast.Switch {cond = (Ast.Constant (Ast.ConstInt 4l));
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 0);
-                                     body = (Ast.Return (Ast.LiteralInt 0));
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 0l));
+                                     body =
+                                     (Ast.Return
+                                        (Ast.Constant (Ast.ConstInt 0l)));
                                      id = None});
                                  (Ast.S
-                                    Ast.If {cond_exp = (Ast.LiteralInt 1);
+                                    Ast.If {
+                                      cond_exp =
+                                      (Ast.Constant (Ast.ConstInt 1l));
                                       then_smt =
                                       (Ast.Compound
                                          (Ast.Block
                                             [(Ast.S
                                                 (Ast.Return
-                                                   (Ast.LiteralInt 0)))
+                                                   (Ast.Constant
+                                                      (Ast.ConstInt 0l))))
                                               ]));
                                       else_smt =
                                       (Some (Ast.Compound
@@ -79,26 +97,30 @@
                                                   [(Ast.S
                                                       Ast.Case {
                                                         value =
-                                                        (Ast.LiteralInt 4);
+                                                        (Ast.Constant
+                                                           (Ast.ConstInt 4l));
                                                         body =
                                                         (Ast.Expression
                                                            (Ast.Assignment (
                                                               (Ast.Var
                                                                  (Ast.Identifier
                                                                     "switch2")),
-                                                              (Ast.LiteralInt
-                                                                 1)
+                                                              (Ast.Constant
+                                                                 (Ast.ConstInt
+                                                                    1l))
                                                               )));
                                                         id = None});
                                                     (Ast.S (Ast.Break None))])))});
                                  (Ast.S
                                     Ast.Default {
-                                      body = (Ast.Return (Ast.LiteralInt 0));
+                                      body =
+                                      (Ast.Return
+                                         (Ast.Constant (Ast.ConstInt 0l)));
                                       id = None})
                                  ]));
                          id = None});
                     (Ast.S
-                       Ast.Switch {cond = (Ast.LiteralInt 5);
+                       Ast.Switch {cond = (Ast.Constant (Ast.ConstInt 5l));
                          body =
                          (Ast.Compound
                             (Ast.Block
@@ -107,20 +129,26 @@
                                      init =
                                      (Ast.InclDecl
                                         { Ast.name = (Ast.Identifier "i");
-                                          init = (Some (Ast.LiteralInt 0));
-                                          storage = None });
+                                          init =
+                                          (Some (Ast.Constant
+                                                   (Ast.ConstInt 0l)));
+                                          var_type = Ast.Int; storage = None
+                                          });
                                      cond =
                                      (Some Ast.Binary {op = Ast.LessThan;
                                              left =
                                              (Ast.Var (Ast.Identifier "i"));
-                                             right = (Ast.LiteralInt 10)});
+                                             right =
+                                             (Ast.Constant (Ast.ConstInt 10l))});
                                      post =
                                      (Some (Ast.Assignment (
                                               (Ast.Var (Ast.Identifier "i")),
                                               Ast.Binary {op = Ast.Add;
                                                 left =
                                                 (Ast.Var (Ast.Identifier "i"));
-                                                right = (Ast.LiteralInt 1)}
+                                                right =
+                                                (Ast.Constant
+                                                   (Ast.ConstInt 1l))}
                                               )));
                                      body =
                                      (Ast.Compound
@@ -131,24 +159,31 @@
                                                      (Ast.Var
                                                         (Ast.Identifier
                                                            "switch1")),
-                                                     (Ast.LiteralInt 0)))));
+                                                     (Ast.Constant
+                                                        (Ast.ConstInt 0l))
+                                                     ))));
                                              (Ast.S
                                                 Ast.Case {
-                                                  value = (Ast.LiteralInt 5);
+                                                  value =
+                                                  (Ast.Constant
+                                                     (Ast.ConstInt 5l));
                                                   body =
                                                   (Ast.Expression
                                                      (Ast.Assignment (
                                                         (Ast.Var
                                                            (Ast.Identifier
                                                               "switch3")),
-                                                        (Ast.LiteralInt 1))));
+                                                        (Ast.Constant
+                                                           (Ast.ConstInt 1l))
+                                                        )));
                                                   id = None});
                                              (Ast.S (Ast.Break None));
                                              (Ast.S
                                                 Ast.Default {
                                                   body =
                                                   (Ast.Return
-                                                     (Ast.LiteralInt 0));
+                                                     (Ast.Constant
+                                                        (Ast.ConstInt 0l)));
                                                   id = None})
                                              ]));
                                      id = None})
@@ -163,5 +198,6 @@
                               right = (Ast.Var (Ast.Identifier "switch2"))};
                             right = (Ast.Var (Ast.Identifier "switch3"))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

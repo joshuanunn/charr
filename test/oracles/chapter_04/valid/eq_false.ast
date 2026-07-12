@@ -6,8 +6,9 @@
                   [(Ast.S
                       (Ast.Return
                          Ast.Binary {op = Ast.Equal;
-                           left = (Ast.LiteralInt 1);
-                           right = (Ast.LiteralInt 2)}))
+                           left = (Ast.Constant (Ast.ConstInt 1l));
+                           right = (Ast.Constant (Ast.ConstInt 2l))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

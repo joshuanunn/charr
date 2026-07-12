@@ -6,7 +6,7 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x"); init = None;
-                           storage = None }));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Compound
                           (Ast.Block
@@ -14,7 +14,7 @@
                                  (Ast.Expression
                                     (Ast.Assignment (
                                        (Ast.Var (Ast.Identifier "x")),
-                                       (Ast.LiteralInt 3)))))
+                                       (Ast.Constant (Ast.ConstInt 3l))))))
                                ])));
                     (Ast.S
                        (Ast.Compound
@@ -23,5 +23,6 @@
                                  (Ast.Return (Ast.Var (Ast.Identifier "x"))))
                                ])))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

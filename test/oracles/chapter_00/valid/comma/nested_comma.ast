@@ -6,19 +6,22 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x"); init = None;
-                           storage = None }));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
                              (Ast.Comma (
                                 (Ast.Comma (
-                                   (Ast.Comma ((Ast.LiteralInt 1),
-                                      (Ast.LiteralInt 2))),
-                                   (Ast.Comma ((Ast.LiteralInt 3),
-                                      (Ast.LiteralInt 4)))
+                                   (Ast.Comma (
+                                      (Ast.Constant (Ast.ConstInt 1l)),
+                                      (Ast.Constant (Ast.ConstInt 2l)))),
+                                   (Ast.Comma (
+                                      (Ast.Constant (Ast.ConstInt 3l)),
+                                      (Ast.Constant (Ast.ConstInt 4l))))
                                    )),
-                                (Ast.LiteralInt 5)))
+                                (Ast.Constant (Ast.ConstInt 5l))))
                              ))));
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

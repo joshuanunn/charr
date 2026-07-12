@@ -7,7 +7,8 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "i");
-                           init = (Some (Ast.LiteralInt 2)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 2l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.If {cond_exp = (Ast.Var (Ast.Identifier "flag"));
                          then_smt =
@@ -17,7 +18,7 @@
                                    (Ast.Expression
                                       (Ast.Assignment (
                                          (Ast.Var (Ast.Identifier "i")),
-                                         (Ast.LiteralInt 3)))))
+                                         (Ast.Constant (Ast.ConstInt 3l))))))
                                  ]));
                          else_smt = None});
                     (Ast.S
@@ -25,6 +26,7 @@
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "i")),
                              (Ast.Var (Ast.Identifier "i"))))));
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "i"))))]));
+         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -37,12 +39,15 @@
                            left =
                            Ast.FunctionCall {
                              name = (Ast.Identifier "target");
-                             args = [(Ast.LiteralInt 0)]};
-                           right = (Ast.LiteralInt 2)};
+                             args = [(Ast.Constant (Ast.ConstInt 0l))]};
+                           right = (Ast.Constant (Ast.ConstInt 2l))};
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -51,13 +56,17 @@
                             left =
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target");
-                              args = [(Ast.LiteralInt 1)]};
-                            right = (Ast.LiteralInt 3)};
+                              args = [(Ast.Constant (Ast.ConstInt 1l))]};
+                            right = (Ast.Constant (Ast.ConstInt 3l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

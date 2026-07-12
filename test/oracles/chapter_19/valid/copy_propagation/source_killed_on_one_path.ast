@@ -1,7 +1,9 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "putchar");
-         params = [(Ast.Identifier "c")]; body = None; storage = None });
+         params = [(Ast.Identifier "c")]; body = None;
+         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f");
           params = [(Ast.Identifier "src"); (Ast.Identifier "flag")];
@@ -11,7 +13,7 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
                             init = (Some (Ast.Var (Ast.Identifier "src")));
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                      (Ast.S
                         Ast.If {cond_exp = (Ast.Var (Ast.Identifier "flag"));
                           then_smt =
@@ -21,7 +23,7 @@
                                     (Ast.Expression
                                        (Ast.Assignment (
                                           (Ast.Var (Ast.Identifier "src")),
-                                          (Ast.LiteralInt 65)))))
+                                          (Ast.Constant (Ast.ConstInt 65l))))))
                                   ]));
                           else_smt = None});
                      (Ast.S
@@ -30,6 +32,7 @@
                              name = (Ast.Identifier "putchar");
                              args = [(Ast.Var (Ast.Identifier "src"))]}));
                      (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))))]));
+          fun_type = Ast.FunType {params = [Ast.Int; Ast.Int]; ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -41,12 +44,17 @@
                          Ast.Binary {op = Ast.NotEqual;
                            left =
                            Ast.FunctionCall {name = (Ast.Identifier "f");
-                             args = [(Ast.LiteralInt 68); (Ast.LiteralInt 0)]};
-                           right = (Ast.LiteralInt 68)};
+                             args =
+                             [(Ast.Constant (Ast.ConstInt 68l));
+                               (Ast.Constant (Ast.ConstInt 0l))]};
+                           right = (Ast.Constant (Ast.ConstInt 68l))};
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -55,13 +63,18 @@
                             left =
                             Ast.FunctionCall {name = (Ast.Identifier "f");
                               args =
-                              [(Ast.LiteralInt 70); (Ast.LiteralInt 1)]};
-                            right = (Ast.LiteralInt 70)};
+                              [(Ast.Constant (Ast.ConstInt 70l));
+                                (Ast.Constant (Ast.ConstInt 1l))]};
+                            right = (Ast.Constant (Ast.ConstInt 70l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

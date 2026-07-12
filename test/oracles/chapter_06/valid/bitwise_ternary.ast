@@ -6,22 +6,23 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "result"); init = None;
-                           storage = None }));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           Ast.Conditional {
                             cond_exp =
                             Ast.Binary {op = Ast.BwXor;
-                              left = (Ast.LiteralInt 1);
-                              right = (Ast.LiteralInt 1)};
+                              left = (Ast.Constant (Ast.ConstInt 1l));
+                              right = (Ast.Constant (Ast.ConstInt 1l))};
                             then_exp =
                             (Ast.Assignment (
                                (Ast.Var (Ast.Identifier "result")),
-                               (Ast.LiteralInt 4)));
+                               (Ast.Constant (Ast.ConstInt 4l))));
                             else_exp =
                             (Ast.Assignment (
                                (Ast.Var (Ast.Identifier "result")),
-                               (Ast.LiteralInt 5)))}));
+                               (Ast.Constant (Ast.ConstInt 5l))))}));
                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "result"))))]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

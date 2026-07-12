@@ -6,10 +6,11 @@
                   [(Ast.S
                       (Ast.Return
                          Ast.Binary {op = Ast.Add;
-                           left = (Ast.LiteralInt 100);
-                           right = (Ast.LiteralInt 200)}))
+                           left = (Ast.Constant (Ast.ConstInt 100l));
+                           right = (Ast.Constant (Ast.ConstInt 200l))}))
                     ]));
-         storage = None });
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_sub"); params = [];
           body =
@@ -17,10 +18,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.Subtract;
-                            left = (Ast.LiteralInt 2);
-                            right = (Ast.LiteralInt 2147483647)}))
+                            left = (Ast.Constant (Ast.ConstInt 2l));
+                            right = (Ast.Constant (Ast.ConstInt 2147483647l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_mult"); params = [];
           body =
@@ -28,10 +30,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.Multiply;
-                            left = (Ast.LiteralInt 1000);
-                            right = (Ast.LiteralInt 1000)}))
+                            left = (Ast.Constant (Ast.ConstInt 1000l));
+                            right = (Ast.Constant (Ast.ConstInt 1000l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_div"); params = [];
           body =
@@ -39,10 +42,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.Divide;
-                            left = (Ast.LiteralInt 1111);
-                            right = (Ast.LiteralInt 4)}))
+                            left = (Ast.Constant (Ast.ConstInt 1111l));
+                            right = (Ast.Constant (Ast.ConstInt 4l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_rem"); params = [];
           body =
@@ -50,10 +54,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.Remainder;
-                            left = (Ast.LiteralInt 10);
-                            right = (Ast.LiteralInt 3)}))
+                            left = (Ast.Constant (Ast.ConstInt 10l));
+                            right = (Ast.Constant (Ast.ConstInt 3l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_eq_true"); params = [];
           body =
@@ -61,10 +66,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.Equal;
-                            left = (Ast.LiteralInt 2147483647);
-                            right = (Ast.LiteralInt 2147483647)}))
+                            left = (Ast.Constant (Ast.ConstInt 2147483647l));
+                            right = (Ast.Constant (Ast.ConstInt 2147483647l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_eq_false"); params = [];
           body =
@@ -72,10 +78,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.Equal;
-                            left = (Ast.LiteralInt 2147483647);
-                            right = (Ast.LiteralInt 2147483646)}))
+                            left = (Ast.Constant (Ast.ConstInt 2147483647l));
+                            right = (Ast.Constant (Ast.ConstInt 2147483646l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_neq_true"); params = [];
           body =
@@ -83,10 +90,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.NotEqual;
-                            left = (Ast.LiteralInt 1111);
-                            right = (Ast.LiteralInt 1112)}))
+                            left = (Ast.Constant (Ast.ConstInt 1111l));
+                            right = (Ast.Constant (Ast.ConstInt 1112l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_neq_false"); params = [];
           body =
@@ -94,10 +102,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.NotEqual;
-                            left = (Ast.LiteralInt 1112);
-                            right = (Ast.LiteralInt 1112)}))
+                            left = (Ast.Constant (Ast.ConstInt 1112l));
+                            right = (Ast.Constant (Ast.ConstInt 1112l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_gt_true"); params = [];
           body =
@@ -105,10 +114,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.GreaterThan;
-                            left = (Ast.LiteralInt 10);
-                            right = (Ast.LiteralInt 1)}))
+                            left = (Ast.Constant (Ast.ConstInt 10l));
+                            right = (Ast.Constant (Ast.ConstInt 1l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_gt_false"); params = [];
           body =
@@ -116,10 +126,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.GreaterThan;
-                            left = (Ast.LiteralInt 10);
-                            right = (Ast.LiteralInt 10)}))
+                            left = (Ast.Constant (Ast.ConstInt 10l));
+                            right = (Ast.Constant (Ast.ConstInt 10l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_ge_true"); params = [];
           body =
@@ -127,10 +138,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.GreaterOrEqual;
-                            left = (Ast.LiteralInt 123456);
-                            right = (Ast.LiteralInt 123456)}))
+                            left = (Ast.Constant (Ast.ConstInt 123456l));
+                            right = (Ast.Constant (Ast.ConstInt 123456l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_ge_false"); params = [];
           body =
@@ -138,10 +150,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.GreaterOrEqual;
-                            left = (Ast.LiteralInt 2147);
-                            right = (Ast.LiteralInt 123456)}))
+                            left = (Ast.Constant (Ast.ConstInt 2147l));
+                            right = (Ast.Constant (Ast.ConstInt 123456l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_lt_true"); params = [];
           body =
@@ -149,10 +162,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.LessThan;
-                            left = (Ast.LiteralInt 256);
-                            right = (Ast.LiteralInt 1073742080)}))
+                            left = (Ast.Constant (Ast.ConstInt 256l));
+                            right = (Ast.Constant (Ast.ConstInt 1073742080l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_lt_false"); params = [];
           body =
@@ -160,10 +174,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.LessThan;
-                            left = (Ast.LiteralInt 256);
-                            right = (Ast.LiteralInt 0)}))
+                            left = (Ast.Constant (Ast.ConstInt 256l));
+                            right = (Ast.Constant (Ast.ConstInt 0l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_le_true"); params = [];
           body =
@@ -171,10 +186,11 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.LessOrEqual;
-                            left = (Ast.LiteralInt 123456);
-                            right = (Ast.LiteralInt 123457)}))
+                            left = (Ast.Constant (Ast.ConstInt 123456l));
+                            right = (Ast.Constant (Ast.ConstInt 123457l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_le_false"); params = [];
           body =
@@ -182,13 +198,15 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.LessOrEqual;
-                            left = (Ast.LiteralInt 123458);
-                            right = (Ast.LiteralInt 123457)}))
+                            left = (Ast.Constant (Ast.ConstInt 123458l));
+                            right = (Ast.Constant (Ast.ConstInt 123457l))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "val_to_negate");
-          init = (Some (Ast.LiteralInt 2147483645)); storage = None });
+          init = (Some (Ast.Constant (Ast.ConstInt 2147483645l)));
+          var_type = Ast.Int; storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -200,11 +218,14 @@
                            left =
                            Ast.FunctionCall {
                              name = (Ast.Identifier "target_add"); args = []};
-                           right = (Ast.LiteralInt 300)};
+                           right = (Ast.Constant (Ast.ConstInt 300l))};
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                 ]));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -220,7 +241,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -230,11 +254,14 @@
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_mult");
                               args = []};
-                            right = (Ast.LiteralInt 1000000)};
+                            right = (Ast.Constant (Ast.ConstInt 1000000l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 3l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -243,11 +270,14 @@
                             left =
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_div"); args = []};
-                            right = (Ast.LiteralInt 277)};
+                            right = (Ast.Constant (Ast.ConstInt 277l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 4)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 4l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -256,11 +286,14 @@
                             left =
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target_rem"); args = []};
-                            right = (Ast.LiteralInt 1)};
+                            right = (Ast.Constant (Ast.ConstInt 1l))};
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 5)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 5l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -271,7 +304,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 6)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 6l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -284,7 +320,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 7)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 7l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -295,7 +334,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 8)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 8l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -308,7 +350,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 9)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 9l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -319,7 +364,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 10)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 10l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -332,7 +380,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 11)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 11l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -343,7 +394,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 12)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 12l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -356,7 +410,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 13)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 13l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -367,7 +424,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 14)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 14l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -380,7 +440,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 15)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 15l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -391,7 +454,10 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 16)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 16l))))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
@@ -404,8 +470,12 @@
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 17)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       (Ast.Constant (Ast.ConstInt 17l))))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
-          storage = None })
+                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

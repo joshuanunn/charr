@@ -6,19 +6,21 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 4)); storage = None }));
+                           init = (Some (Ast.Constant (Ast.ConstInt 4l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
-                       Ast.Switch {cond = (Ast.LiteralInt 2);
+                       Ast.Switch {cond = (Ast.Constant (Ast.ConstInt 2l));
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 2);
+                                   Ast.Case {
+                                     value = (Ast.Constant (Ast.ConstInt 2l));
                                      body =
                                      (Ast.Compound
                                         (Ast.Block
@@ -27,7 +29,9 @@
                                                   { Ast.name =
                                                     (Ast.Identifier "a");
                                                     init =
-                                                    (Some (Ast.LiteralInt 8));
+                                                    (Some (Ast.Constant
+                                                             (Ast.ConstInt 8l)));
+                                                    var_type = Ast.Int;
                                                     storage = None }));
                                              (Ast.S
                                                 (Ast.Expression
@@ -47,11 +51,12 @@
                             left =
                             Ast.Binary {op = Ast.Equal;
                               left = (Ast.Var (Ast.Identifier "a"));
-                              right = (Ast.LiteralInt 4)};
+                              right = (Ast.Constant (Ast.ConstInt 4l))};
                             right =
                             Ast.Binary {op = Ast.Equal;
                               left = (Ast.Var (Ast.Identifier "b"));
-                              right = (Ast.LiteralInt 8)}}))
+                              right = (Ast.Constant (Ast.ConstInt 8l))}}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

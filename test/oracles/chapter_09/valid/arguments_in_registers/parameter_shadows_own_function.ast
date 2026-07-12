@@ -7,8 +7,9 @@
                       (Ast.Return
                          Ast.Binary {op = Ast.Multiply;
                            left = (Ast.Var (Ast.Identifier "a"));
-                           right = (Ast.LiteralInt 2)}))
+                           right = (Ast.Constant (Ast.ConstInt 2l))}))
                     ]));
+         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -17,7 +18,8 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "a");
-                            args = [(Ast.LiteralInt 1)]}))
+                            args = [(Ast.Constant (Ast.ConstInt 1l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

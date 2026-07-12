@@ -6,13 +6,14 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 2147483646));
-                           storage = None }));
+                           init =
+                           (Some (Ast.Constant (Ast.ConstInt 2147483646l)));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "c");
@@ -21,22 +22,25 @@
                                     left =
                                     Ast.Binary {op = Ast.Divide;
                                       left = (Ast.Var (Ast.Identifier "a"));
-                                      right = (Ast.LiteralInt 6)};
+                                      right =
+                                      (Ast.Constant (Ast.ConstInt 6l))};
                                     right =
                                     Ast.Unary {op = Ast.Not;
                                       exp = (Ast.Var (Ast.Identifier "b"))}});
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
                           Ast.Binary {op = Ast.Equal;
                             left =
                             Ast.Binary {op = Ast.Multiply;
                               left = (Ast.Var (Ast.Identifier "c"));
-                              right = (Ast.LiteralInt 2)};
+                              right = (Ast.Constant (Ast.ConstInt 2l))};
                             right =
                             Ast.Binary {op = Ast.Subtract;
                               left = (Ast.Var (Ast.Identifier "a"));
-                              right = (Ast.LiteralInt 1431655762)}}))
+                              right =
+                              (Ast.Constant (Ast.ConstInt 1431655762l))}}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

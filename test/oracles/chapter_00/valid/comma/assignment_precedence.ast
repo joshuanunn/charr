@@ -6,25 +6,25 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a"); init = None;
-                           storage = None }));
+                           var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b"); init = None;
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
-                             (Ast.LiteralInt 0)))));
+                             (Ast.Constant (Ast.ConstInt 0l))))));
                     (Ast.S
                        (Ast.Expression
                           (Ast.Assignment ((Ast.Var (Ast.Identifier "b")),
                              (Ast.Comma (
                                 (Ast.Assignment (
                                    (Ast.Var (Ast.Identifier "a")),
-                                   (Ast.LiteralInt 1))),
+                                   (Ast.Constant (Ast.ConstInt 1l)))),
                                 (Ast.Assignment (
                                    (Ast.Var (Ast.Identifier "a")),
-                                   (Ast.LiteralInt 2)))
+                                   (Ast.Constant (Ast.ConstInt 2l))))
                                 ))
                              ))));
                     (Ast.S
@@ -33,8 +33,9 @@
                             left =
                             Ast.Binary {op = Ast.Multiply;
                               left = (Ast.Var (Ast.Identifier "a"));
-                              right = (Ast.LiteralInt 10)};
+                              right = (Ast.Constant (Ast.ConstInt 10l))};
                             right = (Ast.Var (Ast.Identifier "b"))}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

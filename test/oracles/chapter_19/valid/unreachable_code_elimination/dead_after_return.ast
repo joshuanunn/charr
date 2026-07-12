@@ -1,13 +1,16 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "callee"); params = [];
-         body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
-         storage = None });
+         body =
+         (Some (Ast.Block
+                  [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 1l))))]));
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
           body =
           (Some (Ast.Block
-                   [(Ast.S (Ast.Return (Ast.LiteralInt 2)));
+                   [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 2l))));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "x");
@@ -15,7 +18,7 @@
                              (Some Ast.FunctionCall {
                                      name = (Ast.Identifier "callee");
                                      args = []});
-                             storage = None }));
+                             var_type = Ast.Int; storage = None }));
                      (Ast.S
                         Ast.If {cond_exp = (Ast.Var (Ast.Identifier "x"));
                           then_smt =
@@ -25,7 +28,7 @@
                                     (Ast.Expression
                                        (Ast.Assignment (
                                           (Ast.Var (Ast.Identifier "x")),
-                                          (Ast.LiteralInt 10)))))
+                                          (Ast.Constant (Ast.ConstInt 10l))))))
                                   ]));
                           else_smt = None});
                      (Ast.D
@@ -35,14 +38,15 @@
                              (Some Ast.FunctionCall {
                                      name = (Ast.Identifier "callee");
                                      args = []});
-                             storage = None }));
+                             var_type = Ast.Int; storage = None }));
                      (Ast.S
                         (Ast.Return
                            Ast.Binary {op = Ast.Add;
                              left = (Ast.Var (Ast.Identifier "x"));
                              right = (Ast.Var (Ast.Identifier "y"))}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -52,5 +56,6 @@
                           Ast.FunctionCall {name = (Ast.Identifier "target");
                             args = []}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])

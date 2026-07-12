@@ -6,10 +6,11 @@
                   [(Ast.S
                       (Ast.Return
                          Ast.Binary {op = Ast.Subtract;
-                           left = (Ast.LiteralInt 2);
+                           left = (Ast.Constant (Ast.ConstInt 2l));
                            right =
                            Ast.Unary {op = Ast.Negate;
-                             exp = (Ast.LiteralInt 1)}}))
+                             exp = (Ast.Constant (Ast.ConstInt 1l))}}))
                     ]));
-         storage = None })
+         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+         })
      ])

@@ -2,6 +2,7 @@
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "foo");
          params = [(Ast.Identifier "a"); (Ast.Identifier "b")]; body = None;
+         fun_type = Ast.FunType {params = [Ast.Int; Ast.Int]; ret = Ast.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -10,9 +11,12 @@
                    [(Ast.S
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "foo");
-                            args = [(Ast.LiteralInt 2); (Ast.LiteralInt 1)]}))
+                            args =
+                            [(Ast.Constant (Ast.ConstInt 2l));
+                              (Ast.Constant (Ast.ConstInt 1l))]}))
                      ]));
-          storage = None });
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "foo");
           params = [(Ast.Identifier "x"); (Ast.Identifier "y")];
@@ -24,5 +28,6 @@
                             left = (Ast.Var (Ast.Identifier "x"));
                             right = (Ast.Var (Ast.Identifier "y"))}))
                      ]));
+          fun_type = Ast.FunType {params = [Ast.Int; Ast.Int]; ret = Ast.Int};
           storage = None })
      ])

@@ -17,22 +17,26 @@
                               left =
                               Ast.Binary {op = Ast.Equal;
                                 left = (Ast.Var (Ast.Identifier "w"));
-                                right = (Ast.LiteralInt 2)};
+                                right = (Ast.Constant (Ast.ConstInt 2l))};
                               right =
                               Ast.Binary {op = Ast.Equal;
                                 left = (Ast.Var (Ast.Identifier "x"));
-                                right = (Ast.LiteralInt 4)}};
+                                right = (Ast.Constant (Ast.ConstInt 4l))}};
                             right =
                             Ast.Binary {op = Ast.Equal;
                               left = (Ast.Var (Ast.Identifier "y"));
-                              right = (Ast.LiteralInt 6)}};
+                              right = (Ast.Constant (Ast.ConstInt 6l))}};
                           right =
                           Ast.Binary {op = Ast.Equal;
                             left = (Ast.Var (Ast.Identifier "z"));
-                            right = (Ast.LiteralInt 8)}};
-                        then_smt = (Ast.Return (Ast.LiteralInt 1));
+                            right = (Ast.Constant (Ast.ConstInt 8l))}};
+                        then_smt =
+                        (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
                         else_smt = None});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                    (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+         fun_type =
+         Ast.FunType {params = [Ast.Int; Ast.Int; Ast.Int; Ast.Int];
+           ret = Ast.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f");
@@ -50,18 +54,22 @@
                                     args =
                                     [Ast.Binary {op = Ast.Multiply;
                                        left = (Ast.Var (Ast.Identifier "a"));
-                                       right = (Ast.LiteralInt 2)};
+                                       right =
+                                       (Ast.Constant (Ast.ConstInt 2l))};
                                       Ast.Binary {op = Ast.Multiply;
                                         left = (Ast.Var (Ast.Identifier "b"));
-                                        right = (Ast.LiteralInt 2)};
+                                        right =
+                                        (Ast.Constant (Ast.ConstInt 2l))};
                                       Ast.Binary {op = Ast.Multiply;
                                         left = (Ast.Var (Ast.Identifier "c"));
-                                        right = (Ast.LiteralInt 2)};
+                                        right =
+                                        (Ast.Constant (Ast.ConstInt 2l))};
                                       Ast.Binary {op = Ast.Multiply;
                                         left = (Ast.Var (Ast.Identifier "d"));
-                                        right = (Ast.LiteralInt 2)}
+                                        right =
+                                        (Ast.Constant (Ast.ConstInt 2l))}
                                       ]});
-                            storage = None }));
+                            var_type = Ast.Int; storage = None }));
                      (Ast.S
                         (Ast.Return
                            Ast.Binary {op = Ast.And;
@@ -75,24 +83,27 @@
                                    Ast.Binary {op = Ast.Equal;
                                      left =
                                      (Ast.Var (Ast.Identifier "result"));
-                                     right = (Ast.LiteralInt 1)};
+                                     right = (Ast.Constant (Ast.ConstInt 1l))};
                                    right =
                                    Ast.Binary {op = Ast.Equal;
                                      left = (Ast.Var (Ast.Identifier "a"));
-                                     right = (Ast.LiteralInt 1)}};
+                                     right = (Ast.Constant (Ast.ConstInt 1l))}};
                                  right =
                                  Ast.Binary {op = Ast.Equal;
                                    left = (Ast.Var (Ast.Identifier "b"));
-                                   right = (Ast.LiteralInt 2)}};
+                                   right = (Ast.Constant (Ast.ConstInt 2l))}};
                                right =
                                Ast.Binary {op = Ast.Equal;
                                  left = (Ast.Var (Ast.Identifier "c"));
-                                 right = (Ast.LiteralInt 3)}};
+                                 right = (Ast.Constant (Ast.ConstInt 3l))}};
                              right =
                              Ast.Binary {op = Ast.Equal;
                                left = (Ast.Var (Ast.Identifier "d"));
-                               right = (Ast.LiteralInt 4)}}))
+                               right = (Ast.Constant (Ast.ConstInt 4l))}}))
                      ]));
+          fun_type =
+          Ast.FunType {params = [Ast.Int; Ast.Int; Ast.Int; Ast.Int];
+            ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -102,8 +113,11 @@
                        (Ast.Return
                           Ast.FunctionCall {name = (Ast.Identifier "f");
                             args =
-                            [(Ast.LiteralInt 1); (Ast.LiteralInt 2);
-                              (Ast.LiteralInt 3); (Ast.LiteralInt 4)]}))
+                            [(Ast.Constant (Ast.ConstInt 1l));
+                              (Ast.Constant (Ast.ConstInt 2l));
+                              (Ast.Constant (Ast.ConstInt 3l));
+                              (Ast.Constant (Ast.ConstInt 4l))]}))
                      ]));
-          storage = None })
+          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
+          })
      ])
