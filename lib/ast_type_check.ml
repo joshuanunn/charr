@@ -8,7 +8,7 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
   let init = v.init in
   let init_val =
     match init with
-    | Some (Ast.Constant i) -> (
+    | Some { Ast.e = Ast.Constant i; _ } -> (
         match i with
         | ConstInt i -> Env.Initial (Int32.to_int i)
         | ConstLong _ -> failwith "Not implemented")
@@ -83,7 +83,7 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
       let init =
         match v.init with
         | None -> Env.Initial 0
-        | Some (Ast.Constant i) -> (
+        | Some { e = Ast.Constant i; _ } -> (
             match i with
             | ConstInt i -> Env.Initial (Int32.to_int i)
             | ConstLong _ -> failwith "Not implemented")
@@ -146,7 +146,7 @@ and type_fun_decl (f : Ast.fun_decl) (te : Env.tenv) : unit =
     Ensures variables and functions are used consistently with their declared
     types and recursively checks all subexpressions. *)
 and type_expr (e : Ast.expr) (te : Env.tenv) : unit =
-  match e with
+  match e.e with
   | Constant c -> (
       match c with
       | ConstInt _ -> ()
@@ -158,7 +158,7 @@ and type_expr (e : Ast.expr) (te : Env.tenv) : unit =
       type_expr left te;
       type_expr right te
   | Assignment (lvalue, rvalue) -> (
-      match lvalue with
+      match lvalue.e with
       | Var _ ->
           type_expr lvalue te;
           type_expr rvalue te

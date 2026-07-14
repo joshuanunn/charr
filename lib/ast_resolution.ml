@@ -34,32 +34,37 @@ and predeclare_stmt_labels (stmt : Ast.stmt) (se : Env.senv) : unit =
     [e] using environment [se], returning a new AST expression with identifiers
     replaced by their unique scoped names. *)
 let rec resolve_expr (e : Ast.expr) (se : Env.senv) : Ast.expr =
-  match e with
-  | Constant i -> Constant i
-  | Var v -> Var (Env.resolve_var se v)
-  | Cast { target_type; exp } -> Cast { target_type; exp = resolve_expr exp se }
-  | Unary { op; exp } -> Unary { op; exp = resolve_expr exp se }
-  | Binary { op; left; right } ->
-      Binary { op; left = resolve_expr left se; right = resolve_expr right se }
-  | Assignment (lvalue, rvalue) -> (
-      match lvalue with
-      | Var _ -> Assignment (resolve_expr lvalue se, resolve_expr rvalue se)
-      | _ -> failwith "lvalues in assignments must be variables")
-  | Conditional { cond_exp; then_exp; else_exp } ->
-      Conditional
-        {
-          cond_exp = resolve_expr cond_exp se;
-          then_exp = resolve_expr then_exp se;
-          else_exp = resolve_expr else_exp se;
-        }
-  | FunctionCall { name; args } ->
-      let name' = Env.resolve_fun se name in
-      let args' = List.map (fun e -> resolve_expr e se) args in
-      FunctionCall { name = name'; args = args' }
-  | Comma (left, right) ->
-      let left' = resolve_expr left se in
-      let right' = resolve_expr right se in
-      Comma (left', right')
+  let kind : Ast.expr_kind =
+    match e.e with
+    | Constant i -> Constant i
+    | Var v -> Var (Env.resolve_var se v)
+    | Cast { target_type; exp } ->
+        Cast { target_type; exp = resolve_expr exp se }
+    | Unary { op; exp } -> Unary { op; exp = resolve_expr exp se }
+    | Binary { op; left; right } ->
+        Binary
+          { op; left = resolve_expr left se; right = resolve_expr right se }
+    | Assignment (lvalue, rvalue) -> (
+        match lvalue.e with
+        | Var _ -> Assignment (resolve_expr lvalue se, resolve_expr rvalue se)
+        | _ -> failwith "lvalues in assignments must be variables")
+    | Conditional { cond_exp; then_exp; else_exp } ->
+        Conditional
+          {
+            cond_exp = resolve_expr cond_exp se;
+            then_exp = resolve_expr then_exp se;
+            else_exp = resolve_expr else_exp se;
+          }
+    | FunctionCall { name; args } ->
+        let name' = Env.resolve_fun se name in
+        let args' = List.map (fun e -> resolve_expr e se) args in
+        FunctionCall { name = name'; args = args' }
+    | Comma (left, right) ->
+        let left' = resolve_expr left se in
+        let right' = resolve_expr right se in
+        Comma (left', right')
+  in
+  { e with e = kind }
 
 (** [resolve_opt_expr e_opt se] resolves an optional expression [e_opt] using
     environment [se], returning [Some resolved_expr] or [None] if input is
@@ -133,7 +138,7 @@ let rec resolve_stmt (s : Ast.stmt) (se : Env.senv) : Ast.stmt =
   | Case { value; body; id } -> (
       let value' = resolve_expr value se in
       let body' = resolve_stmt body se in
-      match value' with
+      match value'.e with
       (* TODO: add support for other integer types once implemented *)
       | Constant _ -> Case { value = value'; body = body'; id }
       | _ -> failwith "case label must be a constant integer expression")

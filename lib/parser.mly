@@ -307,7 +307,7 @@ postfix_expr:
 
 (* Literals, identifiers, parentheses *)
 primary_expr:
-  | identifier { Ast.Var $1 }
+  | identifier { Ast.mk_var_expr $1 }
   | constant { $1 }
   | LPAREN expr RPAREN { $2 }
   ;

@@ -66,7 +66,7 @@ let rec collect_cases (s : Ast.stmt) : (Ast.expr option * string) list =
 
 let rec convert_expr (e : Ast.expr) (le : Env.lenv) :
     Ir.value * Ir.instruction list =
-  match e with
+  match e.e with
   | Constant c -> (
       match c with
       | ConstInt i -> (Constant (Int32.to_int i), [])
@@ -343,7 +343,7 @@ and convert_dclr (d : Ast.decl) (le : Env.lenv) : Ir.instruction list =
   (* Handle a declaration with initialiser as an assignment expression *)
   | VarDecl { storage = _; name; init = Some rhs; _ } ->
       Env.insert_value le name;
-      let initialiser = Ast.Assignment (Ast.Var name, rhs) in
+      let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
       let _, instructions = convert_expr initialiser le in
       instructions
 
@@ -356,7 +356,7 @@ and convert_for_init (i : Ast.for_init) (le : Env.lenv) : Ir.instruction list =
   (* Handle a declaration with initialiser as an assignment expression *)
   | InclDecl { name; init = Some rhs; _ } ->
       Env.insert_value le name;
-      let initialiser = Ast.Assignment (Ast.Var name, rhs) in
+      let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
       let _, instructions = convert_expr initialiser le in
       instructions
   | InitExp (Some e) ->
