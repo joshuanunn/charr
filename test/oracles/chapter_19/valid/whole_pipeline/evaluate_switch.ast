@@ -3,7 +3,11 @@
        { Ast.name = (Ast.Identifier "callee"); params = [];
          body =
          (Some (Ast.Block
-                  [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+                  [(Ast.S
+                      (Ast.Return
+                         { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           typ = None }))
+                    ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          });
      (Ast.FunDecl
@@ -13,77 +17,120 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "switch_var");
-                            init = (Some (Ast.Constant (Ast.ConstInt 10l)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                                    typ = None });
                             var_type = Ast.Int; storage = None }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "retval");
                              init =
-                             (Some Ast.Unary {op = Ast.Negate;
-                                     exp = (Ast.Constant (Ast.ConstInt 1l))});
+                             (Some { Ast.e =
+                                     Ast.Unary {op = Ast.Negate;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 1l));
+                                         typ = None }};
+                                     typ = None });
                              var_type = Ast.Int; storage = None }));
                      (Ast.S
                         Ast.Switch {
-                          cond = (Ast.Var (Ast.Identifier "switch_var"));
+                          cond =
+                          { Ast.e = (Ast.Var (Ast.Identifier "switch_var"));
+                            typ = None };
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     Ast.Case {
                                       value =
-                                      (Ast.Constant (Ast.ConstInt 1l));
+                                      { Ast.e =
+                                        (Ast.Constant (Ast.ConstInt 1l));
+                                        typ = None };
                                       body =
                                       (Ast.Expression
-                                         Ast.FunctionCall {
-                                           name = (Ast.Identifier "callee");
-                                           args = []});
+                                         { Ast.e =
+                                           Ast.FunctionCall {
+                                             name = (Ast.Identifier "callee");
+                                             args = []};
+                                           typ = None });
                                       id = None});
                                   (Ast.S
                                      (Ast.Return
-                                        (Ast.Constant (Ast.ConstInt 1l))));
+                                        { Ast.e =
+                                          (Ast.Constant (Ast.ConstInt 1l));
+                                          typ = None }));
                                   (Ast.S
                                      Ast.Case {
                                        value =
-                                       (Ast.Constant (Ast.ConstInt 2l));
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 2l));
+                                         typ = None };
                                        body =
                                        (Ast.Expression
-                                          (Ast.Assignment (
-                                             (Ast.Var
-                                                (Ast.Identifier "retval")),
-                                             Ast.Unary {op = Ast.Negate;
-                                               exp =
-                                               (Ast.Constant
-                                                  (Ast.ConstInt 2l))}
-                                             )));
+                                          { Ast.e =
+                                            (Ast.Assignment (
+                                               { Ast.e =
+                                                 (Ast.Var
+                                                    (Ast.Identifier "retval"));
+                                                 typ = None },
+                                               { Ast.e =
+                                                 Ast.Unary {op = Ast.Negate;
+                                                   exp =
+                                                   { Ast.e =
+                                                     (Ast.Constant
+                                                        (Ast.ConstInt 2l));
+                                                     typ = None }};
+                                                 typ = None }
+                                               ));
+                                            typ = None });
                                        id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
                                      Ast.Case {
                                        value =
-                                       (Ast.Constant (Ast.ConstInt 10l));
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 10l));
+                                         typ = None };
                                        body =
                                        (Ast.Expression
-                                          (Ast.Assignment (
-                                             (Ast.Var
-                                                (Ast.Identifier "retval")),
-                                             (Ast.Constant (Ast.ConstInt 0l))
-                                             )));
+                                          { Ast.e =
+                                            (Ast.Assignment (
+                                               { Ast.e =
+                                                 (Ast.Var
+                                                    (Ast.Identifier "retval"));
+                                                 typ = None },
+                                               { Ast.e =
+                                                 (Ast.Constant
+                                                    (Ast.ConstInt 0l));
+                                                 typ = None }
+                                               ));
+                                            typ = None });
                                        id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
                                      Ast.Default {
                                        body =
                                        (Ast.Expression
-                                          (Ast.Assignment (
-                                             (Ast.Var
-                                                (Ast.Identifier "retval")),
-                                             (Ast.Constant
-                                                (Ast.ConstInt 1000l))
-                                             )));
+                                          { Ast.e =
+                                            (Ast.Assignment (
+                                               { Ast.e =
+                                                 (Ast.Var
+                                                    (Ast.Identifier "retval"));
+                                                 typ = None },
+                                               { Ast.e =
+                                                 (Ast.Constant
+                                                    (Ast.ConstInt 1000l));
+                                                 typ = None }
+                                               ));
+                                            typ = None });
                                        id = None});
                                   (Ast.S (Ast.Break None))]));
                           id = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "retval"));
+                             typ = None }))
                      ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           });
@@ -93,8 +140,10 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })

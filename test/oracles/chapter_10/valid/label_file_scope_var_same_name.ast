@@ -9,10 +9,15 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
-                            init = (Some (Ast.Constant (Ast.ConstInt 10l)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                                    typ = None });
                             var_type = Ast.Int; storage = None }));
                      (Ast.S (Ast.Goto (Ast.Identifier "x")));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                             typ = None }));
                      (Ast.S
                         (Ast.Compound
                            (Ast.Block
@@ -24,7 +29,9 @@
                                 (Ast.S
                                    (Ast.Label ((Ast.Identifier "x"),
                                       (Ast.Return
-                                         (Ast.Var (Ast.Identifier "x")))
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "x"));
+                                           typ = None })
                                       )))
                                 ])))
                      ]));

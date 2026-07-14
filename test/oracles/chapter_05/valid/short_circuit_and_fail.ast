@@ -6,16 +6,32 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                   typ = None });
                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          Ast.Binary {op = Ast.And;
-                            left = (Ast.Constant (Ast.ConstInt 0l));
-                            right =
-                            (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
-                               (Ast.Constant (Ast.ConstInt 5l))))}));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
+                          { Ast.e =
+                            Ast.Binary {op = Ast.And;
+                              left =
+                              { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                (Ast.Assignment (
+                                   { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                     typ = None },
+                                   { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                                     typ = None }
+                                   ));
+                                typ = None }};
+                            typ = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                            typ = None }))
+                    ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })
      ])

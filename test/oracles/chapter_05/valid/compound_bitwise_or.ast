@@ -6,17 +6,34 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_or");
-                           init = (Some (Ast.Constant (Ast.ConstInt 1l)));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                   typ = None });
                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "to_or")),
-                             Ast.Binary {op = Ast.BwOr;
-                               left = (Ast.Var (Ast.Identifier "to_or"));
-                               right = (Ast.Constant (Ast.ConstInt 30l))}
-                             ))));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "to_or"))))]));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "to_or"));
+                                 typ = None },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.BwOr;
+                                   left =
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "to_or"));
+                                     typ = None };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant (Ast.ConstInt 30l));
+                                     typ = None }};
+                                 typ = None }
+                               ));
+                            typ = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "to_or"));
+                            typ = None }))
+                    ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })
      ])

@@ -19,8 +19,10 @@
                             storage = None }));
                     (Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "f");
+                              args = []};
+                            typ = None }))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          });
@@ -28,7 +30,11 @@
         { Ast.name = (Ast.Identifier "f"); params = [];
           body =
           (Some (Ast.Block
-                   [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 3l))))]));
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                            typ = None }))
+                     ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })
      ])

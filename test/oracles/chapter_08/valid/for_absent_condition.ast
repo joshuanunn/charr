@@ -8,24 +8,46 @@
                         init =
                         (Ast.InclDecl
                            { Ast.name = (Ast.Identifier "i");
-                             init = (Some (Ast.Constant (Ast.ConstInt 400l)));
+                             init =
+                             (Some { Ast.e =
+                                     (Ast.Constant (Ast.ConstInt 400l));
+                                     typ = None });
                              var_type = Ast.Int; storage = None });
                         cond = None;
                         post =
-                        (Some (Ast.Assignment (
-                                 (Ast.Var (Ast.Identifier "i")),
-                                 Ast.Binary {op = Ast.Subtract;
-                                   left = (Ast.Var (Ast.Identifier "i"));
-                                   right = (Ast.Constant (Ast.ConstInt 100l))}
-                                 )));
+                        (Some { Ast.e =
+                                (Ast.Assignment (
+                                   { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                     typ = None },
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.Subtract;
+                                       left =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "i"));
+                                         typ = None };
+                                       right =
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 100l));
+                                         typ = None }};
+                                     typ = None }
+                                   ));
+                                typ = None });
                         body =
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.Equal;
-                            left = (Ast.Var (Ast.Identifier "i"));
-                            right = (Ast.Constant (Ast.ConstInt 100l))};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ast.ConstInt 100l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
-                          (Ast.Return (Ast.Constant (Ast.ConstInt 0l)));
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                               typ = None });
                           else_smt = None};
                         id = None})
                     ]));

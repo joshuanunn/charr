@@ -7,37 +7,63 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "retval");
-                           init = (Some (Ast.Constant (Ast.ConstInt 10l)));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                                   typ = None });
                            var_type = Ast.Int; storage = None }));
                     (Ast.S
-                       Ast.Switch {cond = (Ast.Var (Ast.Identifier "flag"));
+                       Ast.Switch {
+                         cond =
+                         { Ast.e = (Ast.Var (Ast.Identifier "flag"));
+                           typ = None };
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
                                    Ast.Case {
-                                     value = (Ast.Constant (Ast.ConstInt 1l));
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ast.ConstInt 1l));
+                                       typ = None };
                                      body =
                                      (Ast.Expression
-                                        (Ast.Assignment (
-                                           (Ast.Var (Ast.Identifier "retval")),
-                                           (Ast.Constant (Ast.ConstInt 0l)))));
+                                        { Ast.e =
+                                          (Ast.Assignment (
+                                             { Ast.e =
+                                               (Ast.Var
+                                                  (Ast.Identifier "retval"));
+                                               typ = None },
+                                             { Ast.e =
+                                               (Ast.Constant
+                                                  (Ast.ConstInt 0l));
+                                               typ = None }
+                                             ));
+                                          typ = None });
                                      id = None});
                                  (Ast.S
                                     Ast.Case {
                                       value =
-                                      (Ast.Constant (Ast.ConstInt 2l));
+                                      { Ast.e =
+                                        (Ast.Constant (Ast.ConstInt 2l));
+                                        typ = None };
                                       body =
                                       (Ast.Return
-                                         (Ast.Var (Ast.Identifier "retval")));
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "retval"));
+                                           typ = None });
                                       id = None});
                                  (Ast.S
                                     Ast.Default {
                                       body =
                                       (Ast.Return
-                                         Ast.Unary {op = Ast.Negate;
-                                           exp =
-                                           (Ast.Constant (Ast.ConstInt 1l))});
+                                         { Ast.e =
+                                           Ast.Unary {op = Ast.Negate;
+                                             exp =
+                                             { Ast.e =
+                                               (Ast.Constant
+                                                  (Ast.ConstInt 1l));
+                                               typ = None }};
+                                           typ = None });
                                       id = None})
                                  ]));
                          id = None})
@@ -50,8 +76,14 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = [(Ast.Constant (Ast.ConstInt 1l))]}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                 typ = None }
+                                ]};
+                            typ = None }))
                      ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })

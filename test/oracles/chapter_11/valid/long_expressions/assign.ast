@@ -7,23 +7,39 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
                            init =
-                           (Some (Ast.Constant (Ast.ConstLong 4294967290L)));
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ast.ConstLong 4294967290L));
+                                   typ = None });
                            var_type = Ast.Long; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
-                            init = (Some (Ast.Constant (Ast.ConstLong 0L)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstLong 0L));
+                                    typ = None });
                             var_type = Ast.Long; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "b")),
-                             (Ast.Var (Ast.Identifier "a"))))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                                 typ = None },
+                               { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                 typ = None }
+                               ));
+                            typ = None }));
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.Equal;
-                            left = (Ast.Var (Ast.Identifier "b"));
-                            right =
-                            (Ast.Constant (Ast.ConstLong 4294967290L))}))
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant (Ast.ConstLong 4294967290L));
+                                typ = None }};
+                            typ = None }))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })

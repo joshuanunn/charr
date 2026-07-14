@@ -1,8 +1,9 @@
 (Ast.Program
    [(Ast.VarDecl
        { Ast.name = (Ast.Identifier "glob");
-         init = (Some (Ast.Constant (Ast.ConstInt 0l))); var_type = Ast.Int;
-         storage = None });
+         init =
+         (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l)); typ = None });
+         var_type = Ast.Int; storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
           body =
@@ -10,20 +11,43 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
-                            init = (Some (Ast.Var (Ast.Identifier "glob")));
+                            init =
+                            (Some { Ast.e = (Ast.Var (Ast.Identifier "glob"));
+                                    typ = None });
                             var_type = Ast.Int; storage = None }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
-                              Ast.Binary {op = Ast.Multiply;
-                                left = (Ast.Var (Ast.Identifier "x"));
-                                right = (Ast.Constant (Ast.ConstInt 20l))}
-                              ))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                  typ = None },
+                                { Ast.e =
+                                  Ast.Binary {op = Ast.Multiply;
+                                    left =
+                                    { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                      typ = None };
+                                    right =
+                                    { Ast.e =
+                                      (Ast.Constant (Ast.ConstInt 20l));
+                                      typ = None }};
+                                  typ = None }
+                                ));
+                             typ = None }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
-                              (Ast.Constant (Ast.ConstInt 10l))))));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))))]));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                  typ = None },
+                                { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                                  typ = None }
+                                ));
+                             typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                             typ = None }))
+                     ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           });
      (Ast.FunDecl
@@ -32,8 +56,10 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })

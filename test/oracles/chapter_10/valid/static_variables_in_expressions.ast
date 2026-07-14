@@ -6,30 +6,52 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "i");
-                           init = (Some (Ast.Constant (Ast.ConstInt 2l)));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 2l));
+                                   typ = None });
                            var_type = Ast.Int; storage = (Some Ast.Static) }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "j");
-                            init = (Some (Ast.Constant (Ast.ConstInt 3l)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                    typ = None });
                             var_type = Ast.Int; storage = (Some Ast.Static) }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "cmp");
                             init =
-                            (Some Ast.Binary {op = Ast.LessThan;
-                                    left = (Ast.Var (Ast.Identifier "i"));
-                                    right = (Ast.Var (Ast.Identifier "j"))});
+                            (Some { Ast.e =
+                                    Ast.Binary {op = Ast.LessThan;
+                                      left =
+                                      { Ast.e =
+                                        (Ast.Var (Ast.Identifier "i"));
+                                        typ = None };
+                                      right =
+                                      { Ast.e =
+                                        (Ast.Var (Ast.Identifier "j"));
+                                        typ = None }};
+                                    typ = None });
                             var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Unary {op = Ast.Not;
-                           exp = (Ast.Var (Ast.Identifier "cmp"))};
+                         { Ast.e =
+                           Ast.Unary {op = Ast.Not;
+                             exp =
+                             { Ast.e = (Ast.Var (Ast.Identifier "cmp"));
+                               typ = None }};
+                           typ = None };
                          then_smt =
-                         (Ast.Return (Ast.Constant (Ast.ConstInt 1l)));
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                              typ = None });
                          else_smt = None});
-                    (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                            typ = None }))
+                    ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })
      ])

@@ -9,20 +9,44 @@
                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          Ast.Conditional {
-                            cond_exp =
-                            Ast.Binary {op = Ast.BwXor;
-                              left = (Ast.Constant (Ast.ConstInt 1l));
-                              right = (Ast.Constant (Ast.ConstInt 1l))};
-                            then_exp =
-                            (Ast.Assignment (
-                               (Ast.Var (Ast.Identifier "result")),
-                               (Ast.Constant (Ast.ConstInt 4l))));
-                            else_exp =
-                            (Ast.Assignment (
-                               (Ast.Var (Ast.Identifier "result")),
-                               (Ast.Constant (Ast.ConstInt 5l))))}));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "result"))))]));
+                          { Ast.e =
+                            Ast.Conditional {
+                              cond_exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.BwXor;
+                                  left =
+                                  { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                    typ = None };
+                                  right =
+                                  { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                    typ = None }};
+                                typ = None };
+                              then_exp =
+                              { Ast.e =
+                                (Ast.Assignment (
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "result"));
+                                     typ = None },
+                                   { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                     typ = None }
+                                   ));
+                                typ = None };
+                              else_exp =
+                              { Ast.e =
+                                (Ast.Assignment (
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "result"));
+                                     typ = None },
+                                   { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                                     typ = None }
+                                   ));
+                                typ = None }};
+                            typ = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "result"));
+                            typ = None }))
+                    ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })
      ])

@@ -11,33 +11,60 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "total");
-                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                    typ = None });
                             var_type = Ast.Int; storage = (Some Ast.Static) }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment (
-                              (Ast.Var (Ast.Identifier "total")),
-                              (Ast.Var (Ast.Identifier "new_total"))))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                                  typ = None },
+                                { Ast.e =
+                                  (Ast.Var (Ast.Identifier "new_total"));
+                                  typ = None }
+                                ));
+                             typ = None }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.GreaterThan;
-                            left = (Ast.Var (Ast.Identifier "total"));
-                            right = (Ast.Constant (Ast.ConstInt 100l))};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.GreaterThan;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ast.ConstInt 100l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
-                          (Ast.Return (Ast.Constant (Ast.ConstInt 0l)));
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                               typ = None });
                           else_smt = None});
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment (
-                              (Ast.Var (Ast.Identifier "total")),
-                              (Ast.Constant (Ast.ConstInt 10l))))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                                  typ = None },
+                                { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                                  typ = None }
+                                ));
+                             typ = None }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.FunctionCall {
-                             name = (Ast.Identifier "indirect_update");
-                             args = []}));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "total"))))]));
+                           { Ast.e =
+                             Ast.FunctionCall {
+                               name = (Ast.Identifier "indirect_update");
+                               args = []};
+                             typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                             typ = None }))
+                     ]));
           fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
           storage = None });
      (Ast.FunDecl
@@ -46,9 +73,18 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = [(Ast.Constant (Ast.ConstInt 101l))]}));
-                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "f");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ast.ConstInt 101l));
+                                 typ = None }
+                                ]};
+                            typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                             typ = None }))
+                     ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           });
      (Ast.FunDecl
@@ -57,8 +93,13 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = [(Ast.Constant (Ast.ConstInt 1l))]}))
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "f");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                 typ = None }
+                                ]};
+                            typ = None }))
                      ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })

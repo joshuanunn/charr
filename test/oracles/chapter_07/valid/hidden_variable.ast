@@ -6,7 +6,9 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.Constant (Ast.ConstInt 2l)));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 2l));
+                                   typ = None });
                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Compound
@@ -15,10 +17,14 @@
                                  (Ast.VarDecl
                                     { Ast.name = (Ast.Identifier "a");
                                       init =
-                                      (Some (Ast.Constant (Ast.ConstInt 1l)));
+                                      (Some { Ast.e =
+                                              (Ast.Constant (Ast.ConstInt 1l));
+                                              typ = None });
                                       var_type = Ast.Int; storage = None }));
                                (Ast.S
-                                  (Ast.Return (Ast.Var (Ast.Identifier "a"))))
+                                  (Ast.Return
+                                     { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                       typ = None }))
                                ])))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None

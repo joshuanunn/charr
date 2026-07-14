@@ -4,64 +4,88 @@
          body =
          (Some (Ast.Block
                   [(Ast.S
-                      Ast.Switch {cond = (Ast.Constant (Ast.ConstInt 3l));
+                      Ast.Switch {
+                        cond =
+                        { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                          typ = None };
                         body =
                         (Ast.Compound
                            (Ast.Block
                               [(Ast.S
                                   Ast.Case {
-                                    value = (Ast.Constant (Ast.ConstInt 0l));
+                                    value =
+                                    { Ast.e =
+                                      (Ast.Constant (Ast.ConstInt 0l));
+                                      typ = None };
                                     body =
                                     (Ast.Return
-                                       (Ast.Constant (Ast.ConstInt 0l)));
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 0l));
+                                         typ = None });
                                     id = None});
                                 (Ast.S
                                    Ast.Case {
-                                     value = (Ast.Constant (Ast.ConstInt 3l));
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ast.ConstInt 3l));
+                                       typ = None };
                                      body =
                                      (Ast.Compound
                                         (Ast.Block
                                            [(Ast.S
                                                Ast.Switch {
                                                  cond =
-                                                 (Ast.Constant
-                                                    (Ast.ConstInt 4l));
+                                                 { Ast.e =
+                                                   (Ast.Constant
+                                                      (Ast.ConstInt 4l));
+                                                   typ = None };
                                                  body =
                                                  (Ast.Compound
                                                     (Ast.Block
                                                        [(Ast.S
                                                            Ast.Case {
                                                              value =
-                                                             (Ast.Constant
-                                                                (Ast.ConstInt
-                                                                   3l));
+                                                             { Ast.e =
+                                                               (Ast.Constant
+                                                                  (Ast.ConstInt
+                                                                    3l));
+                                                               typ = None };
                                                              body =
                                                              (Ast.Return
-                                                                (Ast.Constant
-                                                                   (Ast.ConstInt
-                                                                    0l)));
+                                                                { Ast.e =
+                                                                  (Ast.Constant
+                                                                    (Ast.ConstInt
+                                                                    0l));
+                                                                  typ = None
+                                                                  });
                                                              id = None});
                                                          (Ast.S
                                                             Ast.Case {
                                                               value =
-                                                              (Ast.Constant
-                                                                 (Ast.ConstInt
+                                                              { Ast.e =
+                                                                (Ast.Constant
+                                                                   (Ast.ConstInt
                                                                     4l));
+                                                                typ = None };
                                                               body =
                                                               (Ast.Return
-                                                                 (Ast.Constant
-                                                                    (
-                                                                    Ast.ConstInt
-                                                                    1l)));
+                                                                 { Ast.e =
+                                                                   (Ast.Constant
+                                                                    (Ast.ConstInt
+                                                                    1l));
+                                                                   typ = None
+                                                                   });
                                                               id = None});
                                                          (Ast.S
                                                             Ast.Default {
                                                               body =
                                                               (Ast.Return
-                                                                 (Ast.Constant
-                                                                    (
-                                                                    Ast.ConstInt
-                                                                    0l)));
+                                                                 { Ast.e =
+                                                                   (Ast.Constant
+                                                                    (Ast.ConstInt
+                                                                    0l));
+                                                                   typ = None
+                                                                   });
                                                               id = None})
                                                          ]));
                                                  id = None})
@@ -69,16 +93,23 @@
                                      id = None});
                                 (Ast.S
                                    Ast.Case {
-                                     value = (Ast.Constant (Ast.ConstInt 4l));
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ast.ConstInt 4l));
+                                       typ = None };
                                      body =
                                      (Ast.Return
-                                        (Ast.Constant (Ast.ConstInt 0l)));
+                                        { Ast.e =
+                                          (Ast.Constant (Ast.ConstInt 0l));
+                                          typ = None });
                                      id = None});
                                 (Ast.S
                                    Ast.Default {
                                      body =
                                      (Ast.Return
-                                        (Ast.Constant (Ast.ConstInt 0l)));
+                                        { Ast.e =
+                                          (Ast.Constant (Ast.ConstInt 0l));
+                                          typ = None });
                                      id = None})
                                 ]));
                         id = None})

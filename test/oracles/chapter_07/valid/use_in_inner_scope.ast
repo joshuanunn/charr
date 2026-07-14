@@ -12,15 +12,24 @@
                           (Ast.Block
                              [(Ast.S
                                  (Ast.Expression
-                                    (Ast.Assignment (
-                                       (Ast.Var (Ast.Identifier "x")),
-                                       (Ast.Constant (Ast.ConstInt 3l))))))
+                                    { Ast.e =
+                                      (Ast.Assignment (
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "x"));
+                                           typ = None },
+                                         { Ast.e =
+                                           (Ast.Constant (Ast.ConstInt 3l));
+                                           typ = None }
+                                         ));
+                                      typ = None }))
                                ])));
                     (Ast.S
                        (Ast.Compound
                           (Ast.Block
                              [(Ast.S
-                                 (Ast.Return (Ast.Var (Ast.Identifier "x"))))
+                                 (Ast.Return
+                                    { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                      typ = None }))
                                ])))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None

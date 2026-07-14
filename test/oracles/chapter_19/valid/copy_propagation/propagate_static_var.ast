@@ -6,9 +6,15 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.Add;
-                           left = (Ast.Var (Ast.Identifier "a"));
-                           right = (Ast.Var (Ast.Identifier "b"))}))
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Add;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                               typ = None }};
+                           typ = None }))
                     ]));
          fun_type = Ast.FunType {params = [Ast.Int; Ast.Int]; ret = Ast.Int};
          storage = None });
@@ -19,36 +25,68 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
-                            init = (Some (Ast.Constant (Ast.ConstInt 3l)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                    typ = None });
                             var_type = Ast.Int; storage = (Some Ast.Static) }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "y");
-                             init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                             init =
+                             (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                     typ = None });
                              var_type = Ast.Int; storage = (Some Ast.Static)
                              }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment ((Ast.Var (Ast.Identifier "y")),
-                              (Ast.Var (Ast.Identifier "x"))))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "y"));
+                                  typ = None },
+                                { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                  typ = None }
+                                ));
+                             typ = None }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "sum");
                              init =
-                             (Some Ast.FunctionCall {
-                                     name = (Ast.Identifier "callee");
-                                     args =
-                                     [(Ast.Var (Ast.Identifier "x"));
-                                       (Ast.Var (Ast.Identifier "y"))]});
+                             (Some { Ast.e =
+                                     Ast.FunctionCall {
+                                       name = (Ast.Identifier "callee");
+                                       args =
+                                       [{ Ast.e =
+                                          (Ast.Var (Ast.Identifier "x"));
+                                          typ = None };
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "y"));
+                                           typ = None }
+                                         ]};
+                                     typ = None });
                              var_type = Ast.Int; storage = None }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x")),
-                              Ast.Binary {op = Ast.Add;
-                                left = (Ast.Var (Ast.Identifier "x"));
-                                right = (Ast.Constant (Ast.ConstInt 1l))}
-                              ))));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "sum"))))]));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                  typ = None },
+                                { Ast.e =
+                                  Ast.Binary {op = Ast.Add;
+                                    left =
+                                    { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                      typ = None };
+                                    right =
+                                    { Ast.e =
+                                      (Ast.Constant (Ast.ConstInt 1l));
+                                      typ = None }};
+                                  typ = None }
+                                ));
+                             typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "sum"));
+                             typ = None }))
+                     ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           });
      (Ast.FunDecl
@@ -58,36 +96,56 @@
                    [(Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Binary {op = Ast.NotEqual;
-                           left =
-                           Ast.FunctionCall {
-                             name = (Ast.Identifier "target"); args = []};
-                           right = (Ast.Constant (Ast.ConstInt 6l))};
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.FunctionCall {
+                                 name = (Ast.Identifier "target"); args = []};
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ast.ConstInt 6l));
+                               typ = None }};
+                           typ = None };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
                                    (Ast.Return
-                                      (Ast.Constant (Ast.ConstInt 1l))))
+                                      { Ast.e =
+                                        (Ast.Constant (Ast.ConstInt 1l));
+                                        typ = None }))
                                  ]));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name = (Ast.Identifier "target"); args = []};
-                            right = (Ast.Constant (Ast.ConstInt 8l))};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "target"); args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ast.ConstInt 8l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Return
-                                       (Ast.Constant (Ast.ConstInt 2l))))
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 2l));
+                                         typ = None }))
                                   ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))]));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                             typ = None }))
+                     ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })
      ])

@@ -13,35 +13,81 @@
                             var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "i")),
-                             (Ast.Constant (Ast.ConstInt 0l))))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                 typ = None },
+                               { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                 typ = None }
+                               ));
+                            typ = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "sum")),
-                             (Ast.Constant (Ast.ConstInt 0l))))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "sum"));
+                                 typ = None },
+                               { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                 typ = None }
+                               ));
+                            typ = None }));
                     (Ast.S
                        Ast.While {
                          cond =
-                         (Ast.Comma (
-                            (Ast.Assignment ((Ast.Var (Ast.Identifier "i")),
-                               Ast.Binary {op = Ast.Add;
-                                 left = (Ast.Var (Ast.Identifier "i"));
-                                 right = (Ast.Constant (Ast.ConstInt 1l))}
-                               )),
-                            Ast.Binary {op = Ast.LessOrEqual;
-                              left = (Ast.Var (Ast.Identifier "i"));
-                              right = (Ast.Constant (Ast.ConstInt 5l))}
-                            ));
+                         { Ast.e =
+                           (Ast.Comma (
+                              { Ast.e =
+                                (Ast.Assignment (
+                                   { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                     typ = None },
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.Add;
+                                       left =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "i"));
+                                         typ = None };
+                                       right =
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 1l));
+                                         typ = None }};
+                                     typ = None }
+                                   ));
+                                typ = None },
+                              { Ast.e =
+                                Ast.Binary {op = Ast.LessOrEqual;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                                    typ = None }};
+                                typ = None }
+                              ));
+                           typ = None };
                          body =
                          (Ast.Expression
-                            (Ast.Assignment (
-                               (Ast.Var (Ast.Identifier "sum")),
-                               Ast.Binary {op = Ast.Add;
-                                 left = (Ast.Var (Ast.Identifier "sum"));
-                                 right = (Ast.Var (Ast.Identifier "i"))}
-                               )));
+                            { Ast.e =
+                              (Ast.Assignment (
+                                 { Ast.e = (Ast.Var (Ast.Identifier "sum"));
+                                   typ = None },
+                                 { Ast.e =
+                                   Ast.Binary {op = Ast.Add;
+                                     left =
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "sum"));
+                                       typ = None };
+                                     right =
+                                     { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                       typ = None }};
+                                   typ = None }
+                                 ));
+                              typ = None });
                          id = None});
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "sum"))))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "sum"));
+                            typ = None }))
+                    ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })
      ])

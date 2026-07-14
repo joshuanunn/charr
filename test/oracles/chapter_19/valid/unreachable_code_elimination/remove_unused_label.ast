@@ -5,7 +5,10 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Label ((Ast.Identifier "lbl"),
-                         (Ast.Return (Ast.Constant (Ast.ConstInt 0l))))))
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                              typ = None })
+                         )))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          });
@@ -15,8 +18,10 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })

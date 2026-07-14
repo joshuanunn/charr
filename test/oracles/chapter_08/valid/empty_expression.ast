@@ -3,7 +3,10 @@
        { Ast.name = (Ast.Identifier "main"); params = [];
          body =
          (Some (Ast.Block
-                  [(Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 0l))));
+                  [(Ast.S
+                      (Ast.Return
+                         { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           typ = None }));
                     (Ast.S Ast.Null); (Ast.S Ast.Null)]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })

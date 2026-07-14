@@ -5,11 +5,19 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Unary {op = Ast.Not;
-                           exp =
-                           Ast.Binary {op = Ast.Subtract;
-                             left = (Ast.Constant (Ast.ConstInt 3l));
-                             right = (Ast.Constant (Ast.ConstInt 44l))}}))
+                         { Ast.e =
+                           Ast.Unary {op = Ast.Not;
+                             exp =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.Subtract;
+                                 left =
+                                 { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                   typ = None };
+                                 right =
+                                 { Ast.e = (Ast.Constant (Ast.ConstInt 44l));
+                                   typ = None }};
+                               typ = None }};
+                           typ = None }))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })

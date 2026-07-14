@@ -5,9 +5,15 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.NotEqual;
-                           left = (Ast.Constant (Ast.ConstInt 0l));
-                           right = (Ast.Constant (Ast.ConstInt 0l))}))
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                               typ = None }};
+                           typ = None }))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })

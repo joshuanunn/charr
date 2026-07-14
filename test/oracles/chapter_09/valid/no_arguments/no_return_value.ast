@@ -6,7 +6,9 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x");
-                           init = (Some (Ast.Constant (Ast.ConstInt 1l)));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                   typ = None });
                            var_type = Ast.Int; storage = None }))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
@@ -17,9 +19,15 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          Ast.FunctionCall {name = (Ast.Identifier "foo");
-                            args = []}));
-                     (Ast.S (Ast.Return (Ast.Constant (Ast.ConstInt 3l))))]));
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "foo");
+                              args = []};
+                            typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                             typ = None }))
+                     ]));
           fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
           })
      ])

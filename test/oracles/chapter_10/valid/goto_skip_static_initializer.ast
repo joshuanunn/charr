@@ -7,11 +7,16 @@
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
-                            init = (Some (Ast.Constant (Ast.ConstInt 10l)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                                    typ = None });
                             var_type = Ast.Int; storage = (Some Ast.Static) }));
                     (Ast.S
                        (Ast.Label ((Ast.Identifier "end"),
-                          (Ast.Return (Ast.Var (Ast.Identifier "x"))))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                               typ = None })
+                          )))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })

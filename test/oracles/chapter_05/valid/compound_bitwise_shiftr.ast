@@ -7,18 +7,33 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_shiftr");
                            init =
-                           (Some (Ast.Constant (Ast.ConstInt 382574l)));
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ast.ConstInt 382574l));
+                                   typ = None });
                            var_type = Ast.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "to_shiftr")),
-                             Ast.Binary {op = Ast.BwRightShift;
-                               left = (Ast.Var (Ast.Identifier "to_shiftr"));
-                               right = (Ast.Constant (Ast.ConstInt 4l))}
-                             ))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e =
+                                 (Ast.Var (Ast.Identifier "to_shiftr"));
+                                 typ = None },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.BwRightShift;
+                                   left =
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "to_shiftr"));
+                                     typ = None };
+                                   right =
+                                   { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                     typ = None }};
+                                 typ = None }
+                               ));
+                            typ = None }));
                     (Ast.S
-                       (Ast.Return (Ast.Var (Ast.Identifier "to_shiftr"))))
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "to_shiftr"));
+                            typ = None }))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })

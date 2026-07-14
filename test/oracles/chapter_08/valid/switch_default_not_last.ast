@@ -11,16 +11,29 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
                             init =
-                            (Some (Ast.Assignment (
-                                     (Ast.Var (Ast.Identifier "a")),
-                                     (Ast.Constant (Ast.ConstInt 7l)))));
+                            (Some { Ast.e =
+                                    (Ast.Assignment (
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "a"));
+                                         typ = None },
+                                       { Ast.e =
+                                         (Ast.Constant (Ast.ConstInt 7l));
+                                         typ = None }
+                                       ));
+                                    typ = None });
                             var_type = Ast.Int; storage = None }));
                     (Ast.S
                        Ast.Switch {
                          cond =
-                         Ast.Binary {op = Ast.Add;
-                           left = (Ast.Var (Ast.Identifier "a"));
-                           right = (Ast.Var (Ast.Identifier "b"))};
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Add;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                               typ = None }};
+                           typ = None };
                          body =
                          (Ast.Compound
                             (Ast.Block
@@ -28,15 +41,21 @@
                                    Ast.Default {
                                      body =
                                      (Ast.Return
-                                        (Ast.Constant (Ast.ConstInt 0l)));
+                                        { Ast.e =
+                                          (Ast.Constant (Ast.ConstInt 0l));
+                                          typ = None });
                                      id = None});
                                  (Ast.S
                                     Ast.Case {
                                       value =
-                                      (Ast.Constant (Ast.ConstInt 2l));
+                                      { Ast.e =
+                                        (Ast.Constant (Ast.ConstInt 2l));
+                                        typ = None };
                                       body =
                                       (Ast.Return
-                                         (Ast.Constant (Ast.ConstInt 1l)));
+                                         { Ast.e =
+                                           (Ast.Constant (Ast.ConstInt 1l));
+                                           typ = None });
                                       id = None})
                                  ]));
                          id = None})

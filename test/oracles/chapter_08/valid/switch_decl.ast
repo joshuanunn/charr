@@ -6,15 +6,22 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.Constant (Ast.ConstInt 3l)));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                   typ = None });
                            var_type = Ast.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
-                            init = (Some (Ast.Constant (Ast.ConstInt 0l)));
+                            init =
+                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                    typ = None });
                             var_type = Ast.Int; storage = None }));
                     (Ast.S
-                       Ast.Switch {cond = (Ast.Var (Ast.Identifier "a"));
+                       Ast.Switch {
+                         cond =
+                         { Ast.e = (Ast.Var (Ast.Identifier "a")); typ = None
+                           };
                          body =
                          (Ast.Compound
                             (Ast.Block
@@ -22,47 +29,88 @@
                                    (Ast.VarDecl
                                       { Ast.name = (Ast.Identifier "a");
                                         init =
-                                        (Some (Ast.Assignment (
-                                                 (Ast.Var
-                                                    (Ast.Identifier "b")),
-                                                 (Ast.Constant
-                                                    (Ast.ConstInt 5l))
-                                                 )));
+                                        (Some { Ast.e =
+                                                (Ast.Assignment (
+                                                   { Ast.e =
+                                                     (Ast.Var
+                                                        (Ast.Identifier "b"));
+                                                     typ = None },
+                                                   { Ast.e =
+                                                     (Ast.Constant
+                                                        (Ast.ConstInt 5l));
+                                                     typ = None }
+                                                   ));
+                                                typ = None });
                                         var_type = Ast.Int; storage = None }));
                                  (Ast.S
                                     Ast.Case {
                                       value =
-                                      (Ast.Constant (Ast.ConstInt 3l));
+                                      { Ast.e =
+                                        (Ast.Constant (Ast.ConstInt 3l));
+                                        typ = None };
                                       body =
                                       (Ast.Expression
-                                         (Ast.Assignment (
-                                            (Ast.Var (Ast.Identifier "a")),
-                                            (Ast.Constant (Ast.ConstInt 4l))
-                                            )));
+                                         { Ast.e =
+                                           (Ast.Assignment (
+                                              { Ast.e =
+                                                (Ast.Var (Ast.Identifier "a"));
+                                                typ = None },
+                                              { Ast.e =
+                                                (Ast.Constant
+                                                   (Ast.ConstInt 4l));
+                                                typ = None }
+                                              ));
+                                           typ = None });
                                       id = None});
                                  (Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "b")),
-                                          Ast.Binary {op = Ast.Add;
-                                            left =
-                                            (Ast.Var (Ast.Identifier "b"));
-                                            right =
-                                            (Ast.Var (Ast.Identifier "a"))}
-                                          ))))
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
+                                              (Ast.Var (Ast.Identifier "b"));
+                                              typ = None },
+                                            { Ast.e =
+                                              Ast.Binary {op = Ast.Add;
+                                                left =
+                                                { Ast.e =
+                                                  (Ast.Var
+                                                     (Ast.Identifier "b"));
+                                                  typ = None };
+                                                right =
+                                                { Ast.e =
+                                                  (Ast.Var
+                                                     (Ast.Identifier "a"));
+                                                  typ = None }};
+                                              typ = None }
+                                            ));
+                                         typ = None }))
                                  ]));
                          id = None});
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.And;
-                            left =
-                            Ast.Binary {op = Ast.Equal;
-                              left = (Ast.Var (Ast.Identifier "a"));
-                              right = (Ast.Constant (Ast.ConstInt 3l))};
-                            right =
-                            Ast.Binary {op = Ast.Equal;
-                              left = (Ast.Var (Ast.Identifier "b"));
-                              right = (Ast.Constant (Ast.ConstInt 4l))}}))
+                          { Ast.e =
+                            Ast.Binary {op = Ast.And;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Equal;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                    typ = None }};
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Equal;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                    typ = None }};
+                                typ = None }};
+                            typ = None }))
                     ]));
          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
          })
