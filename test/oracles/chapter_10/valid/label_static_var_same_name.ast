@@ -7,9 +7,10 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
                                    typ = None });
-                           var_type = Ast.Int; storage = (Some Ast.Static) }));
+                           var_type = Ctype.Int; storage = (Some Ast.Static)
+                           }));
                     (Ast.S (Ast.Goto (Ast.Identifier "x")));
                     (Ast.S
                        (Ast.Expression
@@ -17,7 +18,7 @@
                             (Ast.Assignment (
                                { Ast.e = (Ast.Var (Ast.Identifier "x"));
                                  typ = None },
-                               { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                  typ = None }
                                ));
                             typ = None }));
@@ -28,6 +29,6 @@
                                typ = None })
                           )))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

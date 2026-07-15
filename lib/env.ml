@@ -266,7 +266,7 @@ type identifier_attrs =
   | LocalAttr  (** Automatic storage duration (block-scope variable) *)
 
 type type_entry = {
-  c_type : Type.ctype;  (** The C type of the identifier *)
+  c_type : Ctype.t;  (** The C type of the identifier *)
   attrs : identifier_attrs;  (** Storage, linkage, and definition metadata *)
 }
 
@@ -294,7 +294,7 @@ let replace (te : tenv) (id : Ast.ident) (entry : type_entry) : unit =
 let assert_var (te : tenv) (id : Ast.ident) : unit =
   match find te id with
   | None -> failwith "variable has not been typechecked"
-  | Some { c_type = Type.Int; _ } -> ()
+  | Some { c_type = Ctype.Int; _ } -> ()
   | Some _ -> failwith "function name used as variable"
 
 (** Assert that an identifier refers to a function with the given arity. Raises
@@ -303,8 +303,8 @@ let assert_var (te : tenv) (id : Ast.ident) : unit =
 let assert_fun (te : tenv) (id : Ast.ident) (argc : int) : unit =
   match find te id with
   | None -> failwith "function has not been typechecked"
-  | Some { c_type = Type.FunType p; _ } ->
-      if p.param_count <> argc then
+  | Some { c_type = Ctype.FunType p; _ } ->
+      if List.length p.params <> argc then
         failwith "function called with the wrong number of arguments"
   | Some _ -> failwith "variable used as function name"
 

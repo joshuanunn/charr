@@ -8,15 +8,15 @@
                          { Ast.e =
                            Ast.Binary {op = Ast.Divide;
                              left =
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                typ = None };
                              right =
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                typ = None }};
                            typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         });
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
           body =
@@ -26,9 +26,9 @@
                           { Ast.name = (Ast.Identifier "result");
                             init =
                             (Some { Ast.e =
-                                    (Ast.Constant (Ast.ConstInt 105l));
+                                    (Ast.Constant (Ctype.ConstInt 105l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.For {
                           init =
@@ -36,9 +36,9 @@
                              { Ast.name = (Ast.Identifier "i");
                                init =
                                (Some { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 0l));
+                                       (Ast.Constant (Ctype.ConstInt 0l));
                                        typ = None });
-                               var_type = Ast.Int; storage = None });
+                               var_type = Ctype.Int; storage = None });
                           cond =
                           (Some { Ast.e =
                                   Ast.Binary {op = Ast.LessThan;
@@ -47,7 +47,7 @@
                                       typ = None };
                                     right =
                                     { Ast.e =
-                                      (Ast.Constant (Ast.ConstInt 100l));
+                                      (Ast.Constant (Ctype.ConstInt 100l));
                                       typ = None }};
                                   typ = None });
                           post =
@@ -63,7 +63,7 @@
                                            typ = None };
                                          right =
                                          { Ast.e =
-                                           (Ast.Constant (Ast.ConstInt 1l));
+                                           (Ast.Constant (Ctype.ConstInt 1l));
                                            typ = None }};
                                        typ = None }
                                      ));
@@ -75,7 +75,7 @@
                                     Ast.If {
                                       cond_exp =
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 0l));
+                                        (Ast.Constant (Ctype.ConstInt 0l));
                                         typ = None };
                                       then_smt =
                                       (Ast.Compound
@@ -122,8 +122,8 @@
                            { Ast.e = (Ast.Var (Ast.Identifier "result"));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          });
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -143,7 +143,7 @@
                                Ast.Unary {op = Ast.Negate;
                                  exp =
                                  { Ast.e =
-                                   (Ast.Constant (Ast.ConstInt 4845l));
+                                   (Ast.Constant (Ctype.ConstInt 4845l));
                                    typ = None }};
                                typ = None }};
                            typ = None };
@@ -153,15 +153,15 @@
                                [(Ast.S
                                    (Ast.Return
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 1l));
+                                        (Ast.Constant (Ctype.ConstInt 1l));
                                         typ = None }))
                                  ]));
                          else_smt = None});
                      (Ast.S
                         (Ast.Return
-                           { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

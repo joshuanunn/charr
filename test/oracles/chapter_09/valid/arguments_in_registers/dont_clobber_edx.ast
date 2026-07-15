@@ -33,7 +33,7 @@
                                                  right =
                                                  { Ast.e =
                                                    (Ast.Constant
-                                                      (Ast.ConstInt 1l));
+                                                      (Ctype.ConstInt 1l));
                                                    typ = None }};
                                                typ = None };
                                              right =
@@ -47,7 +47,7 @@
                                                  right =
                                                  { Ast.e =
                                                    (Ast.Constant
-                                                      (Ast.ConstInt 2l));
+                                                      (Ctype.ConstInt 2l));
                                                    typ = None }};
                                                typ = None }};
                                            typ = None };
@@ -61,7 +61,7 @@
                                              right =
                                              { Ast.e =
                                                (Ast.Constant
-                                                  (Ast.ConstInt 3l));
+                                                  (Ctype.ConstInt 3l));
                                                typ = None }};
                                            typ = None }};
                                        typ = None };
@@ -74,7 +74,7 @@
                                            typ = None };
                                          right =
                                          { Ast.e =
-                                           (Ast.Constant (Ast.ConstInt 4l));
+                                           (Ast.Constant (Ctype.ConstInt 4l));
                                            typ = None }};
                                        typ = None }};
                                    typ = None };
@@ -86,7 +86,7 @@
                                        typ = None };
                                      right =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 5l));
+                                       (Ast.Constant (Ctype.ConstInt 5l));
                                        typ = None }};
                                    typ = None }};
                                typ = None };
@@ -97,15 +97,16 @@
                                  { Ast.e = (Ast.Var (Ast.Identifier "f"));
                                    typ = None };
                                  right =
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 6l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 6l));
                                    typ = None }};
                                typ = None }};
                            typ = None }))
                     ]));
          fun_type =
-         Ast.FunType {
-           params = [Ast.Int; Ast.Int; Ast.Int; Ast.Int; Ast.Int; Ast.Int];
-           ret = Ast.Int};
+         Ctype.FunType {
+           params =
+           [Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int];
+           ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -115,29 +116,30 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "a");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 4l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         (Ast.Return
                            { Ast.e =
                              Ast.FunctionCall {name = (Ast.Identifier "x");
                                args =
-                               [{ Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                               [{ Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                   typ = None };
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 2l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
                                    typ = None };
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
                                    typ = None };
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
                                    typ = None };
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
                                    typ = None };
                                  { Ast.e =
                                    Ast.Binary {op = Ast.Divide;
                                      left =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 24l));
+                                       (Ast.Constant (Ctype.ConstInt 24l));
                                        typ = None };
                                      right =
                                      { Ast.e = (Ast.Var (Ast.Identifier "a"));
@@ -146,6 +148,6 @@
                                  ]};
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

@@ -25,11 +25,11 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
   | None ->
       Env.add te v.name
         {
-          c_type = Type.Int;
+          c_type = Ctype.Int;
           attrs = Env.StaticAttr { init = init_val; global };
         }
   | Some { c_type; attrs = Env.StaticAttr old } ->
-      if c_type <> Type.Int then failwith "function redeclared as variable";
+      if c_type <> Ctype.Int then failwith "function redeclared as variable";
 
       (* linkage reconciliation *)
       let global =
@@ -53,7 +53,7 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
       in
 
       Env.replace te v.name
-        { c_type = Type.Int; attrs = Env.StaticAttr { init; global } }
+        { c_type = Ctype.Int; attrs = Env.StaticAttr { init; global } }
   | Some _ -> failwith "identifier redeclared with incompatible kind"
 
 (** Type check a block-scope variable declaration.
@@ -68,13 +68,13 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
         failwith "initialiser on local extern variable declaration";
 
       begin match Env.find te v.name with
-      | Some { c_type = Type.FunType _; _ } ->
+      | Some { c_type = Ctype.FunType _; _ } ->
           failwith "function redeclared as variable"
       | Some _ -> () (* already declared — do nothing *)
       | None ->
           Env.add te v.name
             {
-              c_type = Type.Int;
+              c_type = Ctype.Int;
               attrs = Env.StaticAttr { init = Env.NoInitialiser; global = true };
             }
       end
@@ -90,10 +90,10 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
         | Some _ -> failwith "non-constant initialiser on local static variable"
       in
       Env.add te v.name
-        { c_type = Type.Int; attrs = Env.StaticAttr { init; global = false } }
+        { c_type = Ctype.Int; attrs = Env.StaticAttr { init; global = false } }
   (* automatic local variable *)
   | None ->
-      Env.add te v.name { c_type = Type.Int; attrs = Env.LocalAttr };
+      Env.add te v.name { c_type = Ctype.Int; attrs = Env.LocalAttr };
       (* typecheck initialiser AFTER declaration *)
       Option.iter (fun e -> type_expr e te) v.init
 
@@ -104,7 +104,7 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
 and type_param_decl (id : Ast.ident) (te : Env.tenv) : unit =
   match Env.find te id with
   | Some _ -> failwith "duplicate parameter name"
-  | None -> Env.add te id { c_type = Type.Int; attrs = Env.LocalAttr }
+  | None -> Env.add te id { c_type = Ctype.Int; attrs = Env.LocalAttr }
 
 (** Type check a [for] loop initialiser.
 
@@ -124,7 +124,7 @@ and type_for_init (i : Ast.for_init) (te : Env.tenv) : unit =
     type, linkage, and definition status in the type environment. *)
 and type_fun_decl (f : Ast.fun_decl) (te : Env.tenv) : unit =
   let has_body = Option.is_some f.body in
-  let fun_type = Type.FunType { param_count = List.length f.params } in
+  let fun_type = f.fun_type in
   let global = f.storage <> Some Static in
 
   let defined, global =

@@ -7,74 +7,82 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 250l));
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 250l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
                             init =
                             (Some { Ast.e =
-                                    (Ast.Constant (Ast.ConstInt 200l));
+                                    (Ast.Constant (Ctype.ConstInt 200l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "c");
                             init =
                             (Some { Ast.e =
-                                    (Ast.Constant (Ast.ConstInt 100l));
+                                    (Ast.Constant (Ctype.ConstInt 100l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "d");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 75l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 75l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "e");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 50l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 50l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "f");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 25l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 25l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "g");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 10l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "h");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 1l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "j");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           { Ast.e =
@@ -220,7 +228,7 @@
                                                                     None },
                                                                     { Ast.e =
                                                                     (Ast.Constant
-                                                                    (Ast.ConstInt
+                                                                    (Ctype.ConstInt
                                                                     1l));
                                                                     typ =
                                                                     None }));
@@ -301,7 +309,7 @@
                                                                   { Ast.e =
                                                                     (
                                                                     Ast.Constant
-                                                                    (Ast.ConstInt
+                                                                    (Ctype.ConstInt
                                                                     40l));
                                                                     typ =
                                                                     None }};
@@ -323,7 +331,7 @@
                                                                   { Ast.e =
                                                                     (
                                                                     Ast.Constant
-                                                                    (Ast.ConstInt
+                                                                    (Ctype.ConstInt
                                                                     21800l));
                                                                     typ =
                                                                     None }};
@@ -342,7 +350,7 @@
                                                               right =
                                                               { Ast.e =
                                                                 (Ast.Constant
-                                                                   (Ast.ConstInt
+                                                                   (Ctype.ConstInt
                                                                     109l));
                                                                 typ = None }};
                                                             typ = None }};
@@ -360,7 +368,7 @@
                                                           right =
                                                           { Ast.e =
                                                             (Ast.Constant
-                                                               (Ast.ConstInt
+                                                               (Ctype.ConstInt
                                                                   41l));
                                                             typ = None }};
                                                         typ = None }};
@@ -378,7 +386,8 @@
                                                       right =
                                                       { Ast.e =
                                                         (Ast.Constant
-                                                           (Ast.ConstInt 41l));
+                                                           (Ctype.ConstInt
+                                                              41l));
                                                         typ = None }};
                                                     typ = None }};
                                                 typ = None };
@@ -393,7 +402,7 @@
                                                   right =
                                                   { Ast.e =
                                                     (Ast.Constant
-                                                       (Ast.ConstInt 27l));
+                                                       (Ctype.ConstInt 27l));
                                                     typ = None }};
                                                 typ = None }};
                                             typ = None };
@@ -407,7 +416,7 @@
                                               right =
                                               { Ast.e =
                                                 (Ast.Constant
-                                                   (Ast.ConstInt 2l));
+                                                   (Ctype.ConstInt 2l));
                                                 typ = None }};
                                             typ = None }};
                                         typ = None };
@@ -420,7 +429,7 @@
                                             typ = None };
                                           right =
                                           { Ast.e =
-                                            (Ast.Constant (Ast.ConstInt 2l));
+                                            (Ast.Constant (Ctype.ConstInt 2l));
                                             typ = None }};
                                         typ = None }};
                                     typ = None };
@@ -433,7 +442,7 @@
                                         typ = None };
                                       right =
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 1l));
+                                        (Ast.Constant (Ctype.ConstInt 1l));
                                         typ = None }};
                                     typ = None }};
                                 typ = None };
@@ -444,11 +453,12 @@
                                   { Ast.e = (Ast.Var (Ast.Identifier "x"));
                                     typ = None };
                                   right =
-                                  { Ast.e = (Ast.Constant (Ast.ConstInt 40l));
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 40l));
                                     typ = None }};
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

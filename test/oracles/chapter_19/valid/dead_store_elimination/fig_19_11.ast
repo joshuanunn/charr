@@ -5,22 +5,22 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
                            typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         });
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "callee2"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
                             typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          });
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target");
           params = [(Ast.Identifier "flag")];
@@ -30,9 +30,10 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 10l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
@@ -83,7 +84,7 @@
                            { Ast.e = (Ast.Var (Ast.Identifier "x"));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
+          fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -99,12 +100,13 @@
                                Ast.FunctionCall {
                                  name = (Ast.Identifier "target");
                                  args =
-                                 [{ Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                 [{ Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 1l));
                                     typ = None }
                                    ]};
                                typ = None };
                              right =
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
                                typ = None }};
                            typ = None };
                          then_smt =
@@ -113,7 +115,7 @@
                                [(Ast.S
                                    (Ast.Return
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 1l));
+                                        (Ast.Constant (Ctype.ConstInt 1l));
                                         typ = None }))
                                  ]));
                          else_smt = None});
@@ -127,12 +129,13 @@
                                 Ast.FunctionCall {
                                   name = (Ast.Identifier "target");
                                   args =
-                                  [{ Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                                  [{ Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 0l));
                                      typ = None }
                                     ]};
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
                                 typ = None }};
                             typ = None };
                           then_smt =
@@ -141,15 +144,15 @@
                                 [(Ast.S
                                     (Ast.Return
                                        { Ast.e =
-                                         (Ast.Constant (Ast.ConstInt 2l));
+                                         (Ast.Constant (Ctype.ConstInt 2l));
                                          typ = None }))
                                   ]));
                           else_smt = None});
                      (Ast.S
                         (Ast.Return
-                           { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

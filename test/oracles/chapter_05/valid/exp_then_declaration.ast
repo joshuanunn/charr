@@ -11,10 +11,10 @@
                                    Ast.Unary {op = Ast.Negate;
                                      exp =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 2593l));
+                                       (Ast.Constant (Ctype.ConstInt 2593l));
                                        typ = None }};
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           { Ast.e =
@@ -27,7 +27,8 @@
                                    { Ast.e = (Ast.Var (Ast.Identifier "a"));
                                      typ = None };
                                    right =
-                                   { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 3l));
                                      typ = None }};
                                  typ = None }
                                ));
@@ -43,12 +44,12 @@
                                         (Ast.Var (Ast.Identifier "a"));
                                         typ = None }};
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
                           { Ast.e = (Ast.Var (Ast.Identifier "b"));
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

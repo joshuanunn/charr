@@ -7,16 +7,17 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.If {
                          cond_exp =
@@ -28,7 +29,7 @@
                               (Ast.Assignment (
                                  { Ast.e = (Ast.Var (Ast.Identifier "a"));
                                    typ = None },
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 2l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
                                    typ = None }
                                  ));
                               typ = None });
@@ -40,7 +41,7 @@
                                          (Ast.Var (Ast.Identifier "a"));
                                          typ = None },
                                        { Ast.e =
-                                         (Ast.Constant (Ast.ConstInt 3l));
+                                         (Ast.Constant (Ctype.ConstInt 3l));
                                          typ = None }
                                        ));
                                     typ = None }))});
@@ -55,7 +56,7 @@
                               (Ast.Assignment (
                                  { Ast.e = (Ast.Var (Ast.Identifier "b"));
                                    typ = None },
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
                                    typ = None }
                                  ));
                               typ = None });
@@ -67,7 +68,7 @@
                                          (Ast.Var (Ast.Identifier "b"));
                                          typ = None },
                                        { Ast.e =
-                                         (Ast.Constant (Ast.ConstInt 5l));
+                                         (Ast.Constant (Ctype.ConstInt 5l));
                                          typ = None }
                                        ));
                                     typ = None }))});
@@ -83,6 +84,6 @@
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

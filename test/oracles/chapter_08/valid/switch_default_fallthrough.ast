@@ -7,13 +7,13 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.Switch {
                          cond =
-                         { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                            typ = None };
                          body =
                          (Ast.Compound
@@ -29,7 +29,7 @@
                                                typ = None },
                                              { Ast.e =
                                                (Ast.Constant
-                                                  (Ast.ConstInt 0l));
+                                                  (Ctype.ConstInt 0l));
                                                typ = None }
                                              ));
                                           typ = None });
@@ -38,7 +38,7 @@
                                     Ast.Case {
                                       value =
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 1l));
+                                        (Ast.Constant (Ctype.ConstInt 1l));
                                         typ = None };
                                       body =
                                       (Ast.Return
@@ -56,10 +56,10 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "a"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

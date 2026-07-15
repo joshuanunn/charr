@@ -2,7 +2,7 @@
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "putchar");
          params = [(Ast.Identifier "c")]; body = None;
-         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
@@ -13,7 +13,7 @@
                           { Ast.e =
                             Ast.Binary {op = Ast.And;
                               left =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                 typ = None };
                               right =
                               { Ast.e =
@@ -21,14 +21,14 @@
                                   name = (Ast.Identifier "putchar");
                                   args =
                                   [{ Ast.e =
-                                     (Ast.Constant (Ast.ConstInt 97l));
+                                     (Ast.Constant (Ctype.ConstInt 97l));
                                      typ = None }
                                     ]};
                                 typ = None }};
                             typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          });
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -40,6 +40,6 @@
                               name = (Ast.Identifier "target"); args = []};
                             typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

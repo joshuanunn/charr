@@ -15,10 +15,10 @@
                                        typ = None };
                                      right =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 5l));
+                                       (Ast.Constant (Ctype.ConstInt 5l));
                                        typ = None }};
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "y");
@@ -31,10 +31,10 @@
                                         typ = None };
                                       right =
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 0l));
+                                        (Ast.Constant (Ctype.ConstInt 0l));
                                         typ = None }};
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
                           { Ast.e =
@@ -47,7 +47,7 @@
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -59,11 +59,11 @@
                             Ast.FunctionCall {
                               name = (Ast.Identifier "target");
                               args =
-                              [{ Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                              [{ Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
                                  typ = None }
                                 ]};
                             typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

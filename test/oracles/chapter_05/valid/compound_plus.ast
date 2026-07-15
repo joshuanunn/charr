@@ -7,9 +7,9 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_add");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
                           { Ast.e =
@@ -23,7 +23,8 @@
                                      (Ast.Var (Ast.Identifier "to_add"));
                                      typ = None };
                                    right =
-                                   { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 4l));
                                      typ = None }};
                                  typ = None }
                                ));
@@ -33,6 +34,6 @@
                           { Ast.e = (Ast.Var (Ast.Identifier "to_add"));
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

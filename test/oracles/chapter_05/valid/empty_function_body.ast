@@ -2,6 +2,6 @@
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "main"); params = [];
          body = (Some (Ast.Block []));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

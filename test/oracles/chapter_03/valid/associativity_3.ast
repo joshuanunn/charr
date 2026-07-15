@@ -15,15 +15,15 @@
                                    Ast.Binary {op = Ast.Divide;
                                      left =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 3l));
+                                       (Ast.Constant (Ctype.ConstInt 3l));
                                        typ = None };
                                      right =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 2l));
+                                       (Ast.Constant (Ctype.ConstInt 2l));
                                        typ = None }};
                                    typ = None };
                                  right =
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
                                    typ = None }};
                                typ = None };
                              right =
@@ -34,19 +34,19 @@
                                    Ast.Binary {op = Ast.Subtract;
                                      left =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 5l));
+                                       (Ast.Constant (Ctype.ConstInt 5l));
                                        typ = None };
                                      right =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 4l));
+                                       (Ast.Constant (Ctype.ConstInt 4l));
                                        typ = None }};
                                    typ = None };
                                  right =
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
                                    typ = None }};
                                typ = None }};
                            typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

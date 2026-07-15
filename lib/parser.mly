@@ -93,8 +93,8 @@ specifier_list:
   ;
 
 type_specifier:
-  | KW_INT { Ast.Int }
-  | KW_LONG { Ast.Long }
+  | KW_INT { Ctype.Int }
+  | KW_LONG { Ctype.Long }
   ;
 
 specifier:

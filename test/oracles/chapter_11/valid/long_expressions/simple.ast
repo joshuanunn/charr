@@ -9,9 +9,9 @@
                            init =
                            (Some { Ast.e =
                                    (Ast.Constant
-                                      (Ast.ConstLong 9223372036854775807L));
+                                      (Ctype.ConstLong 9223372036854775807L));
                                    typ = None });
-                           var_type = Ast.Long; storage = None }));
+                           var_type = Ctype.Long; storage = None }));
                     (Ast.S
                        (Ast.Return
                           { Ast.e =
@@ -23,16 +23,17 @@
                                   { Ast.e = (Ast.Var (Ast.Identifier "l"));
                                     typ = None };
                                   right =
-                                  { Ast.e = (Ast.Constant (Ast.ConstLong 2L));
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstLong 2L));
                                     typ = None }};
                                 typ = None };
                               right =
                               { Ast.e =
                                 (Ast.Constant
-                                   (Ast.ConstLong 9223372036854775805L));
+                                   (Ctype.ConstLong 9223372036854775805L));
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

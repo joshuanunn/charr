@@ -1,6 +1,6 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "i"); init = None; var_type = Ast.Int;
+       { Ast.name = (Ast.Identifier "i"); init = None; var_type = Ctype.Int;
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "update_static_or_global");
@@ -11,7 +11,8 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "i"); init = None;
-                            var_type = Ast.Int; storage = (Some Ast.Static) }));
+                            var_type = Ctype.Int; storage = (Some Ast.Static)
+                            }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
@@ -24,7 +25,7 @@
                                 [(Ast.D
                                     (Ast.VarDecl
                                        { Ast.name = (Ast.Identifier "i");
-                                         init = None; var_type = Ast.Int;
+                                         init = None; var_type = Ctype.Int;
                                          storage = (Some Ast.Extern) }));
                                   (Ast.S
                                      (Ast.Expression
@@ -57,7 +58,8 @@
                            { Ast.e = (Ast.Var (Ast.Identifier "i"));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = [Ast.Int; Ast.Int]; ret = Ast.Int};
+          fun_type =
+          Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -72,12 +74,12 @@
                              { Ast.e = (Ast.Var (Ast.Identifier "i"));
                                typ = None };
                              right =
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                typ = None }};
                            typ = None };
                          then_smt =
                          (Ast.Return
-                            { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                               typ = None });
                          else_smt = None});
                      (Ast.D
@@ -91,14 +93,14 @@
                                           "update_static_or_global");
                                        args =
                                        [{ Ast.e =
-                                          (Ast.Constant (Ast.ConstInt 1l));
+                                          (Ast.Constant (Ctype.ConstInt 1l));
                                           typ = None };
                                          { Ast.e =
-                                           (Ast.Constant (Ast.ConstInt 10l));
+                                           (Ast.Constant (Ctype.ConstInt 10l));
                                            typ = None }
                                          ]};
                                      typ = None });
-                             var_type = Ast.Int; storage = None }));
+                             var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
@@ -108,12 +110,12 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "result"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                 typ = None }};
                             typ = None };
                           then_smt =
                           (Ast.Return
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                typ = None });
                           else_smt = None});
                      (Ast.S
@@ -125,12 +127,12 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "i"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
                                 typ = None }};
                             typ = None };
                           then_smt =
                           (Ast.Return
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                typ = None });
                           else_smt = None});
                      (Ast.S
@@ -145,10 +147,10 @@
                                     (Ast.Identifier "update_static_or_global");
                                     args =
                                     [{ Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 0l));
+                                       (Ast.Constant (Ctype.ConstInt 0l));
                                        typ = None };
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 9l));
+                                        (Ast.Constant (Ctype.ConstInt 9l));
                                         typ = None }
                                       ]};
                                   typ = None }
@@ -163,12 +165,12 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "result"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 9l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 9l));
                                 typ = None }};
                             typ = None };
                           then_smt =
                           (Ast.Return
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                typ = None });
                           else_smt = None});
                      (Ast.S
@@ -180,12 +182,12 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "i"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 10l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
                                 typ = None }};
                             typ = None };
                           then_smt =
                           (Ast.Return
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                typ = None });
                           else_smt = None});
                      (Ast.S
@@ -200,10 +202,10 @@
                                     (Ast.Identifier "update_static_or_global");
                                     args =
                                     [{ Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 1l));
+                                       (Ast.Constant (Ctype.ConstInt 1l));
                                        typ = None };
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 11l));
+                                        (Ast.Constant (Ctype.ConstInt 11l));
                                         typ = None }
                                       ]};
                                   typ = None }
@@ -218,12 +220,12 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "result"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 9l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 9l));
                                 typ = None }};
                             typ = None };
                           then_smt =
                           (Ast.Return
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                typ = None });
                           else_smt = None});
                      (Ast.S
@@ -235,19 +237,19 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "i"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 11l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 11l));
                                 typ = None }};
                             typ = None };
                           then_smt =
                           (Ast.Return
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                typ = None });
                           else_smt = None});
                      (Ast.S
                         (Ast.Return
-                           { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

@@ -25,6 +25,7 @@
                            typ = None }))
                     ]));
          fun_type =
-         Ast.FunType {params = [Ast.Long; Ast.Long; Ast.Int]; ret = Ast.Long};
+         Ctype.FunType {params = [Ctype.Long; Ctype.Long; Ctype.Int];
+           ret = Ctype.Long};
          storage = None })
      ])

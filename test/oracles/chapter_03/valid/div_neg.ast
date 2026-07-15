@@ -11,14 +11,15 @@
                              { Ast.e =
                                Ast.Unary {op = Ast.Negate;
                                  exp =
-                                 { Ast.e = (Ast.Constant (Ast.ConstInt 12l));
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 12l));
                                    typ = None }};
                                typ = None };
                              right =
-                             { Ast.e = (Ast.Constant (Ast.ConstInt 5l));
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
                                typ = None }};
                            typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

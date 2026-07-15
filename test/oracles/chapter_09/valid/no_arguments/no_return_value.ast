@@ -7,12 +7,12 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }))
+                           var_type = Ctype.Int; storage = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         });
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -25,9 +25,9 @@
                             typ = None }));
                      (Ast.S
                         (Ast.Return
-                           { Ast.e = (Ast.Constant (Ast.ConstInt 3l));
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

@@ -7,9 +7,9 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "y");
@@ -27,12 +27,13 @@
                                              typ = None };
                                            right =
                                            { Ast.e =
-                                             (Ast.Constant (Ast.ConstInt 3l));
+                                             (Ast.Constant
+                                                (Ctype.ConstInt 3l));
                                              typ = None }};
                                          typ = None }
                                        ));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
                           { Ast.e =
@@ -44,7 +45,8 @@
                                   { Ast.e = (Ast.Var (Ast.Identifier "x"));
                                     typ = None };
                                   right =
-                                  { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 4l));
                                     typ = None }};
                                 typ = None };
                               right =
@@ -54,11 +56,12 @@
                                   { Ast.e = (Ast.Var (Ast.Identifier "y"));
                                     typ = None };
                                   right =
-                                  { Ast.e = (Ast.Constant (Ast.ConstInt 4l));
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 4l));
                                     typ = None }};
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

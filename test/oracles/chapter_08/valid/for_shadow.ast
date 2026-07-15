@@ -7,16 +7,17 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "shadow");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "acc");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.For {
                          init =
@@ -24,9 +25,9 @@
                             { Ast.name = (Ast.Identifier "shadow");
                               init =
                               (Some { Ast.e =
-                                      (Ast.Constant (Ast.ConstInt 0l));
+                                      (Ast.Constant (Ctype.ConstInt 0l));
                                       typ = None });
-                              var_type = Ast.Int; storage = None });
+                              var_type = Ctype.Int; storage = None });
                          cond =
                          (Some { Ast.e =
                                  Ast.Binary {op = Ast.LessThan;
@@ -36,7 +37,7 @@
                                      typ = None };
                                    right =
                                    { Ast.e =
-                                     (Ast.Constant (Ast.ConstInt 10l));
+                                     (Ast.Constant (Ctype.ConstInt 10l));
                                      typ = None }};
                                  typ = None });
                          post =
@@ -53,7 +54,7 @@
                                           typ = None };
                                         right =
                                         { Ast.e =
-                                          (Ast.Constant (Ast.ConstInt 1l));
+                                          (Ast.Constant (Ctype.ConstInt 1l));
                                           typ = None }};
                                       typ = None }
                                     ));
@@ -96,7 +97,8 @@
                                   { Ast.e = (Ast.Var (Ast.Identifier "acc"));
                                     typ = None };
                                   right =
-                                  { Ast.e = (Ast.Constant (Ast.ConstInt 45l));
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 45l));
                                     typ = None }};
                                 typ = None };
                               right =
@@ -107,11 +109,12 @@
                                     (Ast.Var (Ast.Identifier "shadow"));
                                     typ = None };
                                   right =
-                                  { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 1l));
                                     typ = None }};
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

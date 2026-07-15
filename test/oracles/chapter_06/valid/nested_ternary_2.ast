@@ -11,30 +11,30 @@
                                    Ast.Conditional {
                                      cond_exp =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 1l));
+                                       (Ast.Constant (Ctype.ConstInt 1l));
                                        typ = None };
                                      then_exp =
                                      { Ast.e =
                                        Ast.Conditional {
                                          cond_exp =
                                          { Ast.e =
-                                           (Ast.Constant (Ast.ConstInt 2l));
+                                           (Ast.Constant (Ctype.ConstInt 2l));
                                            typ = None };
                                          then_exp =
                                          { Ast.e =
-                                           (Ast.Constant (Ast.ConstInt 3l));
+                                           (Ast.Constant (Ctype.ConstInt 3l));
                                            typ = None };
                                          else_exp =
                                          { Ast.e =
-                                           (Ast.Constant (Ast.ConstInt 4l));
+                                           (Ast.Constant (Ctype.ConstInt 4l));
                                            typ = None }};
                                        typ = None };
                                      else_exp =
                                      { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 5l));
+                                       (Ast.Constant (Ctype.ConstInt 5l));
                                        typ = None }};
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
@@ -43,30 +43,30 @@
                                     Ast.Conditional {
                                       cond_exp =
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 0l));
+                                        (Ast.Constant (Ctype.ConstInt 0l));
                                         typ = None };
                                       then_exp =
                                       { Ast.e =
                                         Ast.Conditional {
                                           cond_exp =
                                           { Ast.e =
-                                            (Ast.Constant (Ast.ConstInt 2l));
+                                            (Ast.Constant (Ctype.ConstInt 2l));
                                             typ = None };
                                           then_exp =
                                           { Ast.e =
-                                            (Ast.Constant (Ast.ConstInt 3l));
+                                            (Ast.Constant (Ctype.ConstInt 3l));
                                             typ = None };
                                           else_exp =
                                           { Ast.e =
-                                            (Ast.Constant (Ast.ConstInt 4l));
+                                            (Ast.Constant (Ctype.ConstInt 4l));
                                             typ = None }};
                                         typ = None };
                                       else_exp =
                                       { Ast.e =
-                                        (Ast.Constant (Ast.ConstInt 5l));
+                                        (Ast.Constant (Ctype.ConstInt 5l));
                                         typ = None }};
                                     typ = None });
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
                           { Ast.e =
@@ -79,6 +79,6 @@
                                 typ = None }};
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])

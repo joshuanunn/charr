@@ -6,7 +6,8 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x"); init = None;
-                           var_type = Ast.Int; storage = (Some Ast.Static) }));
+                           var_type = Ctype.Int; storage = (Some Ast.Static)
+                           }));
                     (Ast.S
                        (Ast.Expression
                           { Ast.e =
@@ -19,7 +20,8 @@
                                    { Ast.e = (Ast.Var (Ast.Identifier "x"));
                                      typ = None };
                                    right =
-                                   { Ast.e = (Ast.Constant (Ast.ConstInt 1l));
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 1l));
                                      typ = None }};
                                  typ = None }
                                ));
@@ -29,8 +31,8 @@
                           { Ast.e = (Ast.Var (Ast.Identifier "x"));
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         });
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -38,7 +40,7 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "ret"); init = None;
-                            var_type = Ast.Int; storage = None }));
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.For {
                           init =
@@ -46,9 +48,9 @@
                              { Ast.name = (Ast.Identifier "i");
                                init =
                                (Some { Ast.e =
-                                       (Ast.Constant (Ast.ConstInt 0l));
+                                       (Ast.Constant (Ctype.ConstInt 0l));
                                        typ = None });
-                               var_type = Ast.Int; storage = None });
+                               var_type = Ctype.Int; storage = None });
                           cond =
                           (Some { Ast.e =
                                   Ast.Binary {op = Ast.LessThan;
@@ -57,7 +59,7 @@
                                       typ = None };
                                     right =
                                     { Ast.e =
-                                      (Ast.Constant (Ast.ConstInt 4l));
+                                      (Ast.Constant (Ctype.ConstInt 4l));
                                       typ = None }};
                                   typ = None });
                           post =
@@ -73,7 +75,7 @@
                                            typ = None };
                                          right =
                                          { Ast.e =
-                                           (Ast.Constant (Ast.ConstInt 1l));
+                                           (Ast.Constant (Ctype.ConstInt 1l));
                                            typ = None }};
                                        typ = None }
                                      ));
@@ -97,6 +99,6 @@
                            { Ast.e = (Ast.Var (Ast.Identifier "ret"));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

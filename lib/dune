@@ -10,7 +10,7 @@
   lexer
   lexer_pp
   parser
-  type
+  ctype
   ast
   ast_resolution
   ast_flow_label

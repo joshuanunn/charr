@@ -2,7 +2,7 @@
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "putchar");
          params = [(Ast.Identifier "ch")]; body = None;
-         fun_type = Ast.FunType {params = [Ast.Int]; ret = Ast.Int};
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "print_alphabet"); params = [];
@@ -12,9 +12,11 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "count");
                             init =
-                            (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
                                     typ = None });
-                            var_type = Ast.Int; storage = (Some Ast.Static) }));
+                            var_type = Ctype.Int; storage = (Some Ast.Static)
+                            }));
                      (Ast.S
                         (Ast.Expression
                            { Ast.e =
@@ -29,7 +31,7 @@
                                       typ = None };
                                     right =
                                     { Ast.e =
-                                      (Ast.Constant (Ast.ConstInt 65l));
+                                      (Ast.Constant (Ctype.ConstInt 65l));
                                       typ = None }};
                                   typ = None }
                                  ]};
@@ -48,7 +50,7 @@
                                       typ = None };
                                     right =
                                     { Ast.e =
-                                      (Ast.Constant (Ast.ConstInt 1l));
+                                      (Ast.Constant (Ctype.ConstInt 1l));
                                       typ = None }};
                                   typ = None }
                                 ));
@@ -62,7 +64,7 @@
                               { Ast.e = (Ast.Var (Ast.Identifier "count"));
                                 typ = None };
                               right =
-                              { Ast.e = (Ast.Constant (Ast.ConstInt 26l));
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 26l));
                                 typ = None }};
                             typ = None };
                           then_smt =
@@ -83,8 +85,8 @@
                            { Ast.e = (Ast.Var (Ast.Identifier "count"));
                              typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          });
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -97,6 +99,6 @@
                               args = []};
                             typ = None }))
                      ]));
-          fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-          })
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
      ])

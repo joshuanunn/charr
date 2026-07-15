@@ -1,11 +1,6 @@
 type storage_class = Static | Extern [@@deriving show]
 
-type ctype = Int | Long | FunType of { params : ctype list; ret : ctype }
-[@@deriving show, ord]
-
-type const = ConstInt of int32 | ConstLong of int64 [@@deriving show]
-
-type specifier = SpecType of ctype | SpecStorage of storage_class
+type specifier = SpecType of Ctype.t | SpecStorage of storage_class
 [@@deriving show]
 
 type ident =
@@ -46,12 +41,12 @@ type binop =
   | GreaterThan
 [@@deriving show]
 
-type expr = { e : expr_kind; typ : ctype option }
+type expr = { e : expr_kind; typ : Ctype.t option }
 
 and expr_kind =
-  | Constant of const
+  | Constant of Ctype.const
   | Var of ident
-  | Cast of { target_type : ctype; exp : expr }
+  | Cast of { target_type : Ctype.t; exp : expr }
   | Unary of { op : unop; exp : expr }
   | Binary of { op : binop; left : expr; right : expr }
   | Assignment of expr * expr
@@ -102,7 +97,7 @@ and fun_decl = {
   name : ident;
   params : ident list;
   body : block option;
-  fun_type : ctype;
+  fun_type : Ctype.t;
   storage : storage_class option;
 }
 [@@deriving show]
@@ -110,25 +105,25 @@ and fun_decl = {
 and var_decl = {
   name : ident;
   init : expr option;
-  var_type : ctype;
+  var_type : Ctype.t;
   storage : storage_class option;
 }
 [@@deriving show]
 
 type prog = Program of decl list [@@deriving show]
 
-type decl_specs = { spec_type : ctype; spec_storage : storage_class option }
+type decl_specs = { spec_type : Ctype.t; spec_storage : storage_class option }
 [@@deriving show]
 
 let extract_type types =
-  match List.sort compare_ctype types with
+  match List.sort Ctype.compare types with
   | [] -> failwith "No type specifier"
-  | [ Int ] -> Int
-  | [ Long ] | [ Int; Long ] -> Long
+  | [ Ctype.Int ] -> Ctype.Int
+  | [ Ctype.Long ] | [ Ctype.Int; Ctype.Long ] -> Ctype.Long
   | _ ->
       failwith
         ("Invalid type specifier: "
-        ^ String.concat " " (List.map show_ctype types))
+        ^ String.concat " " (List.map Ctype.show types))
 
 let extract_specifiers (sl : specifier list) : decl_specs =
   let types, storages =
@@ -178,10 +173,10 @@ let mk_ident i = Identifier i
 
 let mk_int_const i =
   if Int64.compare i (Int64.of_int32 Int32.max_int) <= 0 then
-    untyped_expr (Constant (ConstInt (Int64.to_int32 i)))
-  else untyped_expr (Constant (ConstLong i))
+    untyped_expr (Constant (Ctype.ConstInt (Int64.to_int32 i)))
+  else untyped_expr (Constant (Ctype.ConstLong i))
 
-let mk_long_const i = untyped_expr (Constant (ConstLong i))
+let mk_long_const i = untyped_expr (Constant (Ctype.ConstLong i))
 let mk_var_expr i = untyped_expr (Var i)
 let mk_binop_expr op left right = untyped_expr (Binary { op; left; right })
 let mk_unop_expr op exp = untyped_expr (Unary { op; exp })
@@ -250,6 +245,6 @@ let mk_cast_expr types exp =
 
 let literal_to_int l =
   match l.e with
-  | Constant (ConstInt i) -> Int32.to_int i
-  | Constant (ConstLong _) -> failwith "Not implemented"
+  | Constant (Ctype.ConstInt i) -> Int32.to_int i
+  | Constant (Ctype.ConstLong _) -> failwith "Not implemented"
   | _ -> failwith "Expected constant"

@@ -7,9 +7,9 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
                            init =
-                           (Some { Ast.e = (Ast.Constant (Ast.ConstInt 0l));
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
                                    typ = None });
-                           var_type = Ast.Int; storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.For {init = (Ast.InitExp None); cond = None;
                          post = None;
@@ -33,7 +33,7 @@
                                                right =
                                                { Ast.e =
                                                  (Ast.Constant
-                                                    (Ast.ConstInt 1l));
+                                                    (Ctype.ConstInt 1l));
                                                  typ = None }};
                                              typ = None }
                                            ));
@@ -49,7 +49,7 @@
                                             typ = None };
                                           right =
                                           { Ast.e =
-                                            (Ast.Constant (Ast.ConstInt 3l));
+                                            (Ast.Constant (Ctype.ConstInt 3l));
                                             typ = None }};
                                         typ = None };
                                       then_smt = (Ast.Break None);
@@ -61,6 +61,6 @@
                           { Ast.e = (Ast.Var (Ast.Identifier "a"));
                             typ = None }))
                     ]));
-         fun_type = Ast.FunType {params = []; ret = Ast.Int}; storage = None
-         })
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
      ])
