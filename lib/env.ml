@@ -291,25 +291,6 @@ let add (te : tenv) (id : Ast.ident) (entry : type_entry) : unit =
 let replace (te : tenv) (id : Ast.ident) (entry : type_entry) : unit =
   Hashtbl.replace te.typed_idents (ident_name id) entry
 
-(** Assert that an identifier refers to a variable of integer type. Raises if
-    the identifier is undeclared or refers to a function. *)
-let assert_var (te : tenv) (id : Ast.ident) : unit =
-  match find te id with
-  | None -> failwith "variable has not been typechecked"
-  | Some { c_type = Ctype.Int; _ } -> ()
-  | Some _ -> failwith "function name used as variable"
-
-(** Assert that an identifier refers to a function with the given arity. Raises
-    if the identifier is undeclared, refers to a variable, or is called with the
-    wrong number of arguments. *)
-let assert_fun (te : tenv) (id : Ast.ident) (argc : int) : unit =
-  match find te id with
-  | None -> failwith "function has not been typechecked"
-  | Some { c_type = Ctype.FunType p; _ } ->
-      if List.length p.params <> argc then
-        failwith "function called with the wrong number of arguments"
-  | Some _ -> failwith "variable used as function name"
-
 (** Determine whether a function has external linkage. Looks up the function
     [id] in the type environment and returns [true] if the function has external
     linkage (i.e. should be emitted as a global symbol), or [false] if it has

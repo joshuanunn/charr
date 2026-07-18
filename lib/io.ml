@@ -45,7 +45,7 @@ let run_validator lexbuf s_env t_env =
     let ast = Parser.prog Lexer.read lexbuf in
     let ast = Ast_resolution.resolve_prog ast s_env in
     let ast = Ast_flow_label.label_prog ast in
-    Ast_type_check.type_prog ast t_env;
+    let ast = Ast_type_check.type_prog ast t_env in
     print_endline (Ast.show_prog ast)
   with
   | Parser.Error ->
@@ -62,7 +62,7 @@ let run_irgen lexbuf opts s_env t_env =
     let ast = Parser.prog Lexer.read lexbuf in
     let ast = Ast_resolution.resolve_prog ast s_env in
     let ast = Ast_flow_label.label_prog ast in
-    Ast_type_check.type_prog ast t_env;
+    let ast = Ast_type_check.type_prog ast t_env in
     let ir = Irgen.convert_prog ast t_env in
     let ir = Passes.optimise_prog ir opts t_env in
     print_endline (Ir.show_prog ir)
@@ -81,7 +81,7 @@ let run_codegen lexbuf opts s_env t_env =
     let ast = Parser.prog Lexer.read lexbuf in
     let ast = Ast_resolution.resolve_prog ast s_env in
     let ast = Ast_flow_label.label_prog ast in
-    Ast_type_check.type_prog ast t_env;
+    let ast = Ast_type_check.type_prog ast t_env in
     let ir = Irgen.convert_prog ast t_env in
     let ir = Passes.optimise_prog ir opts t_env in
     let asm = Codegen.compile_prog ir in
@@ -103,7 +103,7 @@ let run_emit lexbuf opts s_env t_env =
     let ast = Parser.prog Lexer.read lexbuf in
     let ast = Ast_resolution.resolve_prog ast s_env in
     let ast = Ast_flow_label.label_prog ast in
-    Ast_type_check.type_prog ast t_env;
+    let ast = Ast_type_check.type_prog ast t_env in
     let ir = Irgen.convert_prog ast t_env in
     let ir = Passes.optimise_prog ir opts t_env in
     let asm = Codegen.compile_prog ir in
@@ -125,7 +125,7 @@ let run_exe lexbuf opts output_path s_env t_env =
     let ast = Parser.prog Lexer.read lexbuf in
     let ast = Ast_resolution.resolve_prog ast s_env in
     let ast = Ast_flow_label.label_prog ast in
-    Ast_type_check.type_prog ast t_env;
+    let ast = Ast_type_check.type_prog ast t_env in
     let ir = Irgen.convert_prog ast t_env in
     let ir = Passes.optimise_prog ir opts t_env in
     let asm = Codegen.compile_prog ir in
