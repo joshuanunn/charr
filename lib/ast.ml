@@ -245,8 +245,8 @@ let mk_param types name = (extract_type types, name)
 let mk_cast_expr types exp =
   untyped_expr (Cast { target_type = extract_type types; exp })
 
-let literal_to_int l =
+let literal_to_int64 l =
   match l.e with
-  | Constant (Ctype.ConstInt i) -> Int32.to_int i
-  | Constant (Ctype.ConstLong _) -> failwith "Not implemented"
+  | Constant (Ctype.ConstInt i) -> Int64.of_int32 i
+  | Constant (Ctype.ConstLong l) -> l
   | _ -> failwith "Expected constant"

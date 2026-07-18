@@ -268,7 +268,8 @@ and type_opt_expr (e : Ast.expr option) (te : Env.tenv) : Ast.expr option =
 
     Recursively validates all expressions and nested statements contained within
     the statement. *)
-and type_stmt (s : Ast.stmt) (ret : Ctype.t) (te : Env.tenv) : Ast.stmt =
+and type_stmt (s : Ast.stmt) (ret : Ctype.t) (swt : Ctype.t option)
+    (te : Env.tenv) : Ast.stmt =
   match s with
   | Return expr ->
       (* Function return values are implicitly converted to return type *)
@@ -276,43 +277,49 @@ and type_stmt (s : Ast.stmt) (ret : Ctype.t) (te : Env.tenv) : Ast.stmt =
   | Expression expr -> Expression (type_expr expr te)
   | If { cond_exp; then_smt; else_smt = None } ->
       let cond_exp' = type_expr cond_exp te in
-      let then_smt' = type_stmt then_smt ret te in
+      let then_smt' = type_stmt then_smt ret swt te in
       Ast.If { cond_exp = cond_exp'; then_smt = then_smt'; else_smt = None }
   | If { cond_exp; then_smt; else_smt = Some stmt } ->
       let cond_exp' = type_expr cond_exp te in
-      let then_smt' = type_stmt then_smt ret te in
-      let else_smt' = Some (type_stmt stmt ret te) in
+      let then_smt' = type_stmt then_smt ret swt te in
+      let else_smt' = Some (type_stmt stmt ret swt te) in
       Ast.If
         { cond_exp = cond_exp'; then_smt = then_smt'; else_smt = else_smt' }
-  | Compound b -> Ast.Compound (type_block b ret te)
+  | Compound b -> Ast.Compound (type_block b ret swt te)
   | Break _ -> s
   | Continue _ -> s
   | While { cond; body; id } ->
       let cond' = type_expr cond te in
-      let body' = type_stmt body ret te in
+      let body' = type_stmt body ret swt te in
       Ast.While { cond = cond'; body = body'; id }
   | DoWhile { body; cond; id } ->
-      let body' = type_stmt body ret te in
+      let body' = type_stmt body ret swt te in
       let cond' = type_expr cond te in
       Ast.DoWhile { body = body'; cond = cond'; id }
   | For { init; cond; post; body; id } ->
       let init' = type_for_init init te in
       let cond' = type_opt_expr cond te in
       let post' = type_opt_expr post te in
-      let body' = type_stmt body ret te in
+      let body' = type_stmt body ret swt te in
       Ast.For { init = init'; cond = cond'; post = post'; body = body'; id }
   | Switch { cond; body; id } ->
       let cond' = type_expr cond te in
-      let body' = type_stmt body ret te in
+      let switch_type = Some (Ast.get_type cond') in
+      let body' = type_stmt body ret switch_type te in
       Ast.Switch { cond = cond'; body = body'; id }
-  (* TODO: convert case values to the switch's controlling type *)
-  | Case { value; body; id } ->
-      let value' = type_expr value te in
-      let body' = type_stmt body ret te in
-      Ast.Case { value = value'; body = body'; id }
-  | Default { body; id } -> Ast.Default { body = type_stmt body ret te; id }
+  | Case { value = { e = Constant c; _ }; body; id } ->
+      (* convert case values to the switch's controlling type *)
+      let t =
+        match swt with
+        | Some t -> t
+        | None -> failwith "case label outside of switch statement"
+      in
+      let value = Ast.typed_expr (Ast.Constant (Ctype.const_convert t c)) t in
+      Ast.Case { value; body = type_stmt body ret swt te; id }
+  | Case _ -> failwith "case label must be a constant integer expression"
+  | Default { body; id } -> Ast.Default { body = type_stmt body ret swt te; id }
   | Goto _ -> s
-  | Label (l, body) -> Ast.Label (l, type_stmt body ret te)
+  | Label (l, body) -> Ast.Label (l, type_stmt body ret swt te)
   | Null -> s
 
 (** Type check a declaration.
@@ -341,20 +348,21 @@ and type_func (f : Ast.fun_decl) (te : Env.tenv) : Ast.fun_decl =
   (* Only typecheck function parameters and body if a definition (done once) *)
   if Option.is_some f.body then
     List.iter2 (fun id t -> type_param_decl id t te) f.params param_types;
-  let body = Option.map (fun b -> type_block b ret te) f.body in
+  let body = Option.map (fun b -> type_block b ret None te) f.body in
   { f with body }
 
 (** Type check a block.
 
     Processes declarations and statements in sequence using the current type
     environment. *)
-and type_block (b : Ast.block) (ret : Ctype.t) (te : Env.tenv) : Ast.block =
+and type_block (b : Ast.block) (ret : Ctype.t) (swt : Ctype.t option)
+    (te : Env.tenv) : Ast.block =
   let (Block item_list) = b in
   Ast.Block
     (List.map
        (function
          | Ast.D d -> Ast.D (type_decl ~file_scope:false d te)
-         | Ast.S s -> Ast.S (type_stmt s ret te))
+         | Ast.S s -> Ast.S (type_stmt s ret swt te))
        item_list)
 
 (** Type check an entire program.

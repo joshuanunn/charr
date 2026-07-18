@@ -44,8 +44,8 @@ let convert_binop (u : Ast.binop) : Ir.binary_operator =
 let rec collect_cases (s : Ast.stmt) : (Ast.expr option * string) list =
   match s with
   | Case { value; body; id = Some (SwitchLabel i) } ->
-      let int_value = Ast.literal_to_int value in
-      let label_name = Printf.sprintf "swit.cs.%s.%d" i int_value in
+      let int64_value = Ast.literal_to_int64 value in
+      let label_name = Printf.sprintf "swit.cs.%s.%Ld" i int64_value in
       let subcases = collect_cases body in
       (Some value, label_name) :: subcases
   | Default { body; id = Some (SwitchLabel i) } ->
@@ -284,7 +284,7 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
                     {
                       op = Ir.Equal;
                       src1 = cond_val;
-                      src2 = Constant (Ast.literal_to_int v);
+                      src2 = Constant (Int64.to_int (Ast.literal_to_int64 v));
                       dst = tmp;
                     };
                   Ir.JumpIfNotZero { condition = tmp; target = lbl };
@@ -306,8 +306,8 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
   | Case { value; body; id } -> (
       match id with
       | Some (SwitchLabel i) ->
-          let int_value = Ast.literal_to_int value in
-          let l_case = Printf.sprintf "swit.cs.%s.%d" i int_value in
+          let int64_value = Ast.literal_to_int64 value in
+          let l_case = Printf.sprintf "swit.cs.%s.%Ld" i int64_value in
           let body_ins = convert_stmt body le in
           [ Ir.Label l_case ] @ body_ins
       | _ -> failwith "case statement has missing label")

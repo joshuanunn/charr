@@ -1,6 +1,6 @@
 type switch_ctx = {
   id : Ast.ident;
-  cases : (int, unit) Hashtbl.t;
+  cases : (int64, unit) Hashtbl.t;
   mutable has_default : bool;
 }
 
@@ -113,11 +113,11 @@ let rec label_control_stmt (s : Ast.stmt) (stack : context list) : Ast.stmt =
             { cond; body = label_control_stmt body new_stack; id = Some new_id }
       | Some _ -> failwith "switch statement has already been labeled")
   | Case { value; body; _ } ->
-      let int_value = Ast.literal_to_int value in
+      let int64_value = Ast.literal_to_int64 value in
       let switch = find_switch stack in
-      if Hashtbl.mem switch.cases int_value then
-        failwith (Printf.sprintf "duplicate case value: %d" int_value);
-      Hashtbl.add switch.cases int_value ();
+      if Hashtbl.mem switch.cases int64_value then
+        failwith (Printf.sprintf "duplicate case value: %Ld" int64_value);
+      Hashtbl.add switch.cases int64_value ();
       Case { value; body = label_control_stmt body stack; id = Some switch.id }
   | Default { body; _ } ->
       let switch = find_switch stack in
