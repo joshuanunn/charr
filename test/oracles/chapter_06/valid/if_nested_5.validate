@@ -6,26 +6,60 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a.0");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
-                       Ast.If {cond_exp = (Ast.LiteralInt 0);
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                           typ = (Some Ctype.Int) };
                          then_smt =
-                         Ast.If {cond_exp = (Ast.LiteralInt 0);
+                         Ast.If {
+                           cond_exp =
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) };
                            then_smt =
                            (Ast.Expression
-                              (Ast.Assignment (
-                                 (Ast.Var (Ast.Identifier "a.0")),
-                                 (Ast.LiteralInt 3))));
+                              { Ast.e =
+                                (Ast.Assignment (
+                                   { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                                     typ = (Some Ctype.Int) },
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 3l));
+                                     typ = (Some Ctype.Int) }
+                                   ));
+                                typ = (Some Ctype.Int) });
                            else_smt =
                            (Some (Ast.Expression
-                                    (Ast.Assignment (
-                                       (Ast.Var (Ast.Identifier "a.0")),
-                                       (Ast.LiteralInt 4)))))};
+                                    { Ast.e =
+                                      (Ast.Assignment (
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "a.0"));
+                                           typ = (Some Ctype.Int) },
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 4l));
+                                           typ = (Some Ctype.Int) }
+                                         ));
+                                      typ = (Some Ctype.Int) }))};
                          else_smt =
                          (Some (Ast.Expression
-                                  (Ast.Assignment (
-                                     (Ast.Var (Ast.Identifier "a.0")),
-                                     (Ast.LiteralInt 1)))))});
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a.0"))))]));
+                                  { Ast.e =
+                                    (Ast.Assignment (
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "a.0"));
+                                         typ = (Some Ctype.Int) },
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 1l));
+                                         typ = (Some Ctype.Int) }
+                                       ));
+                                    typ = (Some Ctype.Int) }))});
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

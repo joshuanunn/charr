@@ -4,46 +4,85 @@
          body =
          (Some (Ast.Block
                   [(Ast.S
-                      Ast.Switch {cond = (Ast.LiteralInt 3);
+                      Ast.Switch {
+                        cond =
+                        { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                          typ = (Some Ctype.Int) };
                         body =
                         (Ast.Compound
                            (Ast.Block
                               [(Ast.S
-                                  Ast.Case {value = (Ast.LiteralInt 0);
-                                    body = (Ast.Return (Ast.LiteralInt 0));
+                                  Ast.Case {
+                                    value =
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 0l));
+                                      typ = (Some Ctype.Int) };
+                                    body =
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 0l));
+                                         typ = (Some Ctype.Int) });
                                     id = (Some (Ast.SwitchLabel "1"))});
                                 (Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 3);
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 3l));
+                                       typ = (Some Ctype.Int) };
                                      body =
                                      (Ast.Compound
                                         (Ast.Block
                                            [(Ast.S
                                                Ast.Switch {
-                                                 cond = (Ast.LiteralInt 4);
+                                                 cond =
+                                                 { Ast.e =
+                                                   (Ast.Constant
+                                                      (Ctype.ConstInt 4l));
+                                                   typ = (Some Ctype.Int) };
                                                  body =
                                                  (Ast.Compound
                                                     (Ast.Block
                                                        [(Ast.S
                                                            Ast.Case {
                                                              value =
-                                                             (Ast.LiteralInt
-                                                                3);
+                                                             { Ast.e =
+                                                               (Ast.Constant
+                                                                  (Ctype.ConstInt
+                                                                    3l));
+                                                               typ =
+                                                               (Some Ctype.Int)
+                                                               };
                                                              body =
                                                              (Ast.Return
-                                                                (Ast.LiteralInt
-                                                                   0));
+                                                                { Ast.e =
+                                                                  (Ast.Constant
+                                                                    (Ctype.ConstInt
+                                                                    0l));
+                                                                  typ =
+                                                                  (Some Ctype.Int)
+                                                                  });
                                                              id =
                                                              (Some (Ast.SwitchLabel
                                                                     "2"))});
                                                          (Ast.S
                                                             Ast.Case {
                                                               value =
-                                                              (Ast.LiteralInt
-                                                                 4);
+                                                              { Ast.e =
+                                                                (Ast.Constant
+                                                                   (Ctype.ConstInt
+                                                                    4l));
+                                                                typ =
+                                                                (Some Ctype.Int)
+                                                                };
                                                               body =
                                                               (Ast.Return
-                                                                 (Ast.LiteralInt
-                                                                    1));
+                                                                 { Ast.e =
+                                                                   (Ast.Constant
+                                                                    (Ctype.ConstInt
+                                                                    1l));
+                                                                   typ =
+                                                                   (Some Ctype.Int)
+                                                                   });
                                                               id =
                                                               (Some (
                                                               Ast.SwitchLabel
@@ -52,8 +91,13 @@
                                                             Ast.Default {
                                                               body =
                                                               (Ast.Return
-                                                                 (Ast.LiteralInt
-                                                                    0));
+                                                                 { Ast.e =
+                                                                   (Ast.Constant
+                                                                    (Ctype.ConstInt
+                                                                    0l));
+                                                                   typ =
+                                                                   (Some Ctype.Int)
+                                                                   });
                                                               id =
                                                               (Some (
                                                               Ast.SwitchLabel
@@ -64,15 +108,28 @@
                                              ]));
                                      id = (Some (Ast.SwitchLabel "1"))});
                                 (Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 4);
-                                     body = (Ast.Return (Ast.LiteralInt 0));
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 4l));
+                                       typ = (Some Ctype.Int) };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 0l));
+                                          typ = (Some Ctype.Int) });
                                      id = (Some (Ast.SwitchLabel "1"))});
                                 (Ast.S
                                    Ast.Default {
-                                     body = (Ast.Return (Ast.LiteralInt 0));
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 0l));
+                                          typ = (Some Ctype.Int) });
                                      id = (Some (Ast.SwitchLabel "1"))})
                                 ]));
                         id = (Some (Ast.SwitchLabel "1"))})
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

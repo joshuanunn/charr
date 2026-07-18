@@ -1,24 +1,46 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "putchar");
-         params = [(Ast.Identifier "c.0")]; body = None; storage = None });
+         params = [(Ast.Identifier "c.0")]; body = None;
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          Ast.FunctionCall {
-                            name = (Ast.Identifier "putchar");
-                            args =
-                            [(Ast.Comma ((Ast.LiteralInt 65),
-                                (Ast.LiteralInt 66)))
-                              ]}));
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "putchar");
+                              args =
+                              [{ Ast.e =
+                                 (Ast.Comma (
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 65l));
+                                      typ = (Some Ctype.Int) },
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 66l));
+                                      typ = (Some Ctype.Int) }
+                                    ));
+                                 typ = (Some Ctype.Int) }
+                                ]};
+                            typ = (Some Ctype.Int) }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.FunctionCall {
-                             name = (Ast.Identifier "putchar");
-                             args = [(Ast.LiteralInt 10)]}));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                           { Ast.e =
+                             Ast.FunctionCall {
+                               name = (Ast.Identifier "putchar");
+                               args =
+                               [{ Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
+                                  typ = (Some Ctype.Int) }
+                                 ]};
+                             typ = (Some Ctype.Int) }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

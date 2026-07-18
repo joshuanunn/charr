@@ -6,11 +6,16 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a.5");
-                           init = (Some (Ast.LiteralInt 1)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Label ((Ast.GotoLabel "label_if.0"),
                           Ast.If {
-                            cond_exp = (Ast.Var (Ast.Identifier "a.5"));
+                            cond_exp =
+                            { Ast.e = (Ast.Var (Ast.Identifier "a.5"));
+                              typ = (Some Ctype.Int) };
                             then_smt =
                             (Ast.Goto (Ast.GotoLabel "label_expression.2"));
                             else_smt =
@@ -20,26 +25,46 @@
                        (Ast.Label ((Ast.GotoLabel "label_goto.1"),
                           (Ast.Goto (Ast.GotoLabel "label_return.3")))));
                     (Ast.S
-                       Ast.If {cond_exp = (Ast.LiteralInt 0);
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                           typ = (Some Ctype.Int) };
                          then_smt =
                          (Ast.Label ((Ast.GotoLabel "label_expression.2"),
                             (Ast.Expression
-                               (Ast.Assignment (
-                                  (Ast.Var (Ast.Identifier "a.5")),
-                                  (Ast.LiteralInt 0))))
+                               { Ast.e =
+                                 (Ast.Assignment (
+                                    { Ast.e =
+                                      (Ast.Var (Ast.Identifier "a.5"));
+                                      typ = (Some Ctype.Int) },
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 0l));
+                                      typ = (Some Ctype.Int) }
+                                    ));
+                                 typ = (Some Ctype.Int) })
                             ));
                          else_smt = None});
                     (Ast.S (Ast.Goto (Ast.GotoLabel "label_if.0")));
                     (Ast.S
                        (Ast.Label ((Ast.GotoLabel "label_return.3"),
-                          (Ast.Return (Ast.Var (Ast.Identifier "a.5"))))));
+                          (Ast.Return
+                             { Ast.e = (Ast.Var (Ast.Identifier "a.5"));
+                               typ = (Some Ctype.Int) })
+                          )));
                     (Ast.S
                        (Ast.Label ((Ast.GotoLabel "label_empty.4"), Ast.Null
                           )));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "a.5")),
-                             (Ast.LiteralInt 100)))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "a.5"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 100l));
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
                     (Ast.S (Ast.Goto (Ast.GotoLabel "label_goto.1")))]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -6,28 +6,55 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.Multiply;
-                           left = (Ast.Var (Ast.Identifier "a.0"));
-                           right = (Ast.Var (Ast.Identifier "b.1"))}))
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Multiply;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e = (Ast.Var (Ast.Identifier "b.1"));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) }))
                     ]));
+         fun_type =
+         Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f"); params = [];
-          body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "globl");
-          init = (Some (Ast.LiteralInt 0)); storage = None });
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l)); typ = None });
+          var_type = Ctype.Int; storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "set_globvar"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "globl")),
-                             (Ast.LiteralInt 4)))));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "globl"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target");
@@ -36,37 +63,72 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "b.3")),
-                             (Ast.Var (Ast.Identifier "a.2"))))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "b.3"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e = (Ast.Var (Ast.Identifier "a.2"));
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.FunctionCall {
-                             name = (Ast.Identifier "set_globvar"); args = []}));
+                           { Ast.e =
+                             Ast.FunctionCall {
+                               name = (Ast.Identifier "set_globvar");
+                               args = []};
+                             typ = (Some Ctype.Int) }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "product.4");
                              init =
-                             (Some Ast.FunctionCall {
-                                     name = (Ast.Identifier "callee");
-                                     args =
-                                     [(Ast.Var (Ast.Identifier "a.2"));
-                                       (Ast.Var (Ast.Identifier "b.3"))]});
-                             storage = None }));
+                             (Some { Ast.e =
+                                     Ast.FunctionCall {
+                                       name = (Ast.Identifier "callee");
+                                       args =
+                                       [{ Ast.e =
+                                          (Ast.Var (Ast.Identifier "a.2"));
+                                          typ = (Some Ctype.Int) };
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "b.3"));
+                                           typ = (Some Ctype.Int) }
+                                         ]};
+                                     typ = (Some Ctype.Int) });
+                             var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment ((Ast.Var (Ast.Identifier "b.3")),
-                              Ast.FunctionCall {name = (Ast.Identifier "f");
-                                args = []}
-                              ))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "b.3"));
+                                  typ = (Some Ctype.Int) },
+                                { Ast.e =
+                                  Ast.FunctionCall {
+                                    name = (Ast.Identifier "f"); args = []};
+                                  typ = (Some Ctype.Int) }
+                                ));
+                             typ = (Some Ctype.Int) }));
                      (Ast.S
                         (Ast.Return
-                           Ast.Binary {op = Ast.Subtract;
-                             left =
-                             Ast.Binary {op = Ast.Add;
-                               left = (Ast.Var (Ast.Identifier "product.4"));
-                               right = (Ast.Var (Ast.Identifier "a.2"))};
-                             right = (Ast.Var (Ast.Identifier "b.3"))}))
+                           { Ast.e =
+                             Ast.Binary {op = Ast.Subtract;
+                               left =
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Add;
+                                   left =
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "product.4"));
+                                     typ = (Some Ctype.Int) };
+                                   right =
+                                   { Ast.e = (Ast.Var (Ast.Identifier "a.2"));
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Int) };
+                               right =
+                               { Ast.e = (Ast.Var (Ast.Identifier "b.3"));
+                                 typ = (Some Ctype.Int) }};
+                             typ = (Some Ctype.Int) }))
                      ]));
+          fun_type =
+          Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -75,28 +137,62 @@
                    [(Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Binary {op = Ast.NotEqual;
-                           left =
-                           Ast.FunctionCall {
-                             name = (Ast.Identifier "target");
-                             args = [(Ast.LiteralInt 5); (Ast.LiteralInt 6)]};
-                           right = (Ast.LiteralInt 27)};
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.FunctionCall {
+                                 name = (Ast.Identifier "target");
+                                 args =
+                                 [{ Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 5l));
+                                    typ = (Some Ctype.Int) };
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 6l));
+                                     typ = (Some Ctype.Int) }
+                                   ]};
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 27l));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left = (Ast.Var (Ast.Identifier "globl"));
-                            right = (Ast.LiteralInt 4)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "globl"));
+                                typ = (Some Ctype.Int) };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 2l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

@@ -1,17 +1,24 @@
 (Ast.Program
    [(Ast.VarDecl
        { Ast.name = (Ast.Identifier "foo"); init = None;
-         storage = (Some Ast.Static) });
+         var_type = Ctype.Int; storage = (Some Ast.Static) });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
           (Some (Ast.Block
-                   [(Ast.S (Ast.Return (Ast.Var (Ast.Identifier "foo"))))]));
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "foo"));
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "foo"); init = None;
-          storage = (Some Ast.Extern) });
+          var_type = Ctype.Int; storage = (Some Ast.Extern) });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "foo");
-          init = (Some (Ast.LiteralInt 4)); storage = (Some Ast.Static) })
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 4l)); typ = None });
+          var_type = Ctype.Int; storage = (Some Ast.Static) })
      ])

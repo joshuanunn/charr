@@ -7,22 +7,48 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a.0");
                            init =
-                           (Some Ast.Unary {op = Ast.Negate;
-                                   exp = (Ast.LiteralInt 1)});
-                           storage = None }));
+                           (Some { Ast.e =
+                                   Ast.Unary {op = Ast.Negate;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 1l));
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Unary {op = Ast.PreIncrement;
-                           exp = (Ast.Var (Ast.Identifier "a.0"))};
-                         then_smt = (Ast.Return (Ast.LiteralInt 0));
+                         { Ast.e =
+                           Ast.Unary {op = Ast.PreIncrement;
+                             exp =
+                             { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                              typ = (Some Ctype.Int) });
                          else_smt =
                          (Some Ast.If {
                                  cond_exp =
-                                 Ast.Unary {op = Ast.PreIncrement;
-                                   exp = (Ast.Var (Ast.Identifier "a.0"))};
-                                 then_smt = (Ast.Return (Ast.LiteralInt 1));
+                                 { Ast.e =
+                                   Ast.Unary {op = Ast.PreIncrement;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "a.0"));
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Int) };
+                                 then_smt =
+                                 (Ast.Return
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 1l));
+                                      typ = (Some Ctype.Int) });
                                  else_smt = None})});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -5,24 +5,59 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.Add;
-                           left =
-                           Ast.Binary {op = Ast.And;
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Add;
                              left =
-                             Ast.Binary {op = Ast.Equal;
-                               left = (Ast.LiteralInt 0);
-                               right = (Ast.LiteralInt 0)};
-                             right =
-                             Ast.Binary {op = Ast.Equal;
-                               left = (Ast.LiteralInt 3);
-                               right =
-                               Ast.Binary {op = Ast.GreaterThan;
+                             { Ast.e =
+                               Ast.Binary {op = Ast.And;
                                  left =
-                                 Ast.Binary {op = Ast.Add;
-                                   left = (Ast.LiteralInt 2);
-                                   right = (Ast.LiteralInt 1)};
-                                 right = (Ast.LiteralInt 1)}}};
-                           right = (Ast.LiteralInt 1)}))
+                                 { Ast.e =
+                                   Ast.Binary {op = Ast.Equal;
+                                     left =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 0l));
+                                       typ = (Some Ctype.Int) };
+                                     right =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 0l));
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Int) };
+                                 right =
+                                 { Ast.e =
+                                   Ast.Binary {op = Ast.Equal;
+                                     left =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 3l));
+                                       typ = (Some Ctype.Int) };
+                                     right =
+                                     { Ast.e =
+                                       Ast.Binary {op = Ast.GreaterThan;
+                                         left =
+                                         { Ast.e =
+                                           Ast.Binary {op = Ast.Add;
+                                             left =
+                                             { Ast.e =
+                                               (Ast.Constant
+                                                  (Ctype.ConstInt 2l));
+                                               typ = (Some Ctype.Int) };
+                                             right =
+                                             { Ast.e =
+                                               (Ast.Constant
+                                                  (Ctype.ConstInt 1l));
+                                               typ = (Some Ctype.Int) }};
+                                           typ = (Some Ctype.Int) };
+                                         right =
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 1l));
+                                           typ = (Some Ctype.Int) }};
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

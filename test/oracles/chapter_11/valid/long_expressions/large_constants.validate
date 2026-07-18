@@ -1,0 +1,197 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "x");
+         init =
+         (Some { Ast.e = (Ast.Constant (Ctype.ConstLong 5L)); typ = None });
+         var_type = Ctype.Long; storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "add_large"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Add;
+                                   left =
+                                   { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                     typ = (Some Ctype.Long) };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstLong 4294967290L));
+                                     typ = (Some Ctype.Long) }};
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e =
+                             Ast.Binary {op = Ast.Equal;
+                               left =
+                               { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                 typ = (Some Ctype.Long) };
+                               right =
+                               { Ast.e =
+                                 (Ast.Constant (Ctype.ConstLong 4294967295L));
+                                 typ = (Some Ctype.Long) }};
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "subtract_large"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Subtract;
+                                   left =
+                                   { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                     typ = (Some Ctype.Long) };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstLong 4294967290L));
+                                     typ = (Some Ctype.Long) }};
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e =
+                             Ast.Binary {op = Ast.Equal;
+                               left =
+                               { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                 typ = (Some Ctype.Long) };
+                               right =
+                               { Ast.e = (Ast.Constant (Ctype.ConstLong 5L));
+                                 typ = (Some Ctype.Long) }};
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "multiply_by_large"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Multiply;
+                                   left =
+                                   { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                     typ = (Some Ctype.Long) };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstLong 4294967290L));
+                                     typ = (Some Ctype.Long) }};
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e =
+                             Ast.Binary {op = Ast.Equal;
+                               left =
+                               { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                 typ = (Some Ctype.Long) };
+                               right =
+                               { Ast.e =
+                                 (Ast.Constant (Ctype.ConstLong 21474836450L));
+                                 typ = (Some Ctype.Long) }};
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Unary {op = Ast.Not;
+                             exp =
+                             { Ast.e =
+                               Ast.FunctionCall {
+                                 name = (Ast.Identifier "add_large");
+                                 args = []};
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "subtract_large");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 2l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "multiply_by_large");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 3l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])

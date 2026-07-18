@@ -6,21 +6,44 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x.0"); init = None;
-                           storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "x.0")),
-                             (Ast.LiteralInt 1)))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "x.0"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
                     (Ast.S
                        (Ast.Return
-                          (Ast.Comma (
-                             (Ast.Comma (
-                                Ast.Unary {op = Ast.PostIncrement;
-                                  exp = (Ast.Var (Ast.Identifier "x.0"))},
-                                Ast.Unary {op = Ast.PostIncrement;
-                                  exp = (Ast.Var (Ast.Identifier "x.0"))}
-                                )),
-                             (Ast.Var (Ast.Identifier "x.0"))))))
+                          { Ast.e =
+                            (Ast.Comma (
+                               { Ast.e =
+                                 (Ast.Comma (
+                                    { Ast.e =
+                                      Ast.Unary {op = Ast.PostIncrement;
+                                        exp =
+                                        { Ast.e =
+                                          (Ast.Var (Ast.Identifier "x.0"));
+                                          typ = (Some Ctype.Int) }};
+                                      typ = (Some Ctype.Int) },
+                                    { Ast.e =
+                                      Ast.Unary {op = Ast.PostIncrement;
+                                        exp =
+                                        { Ast.e =
+                                          (Ast.Var (Ast.Identifier "x.0"));
+                                          typ = (Some Ctype.Int) }};
+                                      typ = (Some Ctype.Int) }
+                                    ));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e = (Ast.Var (Ast.Identifier "x.0"));
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

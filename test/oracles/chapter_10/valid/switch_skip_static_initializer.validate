@@ -1,38 +1,71 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "a"); init = (Some (Ast.LiteralInt 3));
-         storage = None });
+       { Ast.name = (Ast.Identifier "a");
+         init =
+         (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 3l)); typ = None });
+         var_type = Ctype.Int; storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
-                       Ast.Switch {cond = (Ast.Var (Ast.Identifier "a"));
+                       Ast.Switch {
+                         cond =
+                         { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                           typ = (Some Ctype.Int) };
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 1);
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 1l));
+                                       typ = (Some Ctype.Int) };
                                      body = Ast.Null;
                                      id = (Some (Ast.SwitchLabel "1"))});
                                  (Ast.D
                                     (Ast.VarDecl
                                        { Ast.name = (Ast.Identifier "x.0");
-                                         init = (Some (Ast.LiteralInt 10));
+                                         init =
+                                         (Some { Ast.e =
+                                                 (Ast.Constant
+                                                    (Ctype.ConstInt 10l));
+                                                 typ = None });
+                                         var_type = Ctype.Int;
                                          storage = (Some Ast.Static) }));
                                  (Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "x.0")),
-                                          (Ast.LiteralInt 0)))));
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
+                                              (Ast.Var (Ast.Identifier "x.0"));
+                                              typ = (Some Ctype.Int) },
+                                            { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstInt 0l));
+                                              typ = (Some Ctype.Int) }
+                                            ));
+                                         typ = (Some Ctype.Int) }));
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 3);
+                                    Ast.Case {
+                                      value =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 3l));
+                                        typ = (Some Ctype.Int) };
                                       body =
                                       (Ast.Return
-                                         (Ast.Var (Ast.Identifier "x.0")));
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "x.0"));
+                                           typ = (Some Ctype.Int) });
                                       id = (Some (Ast.SwitchLabel "1"))})
                                  ]));
                          id = (Some (Ast.SwitchLabel "1"))});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
