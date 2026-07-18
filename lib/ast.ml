@@ -55,6 +55,8 @@ and expr_kind =
   | Comma of expr * expr
 [@@deriving show]
 
+(* let untyped_expr kind = { e = kind; typ = None } *)
+let typed_expr kind t = { e = kind; typ = Some t }
 let set_type e t = { e with typ = Some t }
 
 let get_type e =

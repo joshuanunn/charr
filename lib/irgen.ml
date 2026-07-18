@@ -423,7 +423,10 @@ let convert_symbols (te : Env.tenv) : Ir.top_level list =
   Env.static_vars te
   |> List.filter_map (fun (name, init, global) ->
       match init with
-      | Env.Initial i -> Some (Ir.StaticVariable { name; global; init = i })
+      | Env.Initial (Env.IntInit i) ->
+          Some (Ir.StaticVariable { name; global; init = Int32.to_int i })
+      | Env.Initial (Env.LongInit _) ->
+          failwith "TODO: long static variables in IR"
       | Env.Tentative -> Some (Ir.StaticVariable { name; global; init = 0 })
       | Env.NoInitialiser -> None)
 

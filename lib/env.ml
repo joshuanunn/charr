@@ -248,9 +248,11 @@ let resolve_lab (se : senv) (id : Ast.ident) : Ast.ident =
     linkage, storage duration, and definitions. *)
 
 (** Initial value information for objects with static storage duration. *)
+type static_init = IntInit of int32 | LongInit of int64
+
 type initial_value =
   | Tentative  (** Tentative definition (no initialiser seen yet) *)
-  | Initial of int  (** Explicit constant initialiser *)
+  | Initial of static_init  (** Explicit constant initialiser *)
   | NoInitialiser  (** Declared without initialiser (e.g. extern) *)
 
 (** Attributes associated with a typed identifier. *)

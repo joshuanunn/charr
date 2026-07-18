@@ -1,3 +1,9 @@
+let get_common_type type1 type2 = if type1 == type2 then type1 else Ctype.Long
+
+let convert_to e t =
+  if Ctype.compare (Ast.get_type e) t = 0 then e
+  else Ast.typed_expr (Ast.Cast { target_type = t; exp = e }) t
+
 (** Type check a file-scope variable declaration.
 
     Enforces C rules for external and internal linkage, constant initialisers,
@@ -8,10 +14,10 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
   let init = v.init in
   let init_val =
     match init with
-    | Some { Ast.e = Ast.Constant i; _ } -> (
-        match i with
-        | ConstInt i -> Env.Initial (Int32.to_int i)
-        | ConstLong _ -> failwith "Not implemented")
+    | Some { e = Ast.Constant c; _ } -> (
+        match Ctype.const_convert v.var_type c with
+        | ConstInt i -> Env.Initial (Env.IntInit i)
+        | ConstLong l -> Env.Initial (Env.LongInit l))
     | None -> (
         match storage with
         | Some Extern -> Env.NoInitialiser
@@ -82,11 +88,16 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : unit =
   | Some Static ->
       let init =
         match v.init with
-        | None -> Env.Initial 0
-        | Some { e = Ast.Constant i; _ } -> (
-            match i with
-            | ConstInt i -> Env.Initial (Int32.to_int i)
-            | ConstLong _ -> failwith "Not implemented")
+        | None -> (
+            match v.var_type with
+            | Ctype.Int -> Env.Initial (Env.IntInit 0l)
+            | Ctype.Long -> Env.Initial (Env.LongInit 0L)
+            | Ctype.FunType _ ->
+                failwith "internal error: variable with function type")
+        | Some { e = Ast.Constant c; _ } -> (
+            match Ctype.const_convert v.var_type c with
+            | ConstInt i -> Env.Initial (Env.IntInit i)
+            | ConstLong l -> Env.Initial (Env.LongInit l))
         | Some _ -> failwith "non-constant initialiser on local static variable"
       in
       Env.add te v.name
