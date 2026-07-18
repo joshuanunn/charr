@@ -1,4 +1,5 @@
-let get_common_type type1 type2 = if type1 == type2 then type1 else Ctype.Long
+let get_common_type type1 type2 =
+  if Ctype.compare type1 type2 = 0 then type1 else Ctype.Long
 
 let convert_to e t =
   if Ctype.compare (Ast.get_type e) t = 0 then e
