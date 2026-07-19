@@ -18,8 +18,8 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
     match init with
     | Some { e = Ast.Constant c; _ } -> (
         match Ctype.const_convert v.var_type c with
-        | ConstInt i -> Env.Initial (Env.IntInit i)
-        | ConstLong l -> Env.Initial (Env.LongInit l))
+        | ConstInt i -> Env.Initial (Ctype.IntInit i)
+        | ConstLong l -> Env.Initial (Ctype.LongInit l))
     | None -> (
         match storage with
         | Some Extern -> Env.NoInitialiser
@@ -98,14 +98,14 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
         match v.init with
         | None -> (
             match v.var_type with
-            | Ctype.Int -> Env.Initial (Env.IntInit 0l)
-            | Ctype.Long -> Env.Initial (Env.LongInit 0L)
+            | Ctype.Int -> Env.Initial (Ctype.IntInit 0l)
+            | Ctype.Long -> Env.Initial (Ctype.LongInit 0L)
             | Ctype.FunType _ ->
                 failwith "internal error: variable with function type")
         | Some { e = Ast.Constant c; _ } -> (
             match Ctype.const_convert v.var_type c with
-            | ConstInt i -> Env.Initial (Env.IntInit i)
-            | ConstLong l -> Env.Initial (Env.LongInit l))
+            | ConstInt i -> Env.Initial (Ctype.IntInit i)
+            | ConstLong l -> Env.Initial (Ctype.LongInit l))
         | Some _ -> failwith "non-constant initialiser on local static variable"
       in
       Env.add te v.name

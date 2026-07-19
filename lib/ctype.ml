@@ -13,3 +13,5 @@ let const_convert (target : t) (c : const) : const =
   | Long, ConstLong l -> ConstLong l
   | FunType _, _ ->
       failwith "internal error: cannot convert constant to function type"
+
+type static_init = IntInit of int32 | LongInit of int64
