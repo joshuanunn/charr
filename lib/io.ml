@@ -32,15 +32,9 @@ let assembly_path path =
 
 let with_input_file path f =
   let chan = open_in path in
-  let lexbuf = Lexing.from_channel chan in
-  let result =
-    try f lexbuf
-    with e ->
-      close_in chan;
-      raise e
-  in
-  close_in chan;
-  result
+  Fun.protect
+    ~finally:(fun () -> close_in_noerr chan)
+    (fun () -> f (Lexing.from_channel chan))
 
 let run_lexer lexbuf =
   let rec loop () =
