@@ -17,6 +17,13 @@ let gen_asm lexbuf opts s_env t_env =
 
 let report_errors ~stage lexbuf f =
   try f () with
+  | Lexer.Lexing_error msg ->
+      let pos = lexbuf.Lexing.lex_curr_p in
+      Printf.eprintf "Lexing error at line %d, column %d: %s\n"
+        pos.Lexing.pos_lnum
+        (pos.Lexing.pos_cnum - pos.Lexing.pos_bol)
+        msg;
+      exit 1
   | Parser.Error ->
       let pos = lexbuf.Lexing.lex_curr_p in
       Printf.eprintf "Parse error at line %d, column %d\n" pos.Lexing.pos_lnum
@@ -53,14 +60,8 @@ let run_lexer lexbuf =
   loop ()
 
 let run_parser lexbuf =
-  try
-    let output = parse lexbuf in
-    print_endline (Ast.show_prog output)
-  with Parser.Error ->
-    let pos = lexbuf.Lexing.lex_curr_p in
-    Printf.eprintf "Parse error at line %d, column %d\n" pos.Lexing.pos_lnum
-      (pos.Lexing.pos_cnum - pos.Lexing.pos_bol);
-    exit 1
+  report_errors ~stage:"Parsing" lexbuf (fun () ->
+      print_endline (Ast.show_prog (parse lexbuf)))
 
 let run_validator lexbuf s_env t_env =
   report_errors ~stage:"Semantic analysis" lexbuf (fun () ->
