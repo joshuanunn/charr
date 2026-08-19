@@ -2,14 +2,14 @@
    [Ir.Function {name = "print_alphabet"; global = true; params = [];
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "count.1");
-         src2 = (Ir.Constant 65); dst = (Ir.Var "tmp.0")};
+         src2 = (Ir.Constant (Ctype.ConstInt 65l)); dst = (Ir.Var "tmp.0")};
         Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "tmp.0")];
           dst = (Ir.Var "tmp.1")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "count.1");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.2")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.2")};
         Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "count.1")};
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "tmp.2");
-          src2 = (Ir.Constant 26); dst = (Ir.Var "tmp.3")};
+          src2 = (Ir.Constant (Ctype.ConstInt 26l)); dst = (Ir.Var "tmp.3")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.3");
           target = "print_alphabet.if.en.4"};
         Ir.FunCall {fun_name = "print_alphabet"; args = [];
@@ -31,7 +31,7 @@
        body =
        [Ir.FunCall {fun_name = "print_alphabet"; args = [];
           dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";
@@ -40,4 +40,6 @@
          stack slots = {
            tmp.0 -> -4,
          }}};
-     Ir.StaticVariable {name = "count.1"; global = false; init = 0}])
+     Ir.StaticVariable {name = "count.1"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

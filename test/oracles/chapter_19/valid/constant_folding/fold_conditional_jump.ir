@@ -1,6 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target_jz_to_jmp"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant 0))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "target_jz_to_jmp";
@@ -10,7 +10,7 @@
           tmp.0 -> -4,
         }}};
      Ir.Function {name = "target_remove_jz"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_remove_jz";
@@ -20,7 +20,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_jnz_to_jmp"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_jnz_to_jmp";
@@ -30,7 +30,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_remove_jnz"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_remove_jnz";
@@ -44,29 +44,33 @@
        [Ir.FunCall {fun_name = "target_jz_to_jmp"; args = [];
           dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "target_remove_jz"; args = [];
            dst = (Ir.Var "tmp.3")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.4")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.4")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
-         (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.5");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.5");
          Ir.FunCall {fun_name = "target_jnz_to_jmp"; args = [];
            dst = (Ir.Var "tmp.6")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.6");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.7")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.7")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.7"); target = "main.if.en.8"};
-         (Ir.Return (Ir.Constant 3)); (Ir.Label "main.if.en.8");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.8");
          Ir.FunCall {fun_name = "target_remove_jnz"; args = [];
            dst = (Ir.Var "tmp.9")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.9");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.10")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.10")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.10");
            target = "main.if.en.11"};
-         (Ir.Return (Ir.Constant 4)); (Ir.Label "main.if.en.11");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.11");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";

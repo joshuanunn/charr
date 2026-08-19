@@ -1,6 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target_if"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant 0))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "target_if";
@@ -9,7 +9,7 @@
         stack slots = {
         }}};
      Ir.Function {name = "target_if_else_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 2))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 2l)))];
        frame =
        Env.lenv {
          namespace = "target_if_else_true";
@@ -18,7 +18,7 @@
          stack slots = {
          }}};
      Ir.Function {name = "target_if_else_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 3))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];
        frame =
        Env.lenv {
          namespace = "target_if_else_false";
@@ -27,7 +27,7 @@
          stack slots = {
          }}};
      Ir.Function {name = "target_conditional_true"; global = true;
-       params = []; body = [(Ir.Return (Ir.Constant 2))];
+       params = []; body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 2l)))];
        frame =
        Env.lenv {
          namespace = "target_conditional_true";
@@ -37,7 +37,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_conditional_false"; global = true;
-       params = []; body = [(Ir.Return (Ir.Constant 5))];
+       params = []; body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))];
        frame =
        Env.lenv {
          namespace = "target_conditional_false";
@@ -47,7 +47,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_do_loop"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 10))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 10l)))];
        frame =
        Env.lenv {
          namespace = "target_do_loop";
@@ -57,7 +57,7 @@
            retval.0 -> -4,
          }}};
      Ir.Function {name = "target_while_loop_false"; global = true;
-       params = []; body = [(Ir.Return (Ir.Constant 0))];
+       params = []; body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_while_loop_false";
@@ -67,7 +67,7 @@
            retval.1 -> -4,
          }}};
      Ir.Function {name = "target_while_loop_true"; global = true;
-       params = []; body = [(Ir.Return (Ir.Constant 10))];
+       params = []; body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 10l)))];
        frame =
        Env.lenv {
          namespace = "target_while_loop_true";
@@ -77,7 +77,7 @@
            retval.2 -> -4,
          }}};
      Ir.Function {name = "target_for_loop_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 100))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 100l)))];
        frame =
        Env.lenv {
          namespace = "target_for_loop_true";
@@ -88,7 +88,7 @@
            i.4      -> -8,
          }}};
      Ir.Function {name = "target_for_loop_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_for_loop_false";
@@ -102,71 +102,82 @@
        body =
        [Ir.FunCall {fun_name = "target_if"; args = []; dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "target_if_else_true"; args = [];
            dst = (Ir.Var "tmp.3")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
-           src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.4")};
+           src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.4")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
-         (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.5");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.5");
          Ir.FunCall {fun_name = "target_if_else_false"; args = [];
            dst = (Ir.Var "tmp.6")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.6");
-           src2 = (Ir.Constant 3); dst = (Ir.Var "tmp.7")};
+           src2 = (Ir.Constant (Ctype.ConstInt 3l)); dst = (Ir.Var "tmp.7")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.7"); target = "main.if.en.8"};
-         (Ir.Return (Ir.Constant 3)); (Ir.Label "main.if.en.8");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.8");
          Ir.FunCall {fun_name = "target_conditional_true"; args = [];
            dst = (Ir.Var "tmp.9")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.9");
-           src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.10")};
+           src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.10")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.10");
            target = "main.if.en.11"};
-         (Ir.Return (Ir.Constant 4)); (Ir.Label "main.if.en.11");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.11");
          Ir.FunCall {fun_name = "target_conditional_false"; args = [];
            dst = (Ir.Var "tmp.12")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.12");
-           src2 = (Ir.Constant 5); dst = (Ir.Var "tmp.13")};
+           src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.13")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.13");
            target = "main.if.en.14"};
-         (Ir.Return (Ir.Constant 5)); (Ir.Label "main.if.en.14");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
+         (Ir.Label "main.if.en.14");
          Ir.FunCall {fun_name = "target_do_loop"; args = [];
            dst = (Ir.Var "tmp.15")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.15");
-           src2 = (Ir.Constant 10); dst = (Ir.Var "tmp.16")};
+           src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.16")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.16");
            target = "main.if.en.17"};
-         (Ir.Return (Ir.Constant 6)); (Ir.Label "main.if.en.17");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
+         (Ir.Label "main.if.en.17");
          Ir.FunCall {fun_name = "target_while_loop_false"; args = [];
            dst = (Ir.Var "tmp.18")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.18");
-           src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.19")};
+           src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.19")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.19");
            target = "main.if.en.20"};
-         (Ir.Return (Ir.Constant 7)); (Ir.Label "main.if.en.20");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 7l)));
+         (Ir.Label "main.if.en.20");
          Ir.FunCall {fun_name = "target_while_loop_true"; args = [];
            dst = (Ir.Var "tmp.21")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.21");
-           src2 = (Ir.Constant 10); dst = (Ir.Var "tmp.22")};
+           src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.22")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.22");
            target = "main.if.en.23"};
-         (Ir.Return (Ir.Constant 8)); (Ir.Label "main.if.en.23");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 8l)));
+         (Ir.Label "main.if.en.23");
          Ir.FunCall {fun_name = "target_for_loop_true"; args = [];
            dst = (Ir.Var "tmp.24")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.24");
-           src2 = (Ir.Constant 100); dst = (Ir.Var "tmp.25")};
+           src2 = (Ir.Constant (Ctype.ConstInt 100l));
+           dst = (Ir.Var "tmp.25")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.25");
            target = "main.if.en.26"};
-         (Ir.Return (Ir.Constant 9)); (Ir.Label "main.if.en.26");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 9l)));
+         (Ir.Label "main.if.en.26");
          Ir.FunCall {fun_name = "target_for_loop_false"; args = [];
            dst = (Ir.Var "tmp.27")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.27");
-           src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.28")};
+           src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.28")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.28");
            target = "main.if.en.29"};
-         (Ir.Return (Ir.Constant 10)); (Ir.Label "main.if.en.29");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 10l)));
+         (Ir.Label "main.if.en.29");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";

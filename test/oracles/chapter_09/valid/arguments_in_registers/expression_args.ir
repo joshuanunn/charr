@@ -17,7 +17,10 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "sub";
-          args = [(Ir.Constant 3); (Ir.Constant 1)]; dst = (Ir.Var "tmp.1")};
+          args =
+          [(Ir.Constant (Ctype.ConstInt 3l));
+            (Ir.Constant (Ctype.ConstInt 1l))];
+          dst = (Ir.Var "tmp.1")};
          (Ir.Return (Ir.Var "tmp.1"))];
        frame =
        Env.lenv {

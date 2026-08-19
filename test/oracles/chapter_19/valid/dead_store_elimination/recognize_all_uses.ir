@@ -4,14 +4,17 @@
       body =
       [Ir.JumpIfZero {condition = (Ir.Var "flag.0");
          target = "test_jz.if.en.0"};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "arg.1")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "arg.1")};
         (Ir.Label "test_jz.if.en.0");
         Ir.JumpIfZero {condition = (Ir.Var "arg.1");
           target = "test_jz.cond.el.3"};
-        Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "tmp.1")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "tmp.1")};
         Ir.Jump {target = "test_jz.cond.en.2"};
         (Ir.Label "test_jz.cond.el.3");
-        Ir.Copy {src = (Ir.Constant 2); dst = (Ir.Var "tmp.1")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "tmp.1")};
         (Ir.Label "test_jz.cond.en.2"); (Ir.Return (Ir.Var "tmp.1"))];
       frame =
       Env.lenv {
@@ -28,14 +31,17 @@
        body =
        [Ir.JumpIfZero {condition = (Ir.Var "flag.2");
           target = "test_jnz.if.en.0"};
-         Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "arg.3")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+           dst = (Ir.Var "arg.3")};
          (Ir.Label "test_jnz.if.en.0");
          Ir.JumpIfNotZero {condition = (Ir.Var "arg.3");
            target = "test_jnz.or.tr.2"};
-         Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+           dst = (Ir.Var "tmp.1")};
          Ir.Jump {target = "test_jnz.or.en.3"};
          (Ir.Label "test_jnz.or.tr.2");
-         Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "tmp.1")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+           dst = (Ir.Var "tmp.1")};
          (Ir.Label "test_jnz.or.en.3"); (Ir.Return (Ir.Var "tmp.1"))];
        frame =
        Env.lenv {
@@ -51,17 +57,19 @@
        params = ["flag.4"; "arg1.5"; "arg2.6"];
        body =
        [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "flag.4");
-          src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.0")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.0");
            target = "test_binary.if.el.2"};
-         Ir.Copy {src = (Ir.Constant 4); dst = (Ir.Var "arg1.5")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l));
+           dst = (Ir.Var "arg1.5")};
          Ir.Jump {target = "test_binary.if.en.1"};
          (Ir.Label "test_binary.if.el.2");
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "flag.4");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.3")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.3")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.3");
            target = "test_binary.if.en.4"};
-         Ir.Copy {src = (Ir.Constant 3); dst = (Ir.Var "arg2.6")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 3l));
+           dst = (Ir.Var "arg2.6")};
          (Ir.Label "test_binary.if.en.4"); (Ir.Label "test_binary.if.en.1");
          Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "arg1.5");
            src2 = (Ir.Var "arg2.6"); dst = (Ir.Var "tmp.5")};
@@ -84,7 +92,8 @@
        body =
        [Ir.JumpIfZero {condition = (Ir.Var "flag.7");
           target = "test_unary.if.en.0"};
-         Ir.Copy {src = (Ir.Constant 5); dst = (Ir.Var "arg.8")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 5l));
+           dst = (Ir.Var "arg.8")};
          (Ir.Label "test_unary.if.en.0");
          Ir.Unary {op = Ir.Negate; src = (Ir.Var "arg.8");
            dst = (Ir.Var "tmp.1")};
@@ -102,7 +111,7 @@
      Ir.Function {name = "f"; global = true; params = ["arg.9"];
        body =
        [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "arg.9");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
          (Ir.Return (Ir.Var "tmp.0"))];
        frame =
        Env.lenv {
@@ -118,7 +127,8 @@
        body =
        [Ir.JumpIfZero {condition = (Ir.Var "flag.10");
           target = "test_funcall.if.en.0"};
-         Ir.Copy {src = (Ir.Constant 7); dst = (Ir.Var "arg.11")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 7l));
+           dst = (Ir.Var "arg.11")};
          (Ir.Label "test_funcall.if.en.0");
          Ir.FunCall {fun_name = "f"; args = [(Ir.Var "arg.11")];
            dst = (Ir.Var "tmp.1")};
@@ -136,83 +146,127 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "test_jz";
-          args = [(Ir.Constant 1); (Ir.Constant 1)]; dst = (Ir.Var "tmp.0")};
+          args =
+          [(Ir.Constant (Ctype.ConstInt 1l));
+            (Ir.Constant (Ctype.ConstInt 1l))];
+          dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "test_jz";
-           args = [(Ir.Constant 0); (Ir.Constant 1)]; dst = (Ir.Var "tmp.3")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 0l));
+             (Ir.Constant (Ctype.ConstInt 1l))];
+           dst = (Ir.Var "tmp.3")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.4")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.4")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
-         (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.5");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.5");
          Ir.FunCall {fun_name = "test_jnz";
-           args = [(Ir.Constant 1); (Ir.Constant 1)]; dst = (Ir.Var "tmp.6")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 1l));
+             (Ir.Constant (Ctype.ConstInt 1l))];
+           dst = (Ir.Var "tmp.6")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.6");
-           src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.7")};
+           src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.7")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.7"); target = "main.if.en.8"};
-         (Ir.Return (Ir.Constant 3)); (Ir.Label "main.if.en.8");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.8");
          Ir.FunCall {fun_name = "test_jnz";
-           args = [(Ir.Constant 0); (Ir.Constant 1)]; dst = (Ir.Var "tmp.9")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 0l));
+             (Ir.Constant (Ctype.ConstInt 1l))];
+           dst = (Ir.Var "tmp.9")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.9");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.10")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.10")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.10");
            target = "main.if.en.11"};
-         (Ir.Return (Ir.Constant 4)); (Ir.Label "main.if.en.11");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.11");
          Ir.FunCall {fun_name = "test_binary";
-           args = [(Ir.Constant 0); (Ir.Constant 8); (Ir.Constant 9)];
+           args =
+           [(Ir.Constant (Ctype.ConstInt 0l));
+             (Ir.Constant (Ctype.ConstInt 8l));
+             (Ir.Constant (Ctype.ConstInt 9l))];
            dst = (Ir.Var "tmp.12")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.12");
-           src2 = (Ir.Constant 36); dst = (Ir.Var "tmp.13")};
+           src2 = (Ir.Constant (Ctype.ConstInt 36l)); dst = (Ir.Var "tmp.13")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.13");
            target = "main.if.en.14"};
-         (Ir.Return (Ir.Constant 5)); (Ir.Label "main.if.en.14");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
+         (Ir.Label "main.if.en.14");
          Ir.FunCall {fun_name = "test_binary";
-           args = [(Ir.Constant 1); (Ir.Constant 8); (Ir.Constant 9)];
+           args =
+           [(Ir.Constant (Ctype.ConstInt 1l));
+             (Ir.Constant (Ctype.ConstInt 8l));
+             (Ir.Constant (Ctype.ConstInt 9l))];
            dst = (Ir.Var "tmp.15")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.15");
-           src2 = (Ir.Constant 24); dst = (Ir.Var "tmp.16")};
+           src2 = (Ir.Constant (Ctype.ConstInt 24l)); dst = (Ir.Var "tmp.16")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.16");
            target = "main.if.en.17"};
-         (Ir.Return (Ir.Constant 6)); (Ir.Label "main.if.en.17");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
+         (Ir.Label "main.if.en.17");
          Ir.FunCall {fun_name = "test_binary";
-           args = [(Ir.Constant 2); (Ir.Constant 8); (Ir.Constant 9)];
+           args =
+           [(Ir.Constant (Ctype.ConstInt 2l));
+             (Ir.Constant (Ctype.ConstInt 8l));
+             (Ir.Constant (Ctype.ConstInt 9l))];
            dst = (Ir.Var "tmp.18")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.18");
-           src2 = (Ir.Constant 72); dst = (Ir.Var "tmp.19")};
+           src2 = (Ir.Constant (Ctype.ConstInt 72l)); dst = (Ir.Var "tmp.19")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.19");
            target = "main.if.en.20"};
-         (Ir.Return (Ir.Constant 7)); (Ir.Label "main.if.en.20");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 7l)));
+         (Ir.Label "main.if.en.20");
          Ir.FunCall {fun_name = "test_unary";
-           args = [(Ir.Constant 0); (Ir.Constant 8)]; dst = (Ir.Var "tmp.21")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 0l));
+             (Ir.Constant (Ctype.ConstInt 8l))];
+           dst = (Ir.Var "tmp.21")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.21");
-           src2 = (Ir.Constant -8); dst = (Ir.Var "tmp.23")};
+           src2 = (Ir.Constant (Ctype.ConstInt -8l)); dst = (Ir.Var "tmp.23")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.23");
            target = "main.if.en.24"};
-         (Ir.Return (Ir.Constant 8)); (Ir.Label "main.if.en.24");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 8l)));
+         (Ir.Label "main.if.en.24");
          Ir.FunCall {fun_name = "test_unary";
-           args = [(Ir.Constant 1); (Ir.Constant 8)]; dst = (Ir.Var "tmp.25")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 1l));
+             (Ir.Constant (Ctype.ConstInt 8l))];
+           dst = (Ir.Var "tmp.25")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.25");
-           src2 = (Ir.Constant -5); dst = (Ir.Var "tmp.27")};
+           src2 = (Ir.Constant (Ctype.ConstInt -5l)); dst = (Ir.Var "tmp.27")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.27");
            target = "main.if.en.28"};
-         (Ir.Return (Ir.Constant 9)); (Ir.Label "main.if.en.28");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 9l)));
+         (Ir.Label "main.if.en.28");
          Ir.FunCall {fun_name = "test_funcall";
-           args = [(Ir.Constant 1); (Ir.Constant 5)]; dst = (Ir.Var "tmp.29")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 1l));
+             (Ir.Constant (Ctype.ConstInt 5l))];
+           dst = (Ir.Var "tmp.29")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.29");
-           src2 = (Ir.Constant 8); dst = (Ir.Var "tmp.30")};
+           src2 = (Ir.Constant (Ctype.ConstInt 8l)); dst = (Ir.Var "tmp.30")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.30");
            target = "main.if.en.31"};
-         (Ir.Return (Ir.Constant 10)); (Ir.Label "main.if.en.31");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 10l)));
+         (Ir.Label "main.if.en.31");
          Ir.FunCall {fun_name = "test_funcall";
-           args = [(Ir.Constant 0); (Ir.Constant 9)]; dst = (Ir.Var "tmp.32")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 0l));
+             (Ir.Constant (Ctype.ConstInt 9l))];
+           dst = (Ir.Var "tmp.32")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.32");
-           src2 = (Ir.Constant 10); dst = (Ir.Var "tmp.33")};
+           src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.33")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.33");
            target = "main.if.en.34"};
-         (Ir.Return (Ir.Constant 11)); (Ir.Label "main.if.en.34");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 11l)));
+         (Ir.Label "main.if.en.34");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";

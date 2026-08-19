@@ -2,7 +2,7 @@
    [Ir.Function {name = "callee"; global = true; params = ["arg.0"];
       body =
       [Ir.Copy {src = (Ir.Var "arg.0"); dst = (Ir.Var "globvar")};
-        (Ir.Return (Ir.Constant 0))];
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "callee";
@@ -14,20 +14,23 @@
      Ir.Function {name = "target"; global = true; params = ["flag.1"];
        body =
        [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "flag.1");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
          Ir.JumpIfNotZero {condition = (Ir.Var "tmp.0");
            target = "swit.cs.1.1"};
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "flag.1");
-           src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfNotZero {condition = (Ir.Var "tmp.1");
            target = "swit.cs.1.2"};
          Ir.Jump {target = "swit.df.1"}; (Ir.Label "swit.cs.1.1");
          Ir.Jump {target = "swit.br.1"}; (Ir.Label "swit.cs.1.2");
-         Ir.FunCall {fun_name = "callee"; args = [(Ir.Constant 10)];
+         Ir.FunCall {fun_name = "callee";
+           args = [(Ir.Constant (Ctype.ConstInt 10l))];
            dst = (Ir.Var "tmp.2")};
          Ir.Jump {target = "swit.br.1"}; (Ir.Label "swit.df.1");
-         Ir.Copy {src = (Ir.Constant -1); dst = (Ir.Var "globvar")};
-         (Ir.Label "swit.br.1"); (Ir.Return (Ir.Constant 0))];
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -1l));
+           dst = (Ir.Var "globvar")};
+         (Ir.Label "swit.br.1");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target";
@@ -43,13 +46,14 @@
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "target"; args = [(Ir.Constant 2)];
-          dst = (Ir.Var "tmp.0")};
+       [Ir.FunCall {fun_name = "target";
+          args = [(Ir.Constant (Ctype.ConstInt 2l))]; dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "globvar");
-           src2 = (Ir.Constant 10); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 0)); (Ir.Label "main.if.en.2");
-         (Ir.Return (Ir.Constant 1))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+         (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "main";
@@ -59,4 +63,6 @@
            tmp.0 -> -4,
            tmp.1 -> -8,
          }}};
-     Ir.StaticVariable {name = "globvar"; global = true; init = 0}])
+     Ir.StaticVariable {name = "globvar"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

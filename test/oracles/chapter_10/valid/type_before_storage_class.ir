@@ -1,6 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "foo"; global = false; params = [];
-      body = [(Ir.Return (Ir.Constant 3))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];
       frame =
       Env.lenv {
         namespace = "foo";
@@ -23,4 +23,6 @@
            tmp.0 -> -4,
            tmp.1 -> -8,
          }}};
-     Ir.StaticVariable {name = "bar"; global = false; init = 4}])
+     Ir.StaticVariable {name = "bar"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 4l)}
+     ])

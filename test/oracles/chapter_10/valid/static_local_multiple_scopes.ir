@@ -4,16 +4,16 @@
       [Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "i.1")];
          dst = (Ir.Var "tmp.0")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.1")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.1")};
         Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "i.1")};
         Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "i.2")];
           dst = (Ir.Var "tmp.2")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.2");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.3")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.3")};
         Ir.Copy {src = (Ir.Var "tmp.3"); dst = (Ir.Var "i.2")};
-        Ir.FunCall {fun_name = "putchar"; args = [(Ir.Constant 10)];
-          dst = (Ir.Var "tmp.4")};
-        (Ir.Return (Ir.Constant 0))];
+        Ir.FunCall {fun_name = "putchar";
+          args = [(Ir.Constant (Ctype.ConstInt 10l))]; dst = (Ir.Var "tmp.4")};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "print_letters";
@@ -28,18 +28,19 @@
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "i.3")};
+       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "i.3")};
          (Ir.Label "loop.st.1");
          Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.3");
-           src2 = (Ir.Constant 26); dst = (Ir.Var "tmp.0")};
+           src2 = (Ir.Constant (Ctype.ConstInt 26l)); dst = (Ir.Var "tmp.0")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
          Ir.FunCall {fun_name = "print_letters"; args = [];
            dst = (Ir.Var "tmp.1")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.3");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.2")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.2")};
          Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "i.3")};
          Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";
@@ -51,5 +52,8 @@
            tmp.1 -> -12,
            tmp.2 -> -16,
          }}};
-     Ir.StaticVariable {name = "i.1"; global = false; init = 65};
-     Ir.StaticVariable {name = "i.2"; global = false; init = 97}])
+     Ir.StaticVariable {name = "i.1"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 65l)};
+     Ir.StaticVariable {name = "i.2"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 97l)}
+     ])

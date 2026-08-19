@@ -20,7 +20,7 @@
          Ir.FunCall {fun_name = "callee";
            args = [(Ir.Var "x.2"); (Ir.Var "x.2")]; dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.2");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.1")};
          Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "x.2")};
          (Ir.Return (Ir.Var "tmp.0"))];
        frame =
@@ -37,15 +37,17 @@
        body =
        [Ir.FunCall {fun_name = "target"; args = []; dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 6); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 6l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "target"; args = []; dst = (Ir.Var "tmp.3")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
-           src2 = (Ir.Constant 8); dst = (Ir.Var "tmp.4")};
+           src2 = (Ir.Constant (Ctype.ConstInt 8l)); dst = (Ir.Var "tmp.4")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
-         (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.5");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";
@@ -57,5 +59,8 @@
            tmp.3 -> -12,
            tmp.4 -> -16,
          }}};
-     Ir.StaticVariable {name = "x.2"; global = false; init = 3};
-     Ir.StaticVariable {name = "y.3"; global = false; init = 0}])
+     Ir.StaticVariable {name = "x.2"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 3l)};
+     Ir.StaticVariable {name = "y.3"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

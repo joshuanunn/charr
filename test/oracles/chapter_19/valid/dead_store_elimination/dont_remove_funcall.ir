@@ -1,9 +1,9 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.FunCall {fun_name = "putchar"; args = [(Ir.Constant 67)];
-         dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Constant 0))];
+      [Ir.FunCall {fun_name = "putchar";
+         args = [(Ir.Constant (Ctype.ConstInt 67l))]; dst = (Ir.Var "tmp.0")};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "main";

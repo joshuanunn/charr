@@ -1,35 +1,39 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant -20); dst = (Ir.Var "tmp.0")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
+         dst = (Ir.Var "a.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -20l));
+          dst = (Ir.Var "tmp.0")};
         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "b.1")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "b.1");
-          src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
+          src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.1")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "loop.br.1"};
         Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "a.0");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.2")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.2")};
         Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "a.0")};
         Ir.Binary {op = Ir.LessOrEqual; src1 = (Ir.Var "tmp.2");
-          src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.3")};
+          src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.3")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "main.if.en.4"};
         Ir.Jump {target = "loop.br.1"}; (Ir.Label "main.if.en.4");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "b.1");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.5")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.5")};
         Ir.Copy {src = (Ir.Var "tmp.5"); dst = (Ir.Var "b.1")};
         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "a.0");
-          src2 = (Ir.Constant 0); dst = (Ir.Var "tmp.6")};
+          src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.6")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.6");
           target = "main.and.fl.10"};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "b.1");
-          src2 = (Ir.Constant -11); dst = (Ir.Var "tmp.8")};
+          src2 = (Ir.Constant (Ctype.ConstInt -11l)); dst = (Ir.Var "tmp.8")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.8");
           target = "main.and.fl.10"};
-        Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "tmp.9")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "tmp.9")};
         Ir.Jump {target = "main.and.en.11"}; (Ir.Label "main.and.fl.10");
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.9")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "tmp.9")};
         (Ir.Label "main.and.en.11"); (Ir.Return (Ir.Var "tmp.9"))];
       frame =
       Env.lenv {

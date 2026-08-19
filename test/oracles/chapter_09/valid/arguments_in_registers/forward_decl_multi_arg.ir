@@ -2,7 +2,10 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.FunCall {fun_name = "foo";
-         args = [(Ir.Constant 2); (Ir.Constant 1)]; dst = (Ir.Var "tmp.0")};
+         args =
+         [(Ir.Constant (Ctype.ConstInt 2l));
+           (Ir.Constant (Ctype.ConstInt 1l))];
+         dst = (Ir.Var "tmp.0")};
         (Ir.Return (Ir.Var "tmp.0"))];
       frame =
       Env.lenv {

@@ -1,6 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target_add"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant 300))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 300l)))];
       frame =
       Env.lenv {
         namespace = "target_add";
@@ -10,7 +10,7 @@
           tmp.0 -> -4,
         }}};
      Ir.Function {name = "target_sub"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant -2147483645))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -2147483645l)))];
        frame =
        Env.lenv {
          namespace = "target_sub";
@@ -20,7 +20,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_mult"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1000000))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1000000l)))];
        frame =
        Env.lenv {
          namespace = "target_mult";
@@ -30,7 +30,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_div"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 277))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 277l)))];
        frame =
        Env.lenv {
          namespace = "target_div";
@@ -40,7 +40,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_rem"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_rem";
@@ -50,7 +50,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_eq_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_eq_true";
@@ -60,7 +60,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_eq_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_eq_false";
@@ -70,7 +70,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_neq_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_neq_true";
@@ -80,7 +80,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_neq_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_neq_false";
@@ -90,7 +90,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_gt_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_gt_true";
@@ -100,7 +100,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_gt_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_gt_false";
@@ -110,7 +110,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_ge_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_ge_true";
@@ -120,7 +120,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_ge_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_ge_false";
@@ -130,7 +130,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_lt_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_lt_true";
@@ -140,7 +140,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_lt_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_lt_false";
@@ -150,7 +150,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_le_true"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 1))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
        frame =
        Env.lenv {
          namespace = "target_le_true";
@@ -160,7 +160,7 @@
            tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_le_false"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "target_le_false";
@@ -174,9 +174,10 @@
        [Ir.FunCall {fun_name = "target_add"; args = [];
           dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 300); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 300l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "target_sub"; args = [];
            dst = (Ir.Var "tmp.3")};
          Ir.Unary {op = Ir.Negate; src = (Ir.Var "val_to_negate");
@@ -184,100 +185,118 @@
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
            src2 = (Ir.Var "tmp.4"); dst = (Ir.Var "tmp.5")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.5"); target = "main.if.en.6"};
-         (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.6");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.6");
          Ir.FunCall {fun_name = "target_mult"; args = [];
            dst = (Ir.Var "tmp.7")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.7");
-           src2 = (Ir.Constant 1000000); dst = (Ir.Var "tmp.8")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1000000l));
+           dst = (Ir.Var "tmp.8")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.8"); target = "main.if.en.9"};
-         (Ir.Return (Ir.Constant 3)); (Ir.Label "main.if.en.9");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.9");
          Ir.FunCall {fun_name = "target_div"; args = [];
            dst = (Ir.Var "tmp.10")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.10");
-           src2 = (Ir.Constant 277); dst = (Ir.Var "tmp.11")};
+           src2 = (Ir.Constant (Ctype.ConstInt 277l));
+           dst = (Ir.Var "tmp.11")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.11");
            target = "main.if.en.12"};
-         (Ir.Return (Ir.Constant 4)); (Ir.Label "main.if.en.12");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.12");
          Ir.FunCall {fun_name = "target_rem"; args = [];
            dst = (Ir.Var "tmp.13")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.13");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.14")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.14")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.14");
            target = "main.if.en.15"};
-         (Ir.Return (Ir.Constant 5)); (Ir.Label "main.if.en.15");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
+         (Ir.Label "main.if.en.15");
          Ir.FunCall {fun_name = "target_eq_false"; args = [];
            dst = (Ir.Var "tmp.16")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.16");
            target = "main.if.en.17"};
-         (Ir.Return (Ir.Constant 6)); (Ir.Label "main.if.en.17");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
+         (Ir.Label "main.if.en.17");
          Ir.FunCall {fun_name = "target_eq_true"; args = [];
            dst = (Ir.Var "tmp.18")};
          Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.18");
            dst = (Ir.Var "tmp.19")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.19");
            target = "main.if.en.20"};
-         (Ir.Return (Ir.Constant 7)); (Ir.Label "main.if.en.20");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 7l)));
+         (Ir.Label "main.if.en.20");
          Ir.FunCall {fun_name = "target_neq_false"; args = [];
            dst = (Ir.Var "tmp.21")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.21");
            target = "main.if.en.22"};
-         (Ir.Return (Ir.Constant 8)); (Ir.Label "main.if.en.22");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 8l)));
+         (Ir.Label "main.if.en.22");
          Ir.FunCall {fun_name = "target_neq_true"; args = [];
            dst = (Ir.Var "tmp.23")};
          Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.23");
            dst = (Ir.Var "tmp.24")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.24");
            target = "main.if.en.25"};
-         (Ir.Return (Ir.Constant 9)); (Ir.Label "main.if.en.25");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 9l)));
+         (Ir.Label "main.if.en.25");
          Ir.FunCall {fun_name = "target_gt_false"; args = [];
            dst = (Ir.Var "tmp.26")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.26");
            target = "main.if.en.27"};
-         (Ir.Return (Ir.Constant 10)); (Ir.Label "main.if.en.27");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 10l)));
+         (Ir.Label "main.if.en.27");
          Ir.FunCall {fun_name = "target_gt_true"; args = [];
            dst = (Ir.Var "tmp.28")};
          Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.28");
            dst = (Ir.Var "tmp.29")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.29");
            target = "main.if.en.30"};
-         (Ir.Return (Ir.Constant 11)); (Ir.Label "main.if.en.30");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 11l)));
+         (Ir.Label "main.if.en.30");
          Ir.FunCall {fun_name = "target_ge_false"; args = [];
            dst = (Ir.Var "tmp.31")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.31");
            target = "main.if.en.32"};
-         (Ir.Return (Ir.Constant 12)); (Ir.Label "main.if.en.32");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 12l)));
+         (Ir.Label "main.if.en.32");
          Ir.FunCall {fun_name = "target_ge_true"; args = [];
            dst = (Ir.Var "tmp.33")};
          Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.33");
            dst = (Ir.Var "tmp.34")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.34");
            target = "main.if.en.35"};
-         (Ir.Return (Ir.Constant 13)); (Ir.Label "main.if.en.35");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 13l)));
+         (Ir.Label "main.if.en.35");
          Ir.FunCall {fun_name = "target_lt_false"; args = [];
            dst = (Ir.Var "tmp.36")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.36");
            target = "main.if.en.37"};
-         (Ir.Return (Ir.Constant 14)); (Ir.Label "main.if.en.37");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 14l)));
+         (Ir.Label "main.if.en.37");
          Ir.FunCall {fun_name = "target_lt_true"; args = [];
            dst = (Ir.Var "tmp.38")};
          Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.38");
            dst = (Ir.Var "tmp.39")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.39");
            target = "main.if.en.40"};
-         (Ir.Return (Ir.Constant 15)); (Ir.Label "main.if.en.40");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 15l)));
+         (Ir.Label "main.if.en.40");
          Ir.FunCall {fun_name = "target_le_false"; args = [];
            dst = (Ir.Var "tmp.41")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.41");
            target = "main.if.en.42"};
-         (Ir.Return (Ir.Constant 16)); (Ir.Label "main.if.en.42");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 16l)));
+         (Ir.Label "main.if.en.42");
          Ir.FunCall {fun_name = "target_le_true"; args = [];
            dst = (Ir.Var "tmp.43")};
          Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.43");
            dst = (Ir.Var "tmp.44")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.44");
            target = "main.if.en.45"};
-         (Ir.Return (Ir.Constant 17)); (Ir.Label "main.if.en.45");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 17l)));
+         (Ir.Label "main.if.en.45");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";
@@ -314,6 +333,6 @@
            tmp.43 -> -112,
            tmp.44 -> -116,
          }}};
-     Ir.StaticVariable {name = "val_to_negate"; global = true;
-       init = 2147483645}
+     Ir.StaticVariable {name = "val_to_negate"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 2147483645l)}
      ])

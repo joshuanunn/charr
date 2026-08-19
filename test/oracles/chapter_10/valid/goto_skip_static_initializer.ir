@@ -8,4 +8,6 @@
         offset = 0;
         stack slots = {
         }}};
-     Ir.StaticVariable {name = "x.1"; global = false; init = 10}])
+     Ir.StaticVariable {name = "x.1"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 10l)}
+     ])

@@ -20,7 +20,10 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
-          args = [(Ir.Constant 0); (Ir.Constant 1); (Ir.Constant 10)];
+          args =
+          [(Ir.Constant (Ctype.ConstInt 0l));
+            (Ir.Constant (Ctype.ConstInt 1l));
+            (Ir.Constant (Ctype.ConstInt 10l))];
           dst = (Ir.Var "tmp.0")};
          (Ir.Return (Ir.Var "tmp.0"))];
        frame =

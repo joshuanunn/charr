@@ -1,14 +1,16 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 4); dst = (Ir.Var "x.0")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.0")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "x.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "tmp.0")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.0");
           target = "target.if.en.1"};
-        Ir.Copy {src = (Ir.Constant 3); dst = (Ir.Var "x.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 3l));
+          dst = (Ir.Var "x.0")};
         (Ir.Label "target.if.en.1");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.0");
-          src2 = (Ir.Constant 5); dst = (Ir.Var "tmp.4")};
+          src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.4")};
         (Ir.Return (Ir.Var "tmp.4"))];
       frame =
       Env.lenv {
@@ -34,4 +36,6 @@
          stack slots = {
            tmp.0 -> -4,
          }}};
-     Ir.StaticVariable {name = "flag"; global = true; init = 1}])
+     Ir.StaticVariable {name = "flag"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 1l)}
+     ])

@@ -1,6 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant -2147483648))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -2147483648l)))];
       frame =
       Env.lenv {
         namespace = "target";
@@ -16,10 +16,12 @@
          Ir.Unary {op = Ir.BwNot; src = (Ir.Var "tmp.0");
            dst = (Ir.Var "tmp.1")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.1");
-           src2 = (Ir.Constant 2147483647); dst = (Ir.Var "tmp.2")};
+           src2 = (Ir.Constant (Ctype.ConstInt 2147483647l));
+           dst = (Ir.Var "tmp.2")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.2"); target = "main.if.en.3"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.3");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.3");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";

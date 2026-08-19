@@ -1,8 +1,8 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.FunCall {fun_name = "f"; args = [(Ir.Constant 10)];
-         dst = (Ir.Var "tmp.0")};
+      [Ir.FunCall {fun_name = "f";
+         args = [(Ir.Constant (Ctype.ConstInt 10l))]; dst = (Ir.Var "tmp.0")};
         (Ir.Return (Ir.Var "tmp.0"))];
       frame =
       Env.lenv {
@@ -16,7 +16,7 @@
      Ir.Function {name = "f"; global = true; params = ["a.2"];
        body =
        [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "a.2");
-          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.0")};
          (Ir.Return (Ir.Var "tmp.0"))];
        frame =
        Env.lenv {

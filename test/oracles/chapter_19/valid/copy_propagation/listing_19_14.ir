@@ -3,10 +3,12 @@
       body =
       [Ir.Copy {src = (Ir.Var "new_total.0"); dst = (Ir.Var "total.1")};
         Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "new_total.0");
-          src2 = (Ir.Constant 100); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 100l)); dst = (Ir.Var "tmp.0")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "f.if.en.1"};
-        (Ir.Return (Ir.Constant 0)); (Ir.Label "f.if.en.1");
-        Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "total.1")};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+        (Ir.Label "f.if.en.1");
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
+          dst = (Ir.Var "total.1")};
         Ir.FunCall {fun_name = "indirect_update"; args = [];
           dst = (Ir.Var "tmp.2")};
         (Ir.Return (Ir.Var "total.1"))];
@@ -22,9 +24,10 @@
         }}};
      Ir.Function {name = "indirect_update"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "f"; args = [(Ir.Constant 101)];
+       [Ir.FunCall {fun_name = "f";
+          args = [(Ir.Constant (Ctype.ConstInt 101l))];
           dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "indirect_update";
@@ -35,8 +38,8 @@
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "f"; args = [(Ir.Constant 1)];
-          dst = (Ir.Var "tmp.0")};
+       [Ir.FunCall {fun_name = "f";
+          args = [(Ir.Constant (Ctype.ConstInt 1l))]; dst = (Ir.Var "tmp.0")};
          (Ir.Return (Ir.Var "tmp.0"))];
        frame =
        Env.lenv {
@@ -46,4 +49,6 @@
          stack slots = {
            tmp.0 -> -4,
          }}};
-     Ir.StaticVariable {name = "total.1"; global = false; init = 0}])
+     Ir.StaticVariable {name = "total.1"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

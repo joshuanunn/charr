@@ -1,13 +1,14 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 2147483642); dst = (Ir.Var "i.0")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 2147483642l));
+         dst = (Ir.Var "i.0")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant 5); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.0")};
         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "i.0")};
         Ir.Binary {op = Ir.GreaterOrEqual; src1 = (Ir.Var "tmp.0");
-          src2 = (Ir.Constant 256); dst = (Ir.Var "tmp.1")};
+          src2 = (Ir.Constant (Ctype.ConstInt 256l)); dst = (Ir.Var "tmp.1")};
         Ir.JumpIfNotZero {condition = (Ir.Var "tmp.1"); target = "loop.st.1"};
         (Ir.Return (Ir.Var "tmp.0"))];
       frame =

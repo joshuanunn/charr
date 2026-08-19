@@ -3,7 +3,8 @@
       body =
       [Ir.Copy {src = (Ir.Var "src.1"); dst = (Ir.Var "x.3")};
         Ir.JumpIfZero {condition = (Ir.Var "flag.2"); target = "f.if.en.0"};
-        Ir.Copy {src = (Ir.Constant 65); dst = (Ir.Var "src.1")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 65l));
+          dst = (Ir.Var "src.1")};
         (Ir.Label "f.if.en.0");
         Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "src.1")];
           dst = (Ir.Var "tmp.1")};
@@ -22,18 +23,26 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
-          args = [(Ir.Constant 68); (Ir.Constant 0)]; dst = (Ir.Var "tmp.0")};
+          args =
+          [(Ir.Constant (Ctype.ConstInt 68l));
+            (Ir.Constant (Ctype.ConstInt 0l))];
+          dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 68); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 68l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "f";
-           args = [(Ir.Constant 70); (Ir.Constant 1)]; dst = (Ir.Var "tmp.3")};
+           args =
+           [(Ir.Constant (Ctype.ConstInt 70l));
+             (Ir.Constant (Ctype.ConstInt 1l))];
+           dst = (Ir.Var "tmp.3")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
-           src2 = (Ir.Constant 70); dst = (Ir.Var "tmp.4")};
+           src2 = (Ir.Constant (Ctype.ConstInt 70l)); dst = (Ir.Var "tmp.4")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
-         (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.5");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";

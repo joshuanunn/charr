@@ -1,16 +1,16 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "i.0")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "i.0")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant 5); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.0")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "foo");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.1")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.1")};
         Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "foo")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.2")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.2")};
         Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "i.0")};
         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
         (Ir.Return (Ir.Var "foo"))];
@@ -25,4 +25,6 @@
           tmp.1 -> -12,
           tmp.2 -> -16,
         }}};
-     Ir.StaticVariable {name = "foo"; global = true; init = 0}])
+     Ir.StaticVariable {name = "foo"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

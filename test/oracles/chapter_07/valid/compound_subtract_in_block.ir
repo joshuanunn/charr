@@ -1,10 +1,12 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 5); dst = (Ir.Var "a.0")};
-        Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "tmp.0")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "a.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "tmp.0")};
         Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "main.if.en.1"};
-        Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "tmp.2")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "tmp.2")};
         Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "a.0")};
         (Ir.Label "main.if.en.1"); (Ir.Return (Ir.Var "a.0"))];
       frame =

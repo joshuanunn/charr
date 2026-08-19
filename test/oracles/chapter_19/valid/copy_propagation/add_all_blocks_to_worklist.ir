@@ -1,8 +1,9 @@
 (Ir.Program
    [Ir.Function {name = "f"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 100); dst = (Ir.Var "global")};
-        (Ir.Return (Ir.Constant 0))];
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 100l));
+         dst = (Ir.Var "global")};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "f";
@@ -12,7 +13,8 @@
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "global")};
+       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "global")};
          Ir.JumpIfZero {condition = (Ir.Var "flag"); target = "main.if.en.0"};
          Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "tmp.1")};
          (Ir.Label "main.if.en.0"); (Ir.Return (Ir.Var "global"))];
@@ -24,5 +26,8 @@
          stack slots = {
            tmp.1 -> -4,
          }}};
-     Ir.StaticVariable {name = "flag"; global = true; init = 1};
-     Ir.StaticVariable {name = "global"; global = true; init = 0}])
+     Ir.StaticVariable {name = "flag"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 1l)};
+     Ir.StaticVariable {name = "global"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

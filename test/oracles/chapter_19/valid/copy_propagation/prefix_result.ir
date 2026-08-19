@@ -15,7 +15,7 @@
           b.1   -> -12,
         }}};
      Ir.Function {name = "f"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 3))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];
        frame =
        Env.lenv {
          namespace = "f";
@@ -25,8 +25,9 @@
          }}};
      Ir.Function {name = "set_globvar"; global = true; params = [];
        body =
-       [Ir.Copy {src = (Ir.Constant 4); dst = (Ir.Var "globl")};
-         (Ir.Return (Ir.Constant 0))];
+       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l));
+          dst = (Ir.Var "globl")};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "set_globvar";
@@ -38,7 +39,7 @@
        body =
        [Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 1); dst = (Ir.Var "x.2")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "x.2")};
          Ir.FunCall {fun_name = "set_globvar"; args = [];
            dst = (Ir.Var "tmp.1")};
          Ir.FunCall {fun_name = "callee";
@@ -69,14 +70,16 @@
        body =
        [Ir.FunCall {fun_name = "target"; args = []; dst = (Ir.Var "tmp.0")};
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant 20); dst = (Ir.Var "tmp.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 20l)); dst = (Ir.Var "tmp.1")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
          Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "globl");
-           src2 = (Ir.Constant 4); dst = (Ir.Var "tmp.3")};
+           src2 = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "tmp.3")};
          Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "main.if.en.4"};
-         (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.4");
-         (Ir.Return (Ir.Constant 0))];
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.4");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";
@@ -87,4 +90,6 @@
            tmp.1 -> -8,
            tmp.3 -> -12,
          }}};
-     Ir.StaticVariable {name = "globl"; global = true; init = 0}])
+     Ir.StaticVariable {name = "globl"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

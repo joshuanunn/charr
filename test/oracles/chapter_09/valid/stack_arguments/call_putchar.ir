@@ -28,9 +28,14 @@
        body =
        [Ir.FunCall {fun_name = "foo";
           args =
-          [(Ir.Constant 1); (Ir.Constant 2); (Ir.Constant 3);
-            (Ir.Constant 4); (Ir.Constant 5); (Ir.Constant 6);
-            (Ir.Constant 7); (Ir.Constant 65)];
+          [(Ir.Constant (Ctype.ConstInt 1l));
+            (Ir.Constant (Ctype.ConstInt 2l));
+            (Ir.Constant (Ctype.ConstInt 3l));
+            (Ir.Constant (Ctype.ConstInt 4l));
+            (Ir.Constant (Ctype.ConstInt 5l));
+            (Ir.Constant (Ctype.ConstInt 6l));
+            (Ir.Constant (Ctype.ConstInt 7l));
+            (Ir.Constant (Ctype.ConstInt 65l))];
           dst = (Ir.Var "tmp.0")};
          (Ir.Return (Ir.Var "tmp.0"))];
        frame =
