@@ -249,8 +249,9 @@ let find_reaching_copies (cfg : Cfg.graph) (static_names : Cfg.StringSet.t) =
 
     (* Update worklist *)
     if
-      old_annotation
-      <> Cfg.with_basicblock cfg block (fun r -> r.reaching_copies)
+      not
+        (Cfg.CopySet.equal old_annotation
+           (Cfg.with_basicblock cfg block (fun r -> r.reaching_copies)))
     then begin
       worklist := update_worklist cfg block !worklist
     end

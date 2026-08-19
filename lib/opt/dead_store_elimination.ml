@@ -163,8 +163,9 @@ let remove_dead_stores (cfg : Cfg.graph) (static_names : Cfg.StringSet.t) =
 
     (* Update worklist *)
     if
-      old_annotation
-      <> Cfg.with_basicblock cfg block (fun r -> r.live_variables)
+      not
+        (Cfg.StringSet.equal old_annotation
+           (Cfg.with_basicblock cfg block (fun r -> r.live_variables)))
     then begin
       worklist := update_worklist cfg block !worklist
     end
