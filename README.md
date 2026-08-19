@@ -1,4 +1,7 @@
-# Sub-C
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/charr-dark.svg">
+  <img alt="charr" src="assets/charr-light.svg" width="200">
+</picture>
 
 A compiler for a large subset of the C programming language, implemented in OCaml. Inspired by the book [Writing a C Compiler](https://nostarch.com/writing-c-compiler), written by Nora Sandler.
 
@@ -98,8 +101,8 @@ On Ubuntu, all requirements can be installed with `sudo apt install opam build-e
 It's recommended to create a new opam local switch in the project directory, which will install all required dependencies in an isolated environment:
 
 ```bash
-git clone https://github.com/joshuanunn/sub-c.git
-cd sub-c
+git clone https://github.com/joshuanunn/charr.git
+cd charr
 opam switch create . -y
 eval $(opam env)
 opam install . --deps-only
@@ -108,7 +111,7 @@ make
 
 ### Testing
 
-Check that the compiler executable works using `subc --help` or run the full regression test suite using `make test`.
+Check that the compiler executable works using `charr --help` or run the full regression test suite using `make test`.
 
 ## Compilation Overview
 
@@ -125,7 +128,7 @@ flowchart TB
     E["Executable"]
 
     A -- "Preprocessor" --> B
-    B -- "Sub-C Compiler" --> C
+    B -- "charr Compiler" --> C
     C -- "Assembler" --> D
     D -- "Linker" --> E
 
