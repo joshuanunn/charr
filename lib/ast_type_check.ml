@@ -1,9 +1,9 @@
 (* Rules defined in "usual arithmetic conversions" from the C standard *)
 let get_common_type type1 type2 =
-  if Ctype.compare type1 type2 = 0 then type1 else Ctype.Long
+  if Ctype.equal type1 type2 then type1 else Ctype.Long
 
 let convert_to e t =
-  if Ctype.compare (Ast.get_type e) t = 0 then e
+  if Ctype.equal (Ast.get_type e) t then e
   else Ast.typed_expr (Ast.Cast { target_type = t; exp = e }) t
 
 (** Type check a file-scope variable declaration.
@@ -39,7 +39,7 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
       v
   | Some { c_type; attrs = Env.StaticAttr old } ->
       (* Check that the type of a redeclaration has not changed *)
-      if c_type <> v.var_type then
+      if not (Ctype.equal c_type v.var_type) then
         failwith "conflicting filescope variable declarations";
 
       (* linkage reconciliation *)
@@ -81,7 +81,7 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
 
       begin match Env.find te v.name with
       | Some { c_type; _ } ->
-          if c_type <> v.var_type then
+          if not (Ctype.equal c_type v.var_type) then
             failwith "conflicting local variable declarations";
           v
       | None ->

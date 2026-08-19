@@ -80,7 +80,7 @@ let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
       | _ -> failwith "Var name must be Identifier")
   | Cast { target_type; exp } -> (
       let result, result_instructions = convert_expr exp le te in
-      if Ctype.compare (Ast.get_type exp) target_type = 0 then
+      if Ctype.equal (Ast.get_type exp) target_type then
         (result, result_instructions) (* no-op: exp is already of target_type *)
       else
         let dst = make_tmp le te target_type in
