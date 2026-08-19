@@ -9,9 +9,9 @@
 (source
  (github joshuanunn/sub-c))
 
-(authors "Joshua Nunn <joshuanunn@hotmail.co.uk>")
+(authors "Joshua Nunn <gh@joshua.nu>")
 
-(maintainers "Joshua Nunn <joshuanunn@hotmail.co.uk>")
+(maintainers "Joshua Nunn <gh@joshua.nu>")
 
 (license MIT)
 

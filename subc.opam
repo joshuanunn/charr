@@ -2,8 +2,8 @@
 opam-version: "2.0"
 synopsis: "A short synopsis"
 description: "A longer description"
-maintainer: ["Joshua Nunn <joshuanunn@hotmail.co.uk>"]
-authors: ["Joshua Nunn <joshuanunn@hotmail.co.uk>"]
+maintainer: ["Joshua Nunn <gh@joshua.nu>"]
+authors: ["Joshua Nunn <gh@joshua.nu>"]
 license: "MIT"
 homepage: "https://github.com/joshuanunn/sub-c"
 bug-reports: "https://github.com/joshuanunn/sub-c/issues"
