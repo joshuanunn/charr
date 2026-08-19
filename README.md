@@ -115,24 +115,26 @@ Check that the compiler executable works using `charr --help` or run the full re
 
 ## Compilation Overview
 
+`charr` occupies the source-to-assembly stage of compilation (highlighted); preprocessing, assembling, and linking are delegated to the system toolchain.
+
 ```mermaid
----
-config:
-  theme: 'forest'
----
-flowchart TB
-    A["C source code"]
-    B["Preprocessed source code"]
-    C["x86-64 assembly code"]
-    D["Object files"]
-    E["Executable"]
+flowchart LR
+    src("C source<br/>.c")
+    pp("Preprocessed<br/>source")
+    asm("Assembly<br/>.s")
+    obj("Object<br/>.o")
+    exe("Executable")
 
-    A -- "Preprocessor" --> B
-    B -- "charr Compiler" --> C
-    C -- "Assembler" --> D
-    D -- "Linker" --> E
+    src -->|Preprocessor| pp
+    pp -->|charr| asm
+    asm -->|Assembler| obj
+    obj -->|Linker| exe
 
-    linkStyle 1 stroke-width:4px,stroke:#ed7118,text-fill:#ed7118,text-bg-color:#ed7118
+    classDef stage fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
+    classDef out fill:#FCEBE0,stroke:#E2622B,stroke-width:2px,color:#2E3D48;
+    class src,pp,obj,exe stage;
+    class asm out;
+    linkStyle 1 stroke:#E2622B,stroke-width:3px;
 ```
 
 ## License
