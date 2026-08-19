@@ -1,0 +1,30 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "foo");
+         src2 = (Ir.Constant (Ctype.ConstLong 5L)); dst = (Ir.Var "tmp.0")};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 4294967295L));
+          dst = (Ir.Var "tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 1152921504606846988L));
+          dst = (Ir.Var "foo")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "main.if.en.4"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "main.if.en.4"); (Ir.Label "main.if.en.2");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 5;
+        offset = -12;
+        stack slots = {
+          tmp.0 -> -4,
+          tmp.1 -> -8,
+          tmp.3 -> -12,
+        }}};
+     Ir.StaticVariable {name = "foo"; global = false; t = Ctype.Long;
+       init = (Ctype.LongInit 4294967290L)}
+     ])

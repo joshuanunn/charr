@@ -1,0 +1,68 @@
+(Ir.Program
+   [Ir.Function {name = "switch_on_long"; global = true; params = ["l.0"];
+      body =
+      [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "l.0");
+         src2 = (Ir.Constant (Ctype.ConstLong 0L)); dst = (Ir.Var "tmp.0")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.0");
+          target = "swit.cs.1.0"};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "l.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 100L)); dst = (Ir.Var "tmp.1")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.1");
+          target = "swit.cs.1.100"};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "l.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 8589934592L));
+          dst = (Ir.Var "tmp.2")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.2");
+          target = "swit.cs.1.8589934592"};
+        Ir.Jump {target = "swit.df.1"}; (Ir.Label "swit.cs.1.0");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+        (Ir.Label "swit.cs.1.100");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "swit.cs.1.8589934592");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "swit.df.1");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt -1l)))];
+      frame =
+      Env.lenv {
+        namespace = "switch_on_long";
+        counter = 4;
+        offset = -20;
+        stack slots = {
+          tmp.0 -> -4,
+          tmp.1 -> -8,
+          tmp.2 -> -12,
+          tmp.3 -> -16,
+          l.0   -> -20,
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "switch_on_long";
+          args = [(Ir.Constant (Ctype.ConstLong 8589934592L))];
+          dst = (Ir.Var "tmp.0")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
+           src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
+         Ir.FunCall {fun_name = "switch_on_long";
+           args = [(Ir.Constant (Ctype.ConstLong 100L))];
+           dst = (Ir.Var "tmp.4")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.4");
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.5")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.5"); target = "main.if.en.6"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.6");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 7;
+         offset = -20;
+         stack slots = {
+           tmp.0 -> -4,
+           tmp.1 -> -8,
+           tmp.3 -> -12,
+           tmp.4 -> -16,
+           tmp.5 -> -20,
+         }}}
+     ])

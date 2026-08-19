@@ -1,0 +1,102 @@
+(Ir.Program
+   [Ir.Function {name = "return_truncated_long"; global = true;
+      params = ["l.0"];
+      body =
+      [Ir.Truncate {src = (Ir.Var "l.0"); dst = (Ir.Var "tmp.0")};
+        (Ir.Return (Ir.Var "tmp.0"))];
+      frame =
+      Env.lenv {
+        namespace = "return_truncated_long";
+        counter = 1;
+        offset = -8;
+        stack slots = {
+          tmp.0 -> -4,
+          l.0   -> -8,
+        }}};
+     Ir.Function {name = "return_extended_int"; global = true;
+       params = ["i.1"];
+       body =
+       [Ir.SignExtend {src = (Ir.Var "i.1"); dst = (Ir.Var "tmp.0")};
+         (Ir.Return (Ir.Var "tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "return_extended_int";
+         counter = 1;
+         offset = -8;
+         stack slots = {
+           tmp.0 -> -4,
+           i.1   -> -8,
+         }}};
+     Ir.Function {name = "truncate_on_assignment"; global = true;
+       params = ["l.2"; "expected.3"];
+       body =
+       [Ir.Truncate {src = (Ir.Var "l.2"); dst = (Ir.Var "tmp.0")};
+         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+           src2 = (Ir.Var "expected.3"); dst = (Ir.Var "tmp.1")};
+         (Ir.Return (Ir.Var "tmp.1"))];
+       frame =
+       Env.lenv {
+         namespace = "truncate_on_assignment";
+         counter = 2;
+         offset = -20;
+         stack slots = {
+           result.4   -> -4,
+           tmp.0      -> -8,
+           tmp.1      -> -12,
+           l.2        -> -16,
+           expected.3 -> -20,
+         }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "return_truncated_long";
+          args = [(Ir.Constant (Ctype.ConstLong 4294967298L))];
+          dst = (Ir.Var "tmp.0")};
+         Ir.SignExtend {src = (Ir.Var "tmp.0"); dst = (Ir.Var "tmp.1")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.1");
+           src2 = (Ir.Constant (Ctype.ConstLong 2L)); dst = (Ir.Var "tmp.2")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.2"); target = "main.if.en.3"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.3");
+         Ir.FunCall {fun_name = "return_extended_int";
+           args = [(Ir.Constant (Ctype.ConstInt -10l))];
+           dst = (Ir.Var "tmp.5")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.5");
+           src2 = (Ir.Constant (Ctype.ConstLong -10L));
+           dst = (Ir.Var "tmp.8")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.8"); target = "main.if.en.9"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.9");
+         Ir.FunCall {fun_name = "truncate_on_assignment";
+           args =
+           [(Ir.Constant (Ctype.ConstLong 17179869184L));
+             (Ir.Constant (Ctype.ConstInt 0l))];
+           dst = (Ir.Var "tmp.13")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.13");
+           dst = (Ir.Var "tmp.14")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.14");
+           target = "main.if.en.15"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.15");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 16;
+         offset = -56;
+         stack slots = {
+           result.5 -> -4,
+           tmp.0    -> -8,
+           tmp.1    -> -12,
+           tmp.2    -> -16,
+           tmp.4    -> -20,
+           tmp.5    -> -24,
+           tmp.6    -> -28,
+           tmp.7    -> -32,
+           tmp.8    -> -36,
+           i.6      -> -40,
+           tmp.10   -> -44,
+           tmp.11   -> -48,
+           tmp.13   -> -52,
+           tmp.14   -> -56,
+         }}}
+     ])

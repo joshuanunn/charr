@@ -1,0 +1,25 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.FunCall {fun_name = "test_sum";
+         args =
+         [(Ir.Constant (Ctype.ConstInt 0l));
+           (Ir.Constant (Ctype.ConstInt 0l));
+           (Ir.Constant (Ctype.ConstInt 0l));
+           (Ir.Constant (Ctype.ConstLong 34359738368L));
+           (Ir.Constant (Ctype.ConstInt 0l));
+           (Ir.Constant (Ctype.ConstLong 34359738368L));
+           (Ir.Constant (Ctype.ConstInt 0l));
+           (Ir.Constant (Ctype.ConstInt 0l));
+           (Ir.Constant (Ctype.ConstLong 34359738368L))];
+         dst = (Ir.Var "tmp.0")};
+        (Ir.Return (Ir.Var "tmp.0"))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 1;
+        offset = -4;
+        stack slots = {
+          tmp.0 -> -4,
+        }}}
+     ])

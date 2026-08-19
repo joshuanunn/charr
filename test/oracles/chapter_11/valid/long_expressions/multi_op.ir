@@ -1,0 +1,42 @@
+(Ir.Program
+   [Ir.Function {name = "target"; global = true; params = ["a.0"];
+      body =
+      [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "a.0");
+         src2 = (Ir.Constant (Ctype.ConstLong 5L)); dst = (Ir.Var "tmp.0")};
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 10L)); dst = (Ir.Var "tmp.1")};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.1");
+          src2 = (Ir.Constant (Ctype.ConstLong 21474836440L));
+          dst = (Ir.Var "tmp.2")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.2");
+          target = "target.if.en.3"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "target.if.en.3");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "target";
+        counter = 4;
+        offset = -20;
+        stack slots = {
+          b.1   -> -4,
+          tmp.0 -> -8,
+          tmp.1 -> -12,
+          tmp.2 -> -16,
+          a.0   -> -20,
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "target";
+          args = [(Ir.Constant (Ctype.ConstLong 4294967290L))];
+          dst = (Ir.Var "tmp.0")};
+         (Ir.Return (Ir.Var "tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 1;
+         offset = -4;
+         stack slots = {
+           tmp.0 -> -4,
+         }}}
+     ])

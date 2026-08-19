@@ -1,0 +1,58 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 52;
+        offset = -188;
+        stack slots = {
+          l1.0   -> -4,
+          l2.1   -> -8,
+          tmp.0  -> -12,
+          tmp.1  -> -16,
+          tmp.2  -> -20,
+          tmp.3  -> -24,
+          tmp.5  -> -28,
+          tmp.6  -> -32,
+          tmp.7  -> -36,
+          tmp.8  -> -40,
+          tmp.10 -> -44,
+          tmp.11 -> -48,
+          tmp.12 -> -52,
+          tmp.13 -> -56,
+          tmp.15 -> -60,
+          tmp.16 -> -64,
+          tmp.17 -> -68,
+          tmp.18 -> -72,
+          tmp.20 -> -76,
+          tmp.21 -> -80,
+          tmp.22 -> -84,
+          tmp.24 -> -88,
+          tmp.25 -> -92,
+          tmp.26 -> -96,
+          l.2    -> -100,
+          i.3    -> -104,
+          tmp.28 -> -108,
+          i2.4   -> -112,
+          tmp.29 -> -116,
+          tmp.30 -> -120,
+          tmp.31 -> -124,
+          tmp.32 -> -128,
+          tmp.33 -> -132,
+          tmp.35 -> -136,
+          tmp.36 -> -140,
+          tmp.37 -> -144,
+          tmp.38 -> -148,
+          tmp.40 -> -152,
+          tmp.41 -> -156,
+          tmp.42 -> -160,
+          tmp.43 -> -164,
+          tmp.44 -> -168,
+          tmp.46 -> -172,
+          tmp.47 -> -176,
+          tmp.48 -> -180,
+          tmp.49 -> -184,
+          tmp.50 -> -188,
+        }}}
+     ])

@@ -1,0 +1,62 @@
+(Ir.Program
+   [Ir.Function {name = "sign_extend"; global = true;
+      params = ["i.0"; "expected.1"];
+      body =
+      [Ir.SignExtend {src = (Ir.Var "i.0"); dst = (Ir.Var "tmp.0")};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Var "expected.1"); dst = (Ir.Var "tmp.1")};
+        Ir.SignExtend {src = (Ir.Var "tmp.1"); dst = (Ir.Var "tmp.2")};
+        (Ir.Return (Ir.Var "tmp.2"))];
+      frame =
+      Env.lenv {
+        namespace = "sign_extend";
+        counter = 3;
+        offset = -24;
+        stack slots = {
+          extended.2 -> -4,
+          tmp.0      -> -8,
+          tmp.1      -> -12,
+          tmp.2      -> -16,
+          i.0        -> -20,
+          expected.1 -> -24,
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "sign_extend";
+          args =
+          [(Ir.Constant (Ctype.ConstInt 10l));
+            (Ir.Constant (Ctype.ConstLong 10L))];
+          dst = (Ir.Var "tmp.0")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.0");
+           dst = (Ir.Var "tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
+         Ir.FunCall {fun_name = "sign_extend";
+           args =
+           [(Ir.Constant (Ctype.ConstInt -10l));
+             (Ir.Constant (Ctype.ConstLong -10L))];
+           dst = (Ir.Var "tmp.5")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.5");
+           dst = (Ir.Var "tmp.6")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.6"); target = "main.if.en.7"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.7");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 11;
+         offset = -36;
+         stack slots = {
+           tmp.0 -> -4,
+           tmp.1 -> -8,
+           tmp.3 -> -12,
+           tmp.4 -> -16,
+           tmp.5 -> -20,
+           tmp.6 -> -24,
+           l.3   -> -28,
+           tmp.8 -> -32,
+           tmp.9 -> -36,
+         }}}
+     ])

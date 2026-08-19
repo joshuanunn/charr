@@ -1,0 +1,40 @@
+(Ir.Program
+   [Ir.Function {name = "test_sum"; global = true;
+      params =
+      ["a.0"; "b.1"; "c.2"; "d.3"; "e.4"; "f.5"; "g.6"; "h.7"; "i.8"];
+      body =
+      [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "d.3"); src2 = (Ir.Var "f.5");
+         dst = (Ir.Var "tmp.0")};
+        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 100L)); dst = (Ir.Var "tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.1");
+          target = "test_sum.if.en.2"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "test_sum.if.en.2");
+        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.8");
+          src2 = (Ir.Constant (Ctype.ConstLong 100L)); dst = (Ir.Var "tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.3");
+          target = "test_sum.if.en.4"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "test_sum.if.en.4");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "test_sum";
+        counter = 5;
+        offset = -48;
+        stack slots = {
+          tmp.0 -> -4,
+          tmp.1 -> -8,
+          tmp.3 -> -12,
+          a.0   -> -16,
+          b.1   -> -20,
+          c.2   -> -24,
+          d.3   -> -28,
+          e.4   -> -32,
+          f.5   -> -36,
+          g.6   -> -40,
+          h.7   -> -44,
+          i.8   -> -48,
+        }}}
+     ])

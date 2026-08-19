@@ -1,0 +1,24 @@
+(Ir.Program
+   [Ir.Function {name = "add_variables"; global = true;
+      params = ["x.0"; "y.1"; "z.2"];
+      body =
+      [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.0"); src2 = (Ir.Var "y.1");
+         dst = (Ir.Var "tmp.0")};
+        Ir.SignExtend {src = (Ir.Var "z.2"); dst = (Ir.Var "tmp.1")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Var "tmp.1"); dst = (Ir.Var "tmp.2")};
+        (Ir.Return (Ir.Var "tmp.2"))];
+      frame =
+      Env.lenv {
+        namespace = "add_variables";
+        counter = 3;
+        offset = -24;
+        stack slots = {
+          tmp.0 -> -4,
+          tmp.1 -> -8,
+          tmp.2 -> -12,
+          x.0   -> -16,
+          y.1   -> -20,
+          z.2   -> -24,
+        }}}
+     ])

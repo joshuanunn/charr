@@ -1,0 +1,26 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.FunCall {fun_name = "add_variables";
+         args =
+         [(Ir.Constant (Ctype.ConstLong 3L));
+           (Ir.Constant (Ctype.ConstLong 4L));
+           (Ir.Constant (Ctype.ConstInt 5l))];
+         dst = (Ir.Var "tmp.2")};
+        Ir.Truncate {src = (Ir.Var "tmp.2"); dst = (Ir.Var "tmp.3")};
+        (Ir.Return (Ir.Var "tmp.3"))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 4;
+        offset = -28;
+        stack slots = {
+          x.3   -> -4,
+          tmp.0 -> -8,
+          y.4   -> -12,
+          tmp.1 -> -16,
+          z.5   -> -20,
+          tmp.2 -> -24,
+          tmp.3 -> -28,
+        }}}
+     ])

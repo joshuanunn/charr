@@ -1,0 +1,25 @@
+(Ir.Program
+   [Ir.Function {name = "return_l"; global = true; params = [];
+      body = [(Ir.Return (Ir.Var "l"))];
+      frame =
+      Env.lenv {
+        namespace = "return_l";
+        counter = 0;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.Function {name = "return_l_as_int"; global = true; params = [];
+       body =
+       [Ir.Truncate {src = (Ir.Var "l"); dst = (Ir.Var "tmp.0")};
+         (Ir.Return (Ir.Var "tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "return_l_as_int";
+         counter = 1;
+         offset = -4;
+         stack slots = {
+           tmp.0 -> -4,
+         }}};
+     Ir.StaticVariable {name = "l"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 8589934592L)}
+     ])

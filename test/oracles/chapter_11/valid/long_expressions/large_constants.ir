@@ -1,0 +1,96 @@
+(Ir.Program
+   [Ir.Function {name = "add_large"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x");
+         src2 = (Ir.Constant (Ctype.ConstLong 4294967290L));
+         dst = (Ir.Var "tmp.0")};
+        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x")};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 4294967295L));
+          dst = (Ir.Var "tmp.1")};
+        (Ir.Return (Ir.Var "tmp.1"))];
+      frame =
+      Env.lenv {
+        namespace = "add_large";
+        counter = 2;
+        offset = -8;
+        stack slots = {
+          tmp.0 -> -4,
+          tmp.1 -> -8,
+        }}};
+     Ir.Function {name = "subtract_large"; global = true; params = [];
+       body =
+       [Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "x");
+          src2 = (Ir.Constant (Ctype.ConstLong 4294967290L));
+          dst = (Ir.Var "tmp.0")};
+         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x")};
+         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+           src2 = (Ir.Constant (Ctype.ConstLong 5L)); dst = (Ir.Var "tmp.1")};
+         (Ir.Return (Ir.Var "tmp.1"))];
+       frame =
+       Env.lenv {
+         namespace = "subtract_large";
+         counter = 2;
+         offset = -8;
+         stack slots = {
+           tmp.0 -> -4,
+           tmp.1 -> -8,
+         }}};
+     Ir.Function {name = "multiply_by_large"; global = true; params = [];
+       body =
+       [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "x");
+          src2 = (Ir.Constant (Ctype.ConstLong 4294967290L));
+          dst = (Ir.Var "tmp.0")};
+         Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x")};
+         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+           src2 = (Ir.Constant (Ctype.ConstLong 21474836450L));
+           dst = (Ir.Var "tmp.1")};
+         (Ir.Return (Ir.Var "tmp.1"))];
+       frame =
+       Env.lenv {
+         namespace = "multiply_by_large";
+         counter = 2;
+         offset = -8;
+         stack slots = {
+           tmp.0 -> -4,
+           tmp.1 -> -8,
+         }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "add_large"; args = []; dst = (Ir.Var "tmp.0")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.0");
+           dst = (Ir.Var "tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
+         Ir.FunCall {fun_name = "subtract_large"; args = [];
+           dst = (Ir.Var "tmp.3")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.3");
+           dst = (Ir.Var "tmp.4")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.5");
+         Ir.FunCall {fun_name = "multiply_by_large"; args = [];
+           dst = (Ir.Var "tmp.6")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.6");
+           dst = (Ir.Var "tmp.7")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.7"); target = "main.if.en.8"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.8");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 9;
+         offset = -24;
+         stack slots = {
+           tmp.0 -> -4,
+           tmp.1 -> -8,
+           tmp.3 -> -12,
+           tmp.4 -> -16,
+           tmp.6 -> -20,
+           tmp.7 -> -24,
+         }}};
+     Ir.StaticVariable {name = "x"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 5L)}
+     ])

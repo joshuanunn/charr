@@ -1,0 +1,45 @@
+(Ir.Program
+   [Ir.Function {name = "add"; global = true; params = ["a.0"; "b.1"];
+      body =
+      [Ir.SignExtend {src = (Ir.Var "a.0"); dst = (Ir.Var "tmp.0")};
+        Ir.SignExtend {src = (Ir.Var "b.1"); dst = (Ir.Var "tmp.1")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Var "tmp.1"); dst = (Ir.Var "tmp.2")};
+        (Ir.Return (Ir.Var "tmp.2"))];
+      frame =
+      Env.lenv {
+        namespace = "add";
+        counter = 3;
+        offset = -20;
+        stack slots = {
+          tmp.0 -> -4,
+          tmp.1 -> -8,
+          tmp.2 -> -12,
+          a.0   -> -16,
+          b.1   -> -20,
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "add";
+          args =
+          [(Ir.Constant (Ctype.ConstInt 2147483645l));
+            (Ir.Constant (Ctype.ConstInt 2147483645l))];
+          dst = (Ir.Var "tmp.0")};
+         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+           src2 = (Ir.Constant (Ctype.ConstLong 4294967290L));
+           dst = (Ir.Var "tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 3;
+         offset = -12;
+         stack slots = {
+           a.2   -> -4,
+           tmp.0 -> -8,
+           tmp.1 -> -12,
+         }}}
+     ])

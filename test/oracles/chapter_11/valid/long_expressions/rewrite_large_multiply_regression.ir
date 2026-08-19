@@ -1,0 +1,291 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "glob");
+         src2 = (Ir.Constant (Ctype.ConstLong 4294967307L));
+         dst = (Ir.Var "tmp.0")};
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "glob");
+          src2 = (Ir.Constant (Ctype.ConstLong 4L)); dst = (Ir.Var "tmp.2")};
+        Ir.Truncate {src = (Ir.Var "tmp.2"); dst = (Ir.Var "tmp.3")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.3");
+          src2 = (Ir.Var "tmp.3"); dst = (Ir.Var "tmp.4")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Constant (Ctype.ConstInt 2l));
+          src2 = (Ir.Var "tmp.3"); dst = (Ir.Var "tmp.5")};
+        Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "tmp.4");
+          src2 = (Ir.Var "tmp.4"); dst = (Ir.Var "tmp.6")};
+        Ir.Binary {op = Ir.Subtract;
+          src1 = (Ir.Constant (Ctype.ConstInt 6l)); src2 = (Ir.Var "tmp.3");
+          dst = (Ir.Var "tmp.7")};
+        Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "tmp.4");
+          src2 = (Ir.Var "tmp.5"); dst = (Ir.Var "tmp.8")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.3");
+          src2 = (Ir.Constant (Ctype.ConstInt 6l)); dst = (Ir.Var "tmp.9")};
+        Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "tmp.4");
+          src2 = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "tmp.10")};
+        Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "tmp.5");
+          src2 = (Ir.Var "tmp.5"); dst = (Ir.Var "tmp.11")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.6");
+          src2 = (Ir.Var "tmp.8"); dst = (Ir.Var "tmp.12")};
+        Ir.Binary {op = Ir.Subtract;
+          src1 = (Ir.Constant (Ctype.ConstInt 16l)); src2 = (Ir.Var "tmp.7");
+          dst = (Ir.Var "tmp.13")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.8");
+          src2 = (Ir.Var "tmp.8"); dst = (Ir.Var "tmp.14")};
+        Ir.FunCall {fun_name = "check_12_ints";
+          args =
+          [(Ir.Var "tmp.3"); (Ir.Var "tmp.4"); (Ir.Var "tmp.5");
+            (Ir.Var "tmp.6"); (Ir.Var "tmp.7"); (Ir.Var "tmp.8");
+            (Ir.Var "tmp.9"); (Ir.Var "tmp.10"); (Ir.Var "tmp.11");
+            (Ir.Var "tmp.12"); (Ir.Var "tmp.13"); (Ir.Var "tmp.14");
+            (Ir.Constant (Ctype.ConstInt 1l))];
+          dst = (Ir.Var "tmp.15")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "glob");
+          src2 = (Ir.Constant (Ctype.ConstLong 8L)); dst = (Ir.Var "tmp.17")};
+        Ir.Truncate {src = (Ir.Var "tmp.17"); dst = (Ir.Var "tmp.18")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.18");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.19")};
+        Ir.Binary {op = Ir.Subtract;
+          src1 = (Ir.Constant (Ctype.ConstInt 28l));
+          src2 = (Ir.Var "tmp.18"); dst = (Ir.Var "tmp.20")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.19");
+          src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.21")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Constant (Ctype.ConstInt 4l));
+          src2 = (Ir.Var "tmp.18"); dst = (Ir.Var "tmp.22")};
+        Ir.Binary {op = Ir.Subtract;
+          src1 = (Ir.Constant (Ctype.ConstInt 32l));
+          src2 = (Ir.Var "tmp.19"); dst = (Ir.Var "tmp.23")};
+        Ir.Binary {op = Ir.Subtract;
+          src1 = (Ir.Constant (Ctype.ConstInt 35l));
+          src2 = (Ir.Var "tmp.21"); dst = (Ir.Var "tmp.24")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.20");
+          src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.25")};
+        Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "tmp.18");
+          src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.26")};
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "tmp.26");
+          src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.27")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.20");
+          src2 = (Ir.Constant (Ctype.ConstInt 7l)); dst = (Ir.Var "tmp.28")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Constant (Ctype.ConstInt 6l));
+          src2 = (Ir.Var "tmp.22"); dst = (Ir.Var "tmp.29")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.18");
+          src2 = (Ir.Constant (Ctype.ConstInt 11l)); dst = (Ir.Var "tmp.30")};
+        Ir.FunCall {fun_name = "check_12_ints";
+          args =
+          [(Ir.Var "tmp.18"); (Ir.Var "tmp.19"); (Ir.Var "tmp.20");
+            (Ir.Var "tmp.21"); (Ir.Var "tmp.22"); (Ir.Var "tmp.23");
+            (Ir.Var "tmp.24"); (Ir.Var "tmp.25"); (Ir.Var "tmp.27");
+            (Ir.Var "tmp.28"); (Ir.Var "tmp.29"); (Ir.Var "tmp.30");
+            (Ir.Constant (Ctype.ConstInt 13l))];
+          dst = (Ir.Var "tmp.31")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 21474836535L));
+          dst = (Ir.Var "tmp.32")};
+        Ir.JumpIfZero {condition = (Ir.Var "tmp.32");
+          target = "main.if.en.33"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt -1l)));
+        (Ir.Label "main.if.en.33");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 35;
+        offset = -236;
+        stack slots = {
+          should_spill.13 -> -4,
+          tmp.0           -> -8,
+          one.14          -> -12,
+          tmp.1           -> -16,
+          tmp.2           -> -20,
+          tmp.3           -> -24,
+          two.15          -> -28,
+          tmp.4           -> -32,
+          three.16        -> -36,
+          tmp.5           -> -40,
+          four.17         -> -44,
+          tmp.6           -> -48,
+          five.18         -> -52,
+          tmp.7           -> -56,
+          six.19          -> -60,
+          tmp.8           -> -64,
+          seven.20        -> -68,
+          tmp.9           -> -72,
+          eight.21        -> -76,
+          tmp.10          -> -80,
+          nine.22         -> -84,
+          tmp.11          -> -88,
+          ten.23          -> -92,
+          tmp.12          -> -96,
+          eleven.24       -> -100,
+          tmp.13          -> -104,
+          twelve.25       -> -108,
+          tmp.14          -> -112,
+          tmp.15          -> -116,
+          thirteen.26     -> -120,
+          tmp.16          -> -124,
+          tmp.17          -> -128,
+          tmp.18          -> -132,
+          fourteen.27     -> -136,
+          tmp.19          -> -140,
+          fifteen.28      -> -144,
+          tmp.20          -> -148,
+          sixteen.29      -> -152,
+          tmp.21          -> -156,
+          seventeen.30    -> -160,
+          tmp.22          -> -164,
+          eighteen.31     -> -168,
+          tmp.23          -> -172,
+          nineteen.32     -> -176,
+          tmp.24          -> -180,
+          twenty.33       -> -184,
+          tmp.25          -> -188,
+          twenty_one.34   -> -192,
+          tmp.26          -> -196,
+          tmp.27          -> -200,
+          twenty_two.35   -> -204,
+          tmp.28          -> -208,
+          twenty_three.36 -> -212,
+          tmp.29          -> -216,
+          twenty_four.37  -> -220,
+          tmp.30          -> -224,
+          tmp.31          -> -228,
+          tmp.32          -> -232,
+          tmp.34          -> -236,
+        }}};
+     Ir.Function {name = "check_12_ints"; global = true;
+       params =
+       ["a.38"; "b.39"; "c.40"; "d.41"; "e.42"; "f.43"; "g.44"; "h.45";
+         "i.46"; "j.47"; "k.48"; "l.49"; "start.50"];
+       body =
+       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+          src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.0")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "a.38");
+           src2 = (Ir.Var "tmp.0"); dst = (Ir.Var "tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.1");
+           target = "check_12_ints.if.en.2"};
+         (Ir.Return (Ir.Var "tmp.0")); (Ir.Label "check_12_ints.if.en.2");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.3")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "b.39");
+           src2 = (Ir.Var "tmp.3"); dst = (Ir.Var "tmp.4")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.4");
+           target = "check_12_ints.if.en.5"};
+         (Ir.Return (Ir.Var "tmp.3")); (Ir.Label "check_12_ints.if.en.5");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.6")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "c.40");
+           src2 = (Ir.Var "tmp.6"); dst = (Ir.Var "tmp.7")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.7");
+           target = "check_12_ints.if.en.8"};
+         (Ir.Return (Ir.Var "tmp.6")); (Ir.Label "check_12_ints.if.en.8");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 3l)); dst = (Ir.Var "tmp.9")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "d.41");
+           src2 = (Ir.Var "tmp.9"); dst = (Ir.Var "tmp.10")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.10");
+           target = "check_12_ints.if.en.11"};
+         (Ir.Return (Ir.Var "tmp.9")); (Ir.Label "check_12_ints.if.en.11");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "tmp.12")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "e.42");
+           src2 = (Ir.Var "tmp.12"); dst = (Ir.Var "tmp.13")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.13");
+           target = "check_12_ints.if.en.14"};
+         (Ir.Return (Ir.Var "tmp.12")); (Ir.Label "check_12_ints.if.en.14");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.15")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "f.43");
+           src2 = (Ir.Var "tmp.15"); dst = (Ir.Var "tmp.16")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.16");
+           target = "check_12_ints.if.en.17"};
+         (Ir.Return (Ir.Var "tmp.15")); (Ir.Label "check_12_ints.if.en.17");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 6l)); dst = (Ir.Var "tmp.18")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "g.44");
+           src2 = (Ir.Var "tmp.18"); dst = (Ir.Var "tmp.19")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.19");
+           target = "check_12_ints.if.en.20"};
+         (Ir.Return (Ir.Var "tmp.18")); (Ir.Label "check_12_ints.if.en.20");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 7l)); dst = (Ir.Var "tmp.21")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "h.45");
+           src2 = (Ir.Var "tmp.21"); dst = (Ir.Var "tmp.22")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.22");
+           target = "check_12_ints.if.en.23"};
+         (Ir.Return (Ir.Var "tmp.21")); (Ir.Label "check_12_ints.if.en.23");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 8l)); dst = (Ir.Var "tmp.24")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "i.46");
+           src2 = (Ir.Var "tmp.24"); dst = (Ir.Var "tmp.25")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.25");
+           target = "check_12_ints.if.en.26"};
+         (Ir.Return (Ir.Var "tmp.24")); (Ir.Label "check_12_ints.if.en.26");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 9l)); dst = (Ir.Var "tmp.27")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "j.47");
+           src2 = (Ir.Var "tmp.27"); dst = (Ir.Var "tmp.28")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.28");
+           target = "check_12_ints.if.en.29"};
+         (Ir.Return (Ir.Var "tmp.27")); (Ir.Label "check_12_ints.if.en.29");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.30")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "k.48");
+           src2 = (Ir.Var "tmp.30"); dst = (Ir.Var "tmp.31")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.31");
+           target = "check_12_ints.if.en.32"};
+         (Ir.Return (Ir.Var "tmp.30")); (Ir.Label "check_12_ints.if.en.32");
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "start.50");
+           src2 = (Ir.Constant (Ctype.ConstInt 11l)); dst = (Ir.Var "tmp.33")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "l.49");
+           src2 = (Ir.Var "tmp.33"); dst = (Ir.Var "tmp.34")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.34");
+           target = "check_12_ints.if.en.35"};
+         (Ir.Return (Ir.Var "tmp.33")); (Ir.Label "check_12_ints.if.en.35");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "check_12_ints";
+         counter = 36;
+         offset = -152;
+         stack slots = {
+           expected.51 -> -4,
+           tmp.0       -> -8,
+           tmp.1       -> -12,
+           tmp.3       -> -16,
+           tmp.4       -> -20,
+           tmp.6       -> -24,
+           tmp.7       -> -28,
+           tmp.9       -> -32,
+           tmp.10      -> -36,
+           tmp.12      -> -40,
+           tmp.13      -> -44,
+           tmp.15      -> -48,
+           tmp.16      -> -52,
+           tmp.18      -> -56,
+           tmp.19      -> -60,
+           tmp.21      -> -64,
+           tmp.22      -> -68,
+           tmp.24      -> -72,
+           tmp.25      -> -76,
+           tmp.27      -> -80,
+           tmp.28      -> -84,
+           tmp.30      -> -88,
+           tmp.31      -> -92,
+           tmp.33      -> -96,
+           tmp.34      -> -100,
+           a.38        -> -104,
+           b.39        -> -108,
+           c.40        -> -112,
+           d.41        -> -116,
+           e.42        -> -120,
+           f.43        -> -124,
+           g.44        -> -128,
+           h.45        -> -132,
+           i.46        -> -136,
+           j.47        -> -140,
+           k.48        -> -144,
+           l.49        -> -148,
+           start.50    -> -152,
+         }}};
+     Ir.StaticVariable {name = "glob"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 5L)}
+     ])

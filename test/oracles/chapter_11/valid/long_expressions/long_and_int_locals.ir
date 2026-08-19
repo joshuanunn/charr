@@ -1,0 +1,34 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 27;
+        offset = -92;
+        stack slots = {
+          a.0    -> -4,
+          b.1    -> -8,
+          tmp.0  -> -12,
+          c.2    -> -16,
+          tmp.1  -> -20,
+          d.3    -> -24,
+          tmp.2  -> -28,
+          tmp.4  -> -32,
+          tmp.5  -> -36,
+          tmp.7  -> -40,
+          tmp.8  -> -44,
+          tmp.10 -> -48,
+          tmp.12 -> -52,
+          tmp.13 -> -56,
+          tmp.14 -> -60,
+          tmp.15 -> -64,
+          tmp.16 -> -68,
+          tmp.17 -> -72,
+          tmp.19 -> -76,
+          tmp.20 -> -80,
+          tmp.22 -> -84,
+          tmp.23 -> -88,
+          tmp.25 -> -92,
+        }}}
+     ])

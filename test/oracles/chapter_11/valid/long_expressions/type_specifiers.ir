@@ -1,0 +1,117 @@
+(Ir.Program
+   [Ir.Function {name = "my_function"; global = true;
+      params = ["x.3"; "y.4"; "z.5"];
+      body =
+      [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.3"); src2 = (Ir.Var "y.4");
+         dst = (Ir.Var "tmp.0")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
+          src2 = (Ir.Var "z.5"); dst = (Ir.Var "tmp.1")};
+        Ir.Truncate {src = (Ir.Var "tmp.1"); dst = (Ir.Var "tmp.2")};
+        (Ir.Return (Ir.Var "tmp.2"))];
+      frame =
+      Env.lenv {
+        namespace = "my_function";
+        counter = 3;
+        offset = -24;
+        stack slots = {
+          tmp.0 -> -4,
+          tmp.1 -> -8,
+          tmp.2 -> -12,
+          x.3   -> -16,
+          y.4   -> -20,
+          z.5   -> -24,
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 4L)); dst = (Ir.Var "a")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+           dst = (Ir.Var "sum.9")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 1099511627776L));
+           dst = (Ir.Var "i.10")};
+         (Ir.Label "loop.st.1");
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 0L));
+           dst = (Ir.Var "tmp.1")};
+         Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "i.10");
+           src2 = (Ir.Var "tmp.1"); dst = (Ir.Var "tmp.2")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.2"); target = "loop.br.1"};
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "sum.9");
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.3")};
+         Ir.Copy {src = (Ir.Var "tmp.3"); dst = (Ir.Var "sum.9")};
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 2L));
+           dst = (Ir.Var "tmp.4")};
+         Ir.Binary {op = Ir.Divide; src1 = (Ir.Var "i.10");
+           src2 = (Ir.Var "tmp.4"); dst = (Ir.Var "tmp.5")};
+         Ir.Copy {src = (Ir.Var "tmp.5"); dst = (Ir.Var "i.10")};
+         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 1L));
+           dst = (Ir.Var "tmp.6")};
+         Ir.Binary {op = Ir.NotEqual;
+           src1 = (Ir.Constant (Ctype.ConstLong 1L));
+           src2 = (Ir.Var "tmp.6"); dst = (Ir.Var "tmp.7")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.7"); target = "main.if.en.8"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.8");
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 2L));
+           dst = (Ir.Var "tmp.9")};
+         Ir.Binary {op = Ir.NotEqual;
+           src1 = (Ir.Constant (Ctype.ConstLong 2L));
+           src2 = (Ir.Var "tmp.9"); dst = (Ir.Var "tmp.10")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.10");
+           target = "main.if.en.11"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.11");
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+           dst = (Ir.Var "tmp.13")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.13");
+           target = "main.if.en.14"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.14");
+         Ir.FunCall {fun_name = "my_function";
+           args =
+           [(Ir.Constant (Ctype.ConstLong 1L));
+             (Ir.Constant (Ctype.ConstLong 2L));
+             (Ir.Constant (Ctype.ConstLong 3L))];
+           dst = (Ir.Var "tmp.15")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.15");
+           src2 = (Ir.Constant (Ctype.ConstInt 6l)); dst = (Ir.Var "tmp.16")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.16");
+           target = "main.if.en.17"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.17");
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "sum.9");
+           src2 = (Ir.Constant (Ctype.ConstInt 41l)); dst = (Ir.Var "tmp.18")};
+         Ir.JumpIfZero {condition = (Ir.Var "tmp.18");
+           target = "main.if.en.19"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
+         (Ir.Label "main.if.en.19");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 20;
+         offset = -80;
+         stack slots = {
+           x.6    -> -4,
+           y.7    -> -8,
+           z.8    -> -12,
+           tmp.0  -> -16,
+           sum.9  -> -20,
+           i.10   -> -24,
+           tmp.1  -> -28,
+           tmp.2  -> -32,
+           tmp.3  -> -36,
+           tmp.4  -> -40,
+           tmp.5  -> -44,
+           tmp.6  -> -48,
+           tmp.7  -> -52,
+           tmp.9  -> -56,
+           tmp.10 -> -60,
+           tmp.12 -> -64,
+           tmp.13 -> -68,
+           tmp.15 -> -72,
+           tmp.16 -> -76,
+           tmp.18 -> -80,
+         }}};
+     Ir.StaticVariable {name = "a"; global = false; t = Ctype.Long;
+       init = (Ctype.LongInit 0L)}
+     ])
