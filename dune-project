@@ -20,8 +20,15 @@
 
 (package
  (name subc)
- (synopsis "A short synopsis")
- (description "A longer description")
+ (synopsis "A compiler for a large subset of C, targeting x86-64 assembly")
+ (description
+  "Sub-C is a compiler for a large subset of the C programming language, \
+   written in OCaml. It compiles C source to x86-64 assembly through a \
+   multi-stage pipeline: lexing, parsing, semantic analysis and type \
+   checking, a three-address intermediate representation, and code \
+   generation. It also includes optimisation passes comprising constant \
+   folding, copy propagation, dead store elimination, and unreachable \
+   code elimination. Inspired by Nora Sandler's book Writing a C Compiler.")
  (depends
   (ocaml
    (>= 4.14.0))
