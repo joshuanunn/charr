@@ -301,11 +301,11 @@ let fun_is_global (te : tenv) (id : Ast.ident) : bool =
 (** Collect all static variables recorded in the type environment. Returns a
     list of triples [(name, init, global)] for each identifier with
     [StaticAttr]. Entries with other attributes are ignored. *)
-let static_vars (te : tenv) : (string * initial_value * bool) list =
+let static_vars (te : tenv) : (string * bool * Ctype.t * initial_value) list =
   Hashtbl.fold
     (fun name entry acc ->
       match entry.attrs with
-      | StaticAttr { init; global } -> (name, init, global) :: acc
+      | StaticAttr { init; global } -> (name, global, entry.c_type, init) :: acc
       | _ -> acc)
     te.typed_idents []
 

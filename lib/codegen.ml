@@ -1,5 +1,8 @@
 let compile_val (o : Ir.value) : Asm.operand =
-  match o with Constant n -> Imm n | Var i -> Pseudo i
+  match o with
+  | Constant (ConstInt n) -> Imm (Int32.to_int n)
+  | Constant (ConstLong n) -> Imm (Int64.to_int n)
+  | Var i -> Pseudo i
 
 let split_at n lst =
   let rec aux i acc l =
@@ -151,6 +154,7 @@ let compile_cc (bop : Ir.binary_operator) : Asm.cond_code =
 let compile_instruction (s : Ir.instruction) : Asm.instruction list =
   match s with
   | Return v -> [ Mov (compile_val v, Reg AX); Ret ]
+  | SignExtend _ | Truncate _ -> failwith "TODO: need to implement"
   | Unary { op; src; dst } -> (
       let src_val = compile_val src in
       let dst_val = compile_val dst in
@@ -257,8 +261,11 @@ let compile_func (f : Ir.top_level) : Asm.top_level =
       (* let stack_size = 4 * List.length fn.params in *)
       Function
         { name = fn.name; global = fn.global; instructions; frame = fn.frame }
-  | StaticVariable { name; global; init } ->
-      StaticVariable { name; global; init }
+  (* TODO: need to implement t *)
+  | StaticVariable { name; global; init; _ } -> (
+      match init with
+      | IntInit i -> StaticVariable { name; global; init = Int32.to_int i }
+      | LongInit l -> StaticVariable { name; global; init = Int64.to_int l })
 
 let compile_prog (Program p : Ir.prog) : Asm.prog =
   let compiled_funcs = List.map (function f -> compile_func f) p in

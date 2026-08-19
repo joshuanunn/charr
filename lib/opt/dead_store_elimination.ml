@@ -70,6 +70,12 @@ let transfer (cfg : Cfg.graph) (id : Cfg.node_id) end_live_variables
             (fun v -> live_variables := add_live_var v !live_variables)
             args;
           live_variables := Cfg.StringSet.union static_names !live_variables
+      | Ir.SignExtend { src; dst } ->
+          live_variables := kill_live_dest dst !live_variables;
+          live_variables := add_live_var src !live_variables
+      | Ir.Truncate { src; dst } ->
+          live_variables := kill_live_dest dst !live_variables;
+          live_variables := add_live_var src !live_variables
       | Ir.Jump _ | Ir.Label _ -> ())
     (List.rev block_instructions);
 
@@ -79,7 +85,11 @@ let transfer (cfg : Cfg.graph) (id : Cfg.node_id) end_live_variables
 let is_dead_store instr live_variables =
   match instr with
   | Ir.FunCall _ -> false
-  | Ir.Copy { dst; _ } | Ir.Unary { dst; _ } | Ir.Binary { dst; _ } -> (
+  | Ir.Copy { dst; _ }
+  | Ir.Unary { dst; _ }
+  | Ir.Binary { dst; _ }
+  | Ir.SignExtend { dst; _ }
+  | Ir.Truncate { dst; _ } -> (
       match dst with
       | Ir.Var n -> not (Cfg.StringSet.mem n live_variables)
       | _ -> false)

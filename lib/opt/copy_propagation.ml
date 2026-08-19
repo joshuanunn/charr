@@ -102,7 +102,10 @@ let transfer (cfg : Cfg.graph) (id : Cfg.node_id) initial_reaching_copies
       | Ir.FunCall { dst; _ } ->
           current_reaching_copies :=
             kill_for_fun_call dst static_names !current_reaching_copies
-      | Ir.Unary { dst; _ } | Ir.Binary { dst; _ } ->
+      | Ir.Unary { dst; _ }
+      | Ir.Binary { dst; _ }
+      | Ir.SignExtend { dst; _ }
+      | Ir.Truncate { dst; _ } ->
           current_reaching_copies := kill_copy_dest dst !current_reaching_copies
       | _ -> ())
     block_instructions;
@@ -165,6 +168,12 @@ let rewrite_instruction (instr : Ir.instruction) (copies : Cfg.CopySet.t) :
       let new_args = List.map (fun a -> replace_operand a copies) args in
       Some (Ir.FunCall { fun_name; args = new_args; dst })
   | Ir.Label _ | Ir.Jump _ -> Some instr
+  | Ir.SignExtend { src; dst } ->
+      let new_src = replace_operand src copies in
+      Some (Ir.SignExtend { src = new_src; dst })
+  | Ir.Truncate { src; dst } ->
+      let new_src = replace_operand src copies in
+      Some (Ir.Truncate { src = new_src; dst })
 
 let rewrite_block (block_id : int) (instrs : Ir.instruction list)
     (instr_info : Cfg.CopySet.t Cfg.InstrMap.t) : Ir.instruction list =
