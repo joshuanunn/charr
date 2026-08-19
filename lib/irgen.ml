@@ -310,7 +310,10 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) (te : Env.tenv) :
                       src2 =
                         (match v.e with
                         | Ast.Constant c -> Ir.Constant c
-                        | _ -> failwith "must be const");
+                        | _ ->
+                            failwith
+                              "internal error: switch case value must be a \
+                               constant");
                       dst = tmp;
                     };
                   Ir.JumpIfNotZero { condition = tmp; target = lbl };
