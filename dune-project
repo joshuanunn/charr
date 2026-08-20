@@ -2,16 +2,16 @@
 
 (using menhir 3.0)
 
-(name subc)
+(name charr)
 
 (generate_opam_files true)
 
 (source
- (github joshuanunn/sub-c))
+ (github joshuanunn/charr))
 
-(authors "Joshua Nunn <joshuanunn@hotmail.co.uk>")
+(authors "Joshua Nunn <gh@joshua.nu>")
 
-(maintainers "Joshua Nunn <joshuanunn@hotmail.co.uk>")
+(maintainers "Joshua Nunn <gh@joshua.nu>")
 
 (license MIT)
 
@@ -19,9 +19,16 @@
  (enabled_for ocaml))
 
 (package
- (name subc)
- (synopsis "A short synopsis")
- (description "A longer description")
+ (name charr)
+ (synopsis "A compiler for a large subset of C, targeting x86-64 assembly")
+ (description
+  "charr is a compiler for a large subset of the C programming language, \
+   written in OCaml. It compiles C source to x86-64 assembly through a \
+   multi-stage pipeline: lexing, parsing, semantic analysis and type \
+   checking, a three-address intermediate representation, and code \
+   generation. It also includes optimisation passes comprising constant \
+   folding, copy propagation, dead store elimination, and unreachable \
+   code elimination. Inspired by Nora Sandler's book Writing a C Compiler.")
  (depends
   (ocaml
    (>= 4.14.0))

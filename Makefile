@@ -1,4 +1,4 @@
-BIN := subc
+BIN := charr
 
 SRC := \
 	bin/dune \

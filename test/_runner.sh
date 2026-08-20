@@ -95,7 +95,7 @@ for chapter in "${CHAPTERS[@]}"; do
         # Exit status test
         if [[ "$phase" == "exe" ]]; then
           # Compile executable
-          subc "$test_file" -O -o "$binary_file"
+          charr "$test_file" -O -o "$binary_file"
 
           # Capture stdout and exit status
           program_stdout="$("$binary_file" 2>&1)"
@@ -114,7 +114,7 @@ for chapter in "${CHAPTERS[@]}"; do
           # Exit status mismatch?
           if [[ $program_status -ne $expected_status ]]; then
             echo "[FAIL] $rel_path ($phase)"
-            echo "  subc exited with status $program_status, expected $expected_status"
+            echo "  charr exited with status $program_status, expected $expected_status"
             ((failed++))
             ((total++))
             continue
@@ -147,7 +147,7 @@ for chapter in "${CHAPTERS[@]}"; do
 
         # Lexer, parser, validation, codegen and emit tests
         if [[ "$phase" == "lex" || "$phase" == "parse" || "$phase" == "validate" || "$phase" == "irgen" || "$phase" == "codegen" || "$phase" == "emit" ]]; then
-            output=$(subc "$test_file" --"$phase" -O 2>&1)
+            output=$(charr "$test_file" --"$phase" -O 2>&1)
             expected=$(<"$oracle_file")
 
             if diff -u <(echo "$expected") <(echo "$output") > /dev/null; then
@@ -202,27 +202,27 @@ for chapter in "${CHAPTERS[@]}"; do
         exit 1
       }
 
-      # CASE A: subc compiler builds library, system compiler builds client
+      # CASE A: charr compiler builds library, system compiler builds client
 
-      subc_lib_o="$libdir/${base}.o"
+      charr_lib_o="$libdir/${base}.o"
       sys_client_o="$libdir/${base}_client.o"
 
       # Build the library
       if [[ "$lib" == *.c ]]; then
-        subc "$lib" -c -O
+        charr "$lib" -c -O
       else
-        cc -c "$lib" -o "$subc_lib_o"
+        cc -c "$lib" -o "$charr_lib_o"
       fi
 
       # System compiler builds client
       cc "$client" -c -o "$sys_client_o"
 
       # Link and run
-      cc "$subc_lib_o" "$sys_client_o" -o "$libdir/a.out"
+      cc "$charr_lib_o" "$sys_client_o" -o "$libdir/a.out"
 
       program_stdout="$("$libdir/a.out" 2>&1)"
       program_status=$?
-      rm -f "$subc_lib_o" "$sys_client_o" "$libdir/a.out"
+      rm -f "$charr_lib_o" "$sys_client_o" "$libdir/a.out"
 
       interop_fail=0
       [[ "$program_status" -ne "$expected_status" ]] && interop_fail=1
@@ -233,18 +233,18 @@ for chapter in "${CHAPTERS[@]}"; do
       fi
 
       if [[ "$interop_fail" -eq 1 ]]; then
-        echo "[FAIL] $rel_path (interop A: subc lib)"
+        echo "[FAIL] $rel_path (interop A: charr lib)"
         ((failed++))
       else
-        echo "[PASS] $rel_path (interop A: subc lib)"
+        echo "[PASS] $rel_path (interop A: charr lib)"
         ((passed++))
       fi
       ((total++))
 
-      # CASE B: system compiler builds library, subc compiler builds client
+      # CASE B: system compiler builds library, charr compiler builds client
 
       sys_lib_o="$libdir/${base}.o"
-      subc_client_o="$libdir/${base}_client.o"
+      charr_client_o="$libdir/${base}_client.o"
 
       # System compiler builds library:
       if [[ "$lib" == *.c ]]; then
@@ -253,15 +253,15 @@ for chapter in "${CHAPTERS[@]}"; do
         cc -c "$lib" -o "$sys_lib_o"
       fi
 
-      # subc compiler builds client
-      subc "$client" -c -O
+      # charr compiler builds client
+      charr "$client" -c -O
 
       # Link and run
-      cc "$sys_lib_o" "$subc_client_o" -o "$libdir/a.out"
+      cc "$sys_lib_o" "$charr_client_o" -o "$libdir/a.out"
 
       program_stdout="$("$libdir/a.out" 2>&1)"
       program_status=$?
-      rm -f "$sys_lib_o" "$subc_client_o" "$libdir/a.out"
+      rm -f "$sys_lib_o" "$charr_client_o" "$libdir/a.out"
 
       interop_fail=0
       [[ "$program_status" -ne "$expected_status" ]] && interop_fail=1
@@ -272,10 +272,10 @@ for chapter in "${CHAPTERS[@]}"; do
       fi
 
       if [[ "$interop_fail" -eq 1 ]]; then
-        echo "[FAIL] $rel_path (interop B: subc client)"
+        echo "[FAIL] $rel_path (interop B: charr client)"
         ((failed++))
       else
-        echo "[PASS] $rel_path (interop B: subc client)"
+        echo "[PASS] $rel_path (interop B: charr client)"
         ((passed++))
       fi
       ((total++))
@@ -298,7 +298,7 @@ for chapter in "${CHAPTERS[@]}"; do
       rel_path="${test_file#$TEST_DIR/}"
 
       # Run executable, capture exit status code and cleanup
-      output=$(subc "$test_file" --"$phase" -O 2>&1)
+      output=$(charr "$test_file" --"$phase" -O 2>&1)
       status=$?
 
       if [ $status -ne 0 ]; then
@@ -306,7 +306,7 @@ for chapter in "${CHAPTERS[@]}"; do
         ((passed++))
       else
         echo "[FAIL] $rel_path ($phase)"
-        echo "  subc exited with a zero status"
+        echo "  charr exited with a zero status"
         ((failed++))
       fi
 
@@ -329,7 +329,7 @@ for chapter in "${CHAPTERS[@]}"; do
       rel_path="${test_file#$TEST_DIR/}"
 
       # Run executable, capture exit status code and cleanup
-      output=$(subc "$test_file" --"$phase" -O 2>&1)
+      output=$(charr "$test_file" --"$phase" -O 2>&1)
       status=$?
 
       if [ $status -ne 0 ]; then
@@ -337,7 +337,7 @@ for chapter in "${CHAPTERS[@]}"; do
         ((passed++))
       else
         echo "[FAIL] $rel_path ($phase)"
-        echo "  subc exited with a zero status"
+        echo "  charr exited with a zero status"
         ((failed++))
       fi
 
@@ -360,7 +360,7 @@ for chapter in "${CHAPTERS[@]}"; do
       rel_path="${test_file#$TEST_DIR/}"
 
       # Run executable, capture exit status code and cleanup
-      output=$(subc "$test_file" --"$phase" -O 2>&1)
+      output=$(charr "$test_file" --"$phase" -O 2>&1)
       status=$?
 
       if [ $status -ne 0 ]; then
@@ -368,7 +368,7 @@ for chapter in "${CHAPTERS[@]}"; do
         ((passed++))
       else
         echo "[FAIL] $rel_path ($phase)"
-        echo "  subc exited with a zero status"
+        echo "  charr exited with a zero status"
         ((failed++))
       fi
 

@@ -1,7 +1,7 @@
 (include_subdirs unqualified)
 
 (library
- (name subc)
+ (name charr)
  (modules
   debug
   io
