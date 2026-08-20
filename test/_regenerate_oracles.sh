@@ -49,7 +49,7 @@ for chapter in "${CHAPTERS[@]}"; do
       if [[ $phase == "exe" ]]; then
         exe_file="${test_file%.c}"
         # Run tests will all compiler optimisations active
-        subc "$test_file" -O -o "$exe_file"
+        charr "$test_file" -O -o "$exe_file"
         if [[ -x "$exe_file" ]]; then
           # Capture stdout
           program_stdout="$("$exe_file" 2>&1)"
@@ -70,7 +70,7 @@ for chapter in "${CHAPTERS[@]}"; do
         fi
       else
         # Run tests will all compiler optimisations active
-        subc "$test_file" --"$phase" -O > "$oracle_path"
+        charr "$test_file" --"$phase" -O > "$oracle_path"
       fi
     done
   done

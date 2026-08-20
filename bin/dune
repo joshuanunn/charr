@@ -1,4 +1,4 @@
 (executable
- (public_name .subc)
+ (public_name .charr)
  (name main)
- (libraries subc))
+ (libraries charr))

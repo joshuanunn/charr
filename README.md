@@ -1,4 +1,7 @@
-# Sub-C
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/charr-dark.svg">
+  <img alt="charr" src="assets/charr-light.svg" width="200">
+</picture>
 
 A compiler for a large subset of the C programming language, implemented in OCaml. Inspired by the book [Writing a C Compiler](https://nostarch.com/writing-c-compiler), written by Nora Sandler.
 
@@ -98,8 +101,8 @@ On Ubuntu, all requirements can be installed with `sudo apt install opam build-e
 It's recommended to create a new opam local switch in the project directory, which will install all required dependencies in an isolated environment:
 
 ```bash
-git clone https://github.com/joshuanunn/sub-c.git
-cd sub-c
+git clone https://github.com/joshuanunn/charr.git
+cd charr
 opam switch create . -y
 eval $(opam env)
 opam install . --deps-only
@@ -108,28 +111,51 @@ make
 
 ### Testing
 
-Check that the compiler executable works using `subc --help` or run the full regression test suite using `make test`.
+Check that the compiler executable works using `charr --help` or run the full regression test suite using `make test`.
 
 ## Compilation Overview
 
+`charr` occupies the source-to-assembly stage of compilation (highlighted); preprocessing, assembling, and linking are delegated to the system toolchain.
+
 ```mermaid
----
-config:
-  theme: 'forest'
----
-flowchart TB
-    A["C source code"]
-    B["Preprocessed source code"]
-    C["x86-64 assembly code"]
-    D["Object files"]
-    E["Executable"]
+flowchart LR
+    src("C source<br/>.c")
+    pp("Preprocessed<br/>source<br/>.i")
+    asm("Assembly<br/>.s")
+    obj("Object<br/>.o")
+    exe("Executable")
 
-    A -- "Preprocessor" --> B
-    B -- "Sub-C Compiler" --> C
-    C -- "Assembler" --> D
-    D -- "Linker" --> E
+    src -->|Preprocessor| pp
+    pp -->|charr| asm
+    asm -->|Assembler| obj
+    obj -->|Linker| exe
 
-    linkStyle 1 stroke-width:4px,stroke:#ed7118,text-fill:#ed7118,text-bg-color:#ed7118
+    classDef stage fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
+    classDef out fill:#FCEBE0,stroke:#E2622B,stroke-width:2px,color:#2E3D48;
+    class src,obj,exe stage;
+    class pp,asm out;
+    linkStyle 1 stroke:#E2622B,stroke-width:3px;
+```
+
+In this compilation stage, `charr` lowers preprocessed source to assembly through lexing, parsing, semantic analysis, IR generation, optimisation, and code generation:
+
+```mermaid
+flowchart LR
+    i("Preprocessed<br/>source<br/>.i")
+    tok("Tokens")
+    ast("AST")
+    vast("Validated<br/>AST")
+    ir("IR")
+    oir("Optimised<br/>IR")
+    asm("Assembly<br/>.s")
+
+    i --> tok --> ast --> vast --> ir --> oir --> asm
+
+    classDef irc fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
+    classDef endpt fill:#FCEBE0,stroke:#E2622B,stroke-width:2.5px,color:#2E3D48;
+    class tok,ast,vast,ir,oir irc;
+    class i,asm endpt;
+    linkStyle default stroke:#E2622B,stroke-width:2.5px;
 ```
 
 ## License
