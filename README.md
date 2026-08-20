@@ -120,7 +120,7 @@ Check that the compiler executable works using `charr --help` or run the full re
 ```mermaid
 flowchart LR
     src("C source<br/>.c")
-    pp("Preprocessed<br/>source")
+    pp("Preprocessed<br/>source<br/>.i")
     asm("Assembly<br/>.s")
     obj("Object<br/>.o")
     exe("Executable")
@@ -132,9 +132,30 @@ flowchart LR
 
     classDef stage fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
     classDef out fill:#FCEBE0,stroke:#E2622B,stroke-width:2px,color:#2E3D48;
-    class src,pp,obj,exe stage;
-    class asm out;
+    class src,obj,exe stage;
+    class pp,asm out;
     linkStyle 1 stroke:#E2622B,stroke-width:3px;
+```
+
+In this compilation stage, `charr` lowers preprocessed source to assembly through lexing, parsing, semantic analysis, IR generation, optimisation, and code generation:
+
+```mermaid
+flowchart LR
+    i("Preprocessed<br/>source<br/>.i")
+    tok("Tokens")
+    ast("AST")
+    vast("Validated<br/>AST")
+    ir("IR")
+    oir("Optimised<br/>IR")
+    asm("Assembly<br/>.s")
+
+    i --> tok --> ast --> vast --> ir --> oir --> asm
+
+    classDef irc fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
+    classDef endpt fill:#FCEBE0,stroke:#E2622B,stroke-width:2.5px,color:#2E3D48;
+    class tok,ast,vast,ir,oir irc;
+    class i,asm endpt;
+    linkStyle default stroke:#E2622B,stroke-width:2.5px;
 ```
 
 ## License
