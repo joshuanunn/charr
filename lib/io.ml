@@ -81,13 +81,13 @@ let run_codegen lexbuf opts s_env t_env =
 
 let run_emit lexbuf opts s_env t_env =
   report_errors ~stage:"Assembly emission" lexbuf (fun () ->
-      let asm, a_env = gen_asm lexbuf opts s_env t_env in
-      print_string (Emit.emit_prog asm a_env))
+      let asm, _ = gen_asm lexbuf opts s_env t_env in
+      print_string (Emit.emit_prog asm))
 
 let run_exe lexbuf opts output_path s_env t_env =
   report_errors ~stage:"Executable generation" lexbuf (fun () ->
-      let asm, a_env = gen_asm lexbuf opts s_env t_env in
-      let asm_text = Emit.emit_prog asm a_env in
+      let asm, _ = gen_asm lexbuf opts s_env t_env in
+      let asm_text = Emit.emit_prog asm in
       let oc = open_out output_path in
       Fun.protect
         ~finally:(fun () -> close_out oc)
