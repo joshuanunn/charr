@@ -3,20 +3,20 @@
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
-    movl        $4, -8(%rbp)
-    movl        $1, -16(%rbp)
-    cmpl        $0, -16(%rbp)
+    subq        $16, %rsp
+    movl        $4, -4(%rbp)
+    movl        $1, -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.2
     call        foo@PLT
-    movl        %eax, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
+    movl        %eax, -12(%rbp)
+    movl        -12(%rbp), %r10d
+    movl        %r10d, -4(%rbp)
 .Lmain.if.en.2:
-    movl        $3, -24(%rbp)
-    movl        -8(%rbp), %r10d
-    addl        %r10d, -24(%rbp)
-    movl        -24(%rbp), %eax
+    movl        $3, -16(%rbp)
+    movl        -4(%rbp), %r10d
+    addl        %r10d, -16(%rbp)
+    movl        -16(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

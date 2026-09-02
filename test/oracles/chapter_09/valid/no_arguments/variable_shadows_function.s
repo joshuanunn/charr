@@ -5,23 +5,23 @@ main:
     movq        %rsp, %rbp
     subq        $32, %rsp
     call        foo@PLT
-    movl        %eax, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %eax, -4(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     movl        $0, -12(%rbp)
     setg        -12(%rbp)
     cmpl        $0, -12(%rbp)
     je          .Lmain.if.en.2
     movl        $3, -16(%rbp)
-    movl        -8(%rbp), %r10d
+    movl        -4(%rbp), %r10d
     movl        %r10d, -20(%rbp)
     movl        -16(%rbp), %r10d
     addl        %r10d, -20(%rbp)
     movl        -20(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
+    movl        %r10d, -8(%rbp)
 .Lmain.if.en.2:
-    movl        -4(%rbp), %eax
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
