@@ -1,22 +1,35 @@
 (Asm.Program
    [Asm.Function {name = "target"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 20), (Asm.Reg Asm.AX))); Asm.Ret];
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.DI);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 20L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "target";
         counter = 1;
-        offset = -8;
+        offset = -4;
         stack slots = {
-          x.2    -> -4,
-          flag.0 -> -8,
+          flag.0 -> -4,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.DI)));
-         (Asm.Call "target"); (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.DI)};
+         (Asm.Call "target");
+         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";

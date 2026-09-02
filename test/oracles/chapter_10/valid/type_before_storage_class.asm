@@ -1,6 +1,9 @@
 (Asm.Program
    [Asm.Function {name = "foo"; global = false;
-      instructions = [(Asm.Mov ((Asm.Imm 3), (Asm.Reg Asm.AX))); Asm.Ret];
+      instructions =
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
+         dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "foo";
@@ -10,14 +13,24 @@
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Call "foo");
-         (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Data "bar"), (Asm.Reg Asm.R10)));
-         Asm.Binary {op = Asm.Add; src = (Asm.Reg Asm.R10);
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         (Asm.Call "foo");
+         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.R10)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
            dst = (Asm.Stack -8)};
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.AX))); Asm.Ret];
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Data "bar");
+           dst = (Asm.Reg Asm.R10)};
+         Asm.Binary {op = Asm.Add; typ = Asm.Longword;
+           src = (Asm.Reg Asm.R10); dst = (Asm.Stack -8)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";
@@ -27,4 +40,6 @@
            tmp.0 -> -4,
            tmp.1 -> -8,
          }}};
-     Asm.StaticVariable {name = "bar"; global = false; init = 4}])
+     Asm.StaticVariable {name = "bar"; global = false; alignment = 4;
+       init = (Ctype.IntInit 4l)}
+     ])

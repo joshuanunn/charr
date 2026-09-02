@@ -1,29 +1,35 @@
 (Asm.Program
    [Asm.Function {name = "target"; global = true;
       instructions =
-      [(Asm.AllocateStack 48); (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -36)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.DI);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "target";
         counter = 7;
-        offset = -36;
+        offset = -4;
         stack slots = {
-          i.2    -> -4,
-          tmp.0  -> -8,
-          tmp.1  -> -12,
-          tmp.2  -> -16,
-          tmp.3  -> -20,
-          tmp.4  -> -24,
-          tmp.5  -> -28,
-          tmp.6  -> -32,
-          flag.0 -> -36,
+          flag.0 -> -4,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 20), (Asm.Reg Asm.DI)));
-         (Asm.Call "target"); (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 20L);
+           dst = (Asm.Reg Asm.DI)};
+         (Asm.Call "target");
+         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";
@@ -32,4 +38,6 @@
          stack slots = {
            tmp.0 -> -4,
          }}};
-     Asm.StaticVariable {name = "x.1"; global = false; init = 0}])
+     Asm.StaticVariable {name = "x.1"; global = false; alignment = 4;
+       init = (Ctype.IntInit 0l)}
+     ])

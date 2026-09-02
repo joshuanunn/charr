@@ -1,116 +1,178 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 80); (Asm.Mov ((Asm.Imm 37), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 8), (Asm.Stack -16)));
-        (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 2), (Asm.Stack -20)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -20)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -24)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -24)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -24)));
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 80L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 37L);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 8L); dst = (Asm.Stack -8)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -12)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
+          dst = (Asm.Stack -16)};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -20)};
+        (Asm.SetCC (Asm.E, (Asm.Stack -20)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -20)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.0"));
-        (Asm.Cmp ((Asm.Imm 4), (Asm.Stack -20)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -28)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -28)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -28)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 4L);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -24)};
+        (Asm.SetCC (Asm.E, (Asm.Stack -24)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -24)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.4"));
-        (Asm.Cmp ((Asm.Imm 3), (Asm.Stack -20)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -32)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -32)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -32)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 3L);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -28)};
+        (Asm.SetCC (Asm.E, (Asm.Stack -28)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -28)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.3"));
-        (Asm.Cmp ((Asm.Imm 2), (Asm.Stack -20)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -36)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -36)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -36)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 2L);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -32)};
+        (Asm.SetCC (Asm.E, (Asm.Stack -32)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -32)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.2"));
-        (Asm.Cmp ((Asm.Imm 1), (Asm.Stack -20)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -40)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -40)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -40)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -36)};
+        (Asm.SetCC (Asm.E, (Asm.Stack -36)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -36)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.1")); (Asm.Jmp "swit.br.1");
         (Asm.Label "swit.cs.1.0"); (Asm.Label "loop.st.2");
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -44)));
-        Asm.Binary {op = Asm.Sub; src = (Asm.Imm 1); dst = (Asm.Stack -44)};
-        (Asm.Mov ((Asm.Stack -44), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -40)};
+        Asm.Binary {op = Asm.Sub; typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -40)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -40);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -4)};
         (Asm.Label "swit.cs.1.4");
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -48)));
-        Asm.Binary {op = Asm.Sub; src = (Asm.Imm 1); dst = (Asm.Stack -48)};
-        (Asm.Mov ((Asm.Stack -48), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -44)};
+        Asm.Binary {op = Asm.Sub; typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -44)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -44);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -4)};
         (Asm.Label "swit.cs.1.3");
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -52)));
-        Asm.Binary {op = Asm.Sub; src = (Asm.Imm 1); dst = (Asm.Stack -52)};
-        (Asm.Mov ((Asm.Stack -52), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -48)};
+        Asm.Binary {op = Asm.Sub; typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -48)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -48);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -4)};
         (Asm.Label "swit.cs.1.2");
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -56)));
-        Asm.Binary {op = Asm.Sub; src = (Asm.Imm 1); dst = (Asm.Stack -56)};
-        (Asm.Mov ((Asm.Stack -56), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -52)};
+        Asm.Binary {op = Asm.Sub; typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -52)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -52);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -4)};
         (Asm.Label "swit.cs.1.1");
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -60)));
-        Asm.Binary {op = Asm.Sub; src = (Asm.Imm 1); dst = (Asm.Stack -60)};
-        (Asm.Mov ((Asm.Stack -60), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -64)));
-        Asm.Binary {op = Asm.Sub; src = (Asm.Imm 1); dst = (Asm.Stack -64)};
-        (Asm.Mov ((Asm.Stack -64), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -8)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -64)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -68)));
-        (Asm.SetCC (Asm.G, (Asm.Stack -68)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -68)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -56)};
+        Asm.Binary {op = Asm.Sub; typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -56)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -56);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -60)};
+        Asm.Binary {op = Asm.Sub; typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -60)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -60);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -12)};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -60)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -64)};
+        (Asm.SetCC (Asm.G, (Asm.Stack -64)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -64)};
         (Asm.JmpCC (Asm.NE, "loop.st.2")); (Asm.Label "swit.br.1");
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -72)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -68)};
+        (Asm.SetCC (Asm.E, (Asm.Stack -68)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -68)};
+        (Asm.JmpCC (Asm.E, "main.and.fl.18"));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -72)};
         (Asm.SetCC (Asm.E, (Asm.Stack -72)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -72)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -72)};
         (Asm.JmpCC (Asm.E, "main.and.fl.18"));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -76)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -76)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -76)));
-        (Asm.JmpCC (Asm.E, "main.and.fl.18"));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Stack -80))); (Asm.Jmp "main.and.en.19");
-        (Asm.Label "main.and.fl.18");
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -80)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -76)};
+        (Asm.Jmp "main.and.en.19"); (Asm.Label "main.and.fl.18");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -76)};
         (Asm.Label "main.and.en.19");
-        (Asm.Mov ((Asm.Stack -80), (Asm.Reg Asm.AX))); Asm.Ret];
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -76);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 20;
-        offset = -80;
+        offset = -76;
         stack slots = {
           count.0      -> -4,
-          iterations.1 -> -8,
-          tmp.0        -> -12,
-          tmp.1        -> -16,
-          tmp.2        -> -20,
-          tmp.3        -> -24,
-          tmp.4        -> -28,
-          tmp.5        -> -32,
-          tmp.6        -> -36,
-          tmp.7        -> -40,
-          tmp.8        -> -44,
-          tmp.9        -> -48,
-          tmp.10       -> -52,
-          tmp.11       -> -56,
-          tmp.12       -> -60,
-          tmp.13       -> -64,
-          tmp.14       -> -68,
-          tmp.15       -> -72,
-          tmp.16       -> -76,
-          tmp.17       -> -80,
+          tmp.1        -> -8,
+          iterations.1 -> -12,
+          tmp.2        -> -16,
+          tmp.3        -> -20,
+          tmp.4        -> -24,
+          tmp.5        -> -28,
+          tmp.6        -> -32,
+          tmp.7        -> -36,
+          tmp.8        -> -40,
+          tmp.9        -> -44,
+          tmp.10       -> -48,
+          tmp.11       -> -52,
+          tmp.12       -> -56,
+          tmp.13       -> -60,
+          tmp.14       -> -64,
+          tmp.15       -> -68,
+          tmp.16       -> -72,
+          tmp.17       -> -76,
         }}}
      ])

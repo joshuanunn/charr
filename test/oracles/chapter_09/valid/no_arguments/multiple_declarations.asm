@@ -1,9 +1,16 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Call "f");
-        (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+         dst = (Asm.Reg Asm.SP)};
+        (Asm.Call "f");
+        Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
@@ -13,7 +20,10 @@
           tmp.0 -> -4,
         }}};
      Asm.Function {name = "f"; global = true;
-       instructions = [(Asm.Mov ((Asm.Imm 3), (Asm.Reg Asm.AX))); Asm.Ret];
+       instructions =
+       [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
+          dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "f";

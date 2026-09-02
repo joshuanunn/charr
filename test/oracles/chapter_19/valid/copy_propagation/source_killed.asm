@@ -1,21 +1,33 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Data "x"), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 4), (Asm.Data "x")));
-        (Asm.Cmp ((Asm.Imm 10), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Data "x");
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L); dst = (Asm.Data "x")};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 10L);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         (Asm.SetCC (Asm.NE, (Asm.Stack -8)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         (Asm.JmpCC (Asm.E, "main.if.en.1"));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Label "main.if.en.1"); (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.1");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
         (Asm.JmpCC (Asm.E, "main.if.en.3"));
-        (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Label "main.if.en.3");
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.3");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
@@ -26,4 +38,6 @@
           tmp.0 -> -8,
           tmp.2 -> -12,
         }}};
-     Asm.StaticVariable {name = "x"; global = true; init = 10}])
+     Asm.StaticVariable {name = "x"; global = true; alignment = 4;
+       init = (Ctype.IntInit 10l)}
+     ])

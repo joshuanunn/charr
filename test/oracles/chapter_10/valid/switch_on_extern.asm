@@ -1,29 +1,45 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Call "update_x");
-        (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Data "x")));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+         dst = (Asm.Reg Asm.SP)};
+        (Asm.Call "update_x");
+        Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+          dst = (Asm.Stack -4)};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Data "x")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         (Asm.SetCC (Asm.E, (Asm.Stack -8)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.0"));
-        (Asm.Cmp ((Asm.Imm 1), (Asm.Data "x")));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 1L); dst = (Asm.Data "x")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
         (Asm.SetCC (Asm.E, (Asm.Stack -12)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.1"));
-        (Asm.Cmp ((Asm.Imm 4), (Asm.Data "x")));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -16)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 4L); dst = (Asm.Data "x")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -16)};
         (Asm.SetCC (Asm.E, (Asm.Stack -16)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -16)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -16)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.4")); (Asm.Jmp "swit.df.1");
-        (Asm.Label "swit.cs.1.0"); (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.AX)));
+        (Asm.Label "swit.cs.1.0");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Reg Asm.AX)};
         Asm.Ret; (Asm.Label "swit.cs.1.1");
-        (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Label "swit.cs.1.4"); (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "swit.cs.1.4");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
         Asm.Ret; (Asm.Label "swit.df.1");
-        (Asm.Mov ((Asm.Imm 4), (Asm.Reg Asm.AX))); Asm.Ret];
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
@@ -37,8 +53,10 @@
         }}};
      Asm.Function {name = "update_x"; global = true;
        instructions =
-       [(Asm.Mov ((Asm.Imm 4), (Asm.Data "x")));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+       [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L); dst = (Asm.Data "x")};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "update_x";
@@ -46,4 +64,6 @@
          offset = 0;
          stack slots = {
          }}};
-     Asm.StaticVariable {name = "x"; global = true; init = 0}])
+     Asm.StaticVariable {name = "x"; global = true; alignment = 4;
+       init = (Ctype.IntInit 0l)}
+     ])

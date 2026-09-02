@@ -1,14 +1,14 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 5), (Asm.Reg Asm.AX)));
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
+         dst = (Asm.Reg Asm.AX)};
         Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 0;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          a.0 -> -4,
         }}}
      ])

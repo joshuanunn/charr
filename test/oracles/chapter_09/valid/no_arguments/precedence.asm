@@ -1,6 +1,9 @@
 (Asm.Program
    [Asm.Function {name = "three"; global = true;
-      instructions = [(Asm.Mov ((Asm.Imm 3), (Asm.Reg Asm.AX))); Asm.Ret];
+      instructions =
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
+         dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "three";
@@ -10,12 +13,21 @@
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Call "three");
-         (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         (Asm.Call "three");
+         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Stack -8)};
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.AX))); Asm.Ret];
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";

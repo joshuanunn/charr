@@ -1,28 +1,36 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 16);
-        (Asm.Mov ((Asm.Data "j.1"), (Asm.Reg Asm.R10)));
-        (Asm.Cmp ((Asm.Reg Asm.R10), (Asm.Data "i.0")));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.SetCC (Asm.L, (Asm.Stack -8)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
-        (Asm.SetCC (Asm.E, (Asm.Stack -12)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Data "j.1");
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "i.0")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        (Asm.SetCC (Asm.L, (Asm.Stack -4)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
+        (Asm.SetCC (Asm.E, (Asm.Stack -8)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         (Asm.JmpCC (Asm.E, "main.if.en.2"));
-        (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.AX))); Asm.Ret;
-        (Asm.Label "main.if.en.2");
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.2");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 3;
-        offset = -12;
+        offset = -8;
         stack slots = {
-          cmp.2 -> -4,
-          tmp.0 -> -8,
-          tmp.1 -> -12,
+          tmp.0 -> -4,
+          tmp.1 -> -8,
         }}};
-     Asm.StaticVariable {name = "i.0"; global = false; init = 2};
-     Asm.StaticVariable {name = "j.1"; global = false; init = 3}])
+     Asm.StaticVariable {name = "i.0"; global = false; alignment = 4;
+       init = (Ctype.IntInit 2l)};
+     Asm.StaticVariable {name = "j.1"; global = false; alignment = 4;
+       init = (Ctype.IntInit 3l)}
+     ])

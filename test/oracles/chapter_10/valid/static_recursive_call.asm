@@ -1,26 +1,48 @@
 (Asm.Program
    [Asm.Function {name = "print_alphabet"; global = true;
       instructions =
-      [(Asm.AllocateStack 32);
-        (Asm.Mov ((Asm.Data "count.1"), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
-        Asm.Binary {op = Asm.Add; src = (Asm.Imm 65); dst = (Asm.Stack -4)};
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.DI))); (Asm.Call "putchar");
-        (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Data "count.1"), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -12)));
-        Asm.Binary {op = Asm.Add; src = (Asm.Imm 1); dst = (Asm.Stack -12)};
-        (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Data "count.1")));
-        (Asm.Cmp ((Asm.Imm 26), (Asm.Stack -12)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -16)));
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Data "count.1");
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -4)};
+        Asm.Binary {op = Asm.Add; typ = Asm.Longword; src = (Asm.Imm 65L);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.DI)};
+        (Asm.Call "putchar");
+        Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+          dst = (Asm.Stack -8)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Data "count.1");
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -12)};
+        Asm.Binary {op = Asm.Add; typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -12)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "count.1")};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 26L);
+          dst = (Asm.Stack -12)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -16)};
         (Asm.SetCC (Asm.L, (Asm.Stack -16)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -16)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -16)};
         (Asm.JmpCC (Asm.E, "print_alphabet.if.en.4"));
         (Asm.Call "print_alphabet");
-        (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -20)));
+        Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+          dst = (Asm.Stack -20)};
         (Asm.Label "print_alphabet.if.en.4");
-        (Asm.Mov ((Asm.Data "count.1"), (Asm.Reg Asm.AX))); Asm.Ret];
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Data "count.1");
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "print_alphabet";
@@ -35,9 +57,16 @@
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Call "print_alphabet");
-         (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         (Asm.Call "print_alphabet");
+         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";
@@ -46,4 +75,6 @@
          stack slots = {
            tmp.0 -> -4,
          }}};
-     Asm.StaticVariable {name = "count.1"; global = false; init = 0}])
+     Asm.StaticVariable {name = "count.1"; global = false; alignment = 4;
+       init = (Ctype.IntInit 0l)}
+     ])

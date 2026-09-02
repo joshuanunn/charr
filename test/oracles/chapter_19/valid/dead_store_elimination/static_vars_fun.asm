@@ -1,6 +1,9 @@
 (Asm.Program
    [Asm.Function {name = "get_x"; global = true;
-      instructions = [(Asm.Mov ((Asm.Data "x"), (Asm.Reg Asm.AX))); Asm.Ret];
+      instructions =
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Data "x");
+         dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "get_x";
@@ -10,17 +13,28 @@
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 5), (Asm.Data "x")));
-         (Asm.Call "get_x"); (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Imm 10), (Asm.Data "x")));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.AX))); Asm.Ret];
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
+           dst = (Asm.Data "x")};
+         (Asm.Call "get_x");
+         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 10L);
+           dst = (Asm.Data "x")};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -8;
+         offset = -4;
          stack slots = {
-           result.0 -> -4,
-           tmp.0    -> -8,
+           tmp.0 -> -4,
          }}};
-     Asm.StaticVariable {name = "x"; global = true; init = 100}])
+     Asm.StaticVariable {name = "x"; global = true; alignment = 4;
+       init = (Ctype.IntInit 100l)}
+     ])
