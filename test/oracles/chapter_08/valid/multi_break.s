@@ -36,24 +36,24 @@ main:
 .Lmain.if.en.5:
     jmp         .Lloop.ct.2
 .Lloop.br.2:
-    movl        $-1, -32(%rbp)
-    movl        -32(%rbp), %r10d
+    movl        $-1, -28(%rbp)
+    movl        -28(%rbp), %r10d
     cmpl        %r10d, -20(%rbp)
+    movl        $0, -32(%rbp)
+    sete        -32(%rbp)
+    cmpl        $0, -32(%rbp)
+    je          .Lmain.and.fl.10
+    cmpl        $11, -8(%rbp)
     movl        $0, -36(%rbp)
     sete        -36(%rbp)
     cmpl        $0, -36(%rbp)
     je          .Lmain.and.fl.10
-    cmpl        $11, -8(%rbp)
-    movl        $0, -40(%rbp)
-    sete        -40(%rbp)
-    cmpl        $0, -40(%rbp)
-    je          .Lmain.and.fl.10
-    movl        $1, -44(%rbp)
+    movl        $1, -40(%rbp)
     jmp         .Lmain.and.en.11
 .Lmain.and.fl.10:
-    movl        $0, -44(%rbp)
+    movl        $0, -40(%rbp)
 .Lmain.and.en.11:
-    movl        -44(%rbp), %eax
+    movl        -40(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

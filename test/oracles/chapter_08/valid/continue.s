@@ -5,16 +5,16 @@ main:
     movq        %rsp, %rbp
     subq        $48, %rsp
     movl        $0, -4(%rbp)
-    movl        $0, -12(%rbp)
+    movl        $0, -8(%rbp)
 .Lloop.st.1:
-    cmpl        $10, -12(%rbp)
-    movl        $0, -16(%rbp)
-    setle       -16(%rbp)
-    cmpl        $0, -16(%rbp)
+    cmpl        $10, -8(%rbp)
+    movl        $0, -12(%rbp)
+    setle       -12(%rbp)
+    cmpl        $0, -12(%rbp)
     je          .Lloop.br.1
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
-    movl        -12(%rbp), %eax
+    movl        -8(%rbp), %r10d
+    movl        %r10d, -16(%rbp)
+    movl        -8(%rbp), %eax
     cdq         
     movl        $2, %r10d
     idivl       %r10d
@@ -32,11 +32,11 @@ main:
     movl        -28(%rbp), %r10d
     movl        %r10d, -4(%rbp)
 .Lloop.ct.1:
-    movl        -12(%rbp), %r10d
+    movl        -8(%rbp), %r10d
     movl        %r10d, -32(%rbp)
     addl        $1, -32(%rbp)
     movl        -32(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
+    movl        %r10d, -8(%rbp)
     jmp         .Lloop.st.1
 .Lloop.br.1:
     cmpl        $5, -4(%rbp)
@@ -44,7 +44,7 @@ main:
     sete        -36(%rbp)
     cmpl        $0, -36(%rbp)
     je          .Lmain.and.fl.9
-    cmpl        $10, -8(%rbp)
+    cmpl        $10, -16(%rbp)
     movl        $0, -40(%rbp)
     sete        -40(%rbp)
     cmpl        $0, -40(%rbp)
