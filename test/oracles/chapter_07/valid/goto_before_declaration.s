@@ -3,7 +3,6 @@
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     jmp         .Lmain.if.en.1
 .Lreturn_a.0:
     movl        $0, %eax
