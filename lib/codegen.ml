@@ -249,7 +249,7 @@ let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
           | Imm _ ->
               [
                 Mov { typ = src1_typ; src = src1_val; dst = dst_val };
-                Shl { typ = src1_typ; src = src2_val; dst = dst_val };
+                Sar { typ = src1_typ; src = src2_val; dst = dst_val };
               ]
           (* otherwise: shift using value in cl register *)
           | _ ->

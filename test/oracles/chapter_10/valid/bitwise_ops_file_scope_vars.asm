@@ -53,7 +53,7 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -32)};
-        Asm.Shl {typ = Asm.Longword; src = (Asm.Imm 2L);
+        Asm.Sar {typ = Asm.Longword; src = (Asm.Imm 2L);
           dst = (Asm.Stack -32)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -32);
           dst = (Asm.Reg Asm.R10)};
