@@ -48,16 +48,8 @@
       Env.lenv {
         namespace = "callee";
         counter = 13;
-        offset = -32;
+        offset = 0;
         stack slots = {
-          tmp.0  -> -4,
-          tmp.1  -> -8,
-          tmp.2  -> -12,
-          tmp.6  -> -16,
-          tmp.7  -> -20,
-          tmp.8  -> -24,
-          tmp.12 -> -28,
-          i.0    -> -32,
         }}};
      Ir.Function {name = "target"; global = true; params = [];
        body =
@@ -74,11 +66,8 @@
        Env.lenv {
          namespace = "target";
          counter = 1;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           y.1            -> -4,
-           keep_looping.2 -> -8,
-           tmp.0          -> -12,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -98,12 +87,8 @@
        Env.lenv {
          namespace = "main";
          counter = 5;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           result.3 -> -4,
-           tmp.0    -> -8,
-           tmp.1    -> -12,
-           tmp.3    -> -16,
          }}};
      Ir.StaticVariable {name = "called_counter"; global = false;
        t = Ctype.Int; init = (Ctype.IntInit 0l)}

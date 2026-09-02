@@ -42,19 +42,8 @@
       Env.lenv {
         namespace = "g";
         counter = 14;
-        offset = -44;
+        offset = 0;
         stack slots = {
-          tmp.0  -> -4,
-          tmp.1  -> -8,
-          tmp.2  -> -12,
-          tmp.5  -> -16,
-          tmp.6  -> -20,
-          tmp.9  -> -24,
-          tmp.10 -> -28,
-          w.0    -> -32,
-          x.1    -> -36,
-          y.2    -> -40,
-          z.3    -> -44,
         }}};
      Ir.Function {name = "f"; global = true;
        params = ["a.4"; "b.5"; "c.6"; "d.7"];
@@ -118,27 +107,8 @@
        Env.lenv {
          namespace = "f";
          counter = 22;
-         offset = -76;
+         offset = 0;
          stack slots = {
-           result.8 -> -4,
-           tmp.0    -> -8,
-           tmp.1    -> -12,
-           tmp.2    -> -16,
-           tmp.3    -> -20,
-           tmp.4    -> -24,
-           tmp.5    -> -28,
-           tmp.6    -> -32,
-           tmp.7    -> -36,
-           tmp.10   -> -40,
-           tmp.11   -> -44,
-           tmp.14   -> -48,
-           tmp.15   -> -52,
-           tmp.18   -> -56,
-           tmp.19   -> -60,
-           a.4      -> -64,
-           b.5      -> -68,
-           c.6      -> -72,
-           d.7      -> -76,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -154,8 +124,7 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}}
      ])

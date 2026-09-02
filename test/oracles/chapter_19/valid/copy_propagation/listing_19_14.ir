@@ -16,11 +16,8 @@
       Env.lenv {
         namespace = "f";
         counter = 3;
-        offset = -12;
+        offset = 0;
         stack slots = {
-          tmp.0       -> -4,
-          tmp.2       -> -8,
-          new_total.0 -> -12,
         }}};
      Ir.Function {name = "indirect_update"; global = true; params = [];
        body =
@@ -32,9 +29,8 @@
        Env.lenv {
          namespace = "indirect_update";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -45,9 +41,8 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.StaticVariable {name = "total.1"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}

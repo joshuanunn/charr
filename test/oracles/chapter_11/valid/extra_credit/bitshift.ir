@@ -5,29 +5,7 @@
       Env.lenv {
         namespace = "main";
         counter = 24;
-        offset = -88;
+        offset = 0;
         stack slots = {
-          l.0               -> -4,
-          shiftcount.1      -> -8,
-          tmp.0             -> -12,
-          tmp.1             -> -16,
-          tmp.3             -> -20,
-          tmp.4             -> -24,
-          tmp.6             -> -28,
-          tmp.7             -> -32,
-          tmp.9             -> -36,
-          tmp.10            -> -40,
-          long_shiftcount.2 -> -44,
-          i_neighbor1.3     -> -48,
-          i.4               -> -52,
-          tmp.12            -> -56,
-          i_neighbor2.5     -> -60,
-          tmp.13            -> -64,
-          tmp.14            -> -68,
-          tmp.15            -> -72,
-          tmp.17            -> -76,
-          tmp.18            -> -80,
-          tmp.19            -> -84,
-          tmp.20            -> -88,
         }}}
      ])

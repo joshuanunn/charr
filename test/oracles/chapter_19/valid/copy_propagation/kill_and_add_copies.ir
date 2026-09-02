@@ -7,9 +7,8 @@
       Env.lenv {
         namespace = "set_globvar";
         counter = 0;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          i.0 -> -4,
         }}};
      Ir.Function {name = "callee"; global = true; params = ["a.1"; "b.2"];
        body =
@@ -20,11 +19,8 @@
        Env.lenv {
          namespace = "callee";
          counter = 1;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           a.1   -> -8,
-           b.2   -> -12,
          }}};
      Ir.Function {name = "target"; global = true; params = ["param.3"];
        body =
@@ -38,13 +34,8 @@
        Env.lenv {
          namespace = "target";
          counter = 2;
-         offset = -20;
+         offset = 0;
          stack slots = {
-           x.4     -> -4,
-           tmp.0   -> -8,
-           y.5     -> -12,
-           tmp.1   -> -16,
-           param.3 -> -20,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -65,11 +56,8 @@
        Env.lenv {
          namespace = "main";
          counter = 5;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
          }}};
      Ir.StaticVariable {name = "globvar"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}

@@ -30,15 +30,8 @@
       Env.lenv {
         namespace = "target";
         counter = 5;
-        offset = -28;
+        offset = 0;
         stack slots = {
-          retval.1 -> -4,
-          tmp.0    -> -8,
-          tmp.1    -> -12,
-          tmp.2    -> -16,
-          tmp.3    -> -20,
-          tmp.4    -> -24,
-          x.0      -> -28,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -59,12 +52,8 @@
        Env.lenv {
          namespace = "main";
          counter = 5;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           retval.2 -> -4,
-           tmp.0    -> -8,
-           tmp.1    -> -12,
-           tmp.3    -> -16,
          }}};
      Ir.StaticVariable {name = "globvar"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}

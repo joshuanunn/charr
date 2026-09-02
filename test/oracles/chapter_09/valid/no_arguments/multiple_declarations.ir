@@ -7,9 +7,8 @@
       Env.lenv {
         namespace = "main";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "f"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];

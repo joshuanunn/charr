@@ -13,10 +13,8 @@
       Env.lenv {
         namespace = "add_large";
         counter = 2;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
         }}};
      Ir.Function {name = "subtract_large"; global = true; params = [];
        body =
@@ -31,10 +29,8 @@
        Env.lenv {
          namespace = "subtract_large";
          counter = 2;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
          }}};
      Ir.Function {name = "multiply_by_large"; global = true; params = [];
        body =
@@ -50,10 +46,8 @@
        Env.lenv {
          namespace = "multiply_by_large";
          counter = 2;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -82,14 +76,8 @@
        Env.lenv {
          namespace = "main";
          counter = 9;
-         offset = -24;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
-           tmp.4 -> -16,
-           tmp.6 -> -20,
-           tmp.7 -> -24,
          }}};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Long;
        init = (Ctype.LongInit 5L)}

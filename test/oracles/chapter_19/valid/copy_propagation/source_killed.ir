@@ -18,11 +18,8 @@
       Env.lenv {
         namespace = "main";
         counter = 4;
-        offset = -12;
+        offset = 0;
         stack slots = {
-          y.0   -> -4,
-          tmp.0 -> -8,
-          tmp.2 -> -12,
         }}};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 10l)}

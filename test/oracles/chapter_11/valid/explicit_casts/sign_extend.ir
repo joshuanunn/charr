@@ -11,14 +11,8 @@
       Env.lenv {
         namespace = "sign_extend";
         counter = 3;
-        offset = -24;
+        offset = 0;
         stack slots = {
-          extended.2 -> -4,
-          tmp.0      -> -8,
-          tmp.1      -> -12,
-          tmp.2      -> -16,
-          i.0        -> -20,
-          expected.1 -> -24,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -47,16 +41,7 @@
        Env.lenv {
          namespace = "main";
          counter = 11;
-         offset = -36;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
-           tmp.4 -> -16,
-           tmp.5 -> -20,
-           tmp.6 -> -24,
-           l.3   -> -28,
-           tmp.8 -> -32,
-           tmp.9 -> -36,
          }}}
      ])

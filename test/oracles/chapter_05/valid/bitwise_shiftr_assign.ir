@@ -5,10 +5,7 @@
       Env.lenv {
         namespace = "main";
         counter = 1;
-        offset = -12;
+        offset = 0;
         stack slots = {
-          var_to_shift.0 -> -4,
-          x.1            -> -8,
-          tmp.0          -> -12,
         }}}
      ])

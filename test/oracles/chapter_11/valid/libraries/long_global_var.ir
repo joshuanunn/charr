@@ -16,9 +16,8 @@
        Env.lenv {
          namespace = "return_l_as_int";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.StaticVariable {name = "l"; global = true; t = Ctype.Long;
        init = (Ctype.LongInit 8589934592L)}

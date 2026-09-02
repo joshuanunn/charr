@@ -11,10 +11,8 @@
       Env.lenv {
         namespace = "addition";
         counter = 2;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
         }}};
      Ir.Function {name = "subtraction"; global = true; params = [];
        body =
@@ -28,11 +26,8 @@
        Env.lenv {
          namespace = "subtraction";
          counter = 3;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.2 -> -12,
          }}};
      Ir.Function {name = "multiplication"; global = true; params = [];
        body =
@@ -46,10 +41,8 @@
        Env.lenv {
          namespace = "multiplication";
          counter = 2;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
          }}};
      Ir.Function {name = "division"; global = true; params = [];
        body =
@@ -64,10 +57,8 @@
        Env.lenv {
          namespace = "division";
          counter = 2;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
          }}};
      Ir.Function {name = "remaind"; global = true; params = [];
        body =
@@ -85,12 +76,8 @@
        Env.lenv {
          namespace = "remaind";
          counter = 4;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.2 -> -12,
-           tmp.3 -> -16,
          }}};
      Ir.Function {name = "complement"; global = true; params = [];
        body =
@@ -103,11 +90,8 @@
        Env.lenv {
          namespace = "complement";
          counter = 3;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.2 -> -12,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -175,21 +159,8 @@
        Env.lenv {
          namespace = "main";
          counter = 19;
-         offset = -52;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.5  -> -20,
-           tmp.7  -> -24,
-           tmp.8  -> -28,
-           tmp.10 -> -32,
-           tmp.11 -> -36,
-           tmp.13 -> -40,
-           tmp.14 -> -44,
-           tmp.16 -> -48,
-           tmp.17 -> -52,
          }}};
      Ir.StaticVariable {name = "b"; global = true; t = Ctype.Long;
        init = (Ctype.LongInit 0L)};

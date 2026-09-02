@@ -8,10 +8,8 @@
       Env.lenv {
         namespace = "return_truncated_long";
         counter = 1;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          l.0   -> -8,
         }}};
      Ir.Function {name = "return_extended_int"; global = true;
        params = ["i.1"];
@@ -22,10 +20,8 @@
        Env.lenv {
          namespace = "return_extended_int";
          counter = 1;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           i.1   -> -8,
          }}};
      Ir.Function {name = "truncate_on_assignment"; global = true;
        params = ["l.2"; "expected.3"];
@@ -38,13 +34,8 @@
        Env.lenv {
          namespace = "truncate_on_assignment";
          counter = 2;
-         offset = -20;
+         offset = 0;
          stack slots = {
-           result.4   -> -4,
-           tmp.0      -> -8,
-           tmp.1      -> -12,
-           l.2        -> -16,
-           expected.3 -> -20,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -82,21 +73,7 @@
        Env.lenv {
          namespace = "main";
          counter = 16;
-         offset = -56;
+         offset = 0;
          stack slots = {
-           result.5 -> -4,
-           tmp.0    -> -8,
-           tmp.1    -> -12,
-           tmp.2    -> -16,
-           tmp.4    -> -20,
-           tmp.5    -> -24,
-           tmp.6    -> -28,
-           tmp.7    -> -32,
-           tmp.8    -> -36,
-           i.6      -> -40,
-           tmp.10   -> -44,
-           tmp.11   -> -48,
-           tmp.13   -> -52,
-           tmp.14   -> -56,
          }}}
      ])

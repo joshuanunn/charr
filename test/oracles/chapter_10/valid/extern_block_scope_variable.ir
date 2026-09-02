@@ -5,10 +5,8 @@
       Env.lenv {
         namespace = "main";
         counter = 1;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          outer.0 -> -4,
-          foo.1   -> -8,
         }}};
      Ir.StaticVariable {name = "foo"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 3l)}

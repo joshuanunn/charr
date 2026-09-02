@@ -5,9 +5,8 @@
       Env.lenv {
         namespace = "target";
         counter = 2;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          x.0 -> -4,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -17,9 +16,8 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.StaticVariable {name = "flag"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 1l)}

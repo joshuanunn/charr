@@ -10,13 +10,8 @@
       Env.lenv {
         namespace = "truncate";
         counter = 2;
-        offset = -20;
+        offset = 0;
         stack slots = {
-          result.2   -> -4,
-          tmp.0      -> -8,
-          tmp.1      -> -12,
-          l.0        -> -16,
-          expected.1 -> -20,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -67,22 +62,7 @@
        Env.lenv {
          namespace = "main";
          counter = 19;
-         offset = -60;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.5  -> -20,
-           tmp.6  -> -24,
-           tmp.8  -> -28,
-           tmp.9  -> -32,
-           tmp.11 -> -36,
-           tmp.12 -> -40,
-           tmp.13 -> -44,
-           tmp.14 -> -48,
-           i.3    -> -52,
-           tmp.16 -> -56,
-           tmp.17 -> -60,
          }}}
      ])

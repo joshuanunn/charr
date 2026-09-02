@@ -17,10 +17,7 @@
       Env.lenv {
         namespace = "main";
         counter = 3;
-        offset = -12;
+        offset = 0;
         stack slots = {
-          a.2   -> -4,
-          tmp.0 -> -8,
-          tmp.1 -> -12,
         }}}
      ])

@@ -26,13 +26,8 @@
       Env.lenv {
         namespace = "switch_on_long";
         counter = 4;
-        offset = -20;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
-          tmp.2 -> -12,
-          tmp.3 -> -16,
-          l.0   -> -20,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -57,12 +52,7 @@
        Env.lenv {
          namespace = "main";
          counter = 7;
-         offset = -20;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
-           tmp.4 -> -16,
-           tmp.5 -> -20,
          }}}
      ])

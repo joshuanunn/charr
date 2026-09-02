@@ -19,10 +19,8 @@
        Env.lenv {
          namespace = "target";
          counter = 1;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           y.0   -> -4,
-           tmp.0 -> -8,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -42,11 +40,8 @@
        Env.lenv {
          namespace = "main";
          counter = 5;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
          }}};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 1l)}

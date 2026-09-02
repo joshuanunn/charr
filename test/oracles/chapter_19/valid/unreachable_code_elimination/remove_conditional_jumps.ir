@@ -5,14 +5,8 @@
       Env.lenv {
         namespace = "target";
         counter = 7;
-        offset = -24;
+        offset = 0;
         stack slots = {
-          x.1   -> -4,
-          tmp.0 -> -8,
-          y.2   -> -12,
-          tmp.3 -> -16,
-          tmp.6 -> -20,
-          a.0   -> -24,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -23,8 +17,7 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}}
      ])

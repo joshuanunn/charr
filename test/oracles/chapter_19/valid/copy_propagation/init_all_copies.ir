@@ -9,9 +9,8 @@
       Env.lenv {
         namespace = "increment_counter";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "target"; global = true; params = [];
        body =
@@ -26,11 +25,8 @@
        Env.lenv {
          namespace = "target";
          counter = 2;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           y.0   -> -4,
-           tmp.0 -> -8,
-           tmp.1 -> -12,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -50,12 +46,8 @@
        Env.lenv {
          namespace = "main";
          counter = 5;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           result.1 -> -4,
-           tmp.0    -> -8,
-           tmp.1    -> -12,
-           tmp.3    -> -16,
          }}};
      Ir.StaticVariable {name = "counter"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}

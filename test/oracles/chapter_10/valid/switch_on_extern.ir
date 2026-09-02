@@ -26,12 +26,8 @@
       Env.lenv {
         namespace = "main";
         counter = 4;
-        offset = -16;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
-          tmp.2 -> -12,
-          tmp.3 -> -16,
         }}};
      Ir.Function {name = "update_x"; global = true; params = [];
        body =

@@ -9,9 +9,8 @@
       Env.lenv {
         namespace = "callee";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "f"; global = true; params = [];
        body =
@@ -31,12 +30,8 @@
        Env.lenv {
          namespace = "f";
          counter = 4;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           i.0   -> -4,
-           tmp.0 -> -8,
-           tmp.2 -> -12,
-           tmp.3 -> -16,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -46,9 +41,8 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}

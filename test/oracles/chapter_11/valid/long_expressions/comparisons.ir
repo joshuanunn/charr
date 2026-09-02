@@ -5,9 +5,8 @@
       Env.lenv {
         namespace = "compare_constants";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "compare_constants_2"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -15,9 +14,8 @@
        Env.lenv {
          namespace = "compare_constants_2";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "l_geq_2_60"; global = true; params = [];
        body =
@@ -29,9 +27,8 @@
        Env.lenv {
          namespace = "l_geq_2_60";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "uint_max_leq_l"; global = true; params = [];
        body =
@@ -43,9 +40,8 @@
        Env.lenv {
          namespace = "uint_max_leq_l";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "l_eq_l2"; global = true; params = [];
        body =
@@ -56,9 +52,8 @@
        Env.lenv {
          namespace = "l_eq_l2";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -121,21 +116,8 @@
        Env.lenv {
          namespace = "main";
          counter = 20;
-         offset = -52;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.6  -> -20,
-           tmp.7  -> -24,
-           tmp.9  -> -28,
-           tmp.11 -> -32,
-           tmp.12 -> -36,
-           tmp.14 -> -40,
-           tmp.15 -> -44,
-           tmp.17 -> -48,
-           tmp.18 -> -52,
          }}};
      Ir.StaticVariable {name = "l"; global = true; t = Ctype.Long;
        init = (Ctype.LongInit 0L)};

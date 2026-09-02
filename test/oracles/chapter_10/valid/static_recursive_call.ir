@@ -19,13 +19,8 @@
       Env.lenv {
         namespace = "print_alphabet";
         counter = 6;
-        offset = -20;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
-          tmp.2 -> -12,
-          tmp.3 -> -16,
-          tmp.5 -> -20,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -36,9 +31,8 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.StaticVariable {name = "count.1"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}

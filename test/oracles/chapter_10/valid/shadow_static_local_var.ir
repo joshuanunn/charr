@@ -14,10 +14,8 @@
       Env.lenv {
         namespace = "update_static_or_global";
         counter = 2;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          update_global.0 -> -4,
-          new_val.1       -> -8,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -79,19 +77,8 @@
        Env.lenv {
          namespace = "main";
          counter = 17;
-         offset = -44;
+         offset = 0;
          stack slots = {
-           tmp.0    -> -4,
-           result.3 -> -8,
-           tmp.2    -> -12,
-           tmp.3    -> -16,
-           tmp.5    -> -20,
-           tmp.7    -> -24,
-           tmp.8    -> -28,
-           tmp.10   -> -32,
-           tmp.12   -> -36,
-           tmp.13   -> -40,
-           tmp.15   -> -44,
          }}};
      Ir.StaticVariable {name = "i"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)};

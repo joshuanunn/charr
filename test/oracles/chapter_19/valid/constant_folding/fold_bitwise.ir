@@ -5,9 +5,8 @@
       Env.lenv {
         namespace = "target_and";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "target_or"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 268374015l)))];
@@ -15,9 +14,8 @@
        Env.lenv {
          namespace = "target_or";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_xor"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 267390960l)))];
@@ -25,9 +23,8 @@
        Env.lenv {
          namespace = "target_xor";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_shift_left"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 76283904l)))];
@@ -35,9 +32,8 @@
        Env.lenv {
          namespace = "target_shift_left";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_shift_right"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 493447l)))];
@@ -45,9 +41,8 @@
        Env.lenv {
          namespace = "target_shift_right";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -98,17 +93,7 @@
        Env.lenv {
          namespace = "main";
          counter = 15;
-         offset = -40;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.6  -> -20,
-           tmp.7  -> -24,
-           tmp.9  -> -28,
-           tmp.10 -> -32,
-           tmp.12 -> -36,
-           tmp.13 -> -40,
          }}}
      ])

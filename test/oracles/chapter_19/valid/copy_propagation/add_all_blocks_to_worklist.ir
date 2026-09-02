@@ -22,9 +22,8 @@
        Env.lenv {
          namespace = "main";
          counter = 2;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.1 -> -4,
          }}};
      Ir.StaticVariable {name = "flag"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 1l)};

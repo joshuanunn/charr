@@ -12,12 +12,8 @@
       Env.lenv {
         namespace = "addition";
         counter = 3;
-        offset = -16;
+        offset = 0;
         stack slots = {
-          result.0 -> -4,
-          tmp.0    -> -8,
-          tmp.1    -> -12,
-          tmp.2    -> -16,
         }}};
      Ir.Function {name = "division"; global = true; params = [];
        body =
@@ -33,13 +29,8 @@
        Env.lenv {
          namespace = "division";
          counter = 4;
-         offset = -20;
+         offset = 0;
          stack slots = {
-           int_result.1 -> -4,
-           tmp.0        -> -8,
-           tmp.1        -> -12,
-           tmp.2        -> -16,
-           tmp.3        -> -20,
          }}};
      Ir.Function {name = "comparison"; global = true; params = [];
        body =
@@ -51,10 +42,8 @@
        Env.lenv {
          namespace = "comparison";
          counter = 2;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
          }}};
      Ir.Function {name = "conditional"; global = true; params = [];
        body =
@@ -66,12 +55,8 @@
        Env.lenv {
          namespace = "conditional";
          counter = 5;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           result.2 -> -4,
-           tmp.0    -> -8,
-           tmp.3    -> -12,
-           tmp.4    -> -16,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -121,17 +106,8 @@
        Env.lenv {
          namespace = "main";
          counter = 13;
-         offset = -36;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.6  -> -20,
-           tmp.7  -> -24,
-           tmp.8  -> -28,
-           tmp.10 -> -32,
-           tmp.11 -> -36,
          }}};
      Ir.StaticVariable {name = "i"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)};

@@ -11,18 +11,8 @@
       Env.lenv {
         namespace = "foo";
         counter = 2;
-        offset = -40;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
-          a.1   -> -12,
-          b.2   -> -16,
-          c.3   -> -20,
-          d.4   -> -24,
-          e.5   -> -28,
-          f.6   -> -32,
-          g.7   -> -36,
-          h.8   -> -40,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -42,8 +32,7 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}}
      ])

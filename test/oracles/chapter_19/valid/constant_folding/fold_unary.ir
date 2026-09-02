@@ -5,9 +5,8 @@
       Env.lenv {
         namespace = "target_negate";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "target_negate_zero"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -15,9 +14,8 @@
        Env.lenv {
          namespace = "target_negate_zero";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_not"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -25,9 +23,8 @@
        Env.lenv {
          namespace = "target_not";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_not_zero"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -35,9 +32,8 @@
        Env.lenv {
          namespace = "target_not_zero";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_complement"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -2l)))];
@@ -45,9 +41,8 @@
        Env.lenv {
          namespace = "target_complement";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -97,20 +92,8 @@
        Env.lenv {
          namespace = "main";
          counter = 17;
-         offset = -48;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.2  -> -12,
-           tmp.4  -> -16,
-           tmp.5  -> -20,
-           tmp.7  -> -24,
-           tmp.8  -> -28,
-           tmp.10 -> -32,
-           tmp.11 -> -36,
-           tmp.13 -> -40,
-           tmp.14 -> -44,
-           tmp.15 -> -48,
          }}};
      Ir.StaticVariable {name = "two"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 2l)};

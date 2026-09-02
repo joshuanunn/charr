@@ -15,10 +15,8 @@
       Env.lenv {
         namespace = "incr_i";
         counter = 3;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.2 -> -8,
         }}};
      Ir.Function {name = "decr_j"; global = true; params = [];
        body =
@@ -34,11 +32,8 @@
        Env.lenv {
          namespace = "decr_j";
          counter = 4;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -72,16 +67,8 @@
        Env.lenv {
          namespace = "main";
          counter = 14;
-         offset = -32;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.4  -> -12,
-           tmp.5  -> -16,
-           tmp.7  -> -20,
-           tmp.10 -> -24,
-           tmp.11 -> -28,
-           tmp.12 -> -32,
          }}};
      Ir.StaticVariable {name = "i"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)};

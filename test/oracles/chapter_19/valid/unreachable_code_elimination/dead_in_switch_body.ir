@@ -5,9 +5,8 @@
       Env.lenv {
         namespace = "callee";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "target"; global = true; params = ["x.0"];
        body =
@@ -39,16 +38,8 @@
        Env.lenv {
          namespace = "target";
          counter = 6;
-         offset = -32;
+         offset = 0;
          stack slots = {
-           retval.1 -> -4,
-           tmp.0    -> -8,
-           tmp.1    -> -12,
-           tmp.2    -> -16,
-           tmp.3    -> -20,
-           tmp.4    -> -24,
-           tmp.5    -> -28,
-           x.0      -> -32,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -59,8 +50,7 @@
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}}
      ])

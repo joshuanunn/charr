@@ -32,9 +32,8 @@
        Env.lenv {
          namespace = "target_conditional_true";
          counter = 3;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_conditional_false"; global = true;
        params = []; body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))];
@@ -42,9 +41,8 @@
        Env.lenv {
          namespace = "target_conditional_false";
          counter = 3;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_do_loop"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 10l)))];
@@ -52,9 +50,8 @@
        Env.lenv {
          namespace = "target_do_loop";
          counter = 0;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           retval.0 -> -4,
          }}};
      Ir.Function {name = "target_while_loop_false"; global = true;
        params = []; body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -62,9 +59,8 @@
        Env.lenv {
          namespace = "target_while_loop_false";
          counter = 0;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           retval.1 -> -4,
          }}};
      Ir.Function {name = "target_while_loop_true"; global = true;
        params = []; body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 10l)))];
@@ -72,9 +68,8 @@
        Env.lenv {
          namespace = "target_while_loop_true";
          counter = 0;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           retval.2 -> -4,
          }}};
      Ir.Function {name = "target_for_loop_true"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 100l)))];
@@ -82,10 +77,8 @@
        Env.lenv {
          namespace = "target_for_loop_true";
          counter = 0;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           retval.3 -> -4,
-           i.4      -> -8,
          }}};
      Ir.Function {name = "target_for_loop_false"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -93,10 +86,8 @@
        Env.lenv {
          namespace = "target_for_loop_false";
          counter = 0;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           retval.5 -> -4,
-           i.6      -> -8,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -182,27 +173,7 @@
        Env.lenv {
          namespace = "main";
          counter = 30;
-         offset = -80;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.6  -> -20,
-           tmp.7  -> -24,
-           tmp.9  -> -28,
-           tmp.10 -> -32,
-           tmp.12 -> -36,
-           tmp.13 -> -40,
-           tmp.15 -> -44,
-           tmp.16 -> -48,
-           tmp.18 -> -52,
-           tmp.19 -> -56,
-           tmp.21 -> -60,
-           tmp.22 -> -64,
-           tmp.24 -> -68,
-           tmp.25 -> -72,
-           tmp.27 -> -76,
-           tmp.28 -> -80,
          }}}
      ])

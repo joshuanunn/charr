@@ -5,9 +5,8 @@
       Env.lenv {
         namespace = "target_add";
         counter = 1;
-        offset = -4;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
         }}};
      Ir.Function {name = "target_sub"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -2147483645l)))];
@@ -15,9 +14,8 @@
        Env.lenv {
          namespace = "target_sub";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_mult"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1000000l)))];
@@ -25,9 +23,8 @@
        Env.lenv {
          namespace = "target_mult";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_div"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 277l)))];
@@ -35,9 +32,8 @@
        Env.lenv {
          namespace = "target_div";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_rem"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -45,9 +41,8 @@
        Env.lenv {
          namespace = "target_rem";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_eq_true"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -55,9 +50,8 @@
        Env.lenv {
          namespace = "target_eq_true";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_eq_false"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -65,9 +59,8 @@
        Env.lenv {
          namespace = "target_eq_false";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_neq_true"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -75,9 +68,8 @@
        Env.lenv {
          namespace = "target_neq_true";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_neq_false"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -85,9 +77,8 @@
        Env.lenv {
          namespace = "target_neq_false";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_gt_true"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -95,9 +86,8 @@
        Env.lenv {
          namespace = "target_gt_true";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_gt_false"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -105,9 +95,8 @@
        Env.lenv {
          namespace = "target_gt_false";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_ge_true"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -115,9 +104,8 @@
        Env.lenv {
          namespace = "target_ge_true";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_ge_false"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -125,9 +113,8 @@
        Env.lenv {
          namespace = "target_ge_false";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_lt_true"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -135,9 +122,8 @@
        Env.lenv {
          namespace = "target_lt_true";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_lt_false"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -145,9 +131,8 @@
        Env.lenv {
          namespace = "target_lt_false";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_le_true"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
@@ -155,9 +140,8 @@
        Env.lenv {
          namespace = "target_le_true";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "target_le_false"; global = true; params = [];
        body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
@@ -165,9 +149,8 @@
        Env.lenv {
          namespace = "target_le_false";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
@@ -301,37 +284,8 @@
        Env.lenv {
          namespace = "main";
          counter = 46;
-         offset = -116;
+         offset = 0;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.5  -> -20,
-           tmp.7  -> -24,
-           tmp.8  -> -28,
-           tmp.10 -> -32,
-           tmp.11 -> -36,
-           tmp.13 -> -40,
-           tmp.14 -> -44,
-           tmp.16 -> -48,
-           tmp.18 -> -52,
-           tmp.19 -> -56,
-           tmp.21 -> -60,
-           tmp.23 -> -64,
-           tmp.24 -> -68,
-           tmp.26 -> -72,
-           tmp.28 -> -76,
-           tmp.29 -> -80,
-           tmp.31 -> -84,
-           tmp.33 -> -88,
-           tmp.34 -> -92,
-           tmp.36 -> -96,
-           tmp.38 -> -100,
-           tmp.39 -> -104,
-           tmp.41 -> -108,
-           tmp.43 -> -112,
-           tmp.44 -> -116,
          }}};
      Ir.StaticVariable {name = "val_to_negate"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 2147483645l)}
