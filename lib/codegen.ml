@@ -337,7 +337,7 @@ let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
         Int64.add (Int64.of_int (8 * List.length stack_args)) stack_padding
       in
       let dealloc_stack =
-        if adj_bytes != 0L then
+        if adj_bytes <> 0L then
           (* Deallocate stack *)
           [
             Asm.Binary
