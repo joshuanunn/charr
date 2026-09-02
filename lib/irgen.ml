@@ -367,12 +367,9 @@ and convert_dclr (d : Ast.decl) (le : Env.lenv) (te : Env.tenv) :
   (* Don't generate instructions for externs *)
   | VarDecl { storage = Some Extern; _ } -> []
   (* No need to generate instructions for variable declaration *)
-  | VarDecl { storage = _; name; init = None; _ } ->
-      Env.insert_value le name;
-      []
+  | VarDecl { storage = _; init = None; _ } -> []
   (* Handle a declaration with initialiser as an assignment expression *)
   | VarDecl { storage = _; name; init = Some rhs; _ } ->
-      Env.insert_value le name;
       let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
       let _, instructions = convert_expr initialiser le te in
       instructions
@@ -381,12 +378,9 @@ and convert_for_init (i : Ast.for_init) (le : Env.lenv) (te : Env.tenv) :
     Ir.instruction list =
   match i with
   (* No need to generate instructions for variable declaration *)
-  | InclDecl { name; init = None; _ } ->
-      Env.insert_value le name;
-      []
+  | InclDecl { init = None; _ } -> []
   (* Handle a declaration with initialiser as an assignment expression *)
   | InclDecl { name; init = Some rhs; _ } ->
-      Env.insert_value le name;
       let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
       let _, instructions = convert_expr initialiser le te in
       instructions
@@ -444,8 +438,6 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
             List.map
               (fun name ->
                 let param_name = identifier_to_string name in
-                (* Add function parameter declarations to lenv *)
-                Env.insert_value le name;
                 param_name)
               f.params;
           body = body_safe_return;

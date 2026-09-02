@@ -11,9 +11,12 @@ let gen_ir lexbuf opts s_env t_env =
   Passes.optimise_prog ir opts t_env
 
 let gen_asm lexbuf opts s_env t_env =
-  let asm = Codegen.compile_prog (gen_ir lexbuf opts s_env t_env) in
-  let asm = Codegen_lower.lower_prog asm t_env in
-  Codegen_fixup.fixup_prog asm
+  let asm, a_env =
+    Codegen.compile_prog (gen_ir lexbuf opts s_env t_env) t_env
+  in
+  let asm = Codegen_lower.lower_prog asm a_env in
+  let asm = Codegen_fixup.fixup_prog asm in
+  (asm, a_env)
 
 let report_errors ~stage lexbuf f =
   try f () with
@@ -73,15 +76,18 @@ let run_irgen lexbuf opts s_env t_env =
 
 let run_codegen lexbuf opts s_env t_env =
   report_errors ~stage:"Code generation" lexbuf (fun () ->
-      print_endline (Asm.show_prog (gen_asm lexbuf opts s_env t_env)))
+      let asm, _ = gen_asm lexbuf opts s_env t_env in
+      print_endline (Asm.show_prog asm))
 
 let run_emit lexbuf opts s_env t_env =
   report_errors ~stage:"Assembly emission" lexbuf (fun () ->
-      print_string (Emit.emit_prog (gen_asm lexbuf opts s_env t_env)))
+      let asm, a_env = gen_asm lexbuf opts s_env t_env in
+      print_string (Emit.emit_prog asm a_env))
 
 let run_exe lexbuf opts output_path s_env t_env =
   report_errors ~stage:"Executable generation" lexbuf (fun () ->
-      let asm_text = Emit.emit_prog (gen_asm lexbuf opts s_env t_env) in
+      let asm, a_env = gen_asm lexbuf opts s_env t_env in
+      let asm_text = Emit.emit_prog asm a_env in
       let oc = open_out output_path in
       Fun.protect
         ~finally:(fun () -> close_out oc)

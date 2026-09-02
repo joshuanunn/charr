@@ -54,26 +54,12 @@ let show_lenv le = Format.asprintf "%a" pp_lenv le
 let make_lenv (namespace : string) : lenv =
   { namespace; counter = 0; offset = 0; stack_offsets = Hashtbl.create 16 }
 
-(** Declare a new temporary value.
-    - Generates a unique name by appending the counter to [name]
-    - Allocates 4 bytes on the stack (decreases offset)
-    - Stores the mapping in [stack_offsets]
-    - Returns the unique name *)
+(** Declare a new temporary value. Generate and return a unique name by
+    appending the counter to [name] *)
 let declare_value (le : lenv) (name : string) : string =
   let eid = name ^ "." ^ string_of_int le.counter in
-  let new_offset = le.offset - 4 in
-  Hashtbl.add le.stack_offsets eid new_offset;
   le.counter <- le.counter + 1;
-  le.offset <- new_offset;
   eid
-
-(** Insert a user-declared variable into the stack offset table. *)
-let insert_value (le : lenv) (id : Ast.ident) : unit =
-  let name = get_identifier_name id in
-  let new_offset = le.offset - 4 in
-  Hashtbl.add le.stack_offsets name new_offset;
-  le.offset <- new_offset;
-  ()
 
 (** Declare a unique label name for control-flow constructs. As labels are
     global in the final assembly code, labels must be namespaced by function. *)
@@ -82,9 +68,15 @@ let declare_label (le : lenv) (name : string) : string =
   le.counter <- le.counter + 1;
   eid
 
-(** Look up the stack offset for a given variable name. Raises if not found. *)
-let get_value_offset (le : lenv) (name : string) : int =
-  Hashtbl.find le.stack_offsets name
+(** Look up the stack offset for a variable name. Returns Some offset or None.
+*)
+let get_offset_opt (le : lenv) (name : string) : int option =
+  Hashtbl.find_opt le.stack_offsets name
+
+(** Set the stack offset for a variable name, using create or replace. *)
+let set_offset (le : lenv) (name : string) (offset : int) : unit =
+  Hashtbl.replace le.stack_offsets name offset;
+  le.offset <- offset
 
 (** ------------------------------------------------------------------------
     Symbol environment (senv)

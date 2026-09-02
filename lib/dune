@@ -26,6 +26,7 @@
   codegen_lower
   codegen_fixup
   asm
+  asm_symtab
   emit)
  (preprocess
   (pps ppx_deriving.show ppx_deriving.ord ppx_deriving.eq)))

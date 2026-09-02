@@ -20,6 +20,7 @@ let emit_op (s : size) (o : Asm.operand) : string =
     | Asm.R9 -> "%r9"
     | Asm.R10 -> "%r10"
     | Asm.R11 -> "%r11"
+    | Asm.SP -> "%rsp"
   in
   let reg32 = function
     | Asm.AX -> "%eax"
@@ -31,6 +32,7 @@ let emit_op (s : size) (o : Asm.operand) : string =
     | Asm.R9 -> "%r9d"
     | Asm.R10 -> "%r10d"
     | Asm.R11 -> "%r11d"
+    | Asm.SP -> "%rsp"
   in
   let reg8 = function
     | Asm.AX -> "%al"
@@ -42,12 +44,13 @@ let emit_op (s : size) (o : Asm.operand) : string =
     | Asm.R9 -> "%r9b"
     | Asm.R10 -> "%r10b"
     | Asm.R11 -> "%r11b"
+    | Asm.SP -> "%rsp"
   in
   match o with
   | Reg r -> (
       match s with Byte -> reg8 r | Long -> reg32 r | Quad -> reg64 r)
   | Stack i -> Printf.sprintf "%d(%%rbp)" i
-  | Imm i -> Printf.sprintf "$%d" i
+  | Imm i -> Printf.sprintf "$%Ld" i
   | Data s -> Printf.sprintf "%s(%%rip)" s
   | Pseudo s -> failwith ("Pseudo operand " ^ s ^ " has not been lowered")
 
@@ -72,29 +75,32 @@ let format_function (f : string) : string = Printf.sprintf "%s:" f
 
 let emit_instruction (i : Asm.instruction) : string list =
   match i with
-  | Mov (src, dst) ->
+  | Mov { src; dst; _ } ->
       let ops = Printf.sprintf "%s, %s" (emit_op Long src) (emit_op Long dst) in
       [ format_instruction "movl" ops ]
+  | Movsx { src; dst } ->
+      let ops = Printf.sprintf "%s, %s" (emit_op Long src) (emit_op Long dst) in
+      [ format_instruction "movslq" ops ]
   | Ret ->
       [
         format_instruction "movq" "%rbp, %rsp";
         format_instruction "popq" "%rbp";
         format_instruction "ret" "";
       ]
-  | Unary { op; dst } ->
+  | Unary { op; dst; _ } ->
       [ format_instruction (emit_unary_op op) (emit_op Long dst) ]
-  | Binary { op; src; dst } ->
+  | Binary { op; src; dst; _ } ->
       let ops = Printf.sprintf "%s, %s" (emit_op Long src) (emit_op Long dst) in
       [ format_instruction (emit_binary_op op) ops ]
-  | Cmp (op1, op2) ->
-      let ops = Printf.sprintf "%s, %s" (emit_op Long op1) (emit_op Long op2) in
+  | Cmp { src; dst; _ } ->
+      let ops = Printf.sprintf "%s, %s" (emit_op Long src) (emit_op Long dst) in
       [ format_instruction "cmpl" ops ]
-  | Idiv o -> [ format_instruction "idivl" (emit_op Long o) ]
-  | Cdq -> [ format_instruction "cdq" "" ]
-  | Shl (src, dst) ->
+  | Idiv { src; _ } -> [ format_instruction "idivl" (emit_op Long src) ]
+  | Cdq _ -> [ format_instruction "cdq" "" ]
+  | Shl { src; dst; _ } ->
       let ops = Printf.sprintf "%s, %s" (emit_op Byte src) (emit_op Long dst) in
       [ format_instruction "shll" ops ]
-  | Sar (src, dst) ->
+  | Sar { src; dst; _ } ->
       let ops = Printf.sprintf "%s, %s" (emit_op Byte src) (emit_op Long dst) in
       [ format_instruction "sarl" ops ]
   | Jmp l ->
@@ -109,12 +115,6 @@ let emit_instruction (i : Asm.instruction) : string list =
       let ops = Printf.sprintf "%s" (emit_op Byte o) in
       [ format_instruction ins ops ]
   | Label l -> [ format_label l ]
-  | AllocateStack n ->
-      let ops = Printf.sprintf "$%d, %%rsp" n in
-      [ format_instruction "subq" ops ]
-  | DeallocateStack n ->
-      let ops = Printf.sprintf "$%d, %%rsp" n in
-      [ format_instruction "addq" ops ]
   | Push o ->
       let ops = Printf.sprintf "%s" (emit_op Quad o) in
       [ format_instruction "pushq" ops ]
@@ -138,29 +138,46 @@ let emit_top_level (f : Asm.top_level) : string list =
         instructions |> List.concat_map (fun instr -> emit_instruction instr)
       in
       global_directive @ prologue @ ins
-  | StaticVariable { name; global; init } -> (
+  | StaticVariable { name; global; alignment; init } -> (
       let global_directive =
         if global then [ format_instruction ".globl" name ] else []
       in
+      let alignment_directive = string_of_int alignment in
       match init with
-      | 0 ->
+      | IntInit 0l ->
           global_directive
           @ [
               format_instruction ".bss" "";
-              format_instruction ".align" "4";
+              format_instruction ".align" alignment_directive;
               format_function name;
               format_instruction ".zero" "4";
             ]
-      | i ->
+      | LongInit 0L ->
+          global_directive
+          @ [
+              format_instruction ".bss" "";
+              format_instruction ".align" alignment_directive;
+              format_function name;
+              format_instruction ".zero" "8";
+            ]
+      | IntInit i ->
           global_directive
           @ [
               format_instruction ".data" "";
-              format_instruction ".align" "4";
+              format_instruction ".align" alignment_directive;
               format_function name;
-              format_instruction ".long" (string_of_int i);
+              format_instruction ".long" (Int32.to_string i);
+            ]
+      | LongInit i ->
+          global_directive
+          @ [
+              format_instruction ".data" "";
+              format_instruction ".align" alignment_directive;
+              format_function name;
+              format_instruction ".quad" (Int64.to_string i);
             ])
 
-let emit_prog (Asm.Program p) : string =
+let emit_prog (Asm.Program p) (_ae : Asm_symtab.t) : string =
   let footer =
     [ format_instruction ".section" ".note.GNU-stack,\"\",@progbits\n" ]
   in
