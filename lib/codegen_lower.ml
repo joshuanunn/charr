@@ -7,8 +7,45 @@ let align_down (n : int) (alignment : int) : int =
   if n mod alignment = 0 then n else ((n / alignment) - 1) * alignment
 
 (** Look up the stack offset for pseudo-register [v] in [le], assigning one on
-    first use. The slot size and (for Quadword) alignment come from [typ],
-    looked up in the assembly symbol table by the caller. *)
+    first use. The slot size and alignment come from [typ], looked up in the
+    assembly symbol table by the caller. This is based on its assembly type
+    (Longword: 4 bytes; Quadword: 8 bytes, 8-byte aligned).
+
+    Offsets are relative to %rbp, which is always 16-byte aligned; locals grow
+    downward from it, packed as tightly as each slot's alignment allows. Note
+    that assignment order follows first use while walking the lowered
+    instruction list, rather than each variable's declaration order.
+
+    For example, given a function whose instructions first reference a Longword
+    pseudo [x], then a Quadword pseudo [y], then a second Longword pseudo [z]
+    (in that order):
+
+    {v
+                            Higher addresses
+          +------------------------------------------+-----------+
+          | return address                           |   8(%rbp) |
+          +------------------------------------------+-----------+
+          | saved %rbp                               |   0(%rbp) |
+    rbp → +------------------------------------------+-----------+
+          | x  (Longword, 4 bytes)                   |  -4(%rbp) |
+          +------------------------------------------+-----------+
+          | (4-byte gap, so y is 8-byte aligned)     |           |
+          +------------------------------------------+-----------+
+          | y  (Quadword, 8 bytes)                   | -16(%rbp) |
+          +------------------------------------------+-----------+
+          | z  (Longword, 4 bytes)                   | -20(%rbp) |
+          +------------------------------------------+-----------+
+    rsp → | bottom of frame, after rounding total    |           |
+          | size up to a multiple of 16              |           |
+          +------------------------------------------+-----------+
+                            Lower addresses
+    v}
+
+    [y]'s tentative offset (-12) isn't a multiple of 8, so it's rounded down to
+    -16 to satisfy the System V ABI 8-byte alignment requirement for 8-byte
+    values, leaving the 4-byte gap above it unused.
+
+    **)
 let assign_stack_offset (le : Env.lenv) (v : string) (typ : Asm.assembly_type) :
     int =
   match Env.get_offset_opt le v with

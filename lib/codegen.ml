@@ -85,7 +85,7 @@ let build_stack_pushes args te =
     reversed
 
 (** Use System V calling convention to generate instructions to copy parameters
-    on to the local stack to simplify handling. This is done by moving Reg(DI)
+    into pseudoregisters to simplify handling. This is done by moving Reg(DI)
     into a pseudoregister for the first parameter, the second from Reg(SI), etc
     up to the sixth parameter. Any further parameters are copied in steps of 8
     bytes from Stack(16), Stack(24), etc. The System V calling convention is
@@ -94,58 +94,25 @@ let build_stack_pushes args te =
     {v
           | Arg index | Location defined by caller |
           | --------- | -------------------------- |
-          | 0         | %edi                       |
-          | 1         | %esi                       |
-          | 2         | %edx                       |
-          | 3         | %ecx                       |
-          | 4         | %r8d                       |
-          | 5         | %r9d                       |
+          | 0         | Reg(DI)                    |
+          | 1         | Reg(SI)                    |
+          | 2         | Reg(DX)                    |
+          | 3         | Reg(CX)                    |
+          | 4         | Reg(R8)                    |
+          | 5         | Reg(R9)                    |
           | 6         | 16(%rbp)                   |
           | 7         | 24(%rbp)                   |
           | 8         | 32(%rbp)                   |
           | …         | (16 + 8*(i-6))(%rbp)       |
     v}
 
-    The full stack layout after prologue, local allocation, and copying
-    parameters into local slots will look something like:
+    Note that a register's *width* when moved (e.g. %edi vs %rdi) depends on the
+    parameter's assembly type (e.g. Longword or Quadword), and is resolved at
+    code emission. Similarly, each parameter is assigned a Pseudo destination
+    here; its concrete stack offset (and slot size/alignment, which also depend
+    on its type) isn't decided until pseudoregister replacement, in
+    Codegen_lower.
 
-    {v
-                            Higher addresses
-          +------------------------------------------+-----------+
-          | arg 8 (9th argument)                     |  32(%rbp) |
-          +------------------------------------------+-----------+
-          | arg 7 (8th argument)                     |  24(%rbp) |
-          +------------------------------------------+-----------+
-          | arg 6 (7th argument)                     |  16(%rbp) |
-          +------------------------------------------+-----------+
-          | return address                           |   8(%rbp) |
-          +------------------------------------------+-----------+
-          | old %rbp                                 |   0(%rbp) |
-    rbp → +------------------------------------------+-----------+
-          | Var 0 local slot (copied from %edi)      |  -4(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 1 local slot (copied from %esi)      |  -8(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 2 local slot (copied from %edx)      | -12(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 3 local slot (copied from %ecx)      | -16(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 4 local slot (copied from %r8d)      | -20(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 5 local slot (copied from %r9d)      | -24(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 6 local slot (copied from 16(%rbp))  | -28(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 7 local slot (copied from 24(%rbp))  | -32(%rbp) |
-          +------------------------------------------+-----------+
-          | Var 8 local slot (copied from 32(%rbp))  | -36(%rbp) |
-          +------------------------------------------------------+
-          |      ... more locals / temps ...                     |
-          +------------------------------------------------------+
-    rsp → |   bottom of frame after subq $locals, %rsp           |
-          +------------------------------------------------------+
-                            Lower addresses
-    v}
     **)
 let copy_args_to_stack (params : string list) (te : Env.tenv) :
     Asm.instruction list =
