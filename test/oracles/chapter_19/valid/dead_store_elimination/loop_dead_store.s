@@ -4,38 +4,38 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $48, %rsp
-    movl        $65, -8(%rbp)
+    movl        $65, -4(%rbp)
 .Lloop.st.1:
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -8(%rbp)
+    addl        $2, -8(%rbp)
     movl        -8(%rbp), %r10d
     movl        %r10d, -12(%rbp)
-    addl        $2, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    cmpl        $70, -8(%rbp)
+    cmpl        $70, -4(%rbp)
     movl        $0, -16(%rbp)
     setg        -16(%rbp)
     cmpl        $0, -16(%rbp)
     je          .Ltarget.if.en.2
-    movl        -8(%rbp), %r10d
+    movl        -4(%rbp), %r10d
     movl        %r10d, -20(%rbp)
     addl        $3, -20(%rbp)
     movl        -20(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
+    movl        %r10d, -12(%rbp)
 .Ltarget.if.en.2:
-    movl        -4(%rbp), %edi
+    movl        -12(%rbp), %edi
     call        putchar@PLT
     movl        %eax, -24(%rbp)
     movl        -24(%rbp), %r10d
     movl        %r10d, -28(%rbp)
     addl        $3, -28(%rbp)
     movl        -28(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
+    movl        %r10d, -4(%rbp)
     cmpl        $90, -28(%rbp)
     movl        $0, -32(%rbp)
     setl        -32(%rbp)
     cmpl        $0, -32(%rbp)
     jne         .Lloop.st.1
-    cmpl        $90, -4(%rbp)
+    cmpl        $90, -12(%rbp)
     movl        $0, -36(%rbp)
     setne       -36(%rbp)
     cmpl        $0, -36(%rbp)

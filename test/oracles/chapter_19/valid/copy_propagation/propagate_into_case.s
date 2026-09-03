@@ -16,14 +16,14 @@ callee:
 target:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
-    movl        %edi, -24(%rbp)
-    cmpl        $1, -24(%rbp)
+    subq        $16, %rsp
+    movl        %edi, -4(%rbp)
+    cmpl        $1, -4(%rbp)
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
     jne         .Lswit.cs.1.1
-    cmpl        $2, -24(%rbp)
+    cmpl        $2, -4(%rbp)
     movl        $0, -12(%rbp)
     sete        -12(%rbp)
     cmpl        $0, -12(%rbp)

@@ -12,7 +12,6 @@ callee:
 target:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp

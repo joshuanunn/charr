@@ -4,13 +4,13 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        -8(%rbp), %r10d
+    movl        %edi, -4(%rbp)
+    movl        -4(%rbp), %r10d
     movl        %r10d, i(%rip)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    addl        $1, -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -8(%rbp)
+    addl        $1, -8(%rbp)
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -19,24 +19,24 @@ target:
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $48, %rsp
+    subq        $32, %rsp
     movl        $2, %edi
     call        target@PLT
-    movl        %eax, -8(%rbp)
+    movl        %eax, -4(%rbp)
     cmpl        $2, i(%rip)
-    movl        $0, -12(%rbp)
-    setne       -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        $0, -8(%rbp)
+    setne       -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.2
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
 .Lmain.if.en.2:
-    cmpl        $3, -8(%rbp)
-    movl        $0, -16(%rbp)
-    setne       -16(%rbp)
-    cmpl        $0, -16(%rbp)
+    cmpl        $3, -4(%rbp)
+    movl        $0, -12(%rbp)
+    setne       -12(%rbp)
+    cmpl        $0, -12(%rbp)
     je          .Lmain.if.en.4
     movl        $2, %eax
     movq        %rbp, %rsp
@@ -45,21 +45,21 @@ main:
 .Lmain.if.en.4:
     movl        $-1, %edi
     call        target@PLT
-    movl        %eax, -28(%rbp)
+    movl        %eax, -16(%rbp)
     cmpl        $-1, i(%rip)
-    movl        $0, -36(%rbp)
-    setne       -36(%rbp)
-    cmpl        $0, -36(%rbp)
+    movl        $0, -20(%rbp)
+    setne       -20(%rbp)
+    cmpl        $0, -20(%rbp)
     je          .Lmain.if.en.9
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
 .Lmain.if.en.9:
-    cmpl        $0, -28(%rbp)
-    movl        $0, -40(%rbp)
-    setne       -40(%rbp)
-    cmpl        $0, -40(%rbp)
+    cmpl        $0, -16(%rbp)
+    movl        $0, -24(%rbp)
+    setne       -24(%rbp)
+    cmpl        $0, -24(%rbp)
     je          .Lmain.if.en.11
     movl        $4, %eax
     movq        %rbp, %rsp

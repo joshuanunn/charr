@@ -21,11 +21,11 @@ target:
     subq        $16, %rsp
 .Lloop.st.1:
     call        increment_counter@PLT
-    movl        %eax, -8(%rbp)
+    movl        %eax, -4(%rbp)
     cmpl        $5, counter(%rip)
-    movl        $0, -12(%rbp)
-    setl        -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        $0, -8(%rbp)
+    setl        -8(%rbp)
+    cmpl        $0, -8(%rbp)
     jne         .Lloop.st.1
     movl        $3, %eax
     movq        %rbp, %rsp
@@ -38,11 +38,11 @@ main:
     movq        %rsp, %rbp
     subq        $16, %rsp
     call        target@PLT
-    movl        %eax, -8(%rbp)
-    cmpl        $3, -8(%rbp)
-    movl        $0, -12(%rbp)
-    setne       -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        %eax, -4(%rbp)
+    cmpl        $3, -4(%rbp)
+    movl        $0, -8(%rbp)
+    setne       -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.2
     movl        $1, %eax
     movq        %rbp, %rsp
@@ -50,9 +50,9 @@ main:
     ret         
 .Lmain.if.en.2:
     cmpl        $5, counter(%rip)
-    movl        $0, -16(%rbp)
-    setne       -16(%rbp)
-    cmpl        $0, -16(%rbp)
+    movl        $0, -12(%rbp)
+    setne       -12(%rbp)
+    cmpl        $0, -12(%rbp)
     je          .Lmain.if.en.4
     movl        $2, %eax
     movq        %rbp, %rsp

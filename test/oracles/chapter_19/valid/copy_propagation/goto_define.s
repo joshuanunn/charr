@@ -4,7 +4,7 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
+    movl        %edi, -4(%rbp)
     movl        $20, %eax
     movq        %rbp, %rsp
     popq        %rbp

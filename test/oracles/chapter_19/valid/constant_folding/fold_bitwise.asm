@@ -64,8 +64,6 @@
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 48L);
           dst = (Asm.Reg Asm.SP)};
          (Asm.Call "target_and");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 983055L);
@@ -79,8 +77,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.2"); (Asm.Call "target_or");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -12)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 268374015L);
@@ -94,8 +90,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.5"); (Asm.Call "target_xor");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -20)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 267390960L);
@@ -109,8 +103,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.8"); (Asm.Call "target_shift_left");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -28)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 76283904L);
@@ -125,8 +117,6 @@
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.11");
          (Asm.Call "target_shift_right");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -36)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 493447L);

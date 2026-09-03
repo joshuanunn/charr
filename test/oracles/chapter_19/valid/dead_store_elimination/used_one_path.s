@@ -4,16 +4,16 @@ f:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -12(%rbp)
-    movl        %esi, -16(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
-    movl        -8(%rbp), %r11d
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
+    movl        -12(%rbp), %r11d
     imull       $2, %r11d
-    movl        %r11d, -8(%rbp)
-    cmpl        $0, -16(%rbp)
+    movl        %r11d, -12(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lf.if.en.1
-    movl        -8(%rbp), %eax
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

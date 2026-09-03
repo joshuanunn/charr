@@ -21,8 +21,6 @@
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 10L);
           dst = (Asm.Data "total.1")};
         (Asm.Call "indirect_update");
-        Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-          dst = (Asm.Reg Asm.SP)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
           dst = (Asm.Stack -12)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Data "total.1");
@@ -45,8 +43,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 101L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "f");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -67,8 +63,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "f");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);

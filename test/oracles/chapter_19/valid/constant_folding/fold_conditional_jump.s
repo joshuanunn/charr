@@ -3,7 +3,6 @@
 target_jz_to_jmp:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -13,7 +12,6 @@ target_jz_to_jmp:
 target_remove_jz:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -23,7 +21,6 @@ target_remove_jz:
 target_jnz_to_jmp:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -33,7 +30,6 @@ target_jnz_to_jmp:
 target_remove_jnz:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp

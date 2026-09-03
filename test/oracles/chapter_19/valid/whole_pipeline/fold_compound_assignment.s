@@ -3,7 +3,6 @@
 target:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $96, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp

@@ -208,8 +208,6 @@
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 128L);
           dst = (Asm.Reg Asm.SP)};
          (Asm.Call "target_add");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 300L);
@@ -223,8 +221,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.2"); (Asm.Call "target_sub");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -12)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Data "val_to_negate");
@@ -245,8 +241,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.6"); (Asm.Call "target_mult");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -24)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 1000000L);
@@ -260,8 +254,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.9"); (Asm.Call "target_div");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -32)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 277L);
@@ -275,8 +267,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.12"); (Asm.Call "target_rem");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -40)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 1L);
@@ -290,8 +280,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.15"); (Asm.Call "target_eq_false");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -48)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -300,8 +288,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 6L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.17"); (Asm.Call "target_eq_true");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -52)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -315,8 +301,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 7L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.20"); (Asm.Call "target_neq_false");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -60)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -325,8 +309,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 8L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.22"); (Asm.Call "target_neq_true");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -64)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -340,8 +322,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 9L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.25"); (Asm.Call "target_gt_false");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -72)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -350,8 +330,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 10L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.27"); (Asm.Call "target_gt_true");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -76)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -365,8 +343,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 11L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.30"); (Asm.Call "target_ge_false");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -84)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -375,8 +351,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 12L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.32"); (Asm.Call "target_ge_true");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -88)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -390,8 +364,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 13L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.35"); (Asm.Call "target_lt_false");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -96)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -400,8 +372,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 14L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.37"); (Asm.Call "target_lt_true");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -100)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -415,8 +385,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 15L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.40"); (Asm.Call "target_le_false");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -108)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -425,8 +393,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 16L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.42"); (Asm.Call "target_le_true");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -112)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);

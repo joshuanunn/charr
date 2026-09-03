@@ -34,8 +34,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "target");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 2L);
@@ -63,8 +61,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm -1L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "target");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -16)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm -1L);

@@ -13,11 +13,11 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -12(%rbp)
-    cmpl        $1, -12(%rbp)
-    movl        $0, -4(%rbp)
-    sete        -4(%rbp)
-    cmpl        $0, -4(%rbp)
+    movl        %edi, -4(%rbp)
+    cmpl        $1, -4(%rbp)
+    movl        $0, -8(%rbp)
+    sete        -8(%rbp)
+    cmpl        $0, -8(%rbp)
     jne         .Lswit.cs.1.1
     jmp         .Lswit.df.1
 .Lswit.cs.1.1:

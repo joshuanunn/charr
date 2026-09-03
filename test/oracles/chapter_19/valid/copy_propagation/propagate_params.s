@@ -4,14 +4,14 @@ callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    movl        -4(%rbp), %r11d
-    imull       -12(%rbp), %r11d
-    movl        %r11d, -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
+    movl        -12(%rbp), %r11d
+    imull       -8(%rbp), %r11d
+    movl        %r11d, -12(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -40,25 +40,25 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        %edi, -28(%rbp)
-    movl        %esi, -32(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
     call        set_globvar@PLT
-    movl        %eax, -4(%rbp)
-    movl        -28(%rbp), %edi
-    movl        -28(%rbp), %esi
-    call        callee@PLT
     movl        %eax, -12(%rbp)
-    call        f@PLT
+    movl        -4(%rbp), %edi
+    movl        -4(%rbp), %esi
+    call        callee@PLT
     movl        %eax, -16(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
-    movl        -28(%rbp), %r10d
-    addl        %r10d, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -24(%rbp)
+    call        f@PLT
+    movl        %eax, -20(%rbp)
     movl        -16(%rbp), %r10d
-    subl        %r10d, -24(%rbp)
-    movl        -24(%rbp), %eax
+    movl        %r10d, -24(%rbp)
+    movl        -4(%rbp), %r10d
+    addl        %r10d, -24(%rbp)
+    movl        -24(%rbp), %r10d
+    movl        %r10d, -28(%rbp)
+    movl        -20(%rbp), %r10d
+    subl        %r10d, -28(%rbp)
+    movl        -28(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

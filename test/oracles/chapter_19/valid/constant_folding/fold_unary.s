@@ -3,7 +3,6 @@
 target_negate:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $-3, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -13,7 +12,6 @@ target_negate:
 target_negate_zero:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -23,7 +21,6 @@ target_negate_zero:
 target_not:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -33,7 +30,6 @@ target_not:
 target_not_zero:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -43,7 +39,6 @@ target_not_zero:
 target_complement:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $-2, %eax
     movq        %rbp, %rsp
     popq        %rbp

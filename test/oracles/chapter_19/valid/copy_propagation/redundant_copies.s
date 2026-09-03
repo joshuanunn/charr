@@ -3,15 +3,15 @@
 target:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
-    movl        %edi, -12(%rbp)
-    movl        %esi, -16(%rbp)
-    movl        %edx, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
-    movl        -20(%rbp), %r10d
-    addl        %r10d, -8(%rbp)
-    movl        -8(%rbp), %eax
+    subq        $16, %rsp
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        %edx, -12(%rbp)
+    movl        -12(%rbp), %r10d
+    movl        %r10d, -16(%rbp)
+    movl        -12(%rbp), %r10d
+    addl        %r10d, -16(%rbp)
+    movl        -16(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

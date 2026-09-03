@@ -22,21 +22,21 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -16(%rbp)
-    cmpl        $0, -16(%rbp)
+    movl        %edi, -4(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltarget.if.el.1
     call        callee@PLT
     movl        %eax, -8(%rbp)
     movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
+    movl        %r10d, -12(%rbp)
     jmp         .Ltarget.if.en.0
 .Ltarget.if.el.1:
     call        callee2@PLT
-    movl        %eax, -12(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
+    movl        %eax, -16(%rbp)
+    movl        -16(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
 .Ltarget.if.en.0:
-    movl        -4(%rbp), %eax
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

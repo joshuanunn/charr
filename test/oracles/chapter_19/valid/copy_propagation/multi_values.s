@@ -4,13 +4,13 @@ multi_path:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        $3, -4(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        $3, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Lmulti_path.if.en.0
-    movl        $4, -4(%rbp)
+    movl        $4, -8(%rbp)
 .Lmulti_path.if.en.0:
-    movl        -4(%rbp), %eax
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

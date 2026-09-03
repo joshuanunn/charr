@@ -4,15 +4,15 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        $2, -4(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        $2, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltarget.if.en.0
-    movl        $3, -4(%rbp)
+    movl        $3, -8(%rbp)
 .Ltarget.if.en.0:
-    movl        -4(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        -8(%rbp), %r10d
+    movl        %r10d, -8(%rbp)
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

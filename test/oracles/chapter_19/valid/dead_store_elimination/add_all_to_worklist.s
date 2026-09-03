@@ -4,20 +4,20 @@ f:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -16(%rbp)
-    movl        $76, -4(%rbp)
-    cmpl        $10, -16(%rbp)
-    movl        $0, -8(%rbp)
-    setl        -8(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        $76, -8(%rbp)
+    cmpl        $10, -4(%rbp)
+    movl        $0, -12(%rbp)
+    setl        -12(%rbp)
+    cmpl        $0, -12(%rbp)
     je          .Lf.if.en.1
-    movl        $77, -4(%rbp)
+    movl        $77, -8(%rbp)
 .Lf.if.en.1:
-    cmpl        $0, -16(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Lf.if.en.2
-    movl        -4(%rbp), %edi
+    movl        -8(%rbp), %edi
     call        putchar@PLT
-    movl        %eax, -12(%rbp)
+    movl        %eax, -16(%rbp)
 .Lf.if.en.2:
     movl        $0, %eax
     movq        %rbp, %rsp

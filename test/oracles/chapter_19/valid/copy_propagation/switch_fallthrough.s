@@ -4,29 +4,29 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        %edi, -20(%rbp)
-    movl        $10, -4(%rbp)
-    cmpl        $1, -20(%rbp)
-    movl        $0, -8(%rbp)
-    sete        -8(%rbp)
-    cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.1
-    cmpl        $2, -20(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        $10, -8(%rbp)
+    cmpl        $1, -4(%rbp)
     movl        $0, -12(%rbp)
     sete        -12(%rbp)
     cmpl        $0, -12(%rbp)
+    jne         .Lswit.cs.1.1
+    cmpl        $2, -4(%rbp)
+    movl        $0, -16(%rbp)
+    sete        -16(%rbp)
+    cmpl        $0, -16(%rbp)
     jne         .Lswit.cs.1.2
     jmp         .Lswit.df.1
 .Lswit.cs.1.1:
-    movl        $0, -4(%rbp)
+    movl        $0, -8(%rbp)
 .Lswit.cs.1.2:
-    movl        -4(%rbp), %eax
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
 .Lswit.df.1:
-    movl        $-1, -16(%rbp)
-    movl        -16(%rbp), %eax
+    movl        $-1, -20(%rbp)
+    movl        -20(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

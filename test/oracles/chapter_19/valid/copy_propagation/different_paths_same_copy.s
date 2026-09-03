@@ -4,8 +4,8 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltarget.if.el.1
     jmp         .Ltarget.if.en.0
 .Ltarget.if.el.1:

@@ -6,7 +6,7 @@ main:
     subq        $16, %rsp
     movl        $67, %edi
     call        putchar@PLT
-    movl        %eax, -8(%rbp)
+    movl        %eax, -4(%rbp)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp

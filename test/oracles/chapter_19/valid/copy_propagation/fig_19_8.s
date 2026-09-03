@@ -4,23 +4,23 @@ callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        %edi, -32(%rbp)
-    cmpl        $3, -32(%rbp)
-    movl        $0, -4(%rbp)
-    sete        -4(%rbp)
-    cmpl        $0, -4(%rbp)
-    je          .Lcallee.and.fl.3
-    cmpl        $0, called_counter(%rip)
+    movl        %edi, -4(%rbp)
+    cmpl        $3, -4(%rbp)
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
     je          .Lcallee.and.fl.3
-    movl        $1, -12(%rbp)
+    cmpl        $0, called_counter(%rip)
+    movl        $0, -12(%rbp)
+    sete        -12(%rbp)
+    cmpl        $0, -12(%rbp)
+    je          .Lcallee.and.fl.3
+    movl        $1, -16(%rbp)
     jmp         .Lcallee.and.en.4
 .Lcallee.and.fl.3:
-    movl        $0, -12(%rbp)
+    movl        $0, -16(%rbp)
 .Lcallee.and.en.4:
-    cmpl        $0, -12(%rbp)
+    cmpl        $0, -16(%rbp)
     je          .Lcallee.if.en.5
     movl        $1, called_counter(%rip)
     movl        $1, %eax
@@ -28,22 +28,22 @@ callee:
     popq        %rbp
     ret         
 .Lcallee.if.en.5:
-    cmpl        $4, -32(%rbp)
-    movl        $0, -16(%rbp)
-    sete        -16(%rbp)
-    cmpl        $0, -16(%rbp)
-    je          .Lcallee.and.fl.9
-    cmpl        $1, called_counter(%rip)
+    cmpl        $4, -4(%rbp)
     movl        $0, -20(%rbp)
     sete        -20(%rbp)
     cmpl        $0, -20(%rbp)
     je          .Lcallee.and.fl.9
-    movl        $1, -24(%rbp)
+    cmpl        $1, called_counter(%rip)
+    movl        $0, -24(%rbp)
+    sete        -24(%rbp)
+    cmpl        $0, -24(%rbp)
+    je          .Lcallee.and.fl.9
+    movl        $1, -28(%rbp)
     jmp         .Lcallee.and.en.10
 .Lcallee.and.fl.9:
-    movl        $0, -24(%rbp)
+    movl        $0, -28(%rbp)
 .Lcallee.and.en.10:
-    cmpl        $0, -24(%rbp)
+    cmpl        $0, -28(%rbp)
     je          .Lcallee.if.en.11
     movl        $2, called_counter(%rip)
     movl        $0, %eax
@@ -66,9 +66,9 @@ target:
 .Lloop.st.1:
     movl        -4(%rbp), %edi
     call        callee@PLT
-    movl        %eax, -12(%rbp)
+    movl        %eax, -8(%rbp)
     movl        $4, -4(%rbp)
-    cmpl        $0, -12(%rbp)
+    cmpl        $0, -8(%rbp)
     jne         .Lloop.st.1
     movl        $4, %eax
     movq        %rbp, %rsp
@@ -81,11 +81,11 @@ main:
     movq        %rsp, %rbp
     subq        $16, %rsp
     call        target@PLT
-    movl        %eax, -8(%rbp)
-    cmpl        $4, -8(%rbp)
-    movl        $0, -12(%rbp)
-    setne       -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        %eax, -4(%rbp)
+    cmpl        $4, -4(%rbp)
+    movl        $0, -8(%rbp)
+    setne       -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.2
     movl        $1, %eax
     movq        %rbp, %rsp
@@ -93,9 +93,9 @@ main:
     ret         
 .Lmain.if.en.2:
     cmpl        $2, called_counter(%rip)
-    movl        $0, -16(%rbp)
-    setne       -16(%rbp)
-    cmpl        $0, -16(%rbp)
+    movl        $0, -12(%rbp)
+    setne       -12(%rbp)
+    cmpl        $0, -12(%rbp)
     je          .Lmain.if.en.4
     movl        $2, %eax
     movq        %rbp, %rsp

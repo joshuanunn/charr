@@ -15,11 +15,11 @@ main:
     movq        %rsp, %rbp
     subq        $16, %rsp
     call        target@PLT
-    movl        %eax, -8(%rbp)
-    cmpl        $10, -8(%rbp)
-    movl        $0, -12(%rbp)
-    setne       -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        %eax, -4(%rbp)
+    cmpl        $10, -4(%rbp)
+    movl        $0, -8(%rbp)
+    setne       -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.2
     movl        $1, %eax
     movq        %rbp, %rsp
@@ -27,9 +27,9 @@ main:
     ret         
 .Lmain.if.en.2:
     cmpl        $10, x(%rip)
-    movl        $0, -16(%rbp)
-    setne       -16(%rbp)
-    cmpl        $0, -16(%rbp)
+    movl        $0, -12(%rbp)
+    setne       -12(%rbp)
+    cmpl        $0, -12(%rbp)
     je          .Lmain.if.en.4
     movl        $2, %eax
     movq        %rbp, %rsp

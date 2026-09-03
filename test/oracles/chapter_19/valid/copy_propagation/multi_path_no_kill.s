@@ -19,8 +19,8 @@ target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        %edi, -4(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltarget.if.en.0
     call        callee@PLT
     movl        %eax, -8(%rbp)

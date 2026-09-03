@@ -30,7 +30,6 @@ target_if_else_false:
 target_conditional_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -40,7 +39,6 @@ target_conditional_true:
 target_conditional_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -50,7 +48,6 @@ target_conditional_false:
 target_do_loop:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -60,7 +57,6 @@ target_do_loop:
 target_while_loop_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -70,7 +66,6 @@ target_while_loop_false:
 target_while_loop_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -80,7 +75,6 @@ target_while_loop_true:
 target_for_loop_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $100, %eax
     movq        %rbp, %rsp
     popq        %rbp
@@ -90,7 +84,6 @@ target_for_loop_true:
 target_for_loop_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp

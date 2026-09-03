@@ -4,20 +4,20 @@ test_jz:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltest_jz.if.en.0
-    movl        $0, -12(%rbp)
+    movl        $0, -8(%rbp)
 .Ltest_jz.if.en.0:
-    cmpl        $0, -12(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Ltest_jz.cond.el.3
-    movl        $1, -4(%rbp)
+    movl        $1, -12(%rbp)
     jmp         .Ltest_jz.cond.en.2
 .Ltest_jz.cond.el.3:
-    movl        $2, -4(%rbp)
+    movl        $2, -12(%rbp)
 .Ltest_jz.cond.en.2:
-    movl        -4(%rbp), %eax
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -27,20 +27,20 @@ test_jnz:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltest_jnz.if.en.0
-    movl        $0, -12(%rbp)
+    movl        $0, -8(%rbp)
 .Ltest_jnz.if.en.0:
-    cmpl        $0, -12(%rbp)
+    cmpl        $0, -8(%rbp)
     jne         .Ltest_jnz.or.tr.2
-    movl        $0, -4(%rbp)
+    movl        $0, -12(%rbp)
     jmp         .Ltest_jnz.or.en.3
 .Ltest_jnz.or.tr.2:
-    movl        $1, -4(%rbp)
+    movl        $1, -12(%rbp)
 .Ltest_jnz.or.en.3:
-    movl        -4(%rbp), %eax
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -50,31 +50,31 @@ test_binary:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        %edi, -16(%rbp)
-    movl        %esi, -20(%rbp)
-    movl        %edx, -24(%rbp)
-    cmpl        $0, -16(%rbp)
-    movl        $0, -4(%rbp)
-    sete        -4(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        %edx, -12(%rbp)
     cmpl        $0, -4(%rbp)
+    movl        $0, -16(%rbp)
+    sete        -16(%rbp)
+    cmpl        $0, -16(%rbp)
     je          .Ltest_binary.if.el.2
-    movl        $4, -20(%rbp)
+    movl        $4, -8(%rbp)
     jmp         .Ltest_binary.if.en.1
 .Ltest_binary.if.el.2:
-    cmpl        $1, -16(%rbp)
-    movl        $0, -8(%rbp)
-    sete        -8(%rbp)
-    cmpl        $0, -8(%rbp)
+    cmpl        $1, -4(%rbp)
+    movl        $0, -20(%rbp)
+    sete        -20(%rbp)
+    cmpl        $0, -20(%rbp)
     je          .Ltest_binary.if.en.4
-    movl        $3, -24(%rbp)
+    movl        $3, -12(%rbp)
 .Ltest_binary.if.en.4:
 .Ltest_binary.if.en.1:
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -12(%rbp)
-    movl        -12(%rbp), %r11d
-    imull       -24(%rbp), %r11d
-    movl        %r11d, -12(%rbp)
-    movl        -12(%rbp), %eax
+    movl        -8(%rbp), %r10d
+    movl        %r10d, -24(%rbp)
+    movl        -24(%rbp), %r11d
+    imull       -12(%rbp), %r11d
+    movl        %r11d, -24(%rbp)
+    movl        -24(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -84,16 +84,16 @@ test_unary:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltest_unary.if.en.0
-    movl        $5, -12(%rbp)
+    movl        $5, -8(%rbp)
 .Ltest_unary.if.en.0:
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    negl        -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        -8(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
+    negl        -12(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -103,11 +103,11 @@ f:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    addl        $1, -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        %edi, -4(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -8(%rbp)
+    addl        $1, -8(%rbp)
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -117,16 +117,16 @@ test_funcall:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltest_funcall.if.en.0
-    movl        $7, -12(%rbp)
+    movl        $7, -8(%rbp)
 .Ltest_funcall.if.en.0:
-    movl        -12(%rbp), %edi
+    movl        -8(%rbp), %edi
     call        f@PLT
-    movl        %eax, -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        %eax, -12(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
@@ -242,9 +242,9 @@ main:
     call        test_unary@PLT
     movl        %eax, -60(%rbp)
     cmpl        $-8, -60(%rbp)
-    movl        $0, -68(%rbp)
-    setne       -68(%rbp)
-    cmpl        $0, -68(%rbp)
+    movl        $0, -64(%rbp)
+    setne       -64(%rbp)
+    cmpl        $0, -64(%rbp)
     je          .Lmain.if.en.24
     movl        $8, %eax
     movq        %rbp, %rsp
@@ -254,11 +254,11 @@ main:
     movl        $1, %edi
     movl        $8, %esi
     call        test_unary@PLT
-    movl        %eax, -72(%rbp)
-    cmpl        $-5, -72(%rbp)
-    movl        $0, -80(%rbp)
-    setne       -80(%rbp)
-    cmpl        $0, -80(%rbp)
+    movl        %eax, -68(%rbp)
+    cmpl        $-5, -68(%rbp)
+    movl        $0, -72(%rbp)
+    setne       -72(%rbp)
+    cmpl        $0, -72(%rbp)
     je          .Lmain.if.en.28
     movl        $9, %eax
     movq        %rbp, %rsp
@@ -268,11 +268,11 @@ main:
     movl        $1, %edi
     movl        $5, %esi
     call        test_funcall@PLT
-    movl        %eax, -84(%rbp)
-    cmpl        $8, -84(%rbp)
-    movl        $0, -88(%rbp)
-    setne       -88(%rbp)
-    cmpl        $0, -88(%rbp)
+    movl        %eax, -76(%rbp)
+    cmpl        $8, -76(%rbp)
+    movl        $0, -80(%rbp)
+    setne       -80(%rbp)
+    cmpl        $0, -80(%rbp)
     je          .Lmain.if.en.31
     movl        $10, %eax
     movq        %rbp, %rsp
@@ -282,11 +282,11 @@ main:
     movl        $0, %edi
     movl        $9, %esi
     call        test_funcall@PLT
-    movl        %eax, -92(%rbp)
-    cmpl        $10, -92(%rbp)
-    movl        $0, -96(%rbp)
-    setne       -96(%rbp)
-    cmpl        $0, -96(%rbp)
+    movl        %eax, -84(%rbp)
+    cmpl        $10, -84(%rbp)
+    movl        $0, -88(%rbp)
+    setne       -88(%rbp)
+    cmpl        $0, -88(%rbp)
     je          .Lmain.if.en.34
     movl        $11, %eax
     movq        %rbp, %rsp

@@ -4,18 +4,18 @@ f:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -12(%rbp)
-    movl        %esi, -16(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    cmpl        $0, -16(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lf.if.en.0
-    movl        $65, -12(%rbp)
+    movl        $65, -4(%rbp)
 .Lf.if.en.0:
-    movl        -12(%rbp), %edi
+    movl        -4(%rbp), %edi
     call        putchar@PLT
-    movl        %eax, -8(%rbp)
-    movl        -4(%rbp), %eax
+    movl        %eax, -16(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         
