@@ -3,7 +3,7 @@ let identifier_to_string = function
   | _ -> failwith "expected Identifier"
 
 let make_tmp (le : Env.lenv) (te : Env.tenv) (t : Ctype.t) : Ir.value =
-  let var_name = Env.declare_value le "tmp" in
+  let var_name = Env.declare_tmp le in
   Env.add te (Ast.Identifier var_name) { c_type = t; attrs = Env.LocalAttr };
   Ir.Var var_name
 

@@ -54,10 +54,11 @@ let show_lenv le = Format.asprintf "%a" pp_lenv le
 let make_lenv (namespace : string) : lenv =
   { namespace; counter = 0; offset = 0; stack_offsets = Hashtbl.create 16 }
 
-(** Declare a new temporary value. Generate and return a unique name by
-    appending the counter to [name] *)
-let declare_value (le : lenv) (name : string) : string =
-  let eid = name ^ "." ^ string_of_int le.counter in
+(** Declare a new temporary value. Generate a name unique within the translation
+    unit by prefixing it with the function namespace and appending the counter.
+*)
+let declare_tmp (le : lenv) : string =
+  let eid = le.namespace ^ ".tmp." ^ string_of_int le.counter in
   le.counter <- le.counter + 1;
   eid
 
@@ -262,8 +263,9 @@ type type_entry = {
   attrs : identifier_attrs;  (** Storage, linkage, and definition metadata *)
 }
 
-type tenv = { mutable typed_idents : (string, type_entry) Hashtbl.t }
-(** Type environment mapping resolved identifier names to type entries. *)
+type tenv = { typed_idents : (string, type_entry) Hashtbl.t }
+(** Type information for identifiers and IR temporaries. Names must be globally
+    unique within a translation unit. *)
 
 (** Create a new type environment with an empty global scope *)
 let make_tenv () : tenv = { typed_idents = Hashtbl.create 16 }
@@ -275,7 +277,10 @@ let find (te : tenv) (id : Ast.ident) : type_entry option =
 (** Add a new typed identifier to the environment. Assumes the identifier has
     not already been declared. *)
 let add (te : tenv) (id : Ast.ident) (entry : type_entry) : unit =
-  Hashtbl.add te.typed_idents (ident_name id) entry
+  let name = ident_name id in
+  if Hashtbl.mem te.typed_idents name then
+    failwith ("internal error: duplicate type entry for " ^ name);
+  Hashtbl.add te.typed_idents name entry
 
 (** Insert or update a typed identifier in the environment. *)
 let replace (te : tenv) (id : Ast.ident) (entry : type_entry) : unit =
