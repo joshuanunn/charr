@@ -6,12 +6,12 @@ main:
     subq        $16, %rsp
     movl        j.1(%rip), %r10d
     cmpl        %r10d, i.0(%rip)
+    movl        $0, -4(%rbp)
+    setl        -4(%rbp)
+    cmpl        $0, -4(%rbp)
     movl        $0, -8(%rbp)
-    setl        -8(%rbp)
+    sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
-    movl        $0, -12(%rbp)
-    sete        -12(%rbp)
-    cmpl        $0, -12(%rbp)
     je          .Lmain.if.en.2
     movl        $1, %eax
     movq        %rbp, %rsp

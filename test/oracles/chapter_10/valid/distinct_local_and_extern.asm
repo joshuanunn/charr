@@ -29,8 +29,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
            dst = (Asm.Data "a")};
          (Asm.Call "return_a");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -8)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);

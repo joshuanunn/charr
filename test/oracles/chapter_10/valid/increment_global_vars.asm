@@ -64,8 +64,6 @@
            dst = (Asm.Stack -4)};
          (Asm.JmpCC (Asm.E, "main.cond.el.3")); (Asm.Jmp "main.cond.en.2");
          (Asm.Label "main.cond.el.3"); (Asm.Call "incr_i");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -8)};
          (Asm.Label "main.cond.en.2");
@@ -85,8 +83,6 @@
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Data "j")};
          (Asm.JmpCC (Asm.E, "main.cond.el.9")); (Asm.Call "decr_j");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -16)};
          (Asm.Jmp "main.cond.en.8"); (Asm.Label "main.cond.el.9");

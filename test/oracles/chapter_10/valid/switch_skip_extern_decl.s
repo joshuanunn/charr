@@ -3,16 +3,16 @@
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
+    subq        $16, %rsp
     movl        x(%rip), %r10d
-    movl        %r10d, -20(%rbp)
-    movl        -20(%rbp), %r11d
+    movl        %r10d, -4(%rbp)
+    movl        -4(%rbp), %r11d
     imull       $2, %r11d
-    movl        %r11d, -20(%rbp)
-    cmpl        $30, -20(%rbp)
-    movl        $0, -24(%rbp)
-    sete        -24(%rbp)
-    cmpl        $0, -24(%rbp)
+    movl        %r11d, -4(%rbp)
+    cmpl        $30, -4(%rbp)
+    movl        $0, -8(%rbp)
+    sete        -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.5
     movl        $0, %eax
     movq        %rbp, %rsp
