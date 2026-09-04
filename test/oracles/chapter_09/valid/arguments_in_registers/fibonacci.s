@@ -1,5 +1,5 @@
     .globl      fib
-    .text       
+    .text
 fib:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -25,7 +25,7 @@ fib:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfib.if.el.6:
     movl        -4(%rbp), %r10d
     movl        %r10d, -20(%rbp)
@@ -46,9 +46,9 @@ fib:
     movl        -36(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -59,5 +59,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

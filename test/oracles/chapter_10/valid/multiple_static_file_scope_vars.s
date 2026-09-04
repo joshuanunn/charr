@@ -1,13 +1,13 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        foo(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .data       
+    ret
+    .data
     .align      4
 foo:
     .long       4

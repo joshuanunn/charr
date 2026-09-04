@@ -1,5 +1,5 @@
     .globl      add_large
-    .text       
+    .text
 add_large:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -17,9 +17,9 @@ add_large:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      subtract_large
-    .text       
+    .text
 subtract_large:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -36,9 +36,9 @@ subtract_large:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      multiply_by_large
-    .text       
+    .text
 multiply_by_large:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -58,9 +58,9 @@ multiply_by_large:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -75,7 +75,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     call        subtract_large@PLT
     movl        %eax, -12(%rbp)
@@ -87,7 +87,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     call        multiply_by_large@PLT
     movl        %eax, -20(%rbp)
@@ -99,14 +99,14 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.8:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      x
-    .data       
+    .data
     .align      8
 x:
     .quad       5

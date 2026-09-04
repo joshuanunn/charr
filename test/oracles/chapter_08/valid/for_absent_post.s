@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -7,7 +7,7 @@ main:
     movl        $-2147483647, -4(%rbp)
 .Lloop.st.1:
     movl        -4(%rbp), %eax
-    cdq         
+    cdq
     movl        $5, %r10d
     idivl       %r10d
     movl        %edx, -8(%rbp)
@@ -24,7 +24,7 @@ main:
     jmp         .Lloop.st.1
 .Lloop.br.1:
     movl        -4(%rbp), %eax
-    cdq         
+    cdq
     movl        $5, %r10d
     idivl       %r10d
     movl        %edx, -20(%rbp)
@@ -43,5 +43,5 @@ main:
     movl        -28(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

@@ -1,5 +1,5 @@
     .globl      my_function
-    .text       
+    .text
 my_function:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -20,9 +20,9 @@ my_function:
     movl        -44(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -46,7 +46,7 @@ main:
     movl        %r10d, -4(%rbp)
     movq        $2, -40(%rbp)
     movq        -16(%rbp), %rax
-    cqo         
+    cqo
     idivq       -40(%rbp)
     movq        %rax, -48(%rbp)
     movq        -48(%rbp), %r10
@@ -63,7 +63,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.8:
     movq        $2, -72(%rbp)
     movq        $2, %r11
@@ -75,7 +75,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     movl        $0, -80(%rbp)
     cmpl        $0, -80(%rbp)
@@ -83,7 +83,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     movq        $1, %rdi
     movq        $2, %rsi
@@ -98,7 +98,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.17:
     cmpl        $41, -4(%rbp)
     movl        $0, -92(%rbp)
@@ -108,13 +108,13 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.19:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      8
 a:
     .zero       8

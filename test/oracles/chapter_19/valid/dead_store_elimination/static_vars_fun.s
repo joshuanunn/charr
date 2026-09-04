@@ -1,14 +1,14 @@
     .globl      get_x
-    .text       
+    .text
 get_x:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        x(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -20,9 +20,9 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      x
-    .data       
+    .data
     .align      4
 x:
     .long       100

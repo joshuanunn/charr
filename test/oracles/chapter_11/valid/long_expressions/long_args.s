@@ -1,5 +1,5 @@
     .globl      test_sum
-    .text       
+    .text
 test_sum:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -28,7 +28,7 @@ test_sum:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Ltest_sum.if.en.2:
     cmpq        $100, -48(%rbp)
     movl        $0, -64(%rbp)
@@ -38,14 +38,14 @@ test_sum:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Ltest_sum.if.en.4:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -67,5 +67,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

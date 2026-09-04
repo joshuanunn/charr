@@ -1,41 +1,41 @@
     .globl      target_jz_to_jmp
-    .text       
+    .text
 target_jz_to_jmp:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_remove_jz
-    .text       
+    .text
 target_remove_jz:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_jnz_to_jmp
-    .text       
+    .text
 target_jnz_to_jmp:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_remove_jnz
-    .text       
+    .text
 target_remove_jnz:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -50,7 +50,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     call        target_remove_jz@PLT
     movl        %eax, -12(%rbp)
@@ -62,7 +62,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     call        target_jnz_to_jmp@PLT
     movl        %eax, -20(%rbp)
@@ -74,7 +74,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.8:
     call        target_remove_jnz@PLT
     movl        %eax, -28(%rbp)
@@ -86,10 +86,10 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

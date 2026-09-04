@@ -1,5 +1,5 @@
     .globl      truncate
-    .text       
+    .text
 truncate:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -15,9 +15,9 @@ truncate:
     movl        -20(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -34,7 +34,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movq        $-10, %rdi
     movl        $-10, %esi
@@ -48,7 +48,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.7:
     movq        $17179869189, %rdi
     movl        $5, %esi
@@ -62,7 +62,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.10:
     movq        $-17179869179, %rdi
     movl        $5, %esi
@@ -76,10 +76,10 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.15:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

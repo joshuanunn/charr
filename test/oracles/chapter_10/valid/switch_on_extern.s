@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -26,24 +26,24 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lswit.cs.1.3:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lswit.cs.1.4:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lswit.df.1:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      update_x
-    .text       
+    .text
 update_x:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -51,9 +51,9 @@ update_x:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      x
-    .bss        
+    .bss
     .align      4
 x:
     .zero       4

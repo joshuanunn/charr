@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -8,7 +8,7 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.0:
     jmp         .Llabel.0
     .section    .note.GNU-stack,"",@progbits

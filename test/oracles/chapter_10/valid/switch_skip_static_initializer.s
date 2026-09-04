@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -21,18 +21,18 @@ main:
     movl        x.0(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lswit.br.1:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .data       
+    ret
+    .data
     .align      4
 x.0:
     .long       10
     .globl      a
-    .data       
+    .data
     .align      4
 a:
     .long       3

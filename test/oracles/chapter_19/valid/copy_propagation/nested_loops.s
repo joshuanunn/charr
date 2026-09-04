@@ -1,5 +1,5 @@
     .globl      inner_loop1
-    .text       
+    .text
 inner_loop1:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -78,14 +78,14 @@ inner_loop1:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Linner_loop1.if.en.21:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      inner_loop2
-    .text       
+    .text
 inner_loop2:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -169,7 +169,7 @@ inner_loop2:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Linner_loop2.if.en.24:
     jmp         .Linner_loop2.if.en.1
 .Linner_loop2.if.el.2:
@@ -241,15 +241,15 @@ inner_loop2:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Linner_loop2.if.en.46:
 .Linner_loop2.if.en.1:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      inner_loop3
-    .text       
+    .text
 inner_loop3:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -338,7 +338,7 @@ inner_loop3:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Linner_loop3.if.en.27:
     jmp         .Linner_loop3.if.en.4
 .Linner_loop3.if.el.5:
@@ -410,7 +410,7 @@ inner_loop3:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Linner_loop3.if.en.49:
 .Linner_loop3.if.en.4:
     jmp         .Linner_loop3.if.en.1
@@ -483,15 +483,15 @@ inner_loop3:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Linner_loop3.if.en.71:
 .Linner_loop3.if.en.1:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      inner_loop4
-    .text       
+    .text
 inner_loop4:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -525,9 +525,9 @@ inner_loop4:
     movl        -44(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      validate
-    .text       
+    .text
 validate:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -606,14 +606,14 @@ validate:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lvalidate.if.en.21:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -651,7 +651,7 @@ target:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Ltarget.if.en.4:
     movl        $10, -4(%rbp)
     movl        $1, inner_flag(%rip)
@@ -679,7 +679,7 @@ target:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Ltarget.if.en.8:
     movl        $11, -8(%rbp)
     movl        $2, inner_flag(%rip)
@@ -707,7 +707,7 @@ target:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Ltarget.if.en.12:
     movl        inner_flag(%rip), %r10d
     movl        %r10d, -64(%rbp)
@@ -759,14 +759,14 @@ target:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Ltarget.if.en.19:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -776,12 +776,12 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 outer_flag:
     .zero       4
-    .data       
+    .data
     .align      4
 inner_flag:
     .long       1

@@ -63,6 +63,7 @@ let format_instruction (i : string) (o : string) : string =
   let ins = Printf.sprintf "    %s" i in
   Printf.sprintf "%-16s%s" ins o
 
+let format_bare_instruction (i : string) : string = Printf.sprintf "    %s" i
 let format_label (l : string) : string = Printf.sprintf ".L%s:" l
 let format_function (f : string) : string = Printf.sprintf "%s:" f
 
@@ -115,7 +116,7 @@ let emit_instruction (i : Asm.instruction) : string list =
       [
         format_instruction "movq" "%rbp, %rsp";
         format_instruction "popq" "%rbp";
-        format_instruction "ret" "";
+        format_bare_instruction "ret";
       ]
   | Unary { op; typ; dst } -> [ emit_typed_unop (emit_unary_op op) typ dst ]
   | Binary { op; typ; src; dst } ->
@@ -126,7 +127,7 @@ let emit_instruction (i : Asm.instruction) : string list =
       let mnemonic =
         match typ with Asm.Longword -> "cdq" | Asm.Quadword -> "cqo"
       in
-      [ format_instruction mnemonic "" ]
+      [ format_bare_instruction mnemonic ]
   | Shl { typ; src; dst } ->
       let width = width_of_asm_type typ in
       [ emit_two_operand ("shl" ^ suffix_of_asm_type typ) Byte width src dst ]
@@ -159,7 +160,7 @@ let emit_top_level (f : Asm.top_level) : string list =
       in
       let prologue =
         [
-          format_instruction ".text" "";
+          format_bare_instruction ".text";
           format_function name;
           format_instruction "pushq" "%rbp";
           format_instruction "movq" "%rsp, %rbp";
@@ -177,7 +178,7 @@ let emit_top_level (f : Asm.top_level) : string list =
       let region = if is_zero_init init then ".bss" else ".data" in
       global_directive
       @ [
-          format_instruction region "";
+          format_bare_instruction region;
           format_instruction ".align" (string_of_int alignment);
           format_function name;
           format_instruction directive value;

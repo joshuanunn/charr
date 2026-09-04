@@ -1,28 +1,28 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main_
-    .text       
+    .text
 main_:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      _main
-    .text       
+    .text
 _main:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

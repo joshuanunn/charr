@@ -1,5 +1,5 @@
     .globl      foo
-    .text       
+    .text
 foo:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -22,7 +22,7 @@ foo:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.2:
     cmpl        $2, -12(%rbp)
     movl        $0, -60(%rbp)
@@ -32,7 +32,7 @@ foo:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.4:
     cmpl        $0, -16(%rbp)
     movl        $0, -64(%rbp)
@@ -42,7 +42,7 @@ foo:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.6:
     cmpl        $-5, -20(%rbp)
     movl        $0, -68(%rbp)
@@ -52,7 +52,7 @@ foo:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.9:
     cmpq        $-101, -32(%rbp)
     movl        $0, -72(%rbp)
@@ -62,7 +62,7 @@ foo:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.12:
     cmpl        $-123, -36(%rbp)
     movl        $0, -76(%rbp)
@@ -72,7 +72,7 @@ foo:
     movl        $6, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.15:
     cmpq        $-10, -48(%rbp)
     movl        $0, -80(%rbp)
@@ -82,7 +82,7 @@ foo:
     movl        $7, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.18:
     cmpl        $1234, -52(%rbp)
     movl        $0, -84(%rbp)
@@ -92,14 +92,14 @@ foo:
     movl        $8, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lfoo.if.en.20:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -118,5 +118,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

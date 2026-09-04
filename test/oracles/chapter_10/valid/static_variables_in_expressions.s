@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -16,17 +16,17 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .data       
+    ret
+    .data
     .align      4
 i.0:
     .long       2
-    .data       
+    .data
     .align      4
 j.1:
     .long       3

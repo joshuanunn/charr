@@ -1,5 +1,5 @@
     .globl      update_static_or_global
-    .text       
+    .text
 update_static_or_global:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -18,9 +18,9 @@ update_static_or_global:
     movl        i.2(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -33,7 +33,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.1:
     movl        $1, %edi
     movl        $10, %esi
@@ -47,7 +47,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     cmpl        $10, i(%rip)
     movl        $0, -16(%rbp)
@@ -57,7 +57,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.6:
     movl        $0, %edi
     movl        $9, %esi
@@ -71,7 +71,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     cmpl        $10, i(%rip)
     movl        $0, -28(%rbp)
@@ -81,7 +81,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     movl        $1, %edi
     movl        $11, %esi
@@ -95,7 +95,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     cmpl        $11, i(%rip)
     movl        $0, -40(%rbp)
@@ -105,18 +105,18 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.16:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      i
-    .bss        
+    .bss
     .align      4
 i:
     .zero       4
-    .bss        
+    .bss
     .align      4
 i.2:
     .zero       4

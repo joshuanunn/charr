@@ -1,5 +1,5 @@
     .globl      set_globvar
-    .text       
+    .text
 set_globvar:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -10,9 +10,9 @@ set_globvar:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -26,9 +26,9 @@ callee:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -44,9 +44,9 @@ target:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -62,7 +62,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     cmpl        $4, globvar(%rip)
     movl        $0, -12(%rbp)
@@ -72,13 +72,13 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 globvar:
     .zero       4

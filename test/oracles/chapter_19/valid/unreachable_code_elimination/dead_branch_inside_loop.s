@@ -1,20 +1,20 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
     movl        $1, %eax
-    cdq         
+    cdq
     movl        $0, %r10d
     idivl       %r10d
     movl        %eax, -4(%rbp)
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -43,9 +43,9 @@ target:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -60,10 +60,10 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.3:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

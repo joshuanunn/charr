@@ -1,5 +1,5 @@
     .globl      test_jz
-    .text       
+    .text
 test_jz:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -20,9 +20,9 @@ test_jz:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      test_jnz
-    .text       
+    .text
 test_jnz:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -43,9 +43,9 @@ test_jnz:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      test_binary
-    .text       
+    .text
 test_binary:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -77,9 +77,9 @@ test_binary:
     movl        -24(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      test_unary
-    .text       
+    .text
 test_unary:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -96,9 +96,9 @@ test_unary:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -110,9 +110,9 @@ f:
     movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      test_funcall
-    .text       
+    .text
 test_funcall:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -129,9 +129,9 @@ test_funcall:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -148,7 +148,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movl        $0, %edi
     movl        $1, %esi
@@ -162,7 +162,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     movl        $1, %edi
     movl        $1, %esi
@@ -176,7 +176,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.8:
     movl        $0, %edi
     movl        $1, %esi
@@ -190,7 +190,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     movl        $0, %edi
     movl        $8, %esi
@@ -205,7 +205,7 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     movl        $1, %edi
     movl        $8, %esi
@@ -220,7 +220,7 @@ main:
     movl        $6, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.17:
     movl        $2, %edi
     movl        $8, %esi
@@ -235,7 +235,7 @@ main:
     movl        $7, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.20:
     movl        $0, %edi
     movl        $8, %esi
@@ -249,7 +249,7 @@ main:
     movl        $8, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.24:
     movl        $1, %edi
     movl        $8, %esi
@@ -263,7 +263,7 @@ main:
     movl        $9, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.28:
     movl        $1, %edi
     movl        $5, %esi
@@ -277,7 +277,7 @@ main:
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.31:
     movl        $0, %edi
     movl        $9, %esi
@@ -291,10 +291,10 @@ main:
     movl        $11, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.34:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

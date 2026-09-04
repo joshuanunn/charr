@@ -1,5 +1,5 @@
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -22,9 +22,9 @@ f:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -41,5 +41,5 @@ main:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

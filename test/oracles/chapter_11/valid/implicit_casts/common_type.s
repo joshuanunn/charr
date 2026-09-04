@@ -1,5 +1,5 @@
     .globl      addition
-    .text       
+    .text
 addition:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -17,9 +17,9 @@ addition:
     movl        -20(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      division
-    .text       
+    .text
 division:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -27,7 +27,7 @@ division:
     movslq      i(%rip), %r11
     movq        %r11, -8(%rbp)
     movq        l(%rip), %rax
-    cqo         
+    cqo
     idivq       -8(%rbp)
     movq        %rax, -16(%rbp)
     movl        -16(%rbp), %r10d
@@ -38,9 +38,9 @@ division:
     movl        -24(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      comparison
-    .text       
+    .text
 comparison:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -54,9 +54,9 @@ comparison:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      conditional
-    .text       
+    .text
 conditional:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -68,9 +68,9 @@ conditional:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -88,7 +88,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movq        $2147483649, %r10
     movq        %r10, l(%rip)
@@ -102,7 +102,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     movl        $-100, i(%rip)
     movq        $2147483648, %r10
@@ -117,7 +117,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     movq        $8589934592, %r10
     movq        %r10, l(%rip)
@@ -132,19 +132,19 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.12:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      i
-    .bss        
+    .bss
     .align      4
 i:
     .zero       4
     .globl      l
-    .bss        
+    .bss
     .align      8
 l:
     .zero       8

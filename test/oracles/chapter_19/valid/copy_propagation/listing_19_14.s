@@ -1,5 +1,5 @@
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -15,7 +15,7 @@ f:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lf.if.en.1:
     movl        $10, total.1(%rip)
     call        indirect_update@PLT
@@ -23,9 +23,9 @@ f:
     movl        total.1(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      indirect_update
-    .text       
+    .text
 indirect_update:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -36,9 +36,9 @@ indirect_update:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -49,8 +49,8 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 total.1:
     .zero       4

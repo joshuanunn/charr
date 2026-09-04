@@ -1,5 +1,5 @@
     .globl      lots_of_args
-    .text       
+    .text
 lots_of_args:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -35,9 +35,9 @@ lots_of_args:
     movl        -64(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -85,5 +85,5 @@ main:
     movl        -24(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

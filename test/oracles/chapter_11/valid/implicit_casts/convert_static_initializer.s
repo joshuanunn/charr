@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -12,7 +12,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.1:
     cmpq        $123456, j(%rip)
     movl        $0, -8(%rbp)
@@ -22,19 +22,19 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.3:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      i
-    .bss        
+    .bss
     .align      4
 i:
     .zero       4
     .globl      j
-    .data       
+    .data
     .align      8
 j:
     .quad       123456

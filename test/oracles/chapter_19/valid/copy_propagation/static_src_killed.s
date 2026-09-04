@@ -1,5 +1,5 @@
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -7,9 +7,9 @@ f:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -21,9 +21,9 @@ target:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -38,7 +38,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     cmpl        $4, x(%rip)
     movl        $0, -12(%rbp)
@@ -48,14 +48,14 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      x
-    .data       
+    .data
     .align      4
 x:
     .long       1

@@ -1,5 +1,5 @@
     .globl      return_truncated_long
-    .text       
+    .text
 return_truncated_long:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -10,9 +10,9 @@ return_truncated_long:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      return_extended_int
-    .text       
+    .text
 return_extended_int:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -23,9 +23,9 @@ return_extended_int:
     movq        -16(%rbp), %rax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      truncate_on_assignment
-    .text       
+    .text
 truncate_on_assignment:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -41,9 +41,9 @@ truncate_on_assignment:
     movl        -20(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -61,7 +61,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.3:
     movl        $-10, %edi
     call        return_extended_int@PLT
@@ -74,7 +74,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     movq        $17179869184, %rdi
     movl        $0, %esi
@@ -88,10 +88,10 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.15:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

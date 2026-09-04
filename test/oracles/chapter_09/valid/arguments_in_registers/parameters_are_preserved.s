@@ -1,5 +1,5 @@
     .globl      g
-    .text       
+    .text
 g:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -52,14 +52,14 @@ g:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lg.if.en.13:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -148,9 +148,9 @@ f:
     movl        -72(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -164,5 +164,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

@@ -1,5 +1,5 @@
     .globl      sign_extend
-    .text       
+    .text
 sign_extend:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -17,9 +17,9 @@ sign_extend:
     movq        -40(%rbp), %rax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -36,7 +36,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movl        $-10, %edi
     movq        $-10, %rsi
@@ -50,10 +50,10 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.7:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

@@ -1,5 +1,5 @@
     .globl      not
-    .text       
+    .text
 not:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -11,9 +11,9 @@ not:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      if_cond
-    .text       
+    .text
 if_cond:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -24,14 +24,14 @@ if_cond:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lif_cond.if.en.0:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      and
-    .text       
+    .text
 and:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -50,9 +50,9 @@ and:
     movl        -16(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      or
-    .text       
+    .text
 or:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -71,9 +71,9 @@ or:
     movl        -20(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -86,7 +86,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.1:
     movq        $0, %rdi
     call        not@PLT
@@ -99,7 +99,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     movq        $1152921504606846976, %rdi
     call        if_cond@PLT
@@ -112,7 +112,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.7:
     movq        $0, %rdi
     call        if_cond@PLT
@@ -122,7 +122,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     movq        $0, %rdi
     movl        $1, %esi
@@ -133,7 +133,7 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     movl        $1, %edi
     movq        $1152921504606846976, %rsi
@@ -147,10 +147,10 @@ main:
     movl        $6, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

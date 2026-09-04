@@ -1,50 +1,50 @@
     .globl      target_and
-    .text       
+    .text
 target_and:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $983055, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_or
-    .text       
+    .text
 target_or:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $268374015, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_xor
-    .text       
+    .text
 target_xor:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $267390960, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_shift_left
-    .text       
+    .text
 target_shift_left:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $76283904, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_shift_right
-    .text       
+    .text
 target_shift_right:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $493447, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -59,7 +59,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     call        target_or@PLT
     movl        %eax, -12(%rbp)
@@ -71,7 +71,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     call        target_xor@PLT
     movl        %eax, -20(%rbp)
@@ -83,7 +83,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.8:
     call        target_shift_left@PLT
     movl        %eax, -28(%rbp)
@@ -95,7 +95,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     call        target_shift_right@PLT
     movl        %eax, -36(%rbp)
@@ -107,10 +107,10 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

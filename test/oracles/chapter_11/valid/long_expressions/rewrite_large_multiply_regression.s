@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -157,14 +157,14 @@ main:
     movl        $-1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.33:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      check_12_ints
-    .text       
+    .text
 check_12_ints:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -201,7 +201,7 @@ check_12_ints:
     movl        -56(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.2:
     movl        -52(%rbp), %r10d
     movl        %r10d, -64(%rbp)
@@ -215,7 +215,7 @@ check_12_ints:
     movl        -64(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.5:
     movl        -52(%rbp), %r10d
     movl        %r10d, -72(%rbp)
@@ -229,7 +229,7 @@ check_12_ints:
     movl        -72(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.8:
     movl        -52(%rbp), %r10d
     movl        %r10d, -80(%rbp)
@@ -243,7 +243,7 @@ check_12_ints:
     movl        -80(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.11:
     movl        -52(%rbp), %r10d
     movl        %r10d, -88(%rbp)
@@ -257,7 +257,7 @@ check_12_ints:
     movl        -88(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.14:
     movl        -52(%rbp), %r10d
     movl        %r10d, -96(%rbp)
@@ -271,7 +271,7 @@ check_12_ints:
     movl        -96(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.17:
     movl        -52(%rbp), %r10d
     movl        %r10d, -104(%rbp)
@@ -285,7 +285,7 @@ check_12_ints:
     movl        -104(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.20:
     movl        -52(%rbp), %r10d
     movl        %r10d, -112(%rbp)
@@ -299,7 +299,7 @@ check_12_ints:
     movl        -112(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.23:
     movl        -52(%rbp), %r10d
     movl        %r10d, -120(%rbp)
@@ -313,7 +313,7 @@ check_12_ints:
     movl        -120(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.26:
     movl        -52(%rbp), %r10d
     movl        %r10d, -128(%rbp)
@@ -327,7 +327,7 @@ check_12_ints:
     movl        -128(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.29:
     movl        -52(%rbp), %r10d
     movl        %r10d, -136(%rbp)
@@ -341,7 +341,7 @@ check_12_ints:
     movl        -136(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.32:
     movl        -52(%rbp), %r10d
     movl        %r10d, -144(%rbp)
@@ -355,14 +355,14 @@ check_12_ints:
     movl        -144(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcheck_12_ints.if.en.35:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      glob
-    .data       
+    .data
     .align      8
 glob:
     .quad       5

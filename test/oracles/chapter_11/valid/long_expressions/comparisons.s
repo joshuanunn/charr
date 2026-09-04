@@ -1,23 +1,23 @@
     .globl      compare_constants
-    .text       
+    .text
 compare_constants:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      compare_constants_2
-    .text       
+    .text
 compare_constants_2:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      l_geq_2_60
-    .text       
+    .text
 l_geq_2_60:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -29,9 +29,9 @@ l_geq_2_60:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      uint_max_leq_l
-    .text       
+    .text
 uint_max_leq_l:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -43,9 +43,9 @@ uint_max_leq_l:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      l_eq_l2
-    .text       
+    .text
 l_eq_l2:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -57,9 +57,9 @@ l_eq_l2:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -74,7 +74,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     call        compare_constants_2@PLT
     movl        %eax, -12(%rbp)
@@ -86,7 +86,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     movq        $-9223372036854775807, %r10
     movq        %r10, l(%rip)
@@ -97,7 +97,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.8:
     call        uint_max_leq_l@PLT
     movl        %eax, -24(%rbp)
@@ -106,7 +106,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.10:
     movq        $1152921504606846976, %r10
     movq        %r10, l(%rip)
@@ -120,7 +120,7 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.13:
     call        uint_max_leq_l@PLT
     movl        %eax, -36(%rbp)
@@ -132,7 +132,7 @@ main:
     movl        $6, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.16:
     movq        l(%rip), %r10
     movq        %r10, l2(%rip)
@@ -146,19 +146,19 @@ main:
     movl        $7, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.19:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      l
-    .bss        
+    .bss
     .align      8
 l:
     .zero       8
     .globl      l2
-    .bss        
+    .bss
     .align      8
 l2:
     .zero       8

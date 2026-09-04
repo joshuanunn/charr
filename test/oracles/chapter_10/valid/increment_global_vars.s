@@ -1,5 +1,5 @@
     .globl      incr_i
-    .text       
+    .text
 incr_i:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -15,9 +15,9 @@ incr_i:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      decr_j
-    .text       
+    .text
 decr_j:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -32,9 +32,9 @@ decr_j:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -57,7 +57,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.6:
     subl        $1, j(%rip)
     cmpl        $0, j(%rip)
@@ -75,19 +75,19 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.13:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      i
-    .bss        
+    .bss
     .align      4
 i:
     .zero       4
     .globl      j
-    .bss        
+    .bss
     .align      4
 j:
     .zero       4

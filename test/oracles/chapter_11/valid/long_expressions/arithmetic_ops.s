@@ -1,5 +1,5 @@
     .globl      addition
-    .text       
+    .text
 addition:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -15,9 +15,9 @@ addition:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      subtraction
-    .text       
+    .text
 subtraction:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -33,9 +33,9 @@ subtraction:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      multiplication
-    .text       
+    .text
 multiplication:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -52,15 +52,15 @@ multiplication:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      division
-    .text       
+    .text
 division:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
     movq        a(%rip), %rax
-    cqo         
+    cqo
     movq        $128, %r10
     idivq       %r10
     movq        %rax, -8(%rbp)
@@ -72,9 +72,9 @@ division:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      remaind
-    .text       
+    .text
 remaind:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -83,7 +83,7 @@ remaind:
     movq        %r10, -8(%rbp)
     negq        -8(%rbp)
     movq        -8(%rbp), %rax
-    cqo         
+    cqo
     movq        $4294967290, %r10
     idivq       %r10
     movq        %rdx, -16(%rbp)
@@ -97,9 +97,9 @@ remaind:
     movl        -28(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      complement
-    .text       
+    .text
 complement:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -114,9 +114,9 @@ complement:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -134,7 +134,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movq        $-4294967290, %r10
     movq        %r10, a(%rip)
@@ -149,7 +149,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.6:
     movq        $4294967290, %r10
     movq        %r10, a(%rip)
@@ -163,7 +163,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     movq        $4294967290, %r10
     movq        %r10, a(%rip)
@@ -177,7 +177,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.12:
     movq        $8589934585, %r10
     movq        %r10, a(%rip)
@@ -191,7 +191,7 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.15:
     movq        $9223372036854775806, %r10
     movq        %r10, a(%rip)
@@ -205,19 +205,19 @@ main:
     movl        $6, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.18:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      b
-    .bss        
+    .bss
     .align      8
 b:
     .zero       8
     .globl      a
-    .bss        
+    .bss
     .align      8
 a:
     .zero       8

@@ -1,5 +1,5 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -14,9 +14,9 @@ callee:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -28,9 +28,9 @@ target:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -45,7 +45,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     cmpl        $4, y(%rip)
     movl        $0, -12(%rbp)
@@ -55,7 +55,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     cmpl        $2, x(%rip)
     movl        $0, -16(%rbp)
@@ -65,19 +65,19 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.6:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      x
-    .bss        
+    .bss
     .align      4
 x:
     .zero       4
     .globl      y
-    .bss        
+    .bss
     .align      4
 y:
     .zero       4

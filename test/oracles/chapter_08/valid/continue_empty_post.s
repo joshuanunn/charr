@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -18,7 +18,7 @@ main:
     movl        -16(%rbp), %r10d
     movl        %r10d, -8(%rbp)
     movl        -16(%rbp), %eax
-    cdq         
+    cdq
     movl        $2, %r10d
     idivl       %r10d
     movl        %edx, -20(%rbp)
@@ -38,5 +38,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

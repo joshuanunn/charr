@@ -1,5 +1,5 @@
     .globl      increment_counter
-    .text       
+    .text
 increment_counter:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -12,9 +12,9 @@ increment_counter:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -30,9 +30,9 @@ target:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -47,7 +47,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     cmpl        $5, counter(%rip)
     movl        $0, -12(%rbp)
@@ -57,14 +57,14 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      counter
-    .bss        
+    .bss
     .align      4
 counter:
     .zero       4

@@ -1,5 +1,5 @@
     .globl      foo
-    .text       
+    .text
 foo:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -12,9 +12,9 @@ foo:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -40,8 +40,8 @@ main:
     movl        -16(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 x.0:
     .zero       4

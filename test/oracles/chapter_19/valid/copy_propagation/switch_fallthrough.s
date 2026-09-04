@@ -1,5 +1,5 @@
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -23,15 +23,15 @@ target:
     movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lswit.df.1:
     movl        $-1, -20(%rbp)
     movl        -20(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -42,5 +42,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

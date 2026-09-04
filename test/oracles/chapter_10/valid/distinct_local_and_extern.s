@@ -1,14 +1,14 @@
     .globl      return_a
-    .text       
+    .text
 return_a:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        a(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -21,7 +21,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.1:
     movl        $4, a(%rip)
     call        return_a@PLT
@@ -32,9 +32,9 @@ main:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      a
-    .data       
+    .data
     .align      4
 a:
     .long       5

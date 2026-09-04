@@ -1,14 +1,14 @@
     .globl      bar
-    .text       
+    .text
 bar:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $9, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      foo
-    .text       
+    .text
 foo:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -22,9 +22,9 @@ foo:
     movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -34,7 +34,7 @@ main:
     call        bar@PLT
     movl        %eax, -8(%rbp)
     movl        -8(%rbp), %eax
-    cdq         
+    cdq
     movl        $3, %r10d
     idivl       %r10d
     movl        %eax, -12(%rbp)
@@ -45,5 +45,5 @@ main:
     movl        -16(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

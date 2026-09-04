@@ -1,5 +1,5 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -26,7 +26,7 @@ callee:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcallee.if.en.5:
     cmpl        $4, -4(%rbp)
     movl        $0, -20(%rbp)
@@ -49,15 +49,15 @@ callee:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lcallee.if.en.11:
     movl        $-1, called_counter(%rip)
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -73,9 +73,9 @@ target:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -90,7 +90,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     cmpl        $2, called_counter(%rip)
     movl        $0, -12(%rbp)
@@ -100,13 +100,13 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 called_counter:
     .zero       4
