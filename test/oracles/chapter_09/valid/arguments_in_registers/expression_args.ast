@@ -6,10 +6,18 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.Subtract;
-                           left = (Ast.Var (Ast.Identifier "a"));
-                           right = (Ast.Var (Ast.Identifier "b"))}))
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Subtract;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                               typ = None }};
+                           typ = None }))
                     ]));
+         fun_type =
+         Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -19,14 +27,34 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "sum");
                             init =
-                            (Some Ast.FunctionCall {
-                                    name = (Ast.Identifier "sub");
-                                    args =
-                                    [Ast.Binary {op = Ast.Add;
-                                       left = (Ast.LiteralInt 1);
-                                       right = (Ast.LiteralInt 2)};
-                                      (Ast.LiteralInt 1)]});
-                            storage = None }));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "sum"))))]));
+                            (Some { Ast.e =
+                                    Ast.FunctionCall {
+                                      name = (Ast.Identifier "sub");
+                                      args =
+                                      [{ Ast.e =
+                                         Ast.Binary {op = Ast.Add;
+                                           left =
+                                           { Ast.e =
+                                             (Ast.Constant
+                                                (Ctype.ConstInt 1l));
+                                             typ = None };
+                                           right =
+                                           { Ast.e =
+                                             (Ast.Constant
+                                                (Ctype.ConstInt 2l));
+                                             typ = None }};
+                                         typ = None };
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 1l));
+                                          typ = None }
+                                        ]};
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "sum"));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

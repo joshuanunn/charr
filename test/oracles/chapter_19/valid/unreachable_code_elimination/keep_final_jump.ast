@@ -10,23 +10,43 @@
                            (Ast.Block
                               [(Ast.S
                                   (Ast.Expression
-                                     (Ast.Assignment (
-                                        (Ast.Var (Ast.Identifier "a")),
-                                        Ast.Binary {op = Ast.Subtract;
-                                          left =
-                                          (Ast.Var (Ast.Identifier "a"));
-                                          right = (Ast.LiteralInt 1)}
-                                        ))));
+                                     { Ast.e =
+                                       (Ast.Assignment (
+                                          { Ast.e =
+                                            (Ast.Var (Ast.Identifier "a"));
+                                            typ = None },
+                                          { Ast.e =
+                                            Ast.Binary {op = Ast.Subtract;
+                                              left =
+                                              { Ast.e =
+                                                (Ast.Var (Ast.Identifier "a"));
+                                                typ = None };
+                                              right =
+                                              { Ast.e =
+                                                (Ast.Constant
+                                                   (Ctype.ConstInt 1l));
+                                                typ = None }};
+                                            typ = None }
+                                          ));
+                                       typ = None }));
                                 (Ast.S
                                    Ast.If {
                                      cond_exp =
-                                     (Ast.Var (Ast.Identifier "a"));
+                                     { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                       typ = None };
                                      then_smt =
-                                     (Ast.Return (Ast.LiteralInt 17));
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 17l));
+                                          typ = None });
                                      else_smt = None})
                                 ]));
-                        cond = (Ast.LiteralInt 1); id = None})
+                        cond =
+                        { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                          typ = None };
+                        id = None})
                     ]));
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -34,8 +54,14 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = [(Ast.LiteralInt 10)]}))
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "f");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
+                                 typ = None }
+                                ]};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

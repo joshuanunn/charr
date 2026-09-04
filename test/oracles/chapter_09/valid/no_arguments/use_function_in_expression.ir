@@ -1,6 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "bar"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant 9))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 9l)))];
       frame =
       Env.lenv {
         namespace = "bar";
@@ -10,37 +10,33 @@
         }}};
      Ir.Function {name = "foo"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "bar"; args = []; dst = (Ir.Var "tmp.0")};
-         Ir.Binary {op = Ir.Multiply; src1 = (Ir.Constant 2);
-           src2 = (Ir.Var "tmp.0"); dst = (Ir.Var "tmp.1")};
-         (Ir.Return (Ir.Var "tmp.1"))];
+       [Ir.FunCall {fun_name = "bar"; args = []; dst = (Ir.Var "foo.tmp.0")};
+         Ir.Binary {op = Ir.Multiply;
+           src1 = (Ir.Constant (Ctype.ConstInt 2l));
+           src2 = (Ir.Var "foo.tmp.0"); dst = (Ir.Var "foo.tmp.1")};
+         (Ir.Return (Ir.Var "foo.tmp.1"))];
        frame =
        Env.lenv {
          namespace = "foo";
          counter = 2;
-         offset = -8;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "tmp.0")};
-         Ir.FunCall {fun_name = "bar"; args = []; dst = (Ir.Var "tmp.1")};
-         Ir.Binary {op = Ir.Divide; src1 = (Ir.Var "tmp.1");
-           src2 = (Ir.Constant 3); dst = (Ir.Var "tmp.2")};
-         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Var "tmp.2"); dst = (Ir.Var "tmp.3")};
-         (Ir.Return (Ir.Var "tmp.3"))];
+       [Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "main.tmp.0")};
+         Ir.FunCall {fun_name = "bar"; args = []; dst = (Ir.Var "main.tmp.1")};
+         Ir.Binary {op = Ir.Divide; src1 = (Ir.Var "main.tmp.1");
+           src2 = (Ir.Constant (Ctype.ConstInt 3l));
+           dst = (Ir.Var "main.tmp.2")};
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "main.tmp.0");
+           src2 = (Ir.Var "main.tmp.2"); dst = (Ir.Var "main.tmp.3")};
+         (Ir.Return (Ir.Var "main.tmp.3"))];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 4;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.2 -> -12,
-           tmp.3 -> -16,
          }}}
      ])

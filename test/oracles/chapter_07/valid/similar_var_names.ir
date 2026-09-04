@@ -1,29 +1,11 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant 28))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 28l)))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 3;
-        offset = -72;
+        offset = 0;
         stack slots = {
-          a.0      -> -4,
-          result.1 -> -8,
-          a1.2     -> -12,
-          a.3      -> -16,
-          a1.4     -> -20,
-          a.5      -> -24,
-          a.6      -> -28,
-          a.7      -> -32,
-          a.8      -> -36,
-          a.9      -> -40,
-          a.10     -> -44,
-          a.11     -> -48,
-          a.12     -> -52,
-          a.13     -> -56,
-          a.14     -> -60,
-          tmp.0    -> -64,
-          tmp.1    -> -68,
-          tmp.2    -> -72,
         }}}
      ])

@@ -6,16 +6,29 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x.1");
-                           init = (Some (Ast.LiteralInt 5));
-                           storage = (Some Ast.Static) }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = (Some Ast.Static)
+                           }));
                     (Ast.S (Ast.Goto (Ast.GotoLabel "x.0")));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "x.1")),
-                             (Ast.LiteralInt 0)))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "x.1"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
                     (Ast.S
                        (Ast.Label ((Ast.GotoLabel "x.0"),
-                          (Ast.Return (Ast.Var (Ast.Identifier "x.1"))))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Var (Ast.Identifier "x.1"));
+                               typ = (Some Ctype.Int) })
+                          )))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

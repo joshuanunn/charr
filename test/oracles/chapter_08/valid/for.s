@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -13,7 +13,7 @@ main:
     cmpl        $0, -12(%rbp)
     je          .Lloop.br.1
     movl        -4(%rbp), %eax
-    cdq         
+    cdq
     movl        $3, %r10d
     idivl       %r10d
     movl        %eax, -16(%rbp)
@@ -29,5 +29,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

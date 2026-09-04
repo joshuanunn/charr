@@ -5,8 +5,16 @@
          (Some (Ast.Block
                   [(Ast.S
                       Ast.DoWhile {body = (Ast.Compound (Ast.Block []));
-                        cond = (Ast.LiteralInt 0); id = None});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 99)))]));
+                        cond =
+                        { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                          typ = None };
+                        id = None});
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 99l));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -14,8 +22,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

@@ -1,44 +1,43 @@
 (Ir.Program
    [Ir.Function {name = "f"; global = true; params = ["arg.1"];
       body =
-      [Ir.Copy {src = (Ir.Constant 76); dst = (Ir.Var "x.2")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 76l));
+         dst = (Ir.Var "x.2")};
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "arg.1");
-          src2 = (Ir.Constant 10); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "f.if.en.1"};
-        Ir.Copy {src = (Ir.Constant 77); dst = (Ir.Var "x.2")};
+          src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "f.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "f.tmp.0"); target = "f.if.en.1"};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 77l));
+          dst = (Ir.Var "x.2")};
         (Ir.Label "f.if.en.1");
         Ir.JumpIfZero {condition = (Ir.Var "arg.1"); target = "f.if.en.2"};
         Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "x.2")];
-          dst = (Ir.Var "tmp.3")};
-        (Ir.Label "f.if.en.2"); (Ir.Return (Ir.Constant 0))];
+          dst = (Ir.Var "f.tmp.3")};
+        (Ir.Label "f.if.en.2"); (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))
+        ];
       frame =
       Env.lenv {
         namespace = "f";
         counter = 4;
-        offset = -16;
+        offset = 0;
         stack slots = {
-          x.2   -> -4,
-          tmp.0 -> -8,
-          tmp.3 -> -12,
-          arg.1 -> -16,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "f"; args = [(Ir.Constant 0)];
-          dst = (Ir.Var "tmp.0")};
-         Ir.FunCall {fun_name = "f"; args = [(Ir.Constant 1)];
-           dst = (Ir.Var "tmp.1")};
-         Ir.FunCall {fun_name = "f"; args = [(Ir.Constant 11)];
-           dst = (Ir.Var "tmp.2")};
-         (Ir.Return (Ir.Constant 0))];
+       [Ir.FunCall {fun_name = "f";
+          args = [(Ir.Constant (Ctype.ConstInt 0l))];
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.FunCall {fun_name = "f";
+           args = [(Ir.Constant (Ctype.ConstInt 1l))];
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.FunCall {fun_name = "f";
+           args = [(Ir.Constant (Ctype.ConstInt 11l))];
+           dst = (Ir.Var "main.tmp.2")};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 3;
-         offset = -12;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.2 -> -12,
          }}}
      ])

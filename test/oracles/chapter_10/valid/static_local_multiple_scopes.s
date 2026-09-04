@@ -1,5 +1,5 @@
     .globl      print_letters
-    .text       
+    .text
 print_letters:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -26,9 +26,9 @@ print_letters:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -52,12 +52,12 @@ main:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .data       
+    ret
+    .data
     .align      4
 i.1:
     .long       65
-    .data       
+    .data
     .align      4
 i.2:
     .long       97

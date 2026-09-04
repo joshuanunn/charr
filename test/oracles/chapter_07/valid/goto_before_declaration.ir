@@ -2,16 +2,13 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.Jump {target = "main.if.en.1"}; (Ir.Label "return_a.0");
-        (Ir.Return (Ir.Constant 0)); (Ir.Label "main.if.en.1");
-        Ir.Jump {target = "return_a.0"}];
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+        (Ir.Label "main.if.en.1"); Ir.Jump {target = "return_a.0"}];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 2;
-        offset = -12;
+        offset = 0;
         stack slots = {
-          a.1   -> -4,
-          tmp.0 -> -8,
-          a.2   -> -12,
         }}}
      ])

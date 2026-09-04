@@ -1,7 +1,9 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.Mov ((Asm.Data "x.1"), (Asm.Reg Asm.AX))); Asm.Ret];
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Data "x.1");
+         dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
@@ -9,4 +11,6 @@
         offset = 0;
         stack slots = {
         }}};
-     Asm.StaticVariable {name = "x.1"; global = false; init = 5}])
+     Asm.StaticVariable {name = "x.1"; global = false; alignment = 4;
+       init = (Ctype.IntInit 5l)}
+     ])

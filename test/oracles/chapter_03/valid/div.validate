@@ -5,9 +5,16 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.Divide;
-                           left = (Ast.LiteralInt 4);
-                           right = (Ast.LiteralInt 2)}))
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Divide;
+                             left =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

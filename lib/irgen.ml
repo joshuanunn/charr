@@ -2,6 +2,11 @@ let identifier_to_string = function
   | Ast.Identifier s -> s
   | _ -> failwith "expected Identifier"
 
+let make_tmp (le : Env.lenv) (te : Env.tenv) (t : Ctype.t) : Ir.value =
+  let var_name = Env.declare_tmp le in
+  Env.add te (Ast.Identifier var_name) { c_type = t; attrs = Env.LocalAttr };
+  Ir.Var var_name
+
 let update_op (u : Ast.unop) : Ir.binary_operator =
   match u with
   | PreIncrement -> Add
@@ -43,9 +48,8 @@ let convert_binop (u : Ast.binop) : Ir.binary_operator =
 (** Collect all [case] and [default] labels inside a statement AST node. *)
 let rec collect_cases (s : Ast.stmt) : (Ast.expr option * string) list =
   match s with
-  | Case { value; body; id = Some (SwitchLabel i) } ->
-      let int_value = Ast.literal_to_int value in
-      let label_name = Printf.sprintf "swit.cs.%s.%d" i int_value in
+  | Case { value; body; id = Some (CaseLabel i) } ->
+      let label_name = Printf.sprintf "swit.cs.%s" i in
       let subcases = collect_cases body in
       (Some value, label_name) :: subcases
   | Default { body; id = Some (SwitchLabel i) } ->
@@ -64,89 +68,110 @@ let rec collect_cases (s : Ast.stmt) : (Ast.expr option * string) list =
   | Label (_, s) -> collect_cases s
   | _ -> []
 
-let rec convert_expr (e : Ast.expr) (le : Env.lenv) :
+let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
     Ir.value * Ir.instruction list =
-  match e with
-  | LiteralInt n -> (Constant n, [])
+  match e.e with
+  | Constant c -> (Constant c, [])
   (* Insert any AST Vars into IR Vars, as names are gaurunteed unique *)
   | Var id -> (
       match id with
       | Identifier v -> (Var v, [])
       | _ -> failwith "Var name must be Identifier")
+  | Cast { target_type; exp } -> (
+      let result, result_instructions = convert_expr exp le te in
+      if Ctype.equal (Ast.get_type exp) target_type then
+        (result, result_instructions) (* no-op: exp is already of target_type *)
+      else
+        let dst = make_tmp le te target_type in
+        match target_type with
+        | Ctype.Long ->
+            (dst, result_instructions @ [ Ir.SignExtend { src = result; dst } ])
+        | _ -> (dst, result_instructions @ [ Ir.Truncate { src = result; dst } ])
+      )
   | Unary { op : Ast.unop; exp : Ast.expr } -> (
-      let src, src_instructions = convert_expr exp le in
+      let src, src_instructions = convert_expr exp le te in
       match op with
       (* Pre-update unary ops: adjust variable and return updated value *)
       | PreIncrement | PreDecrement ->
           let ins_adjust_var =
             Ir.Binary
-              { op = update_op op; src1 = src; src2 = Constant 1; dst = src }
+              {
+                op = update_op op;
+                src1 = src;
+                src2 = Constant (Ctype.const_one (Ast.get_type exp));
+                dst = src;
+              }
           in
           (src, [ ins_adjust_var ])
       (* Post-update unary ops: adjust variable and return original value *)
       | PostIncrement | PostDecrement ->
-          let tmp = Ir.Var (Env.declare_value le "tmp") in
+          let tmp = make_tmp le te (Ast.get_type exp) in
           let ins_copy_tmp = Ir.Copy { src; dst = tmp } in
           let ins_adjust_var =
             Ir.Binary
-              { op = update_op op; src1 = src; src2 = Constant 1; dst = src }
+              {
+                op = update_op op;
+                src1 = src;
+                src2 = Constant (Ctype.const_one (Ast.get_type exp));
+                dst = src;
+              }
           in
           (tmp, [ ins_copy_tmp ] @ [ ins_adjust_var ])
       (* Everything else *)
       | _ ->
-          let tmp = Ir.Var (Env.declare_value le "tmp") in
+          let tmp = make_tmp le te (Ast.get_type e) in
           let instruction = Ir.Unary { op = convert_unop op; src; dst = tmp } in
           (tmp, src_instructions @ [ instruction ]))
   | Binary { op = And; left : Ast.expr; right : Ast.expr } ->
-      let lhs, lhs_ins = convert_expr left le in
-      let rhs, rhs_ins = convert_expr right le in
-      let dst = Ir.Var (Env.declare_value le "tmp") in
+      let lhs, lhs_ins = convert_expr left le te in
+      let rhs, rhs_ins = convert_expr right le te in
+      let dst = make_tmp le te (Ast.get_type e) in
       let lbs = Env.declare_label le "and.fl" in
       let lbe = Env.declare_label le "and.en" in
       let jzl = Ir.JumpIfZero { condition = lhs; target = lbs } in
       let jzr = Ir.JumpIfZero { condition = rhs; target = lbs } in
-      let c1 = Ir.Copy { src = Constant 1; dst } in
+      let c1 = Ir.Copy { src = Constant (ConstInt 1l); dst } in
       let je = Ir.Jump { target = lbe } in
-      let c0 = Ir.Copy { src = Constant 0; dst } in
+      let c0 = Ir.Copy { src = Constant (ConstInt 0l); dst } in
       ( dst,
         lhs_ins @ [ jzl ] @ rhs_ins
         @ [ jzr; c1; je; Ir.Label lbs; c0; Ir.Label lbe ] )
   | Binary { op = Or; left : Ast.expr; right : Ast.expr } ->
-      let lhs, lhs_ins = convert_expr left le in
-      let rhs, rhs_ins = convert_expr right le in
-      let dst = Ir.Var (Env.declare_value le "tmp") in
+      let lhs, lhs_ins = convert_expr left le te in
+      let rhs, rhs_ins = convert_expr right le te in
+      let dst = make_tmp le te (Ast.get_type e) in
       let lbs = Env.declare_label le "or.tr" in
       let lbe = Env.declare_label le "or.en" in
       let jzl = Ir.JumpIfNotZero { condition = lhs; target = lbs } in
       let jzr = Ir.JumpIfNotZero { condition = rhs; target = lbs } in
-      let c0 = Ir.Copy { src = Constant 0; dst } in
+      let c0 = Ir.Copy { src = Constant (ConstInt 0l); dst } in
       let je = Ir.Jump { target = lbe } in
-      let c1 = Ir.Copy { src = Constant 1; dst } in
+      let c1 = Ir.Copy { src = Constant (ConstInt 1l); dst } in
       ( dst,
         lhs_ins @ [ jzl ] @ rhs_ins
         @ [ jzr; c0; je; Ir.Label lbs; c1; Ir.Label lbe ] )
   | Binary { op : Ast.binop; left : Ast.expr; right : Ast.expr } ->
       let op = convert_binop op in
-      let src1, src1_instructions = convert_expr left le in
-      let src2, src2_instructions = convert_expr right le in
-      let dst = Ir.Var (Env.declare_value le "tmp") in
+      let src1, src1_instructions = convert_expr left le te in
+      let src2, src2_instructions = convert_expr right le te in
+      let dst = make_tmp le te (Ast.get_type e) in
       let instruction = Ir.Binary { op; src1; src2; dst } in
       (dst, src1_instructions @ src2_instructions @ [ instruction ])
   | Assignment (lhs, rhs) ->
-      let result, ins_eval_result = convert_expr rhs le in
-      let var, _ = convert_expr lhs le in
+      let result, ins_eval_result = convert_expr rhs le te in
+      let var, _ = convert_expr lhs le te in
       let ins_copy_result = Ir.Copy { src = result; dst = var } in
       (var, ins_eval_result @ [ ins_copy_result ])
   | Conditional { cond_exp; then_exp; else_exp } ->
-      let result = Ir.Var (Env.declare_value le "tmp") in
-      let cond, cond_ins = convert_expr cond_exp le in
+      let result = make_tmp le te (Ast.get_type e) in
+      let cond, cond_ins = convert_expr cond_exp le te in
       let l_end = Env.declare_label le "cond.en" in
       let l_e2 = Env.declare_label le "cond.el" in
       let jz_cond = Ir.JumpIfZero { condition = cond; target = l_e2 } in
-      let v1, e1_ins = convert_expr then_exp le in
+      let v1, e1_ins = convert_expr then_exp le te in
       let c1 = Ir.Copy { src = v1; dst = result } in
       let j_end = Ir.Jump { target = l_end } in
-      let v2, e2_ins = convert_expr else_exp le in
+      let v2, e2_ins = convert_expr else_exp le te in
       let c2 = Ir.Copy { src = v2; dst = result } in
       ( result,
         cond_ins @ [ jz_cond ] @ e1_ins
@@ -155,42 +180,43 @@ let rec convert_expr (e : Ast.expr) (le : Env.lenv) :
   | FunctionCall { name : Ast.ident; args : Ast.expr list } ->
       let fun_name = identifier_to_string name in
       let arg_vals, arg_ins =
-        List.split (List.map (fun e -> convert_expr e le) args)
+        List.split (List.map (fun e -> convert_expr e le te) args)
       in
       let arg_instructions = List.concat arg_ins in
       (* TODO: need to handle dst properly (e.g. void) *)
-      let dst = Ir.Var (Env.declare_value le "tmp") in
+      let dst = make_tmp le te (Ast.get_type e) in
       let instruction = Ir.FunCall { fun_name; args = arg_vals; dst } in
       (dst, arg_instructions @ [ instruction ])
   | Comma (left, right) ->
       (* Evaluate left, but discard value *)
-      let _, src1_instructions = convert_expr left le in
+      let _, src1_instructions = convert_expr left le te in
       (* Evaluate right, and return value *)
-      let src2, src2_instructions = convert_expr right le in
+      let src2, src2_instructions = convert_expr right le te in
       (src2, src1_instructions @ src2_instructions)
 
-let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
+let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) (te : Env.tenv) :
+    Ir.instruction list =
   match s with
   | Return v ->
-      let value, instructions = convert_expr v le in
+      let value, instructions = convert_expr v le te in
       instructions @ [ Return value ]
   | Expression v ->
-      let _, instructions = convert_expr v le in
+      let _, instructions = convert_expr v le te in
       instructions
   | If { cond_exp; then_smt; else_smt = None } ->
-      let cond, cond_ins = convert_expr cond_exp le in
+      let cond, cond_ins = convert_expr cond_exp le te in
       let l_end = Env.declare_label le "if.en" in
       let jz_cond = Ir.JumpIfZero { condition = cond; target = l_end } in
-      let then_ins = convert_stmt then_smt le in
+      let then_ins = convert_stmt then_smt le te in
       cond_ins @ [ jz_cond ] @ then_ins @ [ Ir.Label l_end ]
   | If { cond_exp; then_smt; else_smt = Some s } ->
-      let cond, cond_ins = convert_expr cond_exp le in
+      let cond, cond_ins = convert_expr cond_exp le te in
       let l_end = Env.declare_label le "if.en" in
       let l_else = Env.declare_label le "if.el" in
       let jz_cond = Ir.JumpIfZero { condition = cond; target = l_else } in
-      let then_ins = convert_stmt then_smt le in
+      let then_ins = convert_stmt then_smt le te in
       let j_end = Ir.Jump { target = l_end } in
-      let else_ins = convert_stmt s le in
+      let else_ins = convert_stmt s le te in
       cond_ins @ [ jz_cond ] @ then_ins @ [ j_end; Ir.Label l_else ] @ else_ins
       @ [ Ir.Label l_end ]
   | Compound b ->
@@ -198,8 +224,8 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
       List.map
         (fun node ->
           match node with
-          | Ast.S s -> convert_stmt s le
-          | Ast.D d -> convert_dclr d le)
+          | Ast.S s -> convert_stmt s le te
+          | Ast.D d -> convert_dclr d le te)
         items
       |> List.flatten
   | Break id -> (
@@ -216,9 +242,9 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
       | Some (LoopLabel i) ->
           let l_continue = "loop.ct." ^ i in
           let l_break = "loop.br." ^ i in
-          let cond, cond_ins = convert_expr cond le in
+          let cond, cond_ins = convert_expr cond le te in
           let jz_cond = Ir.JumpIfZero { condition = cond; target = l_break } in
-          let body_ins = convert_stmt body le in
+          let body_ins = convert_stmt body le te in
           let j_continue = Ir.Jump { target = l_continue } in
           [ Ir.Label l_continue ] @ cond_ins @ [ jz_cond ] @ body_ins
           @ [ j_continue ] @ [ Ir.Label l_break ]
@@ -227,8 +253,8 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
       match id with
       | Some (LoopLabel i) ->
           let l_start = "loop.st." ^ i in
-          let body_ins = convert_stmt body le in
-          let cond, cond_ins = convert_expr cond le in
+          let body_ins = convert_stmt body le te in
+          let cond, cond_ins = convert_expr cond le te in
           let jz_cond =
             Ir.JumpIfNotZero { condition = cond; target = l_start }
           in
@@ -241,11 +267,11 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
       match id with
       | Some (LoopLabel i) ->
           let l_break = "loop.br." ^ i in
-          let init_ins = convert_for_init init le in
+          let init_ins = convert_for_init init le te in
           let l_start = "loop.st." ^ i in
-          let cond_ins = convert_for_cond cond l_break le in
-          let body_ins = convert_stmt body le in
-          let post_ins = convert_for_post post le in
+          let cond_ins = convert_for_cond cond l_break le te in
+          let body_ins = convert_stmt body le te in
+          let post_ins = convert_for_post post le te in
           let j_start = Ir.Jump { target = l_start } in
           init_ins @ [ Ir.Label l_start ] @ cond_ins @ body_ins
           @ [ Ir.Label ("loop.ct." ^ i) ]
@@ -255,7 +281,7 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
       match id with
       | Some (SwitchLabel i) ->
           let switch_break = "swit.br." ^ i in
-          let cond_val, cond_ins = convert_expr cond le in
+          let cond_val, cond_ins = convert_expr cond le te in
 
           (* Collect all linked case and default labels *)
           let cases = collect_cases body in
@@ -273,14 +299,20 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
 
           let dispatch_ins =
             List.concat_map
-              (fun (v, lbl) ->
-                let tmp = Ir.Var (Env.declare_value le "tmp") in
+              (fun ((v : Ast.expr), lbl) ->
+                let tmp = make_tmp le te Ctype.Int in
                 [
                   Ir.Binary
                     {
                       op = Ir.Equal;
                       src1 = cond_val;
-                      src2 = Constant (Ast.literal_to_int v);
+                      src2 =
+                        (match v.e with
+                        | Ast.Constant c -> Ir.Constant c
+                        | _ ->
+                            failwith
+                              "internal error: switch case value must be a \
+                               constant");
                       dst = tmp;
                     };
                   Ir.JumpIfNotZero { condition = tmp; target = lbl };
@@ -294,24 +326,23 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
             | None -> [ Ir.Jump { target = switch_break } ]
           in
 
-          let body_ins = convert_stmt body le in
+          let body_ins = convert_stmt body le te in
 
           cond_ins @ dispatch_ins @ jmp_default @ body_ins
           @ [ Ir.Label switch_break ]
       | _ -> failwith "case statement has missing label")
-  | Case { value; body; id } -> (
+  | Case { body; id; _ } -> (
       match id with
-      | Some (SwitchLabel i) ->
-          let int_value = Ast.literal_to_int value in
-          let l_case = Printf.sprintf "swit.cs.%s.%d" i int_value in
-          let body_ins = convert_stmt body le in
+      | Some (CaseLabel i) ->
+          let l_case = Printf.sprintf "swit.cs.%s" i in
+          let body_ins = convert_stmt body le te in
           [ Ir.Label l_case ] @ body_ins
       | _ -> failwith "case statement has missing label")
   | Default { body; id } -> (
       match id with
       | Some (SwitchLabel i) ->
           let l_case = "swit.df." ^ i in
-          let body_ins = convert_stmt body le in
+          let body_ins = convert_stmt body le te in
           [ Ir.Label l_case ] @ body_ins
       | _ -> failwith "default statement has missing label")
   | Goto id -> (
@@ -320,11 +351,12 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) : Ir.instruction list =
       | _ -> failwith "goto statement has missing label")
   | Label (id, next_stmt) -> (
       match id with
-      | GotoLabel name -> [ Ir.Label name ] @ convert_stmt next_stmt le
+      | GotoLabel name -> [ Ir.Label name ] @ convert_stmt next_stmt le te
       | _ -> failwith "label statement has missing label")
   | Null -> []
 
-and convert_dclr (d : Ast.decl) (le : Env.lenv) : Ir.instruction list =
+and convert_dclr (d : Ast.decl) (le : Env.lenv) (te : Env.tenv) :
+    Ir.instruction list =
   match d with
   (* Function declarations without body are discarded *)
   | FunDecl _ -> []
@@ -333,47 +365,42 @@ and convert_dclr (d : Ast.decl) (le : Env.lenv) : Ir.instruction list =
   (* Don't generate instructions for externs *)
   | VarDecl { storage = Some Extern; _ } -> []
   (* No need to generate instructions for variable declaration *)
-  | VarDecl { storage = _; name; init = None; _ } ->
-      Env.insert_value le name;
-      []
+  | VarDecl { storage = _; init = None; _ } -> []
   (* Handle a declaration with initialiser as an assignment expression *)
   | VarDecl { storage = _; name; init = Some rhs; _ } ->
-      Env.insert_value le name;
-      let initialiser = Ast.Assignment (Ast.Var name, rhs) in
-      let _, instructions = convert_expr initialiser le in
+      let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
+      let _, instructions = convert_expr initialiser le te in
       instructions
 
-and convert_for_init (i : Ast.for_init) (le : Env.lenv) : Ir.instruction list =
+and convert_for_init (i : Ast.for_init) (le : Env.lenv) (te : Env.tenv) :
+    Ir.instruction list =
   match i with
   (* No need to generate instructions for variable declaration *)
-  | InclDecl { name; init = None; _ } ->
-      Env.insert_value le name;
-      []
+  | InclDecl { init = None; _ } -> []
   (* Handle a declaration with initialiser as an assignment expression *)
   | InclDecl { name; init = Some rhs; _ } ->
-      Env.insert_value le name;
-      let initialiser = Ast.Assignment (Ast.Var name, rhs) in
-      let _, instructions = convert_expr initialiser le in
+      let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
+      let _, instructions = convert_expr initialiser le te in
       instructions
   | InitExp (Some e) ->
-      let _, ins = convert_expr e le in
+      let _, ins = convert_expr e le te in
       ins
   | InitExp None -> []
 
 and convert_for_cond (e : Ast.expr option) (exit_target : string)
-    (le : Env.lenv) : Ir.instruction list =
+    (le : Env.lenv) (te : Env.tenv) : Ir.instruction list =
   match e with
   | Some exp ->
-      let cond, cond_ins = convert_expr exp le in
+      let cond, cond_ins = convert_expr exp le te in
       let jz_cond = Ir.JumpIfZero { condition = cond; target = exit_target } in
       cond_ins @ [ jz_cond ]
   | None -> []
 
-and convert_for_post (e : Ast.expr option) (le : Env.lenv) : Ir.instruction list
-    =
+and convert_for_post (e : Ast.expr option) (le : Env.lenv) (te : Env.tenv) :
+    Ir.instruction list =
   match e with
   | Some exp ->
-      let _, ins = convert_expr exp le in
+      let _, ins = convert_expr exp le te in
       ins
   | None -> []
 
@@ -391,13 +418,15 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
         List.map
           (fun node ->
             match node with
-            | Ast.S s -> convert_stmt s le
-            | Ast.D d -> convert_dclr d le)
+            | Ast.S s -> convert_stmt s le te
+            | Ast.D d -> convert_dclr d le te)
           items
         |> List.flatten
       in
-      (* Append "return 0" to the function end, in case no return present *)
-      let body_safe_return = body @ [ Return (Constant 0) ] in
+      (* Append "return 0" to the function end, in case no return present. Note
+         that C standard states that in such cases, the return value is
+         undefined, so choose by convention to always return int type. *)
+      let body_safe_return = body @ [ Return (Constant (ConstInt 0l)) ] in
       let global = Env.fun_is_global te f.name in
       Function
         {
@@ -407,8 +436,6 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
             List.map
               (fun name ->
                 let param_name = identifier_to_string name in
-                (* Add function parameter declarations to lenv *)
-                Env.insert_value le name;
                 param_name)
               f.params;
           body = body_safe_return;
@@ -417,10 +444,18 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
 
 let convert_symbols (te : Env.tenv) : Ir.top_level list =
   Env.static_vars te
-  |> List.filter_map (fun (name, init, global) ->
+  |> List.filter_map (fun (name, global, t, init) ->
       match init with
-      | Env.Initial i -> Some (Ir.StaticVariable { name; global; init = i })
-      | Env.Tentative -> Some (Ir.StaticVariable { name; global; init = 0 })
+      | Env.Initial init -> Some (Ir.StaticVariable { name; global; t; init })
+      | Env.Tentative ->
+          let init =
+            match t with
+            | Ctype.Int -> Ctype.IntInit 0l
+            | Ctype.Long -> Ctype.LongInit 0L
+            | Ctype.FunType _ ->
+                failwith "internal error: static variable with function type"
+          in
+          Some (Ir.StaticVariable { name; global; t; init })
       | Env.NoInitialiser -> None)
 
 let convert_prog (Program p : Ast.prog) (te : Env.tenv) : Ir.prog =

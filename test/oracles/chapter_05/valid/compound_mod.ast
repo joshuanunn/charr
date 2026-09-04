@@ -6,15 +6,34 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_mod");
-                           init = (Some (Ast.LiteralInt 5)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "to_mod")),
-                             Ast.Binary {op = Ast.Remainder;
-                               left = (Ast.Var (Ast.Identifier "to_mod"));
-                               right = (Ast.LiteralInt 3)}
-                             ))));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "to_mod"))))]));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "to_mod"));
+                                 typ = None },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Remainder;
+                                   left =
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "to_mod"));
+                                     typ = None };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 3l));
+                                     typ = None }};
+                                 typ = None }
+                               ));
+                            typ = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "to_mod"));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

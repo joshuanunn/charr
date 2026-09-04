@@ -1,6 +1,9 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
-      instructions = [(Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX))); Asm.Ret];
+      instructions =
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
+         dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";

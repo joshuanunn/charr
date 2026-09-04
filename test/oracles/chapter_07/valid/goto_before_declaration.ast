@@ -6,29 +6,47 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Compound
                           (Ast.Block
                              [(Ast.S
                                  Ast.If {
                                    cond_exp =
-                                   Ast.Binary {op = Ast.NotEqual;
-                                     left = (Ast.Var (Ast.Identifier "a"));
-                                     right = (Ast.LiteralInt 0)};
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.NotEqual;
+                                       left =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "a"));
+                                         typ = None };
+                                       right =
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 0l));
+                                         typ = None }};
+                                     typ = None };
                                    then_smt =
                                    (Ast.Label ((Ast.Identifier "return_a"),
                                       (Ast.Return
-                                         (Ast.Var (Ast.Identifier "a")))
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "a"));
+                                           typ = None })
                                       ));
                                    else_smt = None});
                                (Ast.D
                                   (Ast.VarDecl
                                      { Ast.name = (Ast.Identifier "a");
-                                       init = (Some (Ast.LiteralInt 4));
-                                       storage = None }));
+                                       init =
+                                       (Some { Ast.e =
+                                               (Ast.Constant
+                                                  (Ctype.ConstInt 4l));
+                                               typ = None });
+                                       var_type = Ctype.Int; storage = None }));
                                (Ast.S (Ast.Goto (Ast.Identifier "return_a")))
                                ])))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

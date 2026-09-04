@@ -6,19 +6,38 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_subtract.0");
-                           init = (Some (Ast.LiteralInt 10)); storage = None
-                           }));
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 10l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "to_subtract.0")),
-                             Ast.Binary {op = Ast.Subtract;
-                               left =
-                               (Ast.Var (Ast.Identifier "to_subtract.0"));
-                               right = (Ast.LiteralInt 8)}
-                             ))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e =
+                                 (Ast.Var (Ast.Identifier "to_subtract.0"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Subtract;
+                                   left =
+                                   { Ast.e =
+                                     (Ast.Var
+                                        (Ast.Identifier "to_subtract.0"));
+                                     typ = (Some Ctype.Int) };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 8l));
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
                     (Ast.S
-                       (Ast.Return (Ast.Var (Ast.Identifier "to_subtract.0"))))
+                       (Ast.Return
+                          { Ast.e =
+                            (Ast.Var (Ast.Identifier "to_subtract.0"));
+                            typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

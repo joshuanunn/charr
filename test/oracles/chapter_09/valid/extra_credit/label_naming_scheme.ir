@@ -1,6 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant 0))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "main";
@@ -9,7 +9,7 @@
         stack slots = {
         }}};
      Ir.Function {name = "main_"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "main_";
@@ -18,7 +18,7 @@
          stack slots = {
          }}};
      Ir.Function {name = "_main"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant 0))];
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
          namespace = "_main";

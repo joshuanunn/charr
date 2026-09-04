@@ -1,29 +1,27 @@
 (Ir.Program
    [Ir.Function {name = "twice"; global = true; params = ["x.0"];
       body =
-      [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Constant 2);
-         src2 = (Ir.Var "x.0"); dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0"))];
+      [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Constant (Ctype.ConstInt 2l));
+         src2 = (Ir.Var "x.0"); dst = (Ir.Var "twice.tmp.0")};
+        (Ir.Return (Ir.Var "twice.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "twice";
         counter = 1;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          x.0   -> -8,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "twice"; args = [(Ir.Constant 3)];
-          dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+       [Ir.FunCall {fun_name = "twice";
+          args = [(Ir.Constant (Ctype.ConstInt 3l))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}}
      ])

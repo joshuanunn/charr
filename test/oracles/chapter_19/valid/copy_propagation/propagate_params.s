@@ -1,31 +1,31 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
-    movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    movl        -4(%rbp), %r11d
-    imull       -12(%rbp), %r11d
-    movl        %r11d, -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
+    movl        -12(%rbp), %r11d
+    imull       -8(%rbp), %r11d
+    movl        %r11d, -12(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      set_globvar
-    .text       
+    .text
 set_globvar:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -33,37 +33,37 @@ set_globvar:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $32, %rsp
-    movl        %edi, -28(%rbp)
-    movl        %esi, -32(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
     call        set_globvar@PLT
-    movl        %eax, -4(%rbp)
-    movl        -28(%rbp), %edi
-    movl        -28(%rbp), %esi
-    call        callee@PLT
     movl        %eax, -12(%rbp)
-    call        f@PLT
+    movl        -4(%rbp), %edi
+    movl        -4(%rbp), %esi
+    call        callee@PLT
     movl        %eax, -16(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
-    movl        -28(%rbp), %r10d
-    addl        %r10d, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -24(%rbp)
+    call        f@PLT
+    movl        %eax, -20(%rbp)
     movl        -16(%rbp), %r10d
-    subl        %r10d, -24(%rbp)
-    movl        -24(%rbp), %eax
+    movl        %r10d, -24(%rbp)
+    movl        -4(%rbp), %r10d
+    addl        %r10d, -24(%rbp)
+    movl        -24(%rbp), %r10d
+    movl        %r10d, -28(%rbp)
+    movl        -20(%rbp), %r10d
+    subl        %r10d, -28(%rbp)
+    movl        -28(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -80,7 +80,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     cmpl        $4, globl(%rip)
     movl        $0, -12(%rbp)
@@ -90,14 +90,14 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      globl
-    .bss        
+    .bss
     .align      4
 globl:
     .zero       4

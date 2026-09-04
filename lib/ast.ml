@@ -1,7 +1,6 @@
 type storage_class = Static | Extern [@@deriving show]
-type typ = Int [@@deriving show]
 
-type specifier = SpecType of typ | SpecStorage of storage_class
+type specifier = SpecType of Ctype.t | SpecStorage of storage_class
 [@@deriving show]
 
 type ident =
@@ -9,6 +8,7 @@ type ident =
   | GotoLabel of string
   | LoopLabel of string
   | SwitchLabel of string
+  | CaseLabel of string
 [@@deriving show]
 
 type unop =
@@ -42,9 +42,12 @@ type binop =
   | GreaterThan
 [@@deriving show]
 
-type expr =
-  | LiteralInt of int
+type expr = { e : expr_kind; typ : Ctype.t option }
+
+and expr_kind =
+  | Constant of Ctype.const
   | Var of ident
+  | Cast of { target_type : Ctype.t; exp : expr }
   | Unary of { op : unop; exp : expr }
   | Binary of { op : binop; left : expr; right : expr }
   | Assignment of expr * expr
@@ -52,6 +55,17 @@ type expr =
   | FunctionCall of { name : ident; args : expr list }
   | Comma of expr * expr
 [@@deriving show]
+
+(* let untyped_expr kind = { e = kind; typ = None } *)
+let typed_expr kind t = { e = kind; typ = Some t }
+let set_type e t = { e with typ = Some t }
+
+let get_type e =
+  match e.typ with
+  | Some t -> t
+  | None -> failwith "Internal error: expression not typed"
+
+let untyped_expr e = { e; typ = None }
 
 type stmt =
   | Return of expr
@@ -86,6 +100,7 @@ and fun_decl = {
   name : ident;
   params : ident list;
   body : block option;
+  fun_type : Ctype.t;
   storage : storage_class option;
 }
 [@@deriving show]
@@ -93,70 +108,91 @@ and fun_decl = {
 and var_decl = {
   name : ident;
   init : expr option;
+  var_type : Ctype.t;
   storage : storage_class option;
 }
 [@@deriving show]
 
 type prog = Program of decl list [@@deriving show]
 
-let literal_to_int : expr -> int = function
-  | LiteralInt i -> i
-  | _ -> failwith "Expected LiteralInt"
-
-type decl_specs = { spec_type : typ; spec_storage : storage_class option }
+type decl_specs = { spec_type : Ctype.t; spec_storage : storage_class option }
 [@@deriving show]
 
+let extract_type types =
+  match List.sort Ctype.compare types with
+  | [] -> failwith "No type specifier"
+  | [ Ctype.Int ] -> Ctype.Int
+  | [ Ctype.Long ] | [ Ctype.Int; Ctype.Long ] -> Ctype.Long
+  | _ ->
+      failwith
+        ("Invalid type specifier: "
+        ^ String.concat " " (List.map Ctype.show types))
+
 let extract_specifiers (sl : specifier list) : decl_specs =
-  let typ_opt = ref None in
-  let storage_class_opt = ref None in
+  let types, storages =
+    List.partition_map
+      (function SpecType t -> Either.left t | SpecStorage s -> Either.right s)
+      sl
+  in
 
-  List.iter
-    (function
-      | SpecType t -> begin
-          match !typ_opt with
-          | None -> typ_opt := Some t
-          | Some _ -> failwith "Invalid type specifier"
-        end
-      | SpecStorage s -> begin
-          match !storage_class_opt with
-          | None -> storage_class_opt := Some s
-          | Some _ -> failwith "Invalid storage class"
-        end)
-    sl;
-
-  match !typ_opt with
-  | None -> failwith "No type specifier"
-  | Some t -> { spec_type = t; spec_storage = !storage_class_opt }
+  let spec_storage =
+    match storages with
+    | [] -> None
+    | [ s ] -> Some s
+    | _ -> failwith "Invalid storage specifier"
+  in
+  { spec_type = extract_type types; spec_storage }
 
 let mk_prog f = Program f
 
 let mk_func_defn specs name params body =
   let ds = extract_specifiers specs in
-  FunDecl { name; params; body = Some (Block body); storage = ds.spec_storage }
+  FunDecl
+    {
+      name;
+      params = List.map snd params;
+      body = Some (Block body);
+      fun_type = FunType { params = List.map fst params; ret = ds.spec_type };
+      storage = ds.spec_storage;
+    }
 
 let mk_func_decl specs name params =
   let ds = extract_specifiers specs in
-  FunDecl { name; params; body = None; storage = ds.spec_storage }
+  FunDecl
+    {
+      name;
+      params = List.map snd params;
+      body = None;
+      fun_type = FunType { params = List.map fst params; ret = ds.spec_type };
+      storage = ds.spec_storage;
+    }
 
 let mk_func_call e args =
-  match e with
-  | Var name -> FunctionCall { name; args }
+  match e.e with
+  | Var name -> untyped_expr (FunctionCall { name; args })
   | _ -> failwith "Called object is not a function"
 
 let mk_ident i = Identifier i
-let mk_int_expr n = LiteralInt n
-let mk_binop_expr op left right = Binary { op; left; right }
-let mk_unop_expr op exp = Unary { op; exp }
+
+let mk_int_const i =
+  if Int64.compare i (Int64.of_int32 Int32.max_int) <= 0 then
+    untyped_expr (Constant (Ctype.ConstInt (Int64.to_int32 i)))
+  else untyped_expr (Constant (Ctype.ConstLong i))
+
+let mk_long_const i = untyped_expr (Constant (Ctype.ConstLong i))
+let mk_var_expr i = untyped_expr (Var i)
+let mk_binop_expr op left right = untyped_expr (Binary { op; left; right })
+let mk_unop_expr op exp = untyped_expr (Unary { op; exp })
 
 let mk_assign_expr left right =
-  match left with
-  | Var _ -> Assignment (left, right)
+  match left.e with
+  | Var _ -> untyped_expr (Assignment (left, right))
   | _ -> failwith "Can only assign to a variable"
 
 let mk_cond_expr cond_exp then_exp else_exp =
-  Conditional { cond_exp; then_exp; else_exp }
+  untyped_expr (Conditional { cond_exp; then_exp; else_exp })
 
-let mk_comma_expr left right = Comma (left, right)
+let mk_comma_expr left right = untyped_expr (Comma (left, right))
 let mk_return_stmt s = Return s
 let mk_expr_stmt s = Expression s
 let mk_if_stmt i t e = If { cond_exp = i; then_smt = t; else_smt = e }
@@ -177,11 +213,16 @@ let mk_default_stmt s = Default { body = s; id = None }
 
 let mk_decl_init_stmt specs i v =
   let ds = extract_specifiers specs in
-  { name = i; init = Some v; storage = ds.spec_storage }
+  {
+    name = i;
+    init = Some v;
+    var_type = ds.spec_type;
+    storage = ds.spec_storage;
+  }
 
 let mk_decl_stmt specs i =
   let ds = extract_specifiers specs in
-  { name = i; init = None; storage = ds.spec_storage }
+  { name = i; init = None; var_type = ds.spec_type; storage = ds.spec_storage }
 
 let mk_stmt_block_item s = S s
 let mk_decl_block_item d = D d
@@ -189,13 +230,24 @@ let mk_decl_block_item d = D d
 (** [mk_comp_assign_expr op left right] resolves compound ops by evaluating the
     binary expression [left] [op] [right], then assigning result to [left] *)
 let mk_comp_assign_expr op left right =
-  match left with
+  match left.e with
   | Var _ ->
       let result = mk_binop_expr op left right in
-      Assignment (left, result)
+      untyped_expr (Assignment (left, result))
   | _ -> failwith "Can only compound assign to a variable"
 
 let mk_unary_update_expr (op : unop) (exp : expr) =
-  match exp with
+  match exp.e with
   | Var _ -> mk_unop_expr op exp
   | _ -> failwith "Unary increment/decrement can only be applied to variables"
+
+let mk_param types name = (extract_type types, name)
+
+let mk_cast_expr types exp =
+  untyped_expr (Cast { target_type = extract_type types; exp })
+
+let literal_to_int64 l =
+  match l.e with
+  | Constant (Ctype.ConstInt i) -> Int64.of_int32 i
+  | Constant (Ctype.ConstLong l) -> l
+  | _ -> failwith "Expected constant"

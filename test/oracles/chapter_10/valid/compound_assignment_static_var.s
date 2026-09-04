@@ -1,5 +1,5 @@
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -23,7 +23,7 @@ f:
     movl        -12(%rbp), %r10d
     movl        %r10d, k.2(%rip)
     movl        l.3(%rip), %eax
-    cdq         
+    cdq
     movl        $2, %r10d
     idivl       %r10d
     movl        %eax, -16(%rbp)
@@ -37,7 +37,7 @@ f:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lf.if.en.5:
     movl        $-6, -24(%rbp)
     movl        -24(%rbp), %r10d
@@ -49,7 +49,7 @@ f:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lf.if.en.8:
     movl        $-18, -32(%rbp)
     movl        -32(%rbp), %r10d
@@ -61,7 +61,7 @@ f:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lf.if.en.11:
     cmpl        $6, -16(%rbp)
     movl        $0, -40(%rbp)
@@ -71,14 +71,14 @@ f:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lf.if.en.13:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -92,20 +92,20 @@ main:
     movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .data       
+    ret
+    .data
     .align      4
 l.3:
     .long       48
-    .data       
+    .data
     .align      4
 k.2:
     .long       1
-    .bss        
+    .bss
     .align      4
 i.0:
     .zero       4
-    .bss        
+    .bss
     .align      4
 j.1:
     .zero       4

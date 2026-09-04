@@ -6,19 +6,42 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x");
-                           init = (Some (Ast.LiteralInt 10)); storage = None
-                           }));
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 10l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          Ast.Conditional {
-                            cond_exp =
-                            Ast.Binary {op = Ast.Subtract;
-                              left = (Ast.Var (Ast.Identifier "x"));
-                              right = (Ast.LiteralInt 10)};
-                            then_exp = (Ast.LiteralInt 0);
-                            else_exp =
-                            Ast.Unary {op = Ast.PostDecrement;
-                              exp = (Ast.Var (Ast.Identifier "x"))}}));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))))]));
+                          { Ast.e =
+                            Ast.Conditional {
+                              cond_exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Subtract;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 10l));
+                                    typ = None }};
+                                typ = None };
+                              then_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                typ = None };
+                              else_exp =
+                              { Ast.e =
+                                Ast.Unary {op = Ast.PostDecrement;
+                                  exp =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                                    typ = None }};
+                                typ = None }};
+                            typ = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

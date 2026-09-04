@@ -1,5 +1,5 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -12,15 +12,15 @@ callee:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        %edi, -4(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltarget.if.en.0
     call        callee@PLT
     movl        %eax, -8(%rbp)
@@ -28,9 +28,9 @@ target:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -46,7 +46,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movl        $1, %edi
     call        target@PLT
@@ -59,7 +59,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     cmpl        $1, var(%rip)
     movl        $0, -20(%rbp)
@@ -69,14 +69,14 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.7:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      var
-    .bss        
+    .bss
     .align      4
 var:
     .zero       4

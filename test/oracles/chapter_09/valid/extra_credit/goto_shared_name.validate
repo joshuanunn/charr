@@ -4,11 +4,18 @@
          body =
          (Some (Ast.Block
                   [(Ast.S (Ast.Goto (Ast.GotoLabel "foo.0")));
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = (Some Ctype.Int) }));
                     (Ast.S
                        (Ast.Label ((Ast.GotoLabel "foo.0"),
-                          (Ast.Return (Ast.LiteralInt 1)))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                               typ = (Some Ctype.Int) })
+                          )))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -16,8 +23,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "foo");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "foo");
+                              args = []};
+                            typ = (Some Ctype.Int) }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

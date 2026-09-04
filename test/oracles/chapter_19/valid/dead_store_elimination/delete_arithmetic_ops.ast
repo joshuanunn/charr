@@ -1,10 +1,14 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "a"); init = (Some (Ast.LiteralInt 1));
-         storage = None });
+       { Ast.name = (Ast.Identifier "a");
+         init =
+         (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l)); typ = None });
+         var_type = Ctype.Int; storage = None });
      (Ast.VarDecl
-        { Ast.name = (Ast.Identifier "b"); init = (Some (Ast.LiteralInt 2));
-          storage = None });
+        { Ast.name = (Ast.Identifier "b");
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 2l)); typ = None });
+          var_type = Ctype.Int; storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
           body =
@@ -13,13 +17,28 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "unused");
                             init =
-                            (Some Ast.Binary {op = Ast.Multiply;
-                                    left = (Ast.Var (Ast.Identifier "a"));
-                                    right =
-                                    Ast.Unary {op = Ast.Negate;
-                                      exp = (Ast.Var (Ast.Identifier "b"))}});
-                            storage = None }));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 5)))]));
+                            (Some { Ast.e =
+                                    Ast.Binary {op = Ast.Multiply;
+                                      left =
+                                      { Ast.e =
+                                        (Ast.Var (Ast.Identifier "a"));
+                                        typ = None };
+                                      right =
+                                      { Ast.e =
+                                        Ast.Unary {op = Ast.Negate;
+                                          exp =
+                                          { Ast.e =
+                                            (Ast.Var (Ast.Identifier "b"));
+                                            typ = None }};
+                                        typ = None }};
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -27,8 +46,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

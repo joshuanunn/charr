@@ -10,7 +10,7 @@
   lexer
   lexer_pp
   parser
-  type
+  ctype
   ast
   ast_resolution
   ast_flow_label
@@ -26,9 +26,10 @@
   codegen_lower
   codegen_fixup
   asm
+  asm_symtab
   emit)
  (preprocess
-  (pps ppx_deriving.show)))
+  (pps ppx_deriving.show ppx_deriving.ord ppx_deriving.eq)))
 
 (menhir
  (modules parser))

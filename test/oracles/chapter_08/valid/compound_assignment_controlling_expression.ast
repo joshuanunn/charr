@@ -6,41 +6,86 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "i");
-                           init = (Some (Ast.LiteralInt 100)); storage = None
-                           }));
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 100l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "sum");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.DoWhile {
                          body =
                          (Ast.Expression
-                            (Ast.Assignment (
-                               (Ast.Var (Ast.Identifier "sum")),
-                               Ast.Binary {op = Ast.Add;
-                                 left = (Ast.Var (Ast.Identifier "sum"));
-                                 right = (Ast.LiteralInt 2)}
-                               )));
+                            { Ast.e =
+                              (Ast.Assignment (
+                                 { Ast.e = (Ast.Var (Ast.Identifier "sum"));
+                                   typ = None },
+                                 { Ast.e =
+                                   Ast.Binary {op = Ast.Add;
+                                     left =
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "sum"));
+                                       typ = None };
+                                     right =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 2l));
+                                       typ = None }};
+                                   typ = None }
+                                 ));
+                              typ = None });
                          cond =
-                         (Ast.Assignment ((Ast.Var (Ast.Identifier "i")),
-                            Ast.Binary {op = Ast.Subtract;
-                              left = (Ast.Var (Ast.Identifier "i"));
-                              right = (Ast.LiteralInt 1)}
-                            ));
+                         { Ast.e =
+                           (Ast.Assignment (
+                              { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                typ = None },
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Subtract;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 1l));
+                                    typ = None }};
+                                typ = None }
+                              ));
+                           typ = None };
                          id = None});
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.And;
-                            left =
-                            Ast.Binary {op = Ast.Equal;
-                              left = (Ast.Var (Ast.Identifier "i"));
-                              right = (Ast.LiteralInt 0)};
-                            right =
-                            Ast.Binary {op = Ast.Equal;
-                              left = (Ast.Var (Ast.Identifier "sum"));
-                              right = (Ast.LiteralInt 200)}}))
+                          { Ast.e =
+                            Ast.Binary {op = Ast.And;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Equal;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None }};
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Equal;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "sum"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 200l));
+                                    typ = None }};
+                                typ = None }};
+                            typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

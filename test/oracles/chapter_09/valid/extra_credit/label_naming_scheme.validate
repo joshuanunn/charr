@@ -6,9 +6,13 @@
                   [(Ast.S
                       (Ast.Label ((Ast.GotoLabel "_label.0"),
                          (Ast.Label ((Ast.GotoLabel "label_.1"),
-                            (Ast.Return (Ast.LiteralInt 0))))
+                            (Ast.Return
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                 typ = (Some Ctype.Int) })
+                            ))
                          )))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main_"); params = [];
@@ -16,8 +20,12 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Label ((Ast.GotoLabel "label.2"),
-                          (Ast.Return (Ast.LiteralInt 0)))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = (Some Ctype.Int) })
+                          )))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "_main"); params = [];
@@ -25,7 +33,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Label ((Ast.GotoLabel "label.3"),
-                          (Ast.Return (Ast.LiteralInt 0)))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = (Some Ctype.Int) })
+                          )))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

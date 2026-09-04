@@ -6,15 +6,24 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "x.0");
-                           init = (Some (Ast.LiteralInt 4)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Compound
                           (Ast.Block
                              [(Ast.D
                                  (Ast.VarDecl
                                     { Ast.name = (Ast.Identifier "x.1");
-                                      init = None; storage = None }))
+                                      init = None; var_type = Ctype.Int;
+                                      storage = None }))
                                ])));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x.0"))))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "x.0"));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

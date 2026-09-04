@@ -1,15 +1,16 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 16);
-        (Asm.Mov ((Asm.Data "foo"), (Asm.Reg Asm.AX))); Asm.Ret];
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Data "foo");
+         dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 1;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          outer.0 -> -4,
-          foo.1   -> -8,
         }}};
-     Asm.StaticVariable {name = "foo"; global = true; init = 3}])
+     Asm.StaticVariable {name = "foo"; global = true; alignment = 4;
+       init = (Ctype.IntInit 3l)}
+     ])

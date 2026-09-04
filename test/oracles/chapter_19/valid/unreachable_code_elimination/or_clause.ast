@@ -1,19 +1,33 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "putchar");
-         params = [(Ast.Identifier "c")]; body = None; storage = None });
+         params = [(Ast.Identifier "c")]; body = None;
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.Or; left = (Ast.LiteralInt 1);
-                            right =
-                            Ast.FunctionCall {
-                              name = (Ast.Identifier "putchar");
-                              args = [(Ast.LiteralInt 97)]}}))
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Or;
+                              left =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "putchar");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 97l));
+                                     typ = None }
+                                    ]};
+                                typ = None }};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -21,8 +35,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

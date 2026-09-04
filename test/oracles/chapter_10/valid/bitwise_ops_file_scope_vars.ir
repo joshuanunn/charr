@@ -1,48 +1,52 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant -1); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Constant -1); dst = (Ir.Var "y")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -1l));
+         dst = (Ir.Var "main.tmp.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -1l)); dst = (Ir.Var "y")};
         Ir.Binary {op = Ir.BwLeftShift; src1 = (Ir.Var "x");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.1")};
-        Ir.Binary {op = Ir.BwOr; src1 = (Ir.Var "tmp.1");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.2")};
-        Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "x")};
-        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.2");
-          src2 = (Ir.Constant 3); dst = (Ir.Var "tmp.3")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "main.if.en.4"};
-        (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.4");
-        Ir.Copy {src = (Ir.Constant -5); dst = (Ir.Var "tmp.5")};
-        Ir.Binary {op = Ir.BwAnd; src1 = (Ir.Var "tmp.0");
-          src2 = (Ir.Var "tmp.5"); dst = (Ir.Var "tmp.6")};
-        Ir.Binary {op = Ir.BwXor; src1 = (Ir.Var "tmp.6");
-          src2 = (Ir.Constant 12); dst = (Ir.Var "tmp.7")};
-        Ir.Binary {op = Ir.BwRightShift; src1 = (Ir.Var "tmp.7");
-          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.8")};
-        Ir.Copy {src = (Ir.Var "tmp.8"); dst = (Ir.Var "y")};
-        Ir.Copy {src = (Ir.Constant -3); dst = (Ir.Var "tmp.9")};
-        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.8");
-          src2 = (Ir.Var "tmp.9"); dst = (Ir.Var "tmp.10")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.10");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.Binary {op = Ir.BwOr; src1 = (Ir.Var "main.tmp.1");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.Copy {src = (Ir.Var "main.tmp.2"); dst = (Ir.Var "x")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.2");
+          src2 = (Ir.Constant (Ctype.ConstInt 3l));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.3");
+          target = "main.if.en.4"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "main.if.en.4");
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -5l));
+          dst = (Ir.Var "main.tmp.5")};
+        Ir.Binary {op = Ir.BwAnd; src1 = (Ir.Var "main.tmp.0");
+          src2 = (Ir.Var "main.tmp.5"); dst = (Ir.Var "main.tmp.6")};
+        Ir.Binary {op = Ir.BwXor; src1 = (Ir.Var "main.tmp.6");
+          src2 = (Ir.Constant (Ctype.ConstInt 12l));
+          dst = (Ir.Var "main.tmp.7")};
+        Ir.Binary {op = Ir.BwRightShift; src1 = (Ir.Var "main.tmp.7");
+          src2 = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "main.tmp.8")};
+        Ir.Copy {src = (Ir.Var "main.tmp.8"); dst = (Ir.Var "y")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -3l));
+          dst = (Ir.Var "main.tmp.9")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.8");
+          src2 = (Ir.Var "main.tmp.9"); dst = (Ir.Var "main.tmp.10")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.10");
           target = "main.if.en.11"};
-        (Ir.Return (Ir.Constant 2)); (Ir.Label "main.if.en.11");
-        (Ir.Return (Ir.Constant 0))];
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "main.if.en.11");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 12;
-        offset = -40;
+        offset = 0;
         stack slots = {
-          tmp.0  -> -4,
-          tmp.1  -> -8,
-          tmp.2  -> -12,
-          tmp.3  -> -16,
-          tmp.5  -> -20,
-          tmp.6  -> -24,
-          tmp.7  -> -28,
-          tmp.8  -> -32,
-          tmp.9  -> -36,
-          tmp.10 -> -40,
         }}};
-     Ir.StaticVariable {name = "x"; global = true; init = 1};
-     Ir.StaticVariable {name = "y"; global = true; init = 0}])
+     Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 1l)};
+     Ir.StaticVariable {name = "y"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)}
+     ])

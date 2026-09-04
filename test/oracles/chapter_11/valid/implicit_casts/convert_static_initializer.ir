@@ -1,0 +1,30 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "i");
+         src2 = (Ir.Constant (Ctype.ConstInt 0l));
+         dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "main.if.en.1"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "main.if.en.1");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "j");
+          src2 = (Ir.Constant (Ctype.ConstLong 123456L));
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.2");
+          target = "main.if.en.3"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "main.if.en.3");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 4;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.StaticVariable {name = "i"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 0l)};
+     Ir.StaticVariable {name = "j"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 123456L)}
+     ])

@@ -1,0 +1,361 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "l1.0");
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 71777214294589695L));
+                                   typ = (Some Ctype.Long) });
+                           var_type = Ctype.Long; storage = None }));
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "l2.1");
+                            init =
+                            (Some { Ast.e =
+                                    Ast.Unary {op = Ast.Negate;
+                                      exp =
+                                      { Ast.e =
+                                        (Ast.Constant
+                                           (Ctype.ConstLong 4294967296L));
+                                        typ = (Some Ctype.Long) }};
+                                    typ = (Some Ctype.Long) });
+                            var_type = Ctype.Long; storage = None }));
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 Ast.Cast {target_type = Ctype.Long;
+                                   exp =
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.BwAnd;
+                                       left =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "l1.0"));
+                                         typ = (Some Ctype.Long) };
+                                       right =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "l2.1"));
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                               typ = (Some Ctype.Long) };
+                             right =
+                             { Ast.e =
+                               (Ast.Constant
+                                  (Ctype.ConstLong 71777214277877760L));
+                               typ = (Some Ctype.Long) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "l2.1"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 Ast.Cast {target_type = Ctype.Long;
+                                   exp =
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.BwOr;
+                                       left =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "l2.1"));
+                                         typ = (Some Ctype.Long) };
+                                       right =
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstLong 100L));
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "l2.1"));
+                               typ = (Some Ctype.Long) };
+                             right =
+                             { Ast.e =
+                               Ast.Unary {op = Ast.Negate;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 4294967196L));
+                                   typ = (Some Ctype.Long) }};
+                               typ = (Some Ctype.Long) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 Ast.Cast {target_type = Ctype.Long;
+                                   exp =
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.BwXor;
+                                       left =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "l1.0"));
+                                         typ = (Some Ctype.Long) };
+                                       right =
+                                       { Ast.e =
+                                         Ast.Unary {op = Ast.Negate;
+                                           exp =
+                                           { Ast.e =
+                                             (Ast.Constant
+                                                (Ctype.ConstLong
+                                                   9223372036854775807L));
+                                             typ = (Some Ctype.Long) }};
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                               typ = (Some Ctype.Long) };
+                             right =
+                             { Ast.e =
+                               Ast.Unary {op = Ast.Negate;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 9151594822576898047L));
+                                   typ = (Some Ctype.Long) }};
+                               typ = (Some Ctype.Long) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 3l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 (Ast.Constant
+                                    (Ctype.ConstLong 4611686018427387903L));
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "i.2");
+                            init =
+                            (Some { Ast.e =
+                                    Ast.Unary {op = Ast.Negate;
+                                      exp =
+                                      { Ast.e =
+                                        (Ast.Constant
+                                           (Ctype.ConstInt 1073741824l));
+                                        typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                                 typ = (Some Ctype.Long) },
+                               { Ast.e =
+                                 Ast.Cast {target_type = Ctype.Long;
+                                   exp =
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.BwAnd;
+                                       left =
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "l1.0"));
+                                         typ = (Some Ctype.Long) };
+                                       right =
+                                       { Ast.e =
+                                         Ast.Cast {target_type = Ctype.Long;
+                                           exp =
+                                           { Ast.e =
+                                             (Ast.Var (Ast.Identifier "i.2"));
+                                             typ = (Some Ctype.Int) }};
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Long) }
+                               ));
+                            typ = (Some Ctype.Long) }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                               typ = (Some Ctype.Long) };
+                             right =
+                             { Ast.e =
+                               (Ast.Constant
+                                  (Ctype.ConstLong 4611686017353646080L));
+                               typ = (Some Ctype.Long) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 4l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "i.2"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e =
+                                 Ast.Cast {target_type = Ctype.Int;
+                                   exp =
+                                   { Ast.e =
+                                     Ast.Unary {op = Ast.Negate;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant
+                                            (Ctype.ConstLong 2147483648L));
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.Long) }};
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               (Ast.Assignment (
+                                  { Ast.e = (Ast.Var (Ast.Identifier "i.2"));
+                                    typ = (Some Ctype.Int) },
+                                  { Ast.e =
+                                    Ast.Binary {op = Ast.BwOr;
+                                      left =
+                                      { Ast.e =
+                                        Ast.Cast {target_type = Ctype.Long;
+                                          exp =
+                                          { Ast.e =
+                                            (Ast.Var (Ast.Identifier "i.2"));
+                                            typ = (Some Ctype.Int) }};
+                                        typ = (Some Ctype.Long) };
+                                      right =
+                                      { Ast.e =
+                                        (Ast.Constant
+                                           (Ctype.ConstLong
+                                              71777214294589695L));
+                                        typ = (Some Ctype.Long) }};
+                                    typ = (Some Ctype.Int) }
+                                  ));
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e =
+                               Ast.Unary {op = Ast.Negate;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 2130771713l));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 5l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "i.2"));
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e =
+                               Ast.Unary {op = Ast.Negate;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 2130771713l));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 6l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
+     ])

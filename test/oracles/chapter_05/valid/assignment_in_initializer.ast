@@ -6,15 +6,27 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a"); init = None;
-                           storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
                             init =
-                            (Some (Ast.Assignment (
-                                     (Ast.Var (Ast.Identifier "a")),
-                                     (Ast.LiteralInt 0))));
-                            storage = None }));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "b"))))]));
+                            (Some { Ast.e =
+                                    (Ast.Assignment (
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "a"));
+                                         typ = None },
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 0l));
+                                         typ = None }
+                                       ));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

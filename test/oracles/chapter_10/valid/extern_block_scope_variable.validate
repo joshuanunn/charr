@@ -6,36 +6,53 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "outer.0");
-                           init = (Some (Ast.LiteralInt 1)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "foo.1");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.If {
-                         cond_exp = (Ast.Var (Ast.Identifier "outer.0"));
+                         cond_exp =
+                         { Ast.e = (Ast.Var (Ast.Identifier "outer.0"));
+                           typ = (Some Ctype.Int) };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.D
                                    (Ast.VarDecl
                                       { Ast.name = (Ast.Identifier "foo");
-                                        init = None;
+                                        init = None; var_type = Ctype.Int;
                                         storage = (Some Ast.Extern) }));
                                  (Ast.D
                                     (Ast.VarDecl
                                        { Ast.name = (Ast.Identifier "foo");
-                                         init = None;
+                                         init = None; var_type = Ctype.Int;
                                          storage = (Some Ast.Extern) }));
                                  (Ast.S
                                     (Ast.Return
-                                       (Ast.Var (Ast.Identifier "foo"))))
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "foo"));
+                                         typ = (Some Ctype.Int) }))
                                  ]));
                          else_smt = None});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "foo");
-          init = (Some (Ast.LiteralInt 3)); storage = None })
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 3l)); typ = None });
+          var_type = Ctype.Int; storage = None })
      ])

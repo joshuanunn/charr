@@ -1,15 +1,14 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        x(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      x
-    .bss        
+    .bss
     .align      4
 x:
     .zero       4

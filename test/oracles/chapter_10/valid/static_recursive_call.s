@@ -1,5 +1,5 @@
     .globl      print_alphabet
-    .text       
+    .text
 print_alphabet:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -26,9 +26,9 @@ print_alphabet:
     movl        count.1(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -38,8 +38,8 @@ main:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 count.1:
     .zero       4

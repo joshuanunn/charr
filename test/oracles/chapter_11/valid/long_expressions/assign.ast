@@ -1,0 +1,48 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "a");
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 4294967290L));
+                                   typ = None });
+                           var_type = Ctype.Long; storage = None }));
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "b");
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstLong 0L));
+                                    typ = None });
+                            var_type = Ctype.Long; storage = None }));
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                                 typ = None },
+                               { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                 typ = None }
+                               ));
+                            typ = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant (Ctype.ConstLong 4294967290L));
+                                typ = None }};
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
+     ])

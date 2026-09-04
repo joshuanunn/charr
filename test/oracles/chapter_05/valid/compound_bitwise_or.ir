@@ -1,13 +1,11 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant 31))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 31l)))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 1;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          to_or.0 -> -4,
-          tmp.0   -> -8,
         }}}
      ])

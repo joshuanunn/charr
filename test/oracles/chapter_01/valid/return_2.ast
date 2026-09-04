@@ -1,6 +1,13 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "main"); params = [];
-         body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      (Ast.Return
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                           typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

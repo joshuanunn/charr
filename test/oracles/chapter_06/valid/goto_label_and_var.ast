@@ -6,12 +6,22 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "ident");
-                           init = (Some (Ast.LiteralInt 5)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S (Ast.Goto (Ast.Identifier "ident")));
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = None }));
                     (Ast.S
                        (Ast.Label ((Ast.Identifier "ident"),
-                          (Ast.Return (Ast.Var (Ast.Identifier "ident"))))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Var (Ast.Identifier "ident"));
+                               typ = None })
+                          )))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -1,175 +1,158 @@
     .globl      target_add
-    .text       
+    .text
 target_add:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $300, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_sub
-    .text       
+    .text
 target_sub:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $-2147483645, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_mult
-    .text       
+    .text
 target_mult:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1000000, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_div
-    .text       
+    .text
 target_div:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $277, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_rem
-    .text       
+    .text
 target_rem:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_eq_true
-    .text       
+    .text
 target_eq_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_eq_false
-    .text       
+    .text
 target_eq_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_neq_true
-    .text       
+    .text
 target_neq_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_neq_false
-    .text       
+    .text
 target_neq_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_gt_true
-    .text       
+    .text
 target_gt_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_gt_false
-    .text       
+    .text
 target_gt_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_ge_true
-    .text       
+    .text
 target_ge_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_ge_false
-    .text       
+    .text
 target_ge_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_lt_true
-    .text       
+    .text
 target_lt_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_lt_false
-    .text       
+    .text
 target_lt_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_le_true
-    .text       
+    .text
 target_le_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_le_false
-    .text       
+    .text
 target_le_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -184,7 +167,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     call        target_sub@PLT
     movl        %eax, -12(%rbp)
@@ -200,7 +183,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.6:
     call        target_mult@PLT
     movl        %eax, -24(%rbp)
@@ -212,7 +195,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     call        target_div@PLT
     movl        %eax, -32(%rbp)
@@ -224,7 +207,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.12:
     call        target_rem@PLT
     movl        %eax, -40(%rbp)
@@ -236,7 +219,7 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.15:
     call        target_eq_false@PLT
     movl        %eax, -48(%rbp)
@@ -245,7 +228,7 @@ main:
     movl        $6, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.17:
     call        target_eq_true@PLT
     movl        %eax, -52(%rbp)
@@ -257,7 +240,7 @@ main:
     movl        $7, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.20:
     call        target_neq_false@PLT
     movl        %eax, -60(%rbp)
@@ -266,7 +249,7 @@ main:
     movl        $8, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.22:
     call        target_neq_true@PLT
     movl        %eax, -64(%rbp)
@@ -278,7 +261,7 @@ main:
     movl        $9, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.25:
     call        target_gt_false@PLT
     movl        %eax, -72(%rbp)
@@ -287,7 +270,7 @@ main:
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.27:
     call        target_gt_true@PLT
     movl        %eax, -76(%rbp)
@@ -299,7 +282,7 @@ main:
     movl        $11, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.30:
     call        target_ge_false@PLT
     movl        %eax, -84(%rbp)
@@ -308,7 +291,7 @@ main:
     movl        $12, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.32:
     call        target_ge_true@PLT
     movl        %eax, -88(%rbp)
@@ -320,7 +303,7 @@ main:
     movl        $13, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.35:
     call        target_lt_false@PLT
     movl        %eax, -96(%rbp)
@@ -329,7 +312,7 @@ main:
     movl        $14, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.37:
     call        target_lt_true@PLT
     movl        %eax, -100(%rbp)
@@ -341,7 +324,7 @@ main:
     movl        $15, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.40:
     call        target_le_false@PLT
     movl        %eax, -108(%rbp)
@@ -350,7 +333,7 @@ main:
     movl        $16, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.42:
     call        target_le_true@PLT
     movl        %eax, -112(%rbp)
@@ -362,14 +345,14 @@ main:
     movl        $17, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.45:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      val_to_negate
-    .data       
+    .data
     .align      4
 val_to_negate:
     .long       2147483645

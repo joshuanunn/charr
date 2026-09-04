@@ -1,31 +1,28 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant -1); dst = (Ir.Var "i.0")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -1l));
+         dst = (Ir.Var "i.0")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.GreaterOrEqual; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant -100); dst = (Ir.Var "tmp.3")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "loop.br.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt -100l));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.3");
+          target = "loop.br.1"};
         Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant 3); dst = (Ir.Var "tmp.4")};
-        Ir.Copy {src = (Ir.Var "tmp.4"); dst = (Ir.Var "i.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 3l));
+          dst = (Ir.Var "main.tmp.4")};
+        Ir.Copy {src = (Ir.Var "main.tmp.4"); dst = (Ir.Var "i.0")};
         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant -103); dst = (Ir.Var "tmp.6")};
-        (Ir.Return (Ir.Var "tmp.6"))];
+          src2 = (Ir.Constant (Ctype.ConstInt -103l));
+          dst = (Ir.Var "main.tmp.6")};
+        (Ir.Return (Ir.Var "main.tmp.6"))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 7;
-        offset = -32;
+        offset = 0;
         stack slots = {
-          i.0   -> -4,
-          tmp.0 -> -8,
-          tmp.1 -> -12,
-          tmp.2 -> -16,
-          tmp.3 -> -20,
-          tmp.4 -> -24,
-          tmp.5 -> -28,
-          tmp.6 -> -32,
         }}}
      ])

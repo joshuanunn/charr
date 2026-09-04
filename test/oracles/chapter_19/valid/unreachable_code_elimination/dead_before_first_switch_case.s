@@ -1,37 +1,37 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -12(%rbp)
-    cmpl        $1, -12(%rbp)
-    movl        $0, -4(%rbp)
-    sete        -4(%rbp)
-    cmpl        $0, -4(%rbp)
-    jne         .Lswit.cs.1.1
+    movl        %edi, -4(%rbp)
+    cmpl        $1, -4(%rbp)
+    movl        $0, -8(%rbp)
+    sete        -8(%rbp)
+    cmpl        $0, -8(%rbp)
+    jne         .Lswit.cs.1.2
     jmp         .Lswit.df.1
-.Lswit.cs.1.1:
+.Lswit.cs.1.2:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lswit.df.1:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -42,5 +42,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

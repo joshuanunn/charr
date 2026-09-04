@@ -6,40 +6,88 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "i");
-                           init = (Some (Ast.LiteralInt 1)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.For {
                          init =
                          (Ast.InitExp
-                            (Some (Ast.Assignment (
-                                     (Ast.Var (Ast.Identifier "i")),
-                                     Ast.Binary {op = Ast.Multiply;
-                                       left = (Ast.Var (Ast.Identifier "i"));
-                                       right =
-                                       Ast.Unary {op = Ast.Negate;
-                                         exp = (Ast.LiteralInt 1)}}
-                                     ))));
+                            (Some { Ast.e =
+                                    (Ast.Assignment (
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "i"));
+                                         typ = None },
+                                       { Ast.e =
+                                         Ast.Binary {op = Ast.Multiply;
+                                           left =
+                                           { Ast.e =
+                                             (Ast.Var (Ast.Identifier "i"));
+                                             typ = None };
+                                           right =
+                                           { Ast.e =
+                                             Ast.Unary {op = Ast.Negate;
+                                               exp =
+                                               { Ast.e =
+                                                 (Ast.Constant
+                                                    (Ctype.ConstInt 1l));
+                                                 typ = None }};
+                                             typ = None }};
+                                         typ = None }
+                                       ));
+                                    typ = None }));
                          cond =
-                         (Some Ast.Binary {op = Ast.GreaterOrEqual;
-                                 left = (Ast.Var (Ast.Identifier "i"));
-                                 right =
-                                 Ast.Unary {op = Ast.Negate;
-                                   exp = (Ast.LiteralInt 100)}});
+                         (Some { Ast.e =
+                                 Ast.Binary {op = Ast.GreaterOrEqual;
+                                   left =
+                                   { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                     typ = None };
+                                   right =
+                                   { Ast.e =
+                                     Ast.Unary {op = Ast.Negate;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 100l));
+                                         typ = None }};
+                                     typ = None }};
+                                 typ = None });
                          post =
-                         (Some (Ast.Assignment (
-                                  (Ast.Var (Ast.Identifier "i")),
-                                  Ast.Binary {op = Ast.Subtract;
-                                    left = (Ast.Var (Ast.Identifier "i"));
-                                    right = (Ast.LiteralInt 3)}
-                                  )));
+                         (Some { Ast.e =
+                                 (Ast.Assignment (
+                                    { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                      typ = None },
+                                    { Ast.e =
+                                      Ast.Binary {op = Ast.Subtract;
+                                        left =
+                                        { Ast.e =
+                                          (Ast.Var (Ast.Identifier "i"));
+                                          typ = None };
+                                        right =
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 3l));
+                                          typ = None }};
+                                      typ = None }
+                                    ));
+                                 typ = None });
                          body = Ast.Null; id = None});
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.Equal;
-                            left = (Ast.Var (Ast.Identifier "i"));
-                            right =
-                            Ast.Unary {op = Ast.Negate;
-                              exp = (Ast.LiteralInt 103)}}))
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                Ast.Unary {op = Ast.Negate;
+                                  exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 103l));
+                                    typ = None }};
+                                typ = None }};
+                            typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -1,6 +1,7 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "foo"); params = []; body = None;
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -8,12 +9,22 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "foo");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "foo");
+                              args = []};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "foo"); params = [];
-          body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                            typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

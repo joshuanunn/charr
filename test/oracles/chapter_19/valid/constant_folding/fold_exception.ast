@@ -7,71 +7,155 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "dead_div_by_zero");
                            init =
-                           (Some Ast.Binary {op = Ast.Or;
-                                   left = (Ast.LiteralInt 1);
-                                   right =
-                                   Ast.Binary {op = Ast.Divide;
-                                     left = (Ast.LiteralInt 1);
-                                     right = (Ast.LiteralInt 0)}});
-                           storage = None }));
+                           (Some { Ast.e =
+                                   Ast.Binary {op = Ast.Or;
+                                     left =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 1l));
+                                       typ = None };
+                                     right =
+                                     { Ast.e =
+                                       Ast.Binary {op = Ast.Divide;
+                                         left =
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 1l));
+                                           typ = None };
+                                         right =
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 0l));
+                                           typ = None }};
+                                       typ = None }};
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "dead_zero_remainder");
                             init =
-                            (Some Ast.Binary {op = Ast.And;
-                                    left = (Ast.LiteralInt 0);
-                                    right =
-                                    Ast.Binary {op = Ast.Remainder;
-                                      left = (Ast.LiteralInt 100);
-                                      right = (Ast.LiteralInt 0)}});
-                            storage = None }));
+                            (Some { Ast.e =
+                                    Ast.Binary {op = Ast.And;
+                                      left =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 0l));
+                                        typ = None };
+                                      right =
+                                      { Ast.e =
+                                        Ast.Binary {op = Ast.Remainder;
+                                          left =
+                                          { Ast.e =
+                                            (Ast.Constant
+                                               (Ctype.ConstInt 100l));
+                                            typ = None };
+                                          right =
+                                          { Ast.e =
+                                            (Ast.Constant (Ctype.ConstInt 0l));
+                                            typ = None }};
+                                        typ = None }};
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "overflow");
                             init =
-                            (Some Ast.Conditional {
-                                    cond_exp = (Ast.LiteralInt 0);
-                                    then_exp =
-                                    Ast.Binary {op = Ast.Add;
-                                      left = (Ast.LiteralInt 2147483647);
-                                      right = (Ast.LiteralInt 10)};
-                                    else_exp = (Ast.LiteralInt 100)});
-                            storage = None }));
+                            (Some { Ast.e =
+                                    Ast.Conditional {
+                                      cond_exp =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 0l));
+                                        typ = None };
+                                      then_exp =
+                                      { Ast.e =
+                                        Ast.Binary {op = Ast.Add;
+                                          left =
+                                          { Ast.e =
+                                            (Ast.Constant
+                                               (Ctype.ConstInt 2147483647l));
+                                            typ = None };
+                                          right =
+                                          { Ast.e =
+                                            (Ast.Constant
+                                               (Ctype.ConstInt 10l));
+                                            typ = None }};
+                                        typ = None };
+                                      else_exp =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 100l));
+                                        typ = None }};
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Binary {op = Ast.NotEqual;
-                           left =
-                           (Ast.Var (Ast.Identifier "dead_div_by_zero"));
-                           right = (Ast.LiteralInt 1)};
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               (Ast.Var (Ast.Identifier "dead_div_by_zero"));
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                               typ = None }};
+                           typ = None };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = None }))
+                                 ]));
                          else_smt = None});
                     (Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Binary {op = Ast.NotEqual;
-                           left =
-                           (Ast.Var (Ast.Identifier "dead_zero_remainder"));
-                           right = (Ast.LiteralInt 0)};
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               (Ast.Var
+                                  (Ast.Identifier "dead_zero_remainder"));
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = None }};
+                           typ = None };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = None }))
+                                 ]));
                          else_smt = None});
                     (Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Binary {op = Ast.NotEqual;
-                           left = (Ast.Var (Ast.Identifier "overflow"));
-                           right = (Ast.LiteralInt 100)};
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "overflow"));
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 100l));
+                               typ = None }};
+                           typ = None };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 3l));
+                                        typ = None }))
+                                 ]));
                          else_smt = None});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

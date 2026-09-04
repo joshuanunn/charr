@@ -14,10 +14,23 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.Add;
-                           left = (Ast.Var (Ast.Identifier "l.11"));
-                           right = (Ast.Var (Ast.Identifier "o.14"))}))
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Add;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "l.11"));
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e = (Ast.Var (Ast.Identifier "o.14"));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) }))
                     ]));
+         fun_type =
+         Ctype.FunType {
+           params =
+           [Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int;
+             Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int;
+             Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int];
+           ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -26,61 +39,150 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "ret.15");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.For {
                           init =
                           (Ast.InclDecl
                              { Ast.name = (Ast.Identifier "i.16");
-                               init = (Some (Ast.LiteralInt 0));
-                               storage = None });
+                               init =
+                               (Some { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 0l));
+                                       typ = (Some Ctype.Int) });
+                               var_type = Ctype.Int; storage = None });
                           cond =
-                          (Some Ast.Binary {op = Ast.LessThan;
-                                  left = (Ast.Var (Ast.Identifier "i.16"));
-                                  right = (Ast.LiteralInt 10000000)});
+                          (Some { Ast.e =
+                                  Ast.Binary {op = Ast.LessThan;
+                                    left =
+                                    { Ast.e =
+                                      (Ast.Var (Ast.Identifier "i.16"));
+                                      typ = (Some Ctype.Int) };
+                                    right =
+                                    { Ast.e =
+                                      (Ast.Constant
+                                         (Ctype.ConstInt 10000000l));
+                                      typ = (Some Ctype.Int) }};
+                                  typ = (Some Ctype.Int) });
                           post =
-                          (Some (Ast.Assignment (
-                                   (Ast.Var (Ast.Identifier "i.16")),
-                                   Ast.Binary {op = Ast.Add;
-                                     left = (Ast.Var (Ast.Identifier "i.16"));
-                                     right = (Ast.LiteralInt 1)}
-                                   )));
+                          (Some { Ast.e =
+                                  (Ast.Assignment (
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "i.16"));
+                                       typ = (Some Ctype.Int) },
+                                     { Ast.e =
+                                       Ast.Binary {op = Ast.Add;
+                                         left =
+                                         { Ast.e =
+                                           (Ast.Var (Ast.Identifier "i.16"));
+                                           typ = (Some Ctype.Int) };
+                                         right =
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 1l));
+                                           typ = (Some Ctype.Int) }};
+                                       typ = (Some Ctype.Int) }
+                                     ));
+                                  typ = (Some Ctype.Int) });
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "ret.15")),
-                                          Ast.FunctionCall {
-                                            name =
-                                            (Ast.Identifier "lots_of_args");
-                                            args =
-                                            [(Ast.LiteralInt 1);
-                                              (Ast.LiteralInt 2);
-                                              (Ast.LiteralInt 3);
-                                              (Ast.LiteralInt 4);
-                                              (Ast.LiteralInt 5);
-                                              (Ast.LiteralInt 6);
-                                              (Ast.LiteralInt 7);
-                                              (Ast.LiteralInt 8);
-                                              (Ast.LiteralInt 9);
-                                              (Ast.LiteralInt 10);
-                                              (Ast.LiteralInt 11);
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
                                               (Ast.Var
                                                  (Ast.Identifier "ret.15"));
-                                              (Ast.LiteralInt 13);
-                                              (Ast.LiteralInt 14);
-                                              (Ast.LiteralInt 15)]}
-                                          ))))
+                                              typ = (Some Ctype.Int) },
+                                            { Ast.e =
+                                              Ast.FunctionCall {
+                                                name =
+                                                (Ast.Identifier
+                                                   "lots_of_args");
+                                                args =
+                                                [{ Ast.e =
+                                                   (Ast.Constant
+                                                      (Ctype.ConstInt 1l));
+                                                   typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 2l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 3l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 4l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 5l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 6l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 7l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 8l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 9l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 10l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 11l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Var
+                                                       (Ast.Identifier
+                                                          "ret.15"));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 13l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 14l));
+                                                    typ = (Some Ctype.Int) };
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 15l));
+                                                    typ = (Some Ctype.Int) }
+                                                  ]};
+                                              typ = (Some Ctype.Int) }
+                                            ));
+                                         typ = (Some Ctype.Int) }))
                                   ]));
                           id = (Some (Ast.LoopLabel "1"))});
                      (Ast.S
                         (Ast.Return
-                           Ast.Binary {op = Ast.Equal;
-                             left = (Ast.Var (Ast.Identifier "ret.15"));
-                             right = (Ast.LiteralInt 150000000)}))
+                           { Ast.e =
+                             Ast.Binary {op = Ast.Equal;
+                               left =
+                               { Ast.e = (Ast.Var (Ast.Identifier "ret.15"));
+                                 typ = (Some Ctype.Int) };
+                               right =
+                               { Ast.e =
+                                 (Ast.Constant (Ctype.ConstInt 150000000l));
+                                 typ = (Some Ctype.Int) }};
+                             typ = (Some Ctype.Int) }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

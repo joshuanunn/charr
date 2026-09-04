@@ -1,5 +1,5 @@
     .globl      update_static_or_global
-    .text       
+    .text
 update_static_or_global:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -18,9 +18,9 @@ update_static_or_global:
     movl        i.2(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -33,90 +33,90 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.1:
     movl        $1, %edi
     movl        $10, %esi
     call        update_static_or_global@PLT
-    movl        %eax, -12(%rbp)
+    movl        %eax, -8(%rbp)
+    cmpl        $0, -8(%rbp)
+    movl        $0, -12(%rbp)
+    setne       -12(%rbp)
     cmpl        $0, -12(%rbp)
-    movl        $0, -16(%rbp)
-    setne       -16(%rbp)
-    cmpl        $0, -16(%rbp)
     je          .Lmain.if.en.4
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.4:
     cmpl        $10, i(%rip)
-    movl        $0, -20(%rbp)
-    setne       -20(%rbp)
-    cmpl        $0, -20(%rbp)
+    movl        $0, -16(%rbp)
+    setne       -16(%rbp)
+    cmpl        $0, -16(%rbp)
     je          .Lmain.if.en.6
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.6:
     movl        $0, %edi
     movl        $9, %esi
     call        update_static_or_global@PLT
-    movl        %eax, -24(%rbp)
-    cmpl        $9, -24(%rbp)
-    movl        $0, -28(%rbp)
-    setne       -28(%rbp)
-    cmpl        $0, -28(%rbp)
+    movl        %eax, -20(%rbp)
+    cmpl        $9, -20(%rbp)
+    movl        $0, -24(%rbp)
+    setne       -24(%rbp)
+    cmpl        $0, -24(%rbp)
     je          .Lmain.if.en.9
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     cmpl        $10, i(%rip)
-    movl        $0, -32(%rbp)
-    setne       -32(%rbp)
-    cmpl        $0, -32(%rbp)
+    movl        $0, -28(%rbp)
+    setne       -28(%rbp)
+    cmpl        $0, -28(%rbp)
     je          .Lmain.if.en.11
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     movl        $1, %edi
     movl        $11, %esi
     call        update_static_or_global@PLT
-    movl        %eax, -36(%rbp)
-    cmpl        $9, -36(%rbp)
-    movl        $0, -40(%rbp)
-    setne       -40(%rbp)
-    cmpl        $0, -40(%rbp)
+    movl        %eax, -32(%rbp)
+    cmpl        $9, -32(%rbp)
+    movl        $0, -36(%rbp)
+    setne       -36(%rbp)
+    cmpl        $0, -36(%rbp)
     je          .Lmain.if.en.14
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     cmpl        $11, i(%rip)
-    movl        $0, -44(%rbp)
-    setne       -44(%rbp)
-    cmpl        $0, -44(%rbp)
+    movl        $0, -40(%rbp)
+    setne       -40(%rbp)
+    cmpl        $0, -40(%rbp)
     je          .Lmain.if.en.16
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.16:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      i
-    .bss        
+    .bss
     .align      4
 i:
     .zero       4
-    .bss        
+    .bss
     .align      4
 i.2:
     .zero       4

@@ -6,72 +6,133 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "switch1");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "switch2");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "switch3");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
-                       Ast.Switch {cond = (Ast.LiteralInt 3);
+                       Ast.Switch {
+                         cond =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                           typ = None };
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 0);
-                                     body = (Ast.Return (Ast.LiteralInt 0));
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 0l));
+                                       typ = None };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 0l));
+                                          typ = None });
                                      id = None});
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 1);
+                                    Ast.Case {
+                                      value =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = None };
                                       body =
-                                      Ast.If {cond_exp = (Ast.LiteralInt 0);
+                                      Ast.If {
+                                        cond_exp =
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 0l));
+                                          typ = None };
                                         then_smt =
                                         (Ast.Compound
                                            (Ast.Block
                                               [(Ast.S
                                                   Ast.Case {
                                                     value =
-                                                    (Ast.LiteralInt 3);
+                                                    { Ast.e =
+                                                      (Ast.Constant
+                                                         (Ctype.ConstInt 3l));
+                                                      typ = None };
                                                     body =
                                                     (Ast.Expression
-                                                       (Ast.Assignment (
-                                                          (Ast.Var
-                                                             (Ast.Identifier
-                                                                "switch1")),
-                                                          (Ast.LiteralInt 1)
-                                                          )));
+                                                       { Ast.e =
+                                                         (Ast.Assignment (
+                                                            { Ast.e =
+                                                              (Ast.Var
+                                                                 (Ast.Identifier
+                                                                    "switch1"));
+                                                              typ = None },
+                                                            { Ast.e =
+                                                              (Ast.Constant
+                                                                 (Ctype.ConstInt
+                                                                    1l));
+                                                              typ = None }
+                                                            ));
+                                                         typ = None });
                                                     id = None});
                                                 (Ast.S (Ast.Break None))]));
                                         else_smt = None};
                                       id = None});
                                  (Ast.S
                                     Ast.Default {
-                                      body = (Ast.Return (Ast.LiteralInt 0));
+                                      body =
+                                      (Ast.Return
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 0l));
+                                           typ = None });
                                       id = None})
                                  ]));
                          id = None});
                     (Ast.S
-                       Ast.Switch {cond = (Ast.LiteralInt 4);
+                       Ast.Switch {
+                         cond =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                           typ = None };
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 0);
-                                     body = (Ast.Return (Ast.LiteralInt 0));
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 0l));
+                                       typ = None };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 0l));
+                                          typ = None });
                                      id = None});
                                  (Ast.S
-                                    Ast.If {cond_exp = (Ast.LiteralInt 1);
+                                    Ast.If {
+                                      cond_exp =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = None };
                                       then_smt =
                                       (Ast.Compound
                                          (Ast.Block
                                             [(Ast.S
                                                 (Ast.Return
-                                                   (Ast.LiteralInt 0)))
+                                                   { Ast.e =
+                                                     (Ast.Constant
+                                                        (Ctype.ConstInt 0l));
+                                                     typ = None }))
                                               ]));
                                       else_smt =
                                       (Some (Ast.Compound
@@ -79,26 +140,46 @@
                                                   [(Ast.S
                                                       Ast.Case {
                                                         value =
-                                                        (Ast.LiteralInt 4);
+                                                        { Ast.e =
+                                                          (Ast.Constant
+                                                             (Ctype.ConstInt
+                                                                4l));
+                                                          typ = None };
                                                         body =
                                                         (Ast.Expression
-                                                           (Ast.Assignment (
-                                                              (Ast.Var
-                                                                 (Ast.Identifier
-                                                                    "switch2")),
-                                                              (Ast.LiteralInt
-                                                                 1)
-                                                              )));
+                                                           { Ast.e =
+                                                             (Ast.Assignment (
+                                                                { Ast.e =
+                                                                  (Ast.Var
+                                                                    (Ast.Identifier
+                                                                    "switch2"));
+                                                                  typ = None
+                                                                  },
+                                                                { Ast.e =
+                                                                  (Ast.Constant
+                                                                    (Ctype.ConstInt
+                                                                    1l));
+                                                                  typ = None
+                                                                  }
+                                                                ));
+                                                             typ = None });
                                                         id = None});
                                                     (Ast.S (Ast.Break None))])))});
                                  (Ast.S
                                     Ast.Default {
-                                      body = (Ast.Return (Ast.LiteralInt 0));
+                                      body =
+                                      (Ast.Return
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 0l));
+                                           typ = None });
                                       id = None})
                                  ]));
                          id = None});
                     (Ast.S
-                       Ast.Switch {cond = (Ast.LiteralInt 5);
+                       Ast.Switch {
+                         cond =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                           typ = None };
                          body =
                          (Ast.Compound
                             (Ast.Block
@@ -107,48 +188,101 @@
                                      init =
                                      (Ast.InclDecl
                                         { Ast.name = (Ast.Identifier "i");
-                                          init = (Some (Ast.LiteralInt 0));
+                                          init =
+                                          (Some { Ast.e =
+                                                  (Ast.Constant
+                                                     (Ctype.ConstInt 0l));
+                                                  typ = None });
+                                          var_type = Ctype.Int;
                                           storage = None });
                                      cond =
-                                     (Some Ast.Binary {op = Ast.LessThan;
-                                             left =
-                                             (Ast.Var (Ast.Identifier "i"));
-                                             right = (Ast.LiteralInt 10)});
+                                     (Some { Ast.e =
+                                             Ast.Binary {op = Ast.LessThan;
+                                               left =
+                                               { Ast.e =
+                                                 (Ast.Var
+                                                    (Ast.Identifier "i"));
+                                                 typ = None };
+                                               right =
+                                               { Ast.e =
+                                                 (Ast.Constant
+                                                    (Ctype.ConstInt 10l));
+                                                 typ = None }};
+                                             typ = None });
                                      post =
-                                     (Some (Ast.Assignment (
-                                              (Ast.Var (Ast.Identifier "i")),
-                                              Ast.Binary {op = Ast.Add;
-                                                left =
-                                                (Ast.Var (Ast.Identifier "i"));
-                                                right = (Ast.LiteralInt 1)}
-                                              )));
+                                     (Some { Ast.e =
+                                             (Ast.Assignment (
+                                                { Ast.e =
+                                                  (Ast.Var
+                                                     (Ast.Identifier "i"));
+                                                  typ = None },
+                                                { Ast.e =
+                                                  Ast.Binary {op = Ast.Add;
+                                                    left =
+                                                    { Ast.e =
+                                                      (Ast.Var
+                                                         (Ast.Identifier "i"));
+                                                      typ = None };
+                                                    right =
+                                                    { Ast.e =
+                                                      (Ast.Constant
+                                                         (Ctype.ConstInt 1l));
+                                                      typ = None }};
+                                                  typ = None }
+                                                ));
+                                             typ = None });
                                      body =
                                      (Ast.Compound
                                         (Ast.Block
                                            [(Ast.S
                                                (Ast.Expression
-                                                  (Ast.Assignment (
-                                                     (Ast.Var
-                                                        (Ast.Identifier
-                                                           "switch1")),
-                                                     (Ast.LiteralInt 0)))));
+                                                  { Ast.e =
+                                                    (Ast.Assignment (
+                                                       { Ast.e =
+                                                         (Ast.Var
+                                                            (Ast.Identifier
+                                                               "switch1"));
+                                                         typ = None },
+                                                       { Ast.e =
+                                                         (Ast.Constant
+                                                            (Ctype.ConstInt
+                                                               0l));
+                                                         typ = None }
+                                                       ));
+                                                    typ = None }));
                                              (Ast.S
                                                 Ast.Case {
-                                                  value = (Ast.LiteralInt 5);
+                                                  value =
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 5l));
+                                                    typ = None };
                                                   body =
                                                   (Ast.Expression
-                                                     (Ast.Assignment (
-                                                        (Ast.Var
-                                                           (Ast.Identifier
-                                                              "switch3")),
-                                                        (Ast.LiteralInt 1))));
+                                                     { Ast.e =
+                                                       (Ast.Assignment (
+                                                          { Ast.e =
+                                                            (Ast.Var
+                                                               (Ast.Identifier
+                                                                  "switch3"));
+                                                            typ = None },
+                                                          { Ast.e =
+                                                            (Ast.Constant
+                                                               (Ctype.ConstInt
+                                                                  1l));
+                                                            typ = None }
+                                                          ));
+                                                       typ = None });
                                                   id = None});
                                              (Ast.S (Ast.Break None));
                                              (Ast.S
                                                 Ast.Default {
                                                   body =
                                                   (Ast.Return
-                                                     (Ast.LiteralInt 0));
+                                                     { Ast.e =
+                                                       (Ast.Constant
+                                                          (Ctype.ConstInt 0l));
+                                                       typ = None });
                                                   id = None})
                                              ]));
                                      id = None})
@@ -156,12 +290,25 @@
                          id = None});
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.And;
-                            left =
+                          { Ast.e =
                             Ast.Binary {op = Ast.And;
-                              left = (Ast.Var (Ast.Identifier "switch1"));
-                              right = (Ast.Var (Ast.Identifier "switch2"))};
-                            right = (Ast.Var (Ast.Identifier "switch3"))}))
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.And;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "switch1"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "switch2"));
+                                    typ = None }};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Var (Ast.Identifier "switch3"));
+                                typ = None }};
+                            typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

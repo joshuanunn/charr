@@ -1,21 +1,21 @@
     .globl      multi_path
-    .text       
+    .text
 multi_path:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        $3, -4(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        $3, -8(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Lmulti_path.if.en.0
-    movl        $4, -4(%rbp)
+    movl        $4, -8(%rbp)
 .Lmulti_path.if.en.0:
-    movl        -4(%rbp), %eax
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -31,7 +31,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movl        $0, %edi
     call        multi_path@PLT
@@ -44,10 +44,10 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

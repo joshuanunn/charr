@@ -1,29 +1,29 @@
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -12(%rbp)
-    movl        %esi, -16(%rbp)
-    movl        -12(%rbp), %r10d
-    movl        %r10d, -8(%rbp)
-    movl        -8(%rbp), %r11d
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
+    movl        -12(%rbp), %r11d
     imull       $2, %r11d
-    movl        %r11d, -8(%rbp)
-    cmpl        $0, -16(%rbp)
+    movl        %r11d, -12(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lf.if.en.1
-    movl        -8(%rbp), %eax
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lf.if.en.1:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -40,7 +40,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movl        $3, %edi
     movl        $0, %esi
@@ -54,10 +54,10 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

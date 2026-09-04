@@ -7,10 +7,22 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
                            init =
-                           (Some Ast.Binary {op = Ast.And;
-                                   left = (Ast.LiteralInt 0);
-                                   right = (Ast.Var (Ast.Identifier "a"))});
-                           storage = None }));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
+                           (Some { Ast.e =
+                                   Ast.Binary {op = Ast.And;
+                                     left =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 0l));
+                                       typ = None };
+                                     right =
+                                     { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                       typ = None }};
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

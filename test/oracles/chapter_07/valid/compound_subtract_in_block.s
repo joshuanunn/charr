@@ -1,9 +1,9 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
+    subq        $16, %rsp
     movl        $5, -4(%rbp)
     movl        $1, -8(%rbp)
     cmpl        $0, -8(%rbp)
@@ -15,5 +15,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

@@ -6,20 +6,33 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
-                       Ast.If {cond_exp = (Ast.Var (Ast.Identifier "a"));
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e = (Ast.Var (Ast.Identifier "a")); typ = None
+                           };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.D
                                    (Ast.VarDecl
                                       { Ast.name = (Ast.Identifier "b");
-                                        init = (Some (Ast.LiteralInt 2));
-                                        storage = None }));
+                                        init =
+                                        (Some { Ast.e =
+                                                (Ast.Constant
+                                                   (Ctype.ConstInt 2l));
+                                                typ = None });
+                                        var_type = Ctype.Int; storage = None
+                                        }));
                                  (Ast.S
                                     (Ast.Return
-                                       (Ast.Var (Ast.Identifier "b"))))
+                                       { Ast.e =
+                                         (Ast.Var (Ast.Identifier "b"));
+                                         typ = None }))
                                  ]));
                          else_smt =
                          (Some (Ast.Compound
@@ -28,37 +41,62 @@
                                          (Ast.VarDecl
                                             { Ast.name = (Ast.Identifier "c");
                                               init =
-                                              (Some (Ast.LiteralInt 3));
+                                              (Some { Ast.e =
+                                                      (Ast.Constant
+                                                         (Ctype.ConstInt 3l));
+                                                      typ = None });
+                                              var_type = Ctype.Int;
                                               storage = None }));
                                        (Ast.S
                                           Ast.If {
                                             cond_exp =
-                                            Ast.Binary {op = Ast.LessThan;
-                                              left =
-                                              (Ast.Var (Ast.Identifier "a"));
-                                              right =
-                                              (Ast.Var (Ast.Identifier "c"))};
+                                            { Ast.e =
+                                              Ast.Binary {op = Ast.LessThan;
+                                                left =
+                                                { Ast.e =
+                                                  (Ast.Var
+                                                     (Ast.Identifier "a"));
+                                                  typ = None };
+                                                right =
+                                                { Ast.e =
+                                                  (Ast.Var
+                                                     (Ast.Identifier "c"));
+                                                  typ = None }};
+                                              typ = None };
                                             then_smt =
                                             (Ast.Compound
                                                (Ast.Block
                                                   [(Ast.S
                                                       (Ast.Return
-                                                         Ast.Unary {
-                                                           op = Ast.Not;
-                                                           exp =
-                                                           (Ast.Var
-                                                              (Ast.Identifier
-                                                                 "a"))}))
+                                                         { Ast.e =
+                                                           Ast.Unary {
+                                                             op = Ast.Not;
+                                                             exp =
+                                                             { Ast.e =
+                                                               (Ast.Var
+                                                                  (Ast.Identifier
+                                                                    "a"));
+                                                               typ = None }};
+                                                           typ = None }))
                                                     ]));
                                             else_smt =
                                             (Some (Ast.Compound
                                                      (Ast.Block
                                                         [(Ast.S
                                                             (Ast.Return
-                                                               (Ast.LiteralInt
-                                                                  5)))
+                                                               { Ast.e =
+                                                                 (Ast.Constant
+                                                                    (
+                                                                    Ctype.ConstInt
+                                                                    5l));
+                                                                 typ = None }))
                                                           ])))})
                                        ])))});
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -1,0 +1,70 @@
+(Ir.Program
+   [Ir.Function {name = "truncate"; global = true;
+      params = ["l.0"; "expected.1"];
+      body =
+      [Ir.Truncate {src = (Ir.Var "l.0"); dst = (Ir.Var "truncate.tmp.0")};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "truncate.tmp.0");
+          src2 = (Ir.Var "expected.1"); dst = (Ir.Var "truncate.tmp.1")};
+        (Ir.Return (Ir.Var "truncate.tmp.1"))];
+      frame =
+      Env.lenv {
+        namespace = "truncate";
+        counter = 2;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "truncate";
+          args =
+          [(Ir.Constant (Ctype.ConstLong 10L));
+            (Ir.Constant (Ctype.ConstInt 10l))];
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.0");
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+           target = "main.if.en.2"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
+         Ir.FunCall {fun_name = "truncate";
+           args =
+           [(Ir.Constant (Ctype.ConstLong -10L));
+             (Ir.Constant (Ctype.ConstInt -10l))];
+           dst = (Ir.Var "main.tmp.5")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.5");
+           dst = (Ir.Var "main.tmp.6")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.6");
+           target = "main.if.en.7"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.7");
+         Ir.FunCall {fun_name = "truncate";
+           args =
+           [(Ir.Constant (Ctype.ConstLong 17179869189L));
+             (Ir.Constant (Ctype.ConstInt 5l))];
+           dst = (Ir.Var "main.tmp.8")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.8");
+           dst = (Ir.Var "main.tmp.9")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.9");
+           target = "main.if.en.10"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.10");
+         Ir.FunCall {fun_name = "truncate";
+           args =
+           [(Ir.Constant (Ctype.ConstLong -17179869179L));
+             (Ir.Constant (Ctype.ConstInt 5l))];
+           dst = (Ir.Var "main.tmp.13")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.13");
+           dst = (Ir.Var "main.tmp.14")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.14");
+           target = "main.if.en.15"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.15");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 19;
+         offset = 0;
+         stack slots = {
+         }}}
+     ])

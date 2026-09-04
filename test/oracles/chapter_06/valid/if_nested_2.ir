@@ -1,19 +1,19 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "b.1")};
-        Ir.Copy {src = (Ir.Constant -2); dst = (Ir.Var "tmp.2")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.2"); target = "main.if.en.3"};
-        Ir.Copy {src = (Ir.Constant 2); dst = (Ir.Var "b.1")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "b.1")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -2l));
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.2");
+          target = "main.if.en.3"};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "b.1")};
         (Ir.Label "main.if.en.3"); (Ir.Return (Ir.Var "b.1"))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 4;
-        offset = -12;
+        offset = 0;
         stack slots = {
-          a.0   -> -4,
-          b.1   -> -8,
-          tmp.2 -> -12,
         }}}
      ])

@@ -5,8 +5,12 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Label ((Ast.Identifier "lbl"),
-                         (Ast.Return (Ast.LiteralInt 0)))))
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                              typ = None })
+                         )))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -14,8 +18,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

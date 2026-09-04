@@ -6,29 +6,41 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a"); init = None;
-                           storage = None }));
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "result");
-                            init = None; storage = None }));
+                            init = None; var_type = Ctype.Int; storage = None
+                            }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "a1");
-                            init = (Some (Ast.LiteralInt 1)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 1l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Compound
                           (Ast.Block
                              [(Ast.D
                                  (Ast.VarDecl
                                     { Ast.name = (Ast.Identifier "a");
-                                      init = (Some (Ast.LiteralInt 2));
-                                      storage = None }));
+                                      init =
+                                      (Some { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstInt 2l));
+                                              typ = None });
+                                      var_type = Ctype.Int; storage = None }));
                                (Ast.D
                                   (Ast.VarDecl
                                      { Ast.name = (Ast.Identifier "a1");
-                                       init = (Some (Ast.LiteralInt 2));
-                                       storage = None }));
+                                       init =
+                                       (Some { Ast.e =
+                                               (Ast.Constant
+                                                  (Ctype.ConstInt 2l));
+                                               typ = None });
+                                       var_type = Ctype.Int; storage = None }));
                                (Ast.S
                                   (Ast.Compound
                                      (Ast.Block
@@ -36,8 +48,9 @@
                                             (Ast.VarDecl
                                                { Ast.name =
                                                  (Ast.Identifier "a");
-                                                 init = None; storage = None
-                                                 }));
+                                                 init = None;
+                                                 var_type = Ctype.Int;
+                                                 storage = None }));
                                           (Ast.S
                                              (Ast.Compound
                                                 (Ast.Block
@@ -47,6 +60,8 @@
                                                             (Ast.Identifier
                                                                "a");
                                                             init = None;
+                                                            var_type =
+                                                            Ctype.Int;
                                                             storage = None }));
                                                      (Ast.S
                                                         (Ast.Compound
@@ -58,6 +73,8 @@
                                                                     "a");
                                                                     init =
                                                                     None;
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                 (Ast.S
@@ -70,6 +87,8 @@
                                                                     "a");
                                                                     init =
                                                                     None;
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                     (Ast.S
@@ -82,6 +101,8 @@
                                                                     "a");
                                                                     init =
                                                                     None;
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                     (Ast.S
@@ -94,6 +115,8 @@
                                                                     "a");
                                                                     init =
                                                                     None;
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                     (Ast.S
@@ -106,6 +129,8 @@
                                                                     "a");
                                                                     init =
                                                                     None;
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                     (Ast.S
@@ -118,6 +143,8 @@
                                                                     "a");
                                                                     init =
                                                                     None;
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                     (Ast.S
@@ -129,20 +156,35 @@
                                                                     (Ast.Identifier
                                                                     "a");
                                                                     init =
-                                                                    (Some (
-                                                                    Ast.LiteralInt
-                                                                    20));
+                                                                    (Some 
+                                                                    { Ast.e =
+                                                                    (Ast.Constant
+                                                                    (Ctype.ConstInt
+                                                                    20l));
+                                                                    typ =
+                                                                    None });
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                     (Ast.S
                                                                     (Ast.Expression
+                                                                    { Ast.e =
                                                                     (Ast.Assignment (
+                                                                    { Ast.e =
                                                                     (Ast.Var
                                                                     (Ast.Identifier
-                                                                    "result")),
+                                                                    "result"));
+                                                                    typ =
+                                                                    None },
+                                                                    { Ast.e =
                                                                     (Ast.Var
                                                                     (Ast.Identifier
-                                                                    "a"))))));
+                                                                    "a"));
+                                                                    typ =
+                                                                    None }));
+                                                                    typ =
+                                                                    None }));
                                                                     (Ast.S
                                                                     (Ast.Compound
                                                                     (Ast.Block
@@ -153,57 +195,101 @@
                                                                     "a");
                                                                     init =
                                                                     None;
+                                                                    var_type =
+                                                                    Ctype.Int;
                                                                     storage =
                                                                     None }));
                                                                     (Ast.S
                                                                     (Ast.Expression
+                                                                    { Ast.e =
                                                                     (Ast.Assignment (
+                                                                    { Ast.e =
                                                                     (Ast.Var
                                                                     (Ast.Identifier
-                                                                    "a")),
-                                                                    (Ast.LiteralInt
-                                                                    5)))));
+                                                                    "a"));
+                                                                    typ =
+                                                                    None },
+                                                                    { Ast.e =
+                                                                    (Ast.Constant
+                                                                    (Ctype.ConstInt
+                                                                    5l));
+                                                                    typ =
+                                                                    None }));
+                                                                    typ =
+                                                                    None }));
                                                                     (Ast.S
                                                                     (Ast.Expression
+                                                                    { Ast.e =
                                                                     (Ast.Assignment (
+                                                                    { Ast.e =
                                                                     (Ast.Var
                                                                     (Ast.Identifier
-                                                                    "result")),
+                                                                    "result"));
+                                                                    typ =
+                                                                    None },
+                                                                    { Ast.e =
                                                                     Ast.Binary {
                                                                     op =
                                                                     Ast.Add;
                                                                     left =
-                                                                    (
-                                                                    Ast.Var
+                                                                    { Ast.e =
+                                                                    (Ast.Var
                                                                     (Ast.Identifier
                                                                     "result"));
+                                                                    typ =
+                                                                    None };
                                                                     right =
-                                                                    (
-                                                                    Ast.Var
+                                                                    { Ast.e =
+                                                                    (Ast.Var
                                                                     (Ast.Identifier
-                                                                    "a"))}))))
+                                                                    "a"));
+                                                                    typ =
+                                                                    None }};
+                                                                    typ =
+                                                                    None }));
+                                                                    typ =
+                                                                    None }))])))
                                                                     ])))])))])))
                                                                     ])))])))])))
-                                                                    ])))
                                                                 ])))
                                                      ])))
                                           ])));
                                (Ast.S
                                   (Ast.Expression
-                                     (Ast.Assignment (
-                                        (Ast.Var (Ast.Identifier "result")),
-                                        Ast.Binary {op = Ast.Add;
-                                          left =
-                                          (Ast.Var (Ast.Identifier "result"));
-                                          right =
-                                          (Ast.Var (Ast.Identifier "a1"))}
-                                        ))))
+                                     { Ast.e =
+                                       (Ast.Assignment (
+                                          { Ast.e =
+                                            (Ast.Var
+                                               (Ast.Identifier "result"));
+                                            typ = None },
+                                          { Ast.e =
+                                            Ast.Binary {op = Ast.Add;
+                                              left =
+                                              { Ast.e =
+                                                (Ast.Var
+                                                   (Ast.Identifier "result"));
+                                                typ = None };
+                                              right =
+                                              { Ast.e =
+                                                (Ast.Var
+                                                   (Ast.Identifier "a1"));
+                                                typ = None }};
+                                            typ = None }
+                                          ));
+                                       typ = None }))
                                ])));
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.Add;
-                            left = (Ast.Var (Ast.Identifier "result"));
-                            right = (Ast.Var (Ast.Identifier "a1"))}))
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Add;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "result"));
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Var (Ast.Identifier "a1"));
+                                typ = None }};
+                            typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

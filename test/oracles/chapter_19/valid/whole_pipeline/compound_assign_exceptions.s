@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -7,33 +7,33 @@ main:
     movl        $3, -4(%rbp)
     movl        $10, -8(%rbp)
     movl        $2147483647, -12(%rbp)
-    movl        $-2147483647, -20(%rbp)
-    movl        -20(%rbp), %r10d
-    movl        %r10d, -16(%rbp)
+    movl        $-2147483647, -16(%rbp)
+    movl        -16(%rbp), %r10d
+    movl        %r10d, -20(%rbp)
     cmpl        $0, zero(%rip)
     je          .Lmain.if.en.1
     movl        $3, %eax
-    cdq         
+    cdq
     movl        $0, %r10d
     idivl       %r10d
     movl        %edx, -24(%rbp)
     movl        -24(%rbp), %r10d
     movl        %r10d, -4(%rbp)
     movl        $10, %eax
-    cdq         
+    cdq
     movl        $0, %r10d
     idivl       %r10d
     movl        %eax, -28(%rbp)
     movl        -28(%rbp), %r10d
     movl        %r10d, -8(%rbp)
-    movl        $2147483657, -32(%rbp)
+    movl        $-2147483639, -32(%rbp)
     movl        -32(%rbp), %r10d
     movl        %r10d, -12(%rbp)
-    movl        -20(%rbp), %r10d
+    movl        -16(%rbp), %r10d
     movl        %r10d, -36(%rbp)
     subl        $10, -36(%rbp)
     movl        -36(%rbp), %r10d
-    movl        %r10d, -16(%rbp)
+    movl        %r10d, -20(%rbp)
 .Lmain.if.en.1:
     cmpl        $3, -4(%rbp)
     movl        $0, -40(%rbp)
@@ -43,7 +43,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.7:
     cmpl        $10, -8(%rbp)
     movl        $0, -44(%rbp)
@@ -53,7 +53,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     cmpl        $2147483647, -12(%rbp)
     movl        $0, -48(%rbp)
@@ -63,23 +63,23 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
-    cmpl        $-2147483647, -16(%rbp)
-    movl        $0, -56(%rbp)
-    setne       -56(%rbp)
-    cmpl        $0, -56(%rbp)
+    cmpl        $-2147483647, -20(%rbp)
+    movl        $0, -52(%rbp)
+    setne       -52(%rbp)
+    cmpl        $0, -52(%rbp)
     je          .Lmain.if.en.14
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 zero:
     .zero       4

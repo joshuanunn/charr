@@ -5,12 +5,26 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Conditional {cond_exp = (Ast.LiteralInt 0);
-                           then_exp = (Ast.LiteralInt 1);
-                           else_exp =
-                           Ast.Binary {op = Ast.Or;
-                             left = (Ast.LiteralInt 0);
-                             right = (Ast.LiteralInt 2)}}))
+                         { Ast.e =
+                           Ast.Conditional {
+                             cond_exp =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = None };
+                             then_exp =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                               typ = None };
+                             else_exp =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.Or;
+                                 left =
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                   typ = None };
+                                 right =
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                   typ = None }};
+                               typ = None }};
+                           typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

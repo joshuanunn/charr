@@ -1,102 +1,95 @@
     .globl      target_if
-    .text       
+    .text
 target_if:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_if_else_true
-    .text       
+    .text
 target_if_else_true:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_if_else_false
-    .text       
+    .text
 target_if_else_false:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_conditional_true
-    .text       
+    .text
 target_conditional_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_conditional_false
-    .text       
+    .text
 target_conditional_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_do_loop
-    .text       
+    .text
 target_do_loop:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_while_loop_false
-    .text       
+    .text
 target_while_loop_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_while_loop_true
-    .text       
+    .text
 target_while_loop_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_for_loop_true
-    .text       
+    .text
 target_for_loop_true:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $100, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_for_loop_false
-    .text       
+    .text
 target_for_loop_false:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -111,7 +104,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     call        target_if_else_true@PLT
     movl        %eax, -12(%rbp)
@@ -123,7 +116,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     call        target_if_else_false@PLT
     movl        %eax, -20(%rbp)
@@ -135,7 +128,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.8:
     call        target_conditional_true@PLT
     movl        %eax, -28(%rbp)
@@ -147,7 +140,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.11:
     call        target_conditional_false@PLT
     movl        %eax, -36(%rbp)
@@ -159,7 +152,7 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.14:
     call        target_do_loop@PLT
     movl        %eax, -44(%rbp)
@@ -171,7 +164,7 @@ main:
     movl        $6, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.17:
     call        target_while_loop_false@PLT
     movl        %eax, -52(%rbp)
@@ -183,7 +176,7 @@ main:
     movl        $7, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.20:
     call        target_while_loop_true@PLT
     movl        %eax, -60(%rbp)
@@ -195,7 +188,7 @@ main:
     movl        $8, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.23:
     call        target_for_loop_true@PLT
     movl        %eax, -68(%rbp)
@@ -207,7 +200,7 @@ main:
     movl        $9, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.26:
     call        target_for_loop_false@PLT
     movl        %eax, -76(%rbp)
@@ -219,10 +212,10 @@ main:
     movl        $10, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.29:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

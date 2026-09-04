@@ -1,0 +1,84 @@
+(Ir.Program
+   [Ir.Function {name = "switch_on_int"; global = true; params = ["i.0"];
+      body =
+      [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "i.0");
+         src2 = (Ir.Constant (Ctype.ConstInt 5l));
+         dst = (Ir.Var "switch_on_int.tmp.0")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "switch_on_int.tmp.0");
+          target = "swit.cs.1.2"};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "i.0");
+          src2 = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "switch_on_int.tmp.1")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "switch_on_int.tmp.1");
+          target = "swit.cs.1.3"};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "i.0");
+          src2 = (Ir.Constant (Ctype.ConstInt -1l));
+          dst = (Ir.Var "switch_on_int.tmp.2")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "switch_on_int.tmp.2");
+          target = "swit.cs.1.4"};
+        Ir.Jump {target = "swit.df.1"}; (Ir.Label "swit.cs.1.2");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+        (Ir.Label "swit.cs.1.3");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "swit.cs.1.4");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "swit.df.1"); (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))
+        ];
+      frame =
+      Env.lenv {
+        namespace = "switch_on_int";
+        counter = 3;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "switch_on_int";
+          args = [(Ir.Constant (Ctype.ConstInt 5l))];
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.0");
+           src2 = (Ir.Constant (Ctype.ConstInt 0l));
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+           target = "main.if.en.2"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.2");
+         Ir.FunCall {fun_name = "switch_on_int";
+           args = [(Ir.Constant (Ctype.ConstInt 0l))];
+           dst = (Ir.Var "main.tmp.3")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.3");
+           src2 = (Ir.Constant (Ctype.ConstInt 1l));
+           dst = (Ir.Var "main.tmp.4")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.4");
+           target = "main.if.en.5"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.5");
+         Ir.FunCall {fun_name = "switch_on_int";
+           args = [(Ir.Constant (Ctype.ConstInt -1l))];
+           dst = (Ir.Var "main.tmp.7")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.7");
+           src2 = (Ir.Constant (Ctype.ConstInt 2l));
+           dst = (Ir.Var "main.tmp.8")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.8");
+           target = "main.if.en.9"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.9");
+         Ir.FunCall {fun_name = "switch_on_int";
+           args = [(Ir.Constant (Ctype.ConstInt 0l))];
+           dst = (Ir.Var "main.tmp.11")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.11");
+           src2 = (Ir.Constant (Ctype.ConstInt 1l));
+           dst = (Ir.Var "main.tmp.12")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.12");
+           target = "main.if.en.13"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.13");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 14;
+         offset = 0;
+         stack slots = {
+         }}}
+     ])

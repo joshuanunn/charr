@@ -1,28 +1,28 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
+    subq        $16, %rsp
     movl        $-1, -4(%rbp)
 .Lloop.st.1:
     cmpl        $-100, -4(%rbp)
-    movl        $0, -20(%rbp)
-    setge       -20(%rbp)
-    cmpl        $0, -20(%rbp)
+    movl        $0, -8(%rbp)
+    setge       -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lloop.br.1
     movl        -4(%rbp), %r10d
-    movl        %r10d, -24(%rbp)
-    subl        $3, -24(%rbp)
-    movl        -24(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
+    subl        $3, -12(%rbp)
+    movl        -12(%rbp), %r10d
     movl        %r10d, -4(%rbp)
     jmp         .Lloop.st.1
 .Lloop.br.1:
     cmpl        $-103, -4(%rbp)
-    movl        $0, -32(%rbp)
-    sete        -32(%rbp)
-    movl        -32(%rbp), %eax
+    movl        $0, -16(%rbp)
+    sete        -16(%rbp)
+    movl        -16(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

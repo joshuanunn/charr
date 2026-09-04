@@ -1,0 +1,214 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "return_truncated_long");
+         params = [(Ast.Identifier "l")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      (Ast.Return
+                         { Ast.e = (Ast.Var (Ast.Identifier "l")); typ = None
+                           }))
+                    ]));
+         fun_type = Ctype.FunType {params = [Ctype.Long]; ret = Ctype.Int};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "return_extended_int");
+          params = [(Ast.Identifier "i")];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                            typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Long};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "truncate_on_assignment");
+          params = [(Ast.Identifier "l"); (Ast.Identifier "expected")];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "result");
+                            init =
+                            (Some { Ast.e = (Ast.Var (Ast.Identifier "l"));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e =
+                             Ast.Binary {op = Ast.Equal;
+                               left =
+                               { Ast.e = (Ast.Var (Ast.Identifier "result"));
+                                 typ = None };
+                               right =
+                               { Ast.e =
+                                 (Ast.Var (Ast.Identifier "expected"));
+                                 typ = None }};
+                             typ = None }))
+                     ]));
+          fun_type =
+          Ctype.FunType {params = [Ctype.Long; Ctype.Int]; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "result");
+                            init =
+                            (Some { Ast.e =
+                                    Ast.FunctionCall {
+                                      name =
+                                      (Ast.Identifier "return_truncated_long");
+                                      args =
+                                      [{ Ast.e =
+                                         (Ast.Constant
+                                            (Ctype.ConstLong 4294967298L));
+                                         typ = None }
+                                        ]};
+                                    typ = None });
+                            var_type = Ctype.Long; storage = None }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "result"));
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstLong 2L));
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 1l));
+                                         typ = None }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "result"));
+                                  typ = None },
+                                { Ast.e =
+                                  Ast.FunctionCall {
+                                    name =
+                                    (Ast.Identifier "return_extended_int");
+                                    args =
+                                    [{ Ast.e =
+                                       Ast.Unary {op = Ast.Negate;
+                                         exp =
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 10l));
+                                           typ = None }};
+                                       typ = None }
+                                      ]};
+                                  typ = None }
+                                ));
+                             typ = None }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "result"));
+                                typ = None };
+                              right =
+                              { Ast.e =
+                                Ast.Unary {op = Ast.Negate;
+                                  exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 10l));
+                                    typ = None }};
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 2l));
+                                         typ = None }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "i");
+                             init =
+                             (Some { Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstLong 4294967298L));
+                                     typ = None });
+                             var_type = Ctype.Int; storage = None }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "i"));
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 3l));
+                                         typ = None }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "truncate_on_assignment");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstLong 17179869184L));
+                                     typ = None };
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 0l));
+                                      typ = None }
+                                    ]};
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 4l));
+                                         typ = None }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])

@@ -5,7 +5,13 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Unary {op = Ast.BwNot; exp = (Ast.LiteralInt 12)}))
+                         { Ast.e =
+                           Ast.Unary {op = Ast.BwNot;
+                             exp =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 12l));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

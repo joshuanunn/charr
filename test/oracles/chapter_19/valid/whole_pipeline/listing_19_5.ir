@@ -1,37 +1,37 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 4); dst = (Ir.Var "x.0")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0");
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "x.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "target.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "target.tmp.0");
           target = "target.if.en.1"};
-        Ir.Copy {src = (Ir.Constant 3); dst = (Ir.Var "x.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 3l));
+          dst = (Ir.Var "x.0")};
         (Ir.Label "target.if.en.1");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.0");
-          src2 = (Ir.Constant 5); dst = (Ir.Var "tmp.4")};
-        (Ir.Return (Ir.Var "tmp.4"))];
+          src2 = (Ir.Constant (Ctype.ConstInt 5l));
+          dst = (Ir.Var "target.tmp.4")};
+        (Ir.Return (Ir.Var "target.tmp.4"))];
       frame =
       Env.lenv {
         namespace = "target";
         counter = 5;
-        offset = -20;
+        offset = 0;
         stack slots = {
-          x.0   -> -4,
-          z.1   -> -8,
-          tmp.0 -> -12,
-          tmp.2 -> -16,
-          tmp.4 -> -20,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "target"; args = []; dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+       [Ir.FunCall {fun_name = "target"; args = [];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}};
-     Ir.StaticVariable {name = "flag"; global = true; init = 1}])
+     Ir.StaticVariable {name = "flag"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 1l)}
+     ])

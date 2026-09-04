@@ -1,22 +1,21 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 10); dst = (Ir.Var "x.0")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1");
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
+         dst = (Ir.Var "x.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
           target = "main.cond.el.3"};
         Ir.Jump {target = "main.cond.en.2"}; (Ir.Label "main.cond.el.3");
-        Ir.Copy {src = (Ir.Constant 9); dst = (Ir.Var "x.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 9l));
+          dst = (Ir.Var "x.0")};
         (Ir.Label "main.cond.en.2"); (Ir.Return (Ir.Var "x.0"))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 5;
-        offset = -16;
+        offset = 0;
         stack slots = {
-          x.0   -> -4,
-          tmp.0 -> -8,
-          tmp.1 -> -12,
-          tmp.4 -> -16,
         }}}
      ])

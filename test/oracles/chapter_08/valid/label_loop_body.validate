@@ -6,24 +6,42 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "result.1");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S (Ast.Goto (Ast.GotoLabel "label.0")));
                     (Ast.S
-                       Ast.While {cond = (Ast.LiteralInt 0);
+                       Ast.While {
+                         cond =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                           typ = (Some Ctype.Int) };
                          body =
                          (Ast.Label ((Ast.GotoLabel "label.0"),
                             (Ast.Compound
                                (Ast.Block
                                   [(Ast.S
                                       (Ast.Expression
-                                         (Ast.Assignment (
-                                            (Ast.Var
-                                               (Ast.Identifier "result.1")),
-                                            (Ast.LiteralInt 1)))))
+                                         { Ast.e =
+                                           (Ast.Assignment (
+                                              { Ast.e =
+                                                (Ast.Var
+                                                   (Ast.Identifier "result.1"));
+                                                typ = (Some Ctype.Int) },
+                                              { Ast.e =
+                                                (Ast.Constant
+                                                   (Ctype.ConstInt 1l));
+                                                typ = (Some Ctype.Int) }
+                                              ));
+                                           typ = (Some Ctype.Int) }))
                                     ]))
                             ));
                          id = (Some (Ast.LoopLabel "1"))});
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "result.1"))))
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "result.1"));
+                            typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

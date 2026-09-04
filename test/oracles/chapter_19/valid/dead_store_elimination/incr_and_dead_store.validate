@@ -1,7 +1,9 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "x"); init = (Some (Ast.LiteralInt 10));
-         storage = (Some Ast.Static) });
+       { Ast.name = (Ast.Identifier "x");
+         init =
+         (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 10l)); typ = None });
+         var_type = Ctype.Int; storage = (Some Ast.Static) });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
           body =
@@ -10,9 +12,19 @@
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "y.0");
                             init =
-                            (Some Ast.Unary {op = Ast.PreIncrement;
-                                    exp = (Ast.Var (Ast.Identifier "x"))});
-                            storage = None }));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x"))))]));
+                            (Some { Ast.e =
+                                    Ast.Unary {op = Ast.PreIncrement;
+                                      exp =
+                                      { Ast.e =
+                                        (Ast.Var (Ast.Identifier "x"));
+                                        typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

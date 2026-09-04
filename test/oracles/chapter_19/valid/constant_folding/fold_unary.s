@@ -1,55 +1,50 @@
     .globl      target_negate
-    .text       
+    .text
 target_negate:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $-3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_negate_zero
-    .text       
+    .text
 target_negate_zero:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_not
-    .text       
+    .text
 target_not:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_not_zero
-    .text       
+    .text
 target_not_zero:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target_complement
-    .text       
+    .text
 target_complement:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     movl        $-2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -68,7 +63,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.3:
     call        target_negate_zero@PLT
     movl        %eax, -16(%rbp)
@@ -80,7 +75,7 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.6:
     call        target_not@PLT
     movl        %eax, -24(%rbp)
@@ -92,7 +87,7 @@ main:
     movl        $3, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.9:
     call        target_not_zero@PLT
     movl        %eax, -32(%rbp)
@@ -104,7 +99,7 @@ main:
     movl        $4, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.12:
     call        target_complement@PLT
     movl        %eax, -40(%rbp)
@@ -120,19 +115,19 @@ main:
     movl        $5, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.16:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      two
-    .data       
+    .data
     .align      4
 two:
     .long       2
     .globl      three
-    .data       
+    .data
     .align      4
 three:
     .long       3

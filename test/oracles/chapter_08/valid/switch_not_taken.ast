@@ -6,26 +6,61 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 1)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
-                       Ast.Switch {cond = (Ast.Var (Ast.Identifier "a"));
+                       Ast.Switch {
+                         cond =
+                         { Ast.e = (Ast.Var (Ast.Identifier "a")); typ = None
+                           };
                          body =
                          (Ast.Compound
                             (Ast.Block
                                [(Ast.S
-                                   Ast.Case {value = (Ast.LiteralInt 0);
-                                     body = (Ast.Return (Ast.LiteralInt 0));
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 0l));
+                                       typ = None };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 0l));
+                                          typ = None });
                                      id = None});
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 2);
-                                      body = (Ast.Return (Ast.LiteralInt 0));
+                                    Ast.Case {
+                                      value =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = None };
+                                      body =
+                                      (Ast.Return
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 0l));
+                                           typ = None });
                                       id = None});
                                  (Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 3);
-                                      body = (Ast.Return (Ast.LiteralInt 0));
+                                    Ast.Case {
+                                      value =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 3l));
+                                        typ = None };
+                                      body =
+                                      (Ast.Return
+                                         { Ast.e =
+                                           (Ast.Constant (Ctype.ConstInt 0l));
+                                           typ = None });
                                       id = None})
                                  ]));
                          id = None});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

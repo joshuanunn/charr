@@ -1,7 +1,14 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "foo"); params = [];
-         body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      (Ast.Return
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                           typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -10,17 +17,37 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x.0");
-                            init = (Some (Ast.LiteralInt 3)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 3l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x.0")),
-                              Ast.Binary {op = Ast.Subtract;
-                                left = (Ast.Var (Ast.Identifier "x.0"));
-                                right =
-                                Ast.FunctionCall {
-                                  name = (Ast.Identifier "foo"); args = []}}
-                              ))));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "x.0"))))]));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "x.0"));
+                                  typ = (Some Ctype.Int) },
+                                { Ast.e =
+                                  Ast.Binary {op = Ast.Subtract;
+                                    left =
+                                    { Ast.e =
+                                      (Ast.Var (Ast.Identifier "x.0"));
+                                      typ = (Some Ctype.Int) };
+                                    right =
+                                    { Ast.e =
+                                      Ast.FunctionCall {
+                                        name = (Ast.Identifier "foo");
+                                        args = []};
+                                      typ = (Some Ctype.Int) }};
+                                  typ = (Some Ctype.Int) }
+                                ));
+                             typ = (Some Ctype.Int) }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "x.0"));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

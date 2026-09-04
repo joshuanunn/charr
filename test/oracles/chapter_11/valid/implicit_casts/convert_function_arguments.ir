@@ -1,0 +1,90 @@
+(Ir.Program
+   [Ir.Function {name = "foo"; global = true;
+      params = ["a.0"; "b.1"; "c.2"; "d.3"; "e.4"; "f.5"; "g.6"; "h.7"];
+      body =
+      [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "a.0");
+         src2 = (Ir.Constant (Ctype.ConstLong -1L));
+         dst = (Ir.Var "foo.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.1");
+          target = "foo.if.en.2"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "foo.if.en.2");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "b.1");
+          src2 = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "foo.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.3");
+          target = "foo.if.en.4"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "foo.if.en.4");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "c.2");
+          src2 = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "foo.tmp.5")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.5");
+          target = "foo.if.en.6"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+        (Ir.Label "foo.if.en.6");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "d.3");
+          src2 = (Ir.Constant (Ctype.ConstInt -5l));
+          dst = (Ir.Var "foo.tmp.8")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.8");
+          target = "foo.if.en.9"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+        (Ir.Label "foo.if.en.9");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "e.4");
+          src2 = (Ir.Constant (Ctype.ConstLong -101L));
+          dst = (Ir.Var "foo.tmp.11")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.11");
+          target = "foo.if.en.12"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
+        (Ir.Label "foo.if.en.12");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "f.5");
+          src2 = (Ir.Constant (Ctype.ConstInt -123l));
+          dst = (Ir.Var "foo.tmp.14")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.14");
+          target = "foo.if.en.15"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
+        (Ir.Label "foo.if.en.15");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "g.6");
+          src2 = (Ir.Constant (Ctype.ConstLong -10L));
+          dst = (Ir.Var "foo.tmp.17")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.17");
+          target = "foo.if.en.18"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 7l)));
+        (Ir.Label "foo.if.en.18");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "h.7");
+          src2 = (Ir.Constant (Ctype.ConstInt 1234l));
+          dst = (Ir.Var "foo.tmp.19")};
+        Ir.JumpIfZero {condition = (Ir.Var "foo.tmp.19");
+          target = "foo.if.en.20"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 8l)));
+        (Ir.Label "foo.if.en.20");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "foo";
+        counter = 21;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "foo";
+          args =
+          [(Ir.Constant (Ctype.ConstLong -1L));
+            (Ir.Constant (Ctype.ConstInt 2l));
+            (Ir.Constant (Ctype.ConstInt 0l));
+            (Ir.Constant (Ctype.ConstInt -5l));
+            (Ir.Constant (Ctype.ConstLong -101L));
+            (Ir.Constant (Ctype.ConstInt -123l));
+            (Ir.Constant (Ctype.ConstLong -10L));
+            (Ir.Constant (Ctype.ConstInt 1234l))];
+          dst = (Ir.Var "main.tmp.15")};
+         (Ir.Return (Ir.Var "main.tmp.15"))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 16;
+         offset = 0;
+         stack slots = {
+         }}}
+     ])

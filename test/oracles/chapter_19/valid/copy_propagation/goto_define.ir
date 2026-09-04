@@ -1,26 +1,24 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = ["flag.0"];
-      body = [(Ir.Return (Ir.Constant 20))];
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 20l)))];
       frame =
       Env.lenv {
         namespace = "target";
         counter = 1;
-        offset = -8;
+        offset = 0;
         stack slots = {
-          x.2    -> -4,
-          flag.0 -> -8,
         }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "target"; args = [(Ir.Constant 0)];
-          dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+       [Ir.FunCall {fun_name = "target";
+          args = [(Ir.Constant (Ctype.ConstInt 0l))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -4;
+         offset = 0;
          stack slots = {
-           tmp.0 -> -4,
          }}}
      ])

@@ -5,10 +5,17 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Binary {op = Ast.Multiply;
-                           left = (Ast.Var (Ast.Identifier "a.0"));
-                           right = (Ast.LiteralInt 2)}))
+                         { Ast.e =
+                           Ast.Binary {op = Ast.Multiply;
+                             left =
+                             { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -16,8 +23,14 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "a");
-                            args = [(Ast.LiteralInt 1)]}))
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "a");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                 typ = (Some Ctype.Int) }
+                                ]};
+                            typ = (Some Ctype.Int) }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

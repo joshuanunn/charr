@@ -6,25 +6,45 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a.0");
-                           init = (Some (Ast.LiteralInt 3)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b.1");
-                            init = (Some (Ast.LiteralInt 5)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 5l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "c.2");
-                            init = (Some (Ast.LiteralInt 8)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 8l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.BwOr;
-                            left =
-                            Ast.Binary {op = Ast.BwAnd;
-                              left = (Ast.Var (Ast.Identifier "a.0"));
-                              right = (Ast.Var (Ast.Identifier "b.1"))};
-                            right = (Ast.Var (Ast.Identifier "c.2"))}))
+                          { Ast.e =
+                            Ast.Binary {op = Ast.BwOr;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.BwAnd;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                                    typ = (Some Ctype.Int) };
+                                  right =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "b.1"));
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.Int) };
+                              right =
+                              { Ast.e = (Ast.Var (Ast.Identifier "c.2"));
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

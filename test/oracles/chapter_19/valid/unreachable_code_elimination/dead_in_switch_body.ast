@@ -5,8 +5,14 @@
          (Some (Ast.Block
                   [(Ast.S
                       (Ast.Return
-                         Ast.Unary {op = Ast.Negate; exp = (Ast.LiteralInt 1)}))
+                         { Ast.e =
+                           Ast.Unary {op = Ast.Negate;
+                             exp =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                               typ = None }};
+                           typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target");
@@ -16,64 +22,120 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
-                        Ast.Switch {cond = (Ast.Var (Ast.Identifier "x"));
+                        Ast.Switch {
+                          cond =
+                          { Ast.e = (Ast.Var (Ast.Identifier "x"));
+                            typ = None };
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
-                                    Ast.Case {value = (Ast.LiteralInt 1);
+                                    Ast.Case {
+                                      value =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = None };
                                       body =
                                       (Ast.Expression
-                                         (Ast.Assignment (
-                                            (Ast.Var
-                                               (Ast.Identifier "retval")),
-                                            (Ast.LiteralInt 1))));
+                                         { Ast.e =
+                                           (Ast.Assignment (
+                                              { Ast.e =
+                                                (Ast.Var
+                                                   (Ast.Identifier "retval"));
+                                                typ = None },
+                                              { Ast.e =
+                                                (Ast.Constant
+                                                   (Ctype.ConstInt 1l));
+                                                typ = None }
+                                              ));
+                                           typ = None });
                                       id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 2);
+                                     Ast.Case {
+                                       value =
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 2l));
+                                         typ = None };
                                        body =
                                        (Ast.Expression
-                                          (Ast.Assignment (
-                                             (Ast.Var
-                                                (Ast.Identifier "retval")),
-                                             (Ast.LiteralInt 2))));
+                                          { Ast.e =
+                                            (Ast.Assignment (
+                                               { Ast.e =
+                                                 (Ast.Var
+                                                    (Ast.Identifier "retval"));
+                                                 typ = None },
+                                               { Ast.e =
+                                                 (Ast.Constant
+                                                    (Ctype.ConstInt 2l));
+                                                 typ = None }
+                                               ));
+                                            typ = None });
                                        id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
                                      (Ast.Expression
-                                        Ast.FunctionCall {
-                                          name = (Ast.Identifier "callee");
-                                          args = []}));
+                                        { Ast.e =
+                                          Ast.FunctionCall {
+                                            name = (Ast.Identifier "callee");
+                                            args = []};
+                                          typ = None }));
                                   (Ast.S
-                                     Ast.Case {value = (Ast.LiteralInt 3);
+                                     Ast.Case {
+                                       value =
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 3l));
+                                         typ = None };
                                        body =
                                        (Ast.Expression
-                                          (Ast.Assignment (
-                                             (Ast.Var
-                                                (Ast.Identifier "retval")),
-                                             (Ast.LiteralInt 10))));
+                                          { Ast.e =
+                                            (Ast.Assignment (
+                                               { Ast.e =
+                                                 (Ast.Var
+                                                    (Ast.Identifier "retval"));
+                                                 typ = None },
+                                               { Ast.e =
+                                                 (Ast.Constant
+                                                    (Ctype.ConstInt 10l));
+                                                 typ = None }
+                                               ));
+                                            typ = None });
                                        id = None});
                                   (Ast.S (Ast.Break None));
                                   (Ast.S
                                      Ast.Default {
                                        body =
                                        (Ast.Return
-                                          Ast.Unary {op = Ast.Negate;
-                                            exp = (Ast.LiteralInt 1)});
+                                          { Ast.e =
+                                            Ast.Unary {op = Ast.Negate;
+                                              exp =
+                                              { Ast.e =
+                                                (Ast.Constant
+                                                   (Ctype.ConstInt 1l));
+                                                typ = None }};
+                                            typ = None });
                                        id = None});
                                   (Ast.S
                                      (Ast.Expression
-                                        Ast.FunctionCall {
-                                          name = (Ast.Identifier "callee");
-                                          args = []}))
+                                        { Ast.e =
+                                          Ast.FunctionCall {
+                                            name = (Ast.Identifier "callee");
+                                            args = []};
+                                          typ = None }))
                                   ]));
                           id = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "retval"));
+                             typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -81,8 +143,15 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = [(Ast.LiteralInt 3)]}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                                 typ = None }
+                                ]};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

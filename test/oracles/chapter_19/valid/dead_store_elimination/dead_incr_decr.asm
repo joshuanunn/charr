@@ -1,32 +1,34 @@
 (Asm.Program
    [Asm.Function {name = "target"; global = true;
       instructions =
-      [(Asm.AllocateStack 32); (Asm.Mov ((Asm.Imm 10), (Asm.Reg Asm.AX)));
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 10L);
+         dst = (Asm.Reg Asm.AX)};
         Asm.Ret];
       frame =
       Env.lenv {
         namespace = "target";
         counter = 2;
-        offset = -24;
+        offset = 0;
         stack slots = {
-          a.0   -> -4,
-          b.1   -> -8,
-          c.2   -> -12,
-          d.3   -> -16,
-          tmp.0 -> -20,
-          tmp.1 -> -24,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Call "target");
-         (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         (Asm.Call "target");
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           main.tmp.0 -> -4,
          }}};
-     Asm.StaticVariable {name = "glob"; global = false; init = 0}])
+     Asm.StaticVariable {name = "glob"; global = false; alignment = 4;
+       init = (Ctype.IntInit 0l)}
+     ])

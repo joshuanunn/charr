@@ -1,10 +1,17 @@
 (Asm.Program
    [Asm.Function {name = "set_globvar"; global = true;
       instructions =
-      [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -4)));
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Data "globvar")));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.DI);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "globvar")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "set_globvar";
@@ -15,74 +22,108 @@
         }}};
      Asm.Function {name = "callee"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Reg Asm.SI), (Asm.Stack -12)));
-         (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-         (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Stack -12), (Asm.Reg Asm.R10)));
-         Asm.Binary {op = Asm.Add; src = (Asm.Reg Asm.R10);
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.DI);
            dst = (Asm.Stack -4)};
-         (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.SI);
+           dst = (Asm.Stack -8)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.R10)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+           dst = (Asm.Stack -12)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
+           dst = (Asm.Reg Asm.R10)};
+         Asm.Binary {op = Asm.Add; typ = Asm.Longword;
+           src = (Asm.Reg Asm.R10); dst = (Asm.Stack -12)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "callee";
          counter = 1;
          offset = -12;
          stack slots = {
-           tmp.0 -> -4,
-           a.1   -> -8,
-           b.2   -> -12,
+           a.1          -> -4,
+           b.2          -> -8,
+           callee.tmp.0 -> -12,
          }}};
      Asm.Function {name = "target"; global = true;
        instructions =
-       [(Asm.AllocateStack 32);
-         (Asm.Mov ((Asm.Reg Asm.DI), (Asm.Stack -20)));
-         (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.DI)));
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.DI);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.DI)};
          (Asm.Call "set_globvar");
-         (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-         (Asm.Mov ((Asm.Imm 10), (Asm.Reg Asm.DI)));
-         (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.SI))); (Asm.Call "callee");
-         (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -16)));
-         (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.AX))); Asm.Ret];
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -8)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 10L);
+           dst = (Asm.Reg Asm.DI)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+           dst = (Asm.Reg Asm.SI)};
+         (Asm.Call "callee");
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -12)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "target";
          counter = 2;
-         offset = -20;
+         offset = -12;
          stack slots = {
-           x.4     -> -4,
-           tmp.0   -> -8,
-           y.5     -> -12,
-           tmp.1   -> -16,
-           param.3 -> -20,
+           param.3      -> -4,
+           target.tmp.0 -> -8,
+           target.tmp.1 -> -12,
          }}};
      Asm.Function {name = "main"; global = true;
        instructions =
-       [(Asm.AllocateStack 16); (Asm.Mov ((Asm.Imm 4), (Asm.Reg Asm.DI)));
-         (Asm.Call "target"); (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -4)));
-         (Asm.Cmp ((Asm.Imm 14), (Asm.Stack -4)));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -8)));
+       [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
+          dst = (Asm.Reg Asm.SP)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
+           dst = (Asm.Reg Asm.DI)};
+         (Asm.Call "target");
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+           dst = (Asm.Stack -4)};
+         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 14L);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Stack -8)};
          (Asm.SetCC (Asm.NE, (Asm.Stack -8)));
-         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
+         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Stack -8)};
          (Asm.JmpCC (Asm.E, "main.if.en.2"));
-         (Asm.Mov ((Asm.Imm 1), (Asm.Reg Asm.AX))); Asm.Ret;
-         (Asm.Label "main.if.en.2");
-         (Asm.Cmp ((Asm.Imm 4), (Asm.Data "globvar")));
-         (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret; (Asm.Label "main.if.en.2");
+         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 4L);
+           dst = (Asm.Data "globvar")};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Stack -12)};
          (Asm.SetCC (Asm.NE, (Asm.Stack -12)));
-         (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
+         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Stack -12)};
          (Asm.JmpCC (Asm.E, "main.if.en.4"));
-         (Asm.Mov ((Asm.Imm 2), (Asm.Reg Asm.AX))); Asm.Ret;
-         (Asm.Label "main.if.en.4");
-         (Asm.Mov ((Asm.Imm 0), (Asm.Reg Asm.AX))); Asm.Ret];
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret; (Asm.Label "main.if.en.4");
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+           dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 5;
          offset = -12;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
+           main.tmp.0 -> -4,
+           main.tmp.1 -> -8,
+           main.tmp.3 -> -12,
          }}};
-     Asm.StaticVariable {name = "globvar"; global = false; init = 0}])
+     Asm.StaticVariable {name = "globvar"; global = false; alignment = 4;
+       init = (Ctype.IntInit 0l)}
+     ])

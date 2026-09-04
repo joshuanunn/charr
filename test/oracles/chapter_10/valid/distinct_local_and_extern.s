@@ -1,40 +1,40 @@
     .globl      return_a
-    .text       
+    .text
 return_a:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        a(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
     cmpl        $5, a(%rip)
-    movl        $0, -8(%rbp)
-    setne       -8(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        $0, -4(%rbp)
+    setne       -4(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Lmain.if.en.1
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.1:
     movl        $4, a(%rip)
     call        return_a@PLT
-    movl        %eax, -12(%rbp)
-    movl        $3, -16(%rbp)
-    movl        -12(%rbp), %r10d
-    addl        %r10d, -16(%rbp)
-    movl        -16(%rbp), %eax
+    movl        %eax, -8(%rbp)
+    movl        $3, -12(%rbp)
+    movl        -8(%rbp), %r10d
+    addl        %r10d, -12(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      a
-    .data       
+    .data
     .align      4
 a:
     .long       5

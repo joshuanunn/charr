@@ -54,26 +54,13 @@ let show_lenv le = Format.asprintf "%a" pp_lenv le
 let make_lenv (namespace : string) : lenv =
   { namespace; counter = 0; offset = 0; stack_offsets = Hashtbl.create 16 }
 
-(** Declare a new temporary value.
-    - Generates a unique name by appending the counter to [name]
-    - Allocates 4 bytes on the stack (decreases offset)
-    - Stores the mapping in [stack_offsets]
-    - Returns the unique name *)
-let declare_value (le : lenv) (name : string) : string =
-  let eid = name ^ "." ^ string_of_int le.counter in
-  let new_offset = le.offset - 4 in
-  Hashtbl.add le.stack_offsets eid new_offset;
+(** Declare a new temporary value. Generate a name unique within the translation
+    unit by prefixing it with the function namespace and appending the counter.
+*)
+let declare_tmp (le : lenv) : string =
+  let eid = le.namespace ^ ".tmp." ^ string_of_int le.counter in
   le.counter <- le.counter + 1;
-  le.offset <- new_offset;
   eid
-
-(** Insert a user-declared variable into the stack offset table. *)
-let insert_value (le : lenv) (id : Ast.ident) : unit =
-  let name = get_identifier_name id in
-  let new_offset = le.offset - 4 in
-  Hashtbl.add le.stack_offsets name new_offset;
-  le.offset <- new_offset;
-  ()
 
 (** Declare a unique label name for control-flow constructs. As labels are
     global in the final assembly code, labels must be namespaced by function. *)
@@ -82,9 +69,15 @@ let declare_label (le : lenv) (name : string) : string =
   le.counter <- le.counter + 1;
   eid
 
-(** Look up the stack offset for a given variable name. Raises if not found. *)
-let get_value_offset (le : lenv) (name : string) : int =
-  Hashtbl.find le.stack_offsets name
+(** Look up the stack offset for a variable name. Returns Some offset or None.
+*)
+let get_offset_opt (le : lenv) (name : string) : int option =
+  Hashtbl.find_opt le.stack_offsets name
+
+(** Set the stack offset for a variable name, using create or replace. *)
+let set_offset (le : lenv) (name : string) (offset : int) : unit =
+  Hashtbl.replace le.stack_offsets name offset;
+  le.offset <- offset
 
 (** ------------------------------------------------------------------------
     Symbol environment (senv)
@@ -250,7 +243,7 @@ let resolve_lab (se : senv) (id : Ast.ident) : Ast.ident =
 (** Initial value information for objects with static storage duration. *)
 type initial_value =
   | Tentative  (** Tentative definition (no initialiser seen yet) *)
-  | Initial of int  (** Explicit constant initialiser *)
+  | Initial of Ctype.static_init  (** Explicit constant initialiser *)
   | NoInitialiser  (** Declared without initialiser (e.g. extern) *)
 
 (** Attributes associated with a typed identifier. *)
@@ -266,12 +259,13 @@ type identifier_attrs =
   | LocalAttr  (** Automatic storage duration (block-scope variable) *)
 
 type type_entry = {
-  c_type : Type.ctype;  (** The C type of the identifier *)
+  c_type : Ctype.t;  (** The C type of the identifier *)
   attrs : identifier_attrs;  (** Storage, linkage, and definition metadata *)
 }
 
-type tenv = { mutable typed_idents : (string, type_entry) Hashtbl.t }
-(** Type environment mapping resolved identifier names to type entries. *)
+type tenv = { typed_idents : (string, type_entry) Hashtbl.t }
+(** Type information for identifiers and IR temporaries. Names must be globally
+    unique within a translation unit. *)
 
 (** Create a new type environment with an empty global scope *)
 let make_tenv () : tenv = { typed_idents = Hashtbl.create 16 }
@@ -283,30 +277,14 @@ let find (te : tenv) (id : Ast.ident) : type_entry option =
 (** Add a new typed identifier to the environment. Assumes the identifier has
     not already been declared. *)
 let add (te : tenv) (id : Ast.ident) (entry : type_entry) : unit =
-  Hashtbl.add te.typed_idents (ident_name id) entry
+  let name = ident_name id in
+  if Hashtbl.mem te.typed_idents name then
+    failwith ("internal error: duplicate type entry for " ^ name);
+  Hashtbl.add te.typed_idents name entry
 
 (** Insert or update a typed identifier in the environment. *)
 let replace (te : tenv) (id : Ast.ident) (entry : type_entry) : unit =
   Hashtbl.replace te.typed_idents (ident_name id) entry
-
-(** Assert that an identifier refers to a variable of integer type. Raises if
-    the identifier is undeclared or refers to a function. *)
-let assert_var (te : tenv) (id : Ast.ident) : unit =
-  match find te id with
-  | None -> failwith "variable has not been typechecked"
-  | Some { c_type = Type.Int; _ } -> ()
-  | Some _ -> failwith "function name used as variable"
-
-(** Assert that an identifier refers to a function with the given arity. Raises
-    if the identifier is undeclared, refers to a variable, or is called with the
-    wrong number of arguments. *)
-let assert_fun (te : tenv) (id : Ast.ident) (argc : int) : unit =
-  match find te id with
-  | None -> failwith "function has not been typechecked"
-  | Some { c_type = Type.FunType p; _ } ->
-      if p.param_count <> argc then
-        failwith "function called with the wrong number of arguments"
-  | Some _ -> failwith "variable used as function name"
 
 (** Determine whether a function has external linkage. Looks up the function
     [id] in the type environment and returns [true] if the function has external
@@ -320,11 +298,11 @@ let fun_is_global (te : tenv) (id : Ast.ident) : bool =
 (** Collect all static variables recorded in the type environment. Returns a
     list of triples [(name, init, global)] for each identifier with
     [StaticAttr]. Entries with other attributes are ignored. *)
-let static_vars (te : tenv) : (string * initial_value * bool) list =
+let static_vars (te : tenv) : (string * bool * Ctype.t * initial_value) list =
   Hashtbl.fold
     (fun name entry acc ->
       match entry.attrs with
-      | StaticAttr { init; global } -> (name, init, global) :: acc
+      | StaticAttr { init; global } -> (name, global, entry.c_type, init) :: acc
       | _ -> acc)
     te.typed_idents []
 

@@ -7,23 +7,49 @@
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a.0");
                            init =
-                           (Some Ast.Unary {op = Ast.Negate;
-                                   exp = (Ast.LiteralInt 2593)});
-                           storage = None }));
+                           (Some { Ast.e =
+                                   Ast.Unary {op = Ast.Negate;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 2593l));
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "a.0")),
-                             Ast.Binary {op = Ast.Remainder;
-                               left = (Ast.Var (Ast.Identifier "a.0"));
-                               right = (Ast.LiteralInt 3)}
-                             ))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Remainder;
+                                   left =
+                                   { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                                     typ = (Some Ctype.Int) };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 3l));
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b.1");
                             init =
-                            (Some Ast.Unary {op = Ast.Negate;
-                                    exp = (Ast.Var (Ast.Identifier "a.0"))});
-                            storage = None }));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "b.1"))))]));
+                            (Some { Ast.e =
+                                    Ast.Unary {op = Ast.Negate;
+                                      exp =
+                                      { Ast.e =
+                                        (Ast.Var (Ast.Identifier "a.0"));
+                                        typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "b.1"));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

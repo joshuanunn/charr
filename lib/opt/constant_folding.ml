@@ -1,43 +1,69 @@
-let int_of_bool (b : bool) : int = if b then 1 else 0
-
-let fold_unop (op : Ir.unary_operator) (n : int) : int option =
+let fold_unop (op : Ir.unary_operator) (c : Ctype.const) : Ctype.const option =
+  let n = Ctype.to_int64 c in
   match op with
-  | Negate -> Some (-n)
-  | BwNot -> Some (lnot n)
-  | Not -> Some (int_of_bool (n = 0))
+  | Negate -> Some (Ctype.of_int64 (Ctype.const_type c) (Int64.neg n))
+  | BwNot -> Some (Ctype.of_int64 (Ctype.const_type c) (Int64.lognot n))
+  | Not ->
+      Some (Ctype.ConstInt (if n = 0L then 1l else 0l))
+      (* Not always yields Int *)
   | PreIncrement | PreDecrement | PostIncrement | PostDecrement -> None
 
-let fold_binop (op : Ir.binary_operator) (n1 : int) (n2 : int) : int option =
+let fold_binop (op : Ir.binary_operator) (c1 : Ctype.const) (c2 : Ctype.const) :
+    Ctype.const option =
+  let n1, n2 = (Ctype.to_int64 c1, Ctype.to_int64 c2) in
   match op with
-  | Add -> Some (n1 + n2)
-  | Subtract -> Some (n1 - n2)
-  | Multiply -> Some (n1 * n2)
-  | Divide -> if n2 = 0 then None else Some (n1 / n2)
-  | Remainder -> if n2 = 0 then None else Some (n1 mod n2)
-  | BwLeftShift -> Some (Int.shift_left n1 n2)
-  | BwRightShift -> Some (Int.shift_right n1 n2)
-  | BwAnd -> Some (n1 land n2)
-  | BwXor -> Some (n1 lxor n2)
-  | BwOr -> Some (n1 lor n2)
-  | Equal -> Some (int_of_bool (n1 = n2))
-  | NotEqual -> Some (int_of_bool (n1 <> n2))
-  | LessOrEqual -> Some (int_of_bool (n1 <= n2))
-  | GreaterOrEqual -> Some (int_of_bool (n1 >= n2))
-  | LessThan -> Some (int_of_bool (n1 < n2))
-  | GreaterThan -> Some (int_of_bool (n1 > n2))
+  | BwLeftShift ->
+      Some
+        (Ctype.of_int64 (Ctype.const_type c1)
+           (Int64.shift_left n1 (Int64.to_int n2)))
+  | BwRightShift ->
+      Some
+        (Ctype.of_int64 (Ctype.const_type c1)
+           (Int64.shift_right n1 (Int64.to_int n2)))
+  | Equal | NotEqual | LessOrEqual | GreaterOrEqual | LessThan | GreaterThan ->
+      let b =
+        match op with
+        | Equal -> n1 = n2
+        | NotEqual -> n1 <> n2
+        | LessOrEqual -> n1 <= n2
+        | GreaterOrEqual -> n1 >= n2
+        | LessThan -> n1 < n2
+        | GreaterThan -> n1 > n2
+        | _ -> assert false
+      in
+      Some (Ctype.ConstInt (if b then 1l else 0l))
+  | _ -> (
+      let t = Ctype.const_type c1 in
+      (* matches c2 by construction *)
+      match op with
+      | Add -> Some (Ctype.of_int64 t (Int64.add n1 n2))
+      | Subtract -> Some (Ctype.of_int64 t (Int64.sub n1 n2))
+      | Multiply -> Some (Ctype.of_int64 t (Int64.mul n1 n2))
+      | Divide ->
+          if n2 = 0L then None else Some (Ctype.of_int64 t (Int64.div n1 n2))
+      | Remainder ->
+          if n2 = 0L then None else Some (Ctype.of_int64 t (Int64.rem n1 n2))
+      | BwAnd -> Some (Ctype.of_int64 t (Int64.logand n1 n2))
+      | BwXor -> Some (Ctype.of_int64 t (Int64.logxor n1 n2))
+      | BwOr -> Some (Ctype.of_int64 t (Int64.logor n1 n2))
+      | _ -> assert false)
 
 let apply (i : Ir.instruction) : Ir.instruction option =
   match i with
-  | Unary { op; src = Constant n; dst } -> (
-      match fold_unop op n with
+  | Unary { op; src = Constant c; dst } -> (
+      match fold_unop op c with
       | Some v -> Some (Copy { src = Constant v; dst })
       | None -> Some i)
-  | Binary { op; src1 = Constant n1; src2 = Constant n2; dst } -> (
-      match fold_binop op n1 n2 with
+  | Binary { op; src1 = Constant c1; src2 = Constant c2; dst } -> (
+      match fold_binop op c1 c2 with
       | Some v -> Some (Copy { src = Constant v; dst })
       | None -> Some i)
-  | JumpIfZero { condition = Constant 0; target } -> Some (Jump { target })
-  | JumpIfZero { condition = Constant _; _ } -> None
-  | JumpIfNotZero { condition = Constant 0; _ } -> None
-  | JumpIfNotZero { condition = Constant _; target } -> Some (Jump { target })
+  | JumpIfZero { condition = Constant c; target } ->
+      if Ctype.is_zero c then Some (Jump { target }) else None
+  | JumpIfNotZero { condition = Constant c; target } ->
+      if Ctype.is_zero c then None else Some (Jump { target })
+  | SignExtend { src = Constant c; dst } ->
+      Some (Copy { src = Constant (Ctype.const_convert Ctype.Long c); dst })
+  | Truncate { src = Constant c; dst } ->
+      Some (Copy { src = Constant (Ctype.const_convert Ctype.Int c); dst })
   | ins -> Some ins

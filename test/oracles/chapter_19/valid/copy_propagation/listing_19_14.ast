@@ -1,7 +1,9 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "indirect_update"); params = [];
-         body = None; storage = None });
+         body = None;
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f");
           params = [(Ast.Identifier "new_total")];
@@ -10,32 +12,63 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "total");
-                            init = (Some (Ast.LiteralInt 0));
-                            storage = (Some Ast.Static) }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = (Some Ast.Static)
+                            }));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment (
-                              (Ast.Var (Ast.Identifier "total")),
-                              (Ast.Var (Ast.Identifier "new_total"))))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                                  typ = None },
+                                { Ast.e =
+                                  (Ast.Var (Ast.Identifier "new_total"));
+                                  typ = None }
+                                ));
+                             typ = None }));
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.GreaterThan;
-                            left = (Ast.Var (Ast.Identifier "total"));
-                            right = (Ast.LiteralInt 100)};
-                          then_smt = (Ast.Return (Ast.LiteralInt 0));
+                          { Ast.e =
+                            Ast.Binary {op = Ast.GreaterThan;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 100l));
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = None });
                           else_smt = None});
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment (
-                              (Ast.Var (Ast.Identifier "total")),
-                              (Ast.LiteralInt 10)))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                                  typ = None },
+                                { Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
+                                  typ = None }
+                                ));
+                             typ = None }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.FunctionCall {
-                             name = (Ast.Identifier "indirect_update");
-                             args = []}));
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "total"))))]));
+                           { Ast.e =
+                             Ast.FunctionCall {
+                               name = (Ast.Identifier "indirect_update");
+                               args = []};
+                             typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "total"));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "indirect_update"); params = [];
@@ -43,9 +76,19 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = [(Ast.LiteralInt 101)]}));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "f");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ctype.ConstInt 101l));
+                                 typ = None }
+                                ]};
+                            typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -53,8 +96,14 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "f");
-                            args = [(Ast.LiteralInt 1)]}))
+                          { Ast.e =
+                            Ast.FunctionCall {name = (Ast.Identifier "f");
+                              args =
+                              [{ Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                 typ = None }
+                                ]};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

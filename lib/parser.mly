@@ -3,10 +3,12 @@
 %}
 
 %token <string> IDENTIFIER
-%token <int> LITERAL_INT
+%token <int64> LITERAL_INT
+%token <int64> LITERAL_LONG
 %token KW_STATIC
 %token KW_EXTERN
 %token KW_INT
+%token KW_LONG
 %token KW_VOID
 %token KW_RETURN
 %token KW_IF
@@ -80,13 +82,23 @@ decl_list:
   | { [] }
   ;
 
+type_specifier_list:
+  | type_specifier_list type_specifier { $1 @ [$2] }
+  | type_specifier { [$1] }
+  ;
+
 specifier_list:
   | specifier_list specifier { $1 @ [$2] }
   | specifier { [$1] }
   ;
 
+type_specifier:
+  | KW_INT { Ctype.Int }
+  | KW_LONG { Ctype.Long }
+  ;
+
 specifier:
-  | KW_INT { Ast.SpecType Ast.Int }
+  | type_specifier { Ast.SpecType $1 }
   | KW_STATIC { Ast.SpecStorage Ast.Static }
   | KW_EXTERN { Ast.SpecStorage Ast.Extern }
   ;
@@ -103,7 +115,7 @@ param_list:
   ;
 
 param_decl:
-  | KW_INT identifier { $2 }
+  | type_specifier_list identifier { Ast.mk_param $1 $2 }
   ;
 
 block:
@@ -253,10 +265,16 @@ additive_expr:
 
 (* Multiplicative binary operators [left associative] *)
 multiplicative_expr:
+  | cast_expr { $1 }
+  | multiplicative_expr MUL cast_expr { Ast.mk_binop_expr Ast.Multiply $1 $3 }
+  | multiplicative_expr DIV cast_expr { Ast.mk_binop_expr Ast.Divide $1 $3 }
+  | multiplicative_expr MOD cast_expr { Ast.mk_binop_expr Ast.Remainder $1 $3 }
+  ;
+
+(* Cast expression [right associative] *)
+cast_expr:
   | unary_expr { $1 }
-  | multiplicative_expr MUL unary_expr { Ast.mk_binop_expr Ast.Multiply $1 $3 }
-  | multiplicative_expr DIV unary_expr { Ast.mk_binop_expr Ast.Divide $1 $3 }
-  | multiplicative_expr MOD unary_expr { Ast.mk_binop_expr Ast.Remainder $1 $3 }
+  | LPAREN type_specifier_list RPAREN cast_expr { Ast.mk_cast_expr $2 $4 }
   ;
 
 (* Unary operators [right associative] *)
@@ -289,7 +307,7 @@ postfix_expr:
 
 (* Literals, identifiers, parentheses *)
 primary_expr:
-  | identifier { Ast.Var $1 }
+  | identifier { Ast.mk_var_expr $1 }
   | constant { $1 }
   | LPAREN expr RPAREN { $2 }
   ;
@@ -299,5 +317,6 @@ identifier:
   ;
 
 constant:
-  | LITERAL_INT { Ast.mk_int_expr $1 }
+  | LITERAL_INT { Ast.mk_int_const $1 }
+  | LITERAL_LONG { Ast.mk_long_const $1 }
   ;

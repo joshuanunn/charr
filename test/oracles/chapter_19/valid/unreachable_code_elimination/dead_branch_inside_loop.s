@@ -1,20 +1,20 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
     movl        $1, %eax
-    cdq         
+    cdq
     movl        $0, %r10d
     idivl       %r10d
     movl        %eax, -4(%rbp)
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -28,24 +28,24 @@ target:
     cmpl        $0, -12(%rbp)
     je          .Lloop.br.1
     movl        -4(%rbp), %r10d
-    movl        %r10d, -20(%rbp)
+    movl        %r10d, -16(%rbp)
     movl        -8(%rbp), %r10d
-    subl        %r10d, -20(%rbp)
-    movl        -20(%rbp), %r10d
+    subl        %r10d, -16(%rbp)
+    movl        -16(%rbp), %r10d
     movl        %r10d, -4(%rbp)
     movl        -8(%rbp), %r10d
-    movl        %r10d, -24(%rbp)
-    addl        $1, -24(%rbp)
-    movl        -24(%rbp), %r10d
+    movl        %r10d, -20(%rbp)
+    addl        $1, -20(%rbp)
+    movl        -20(%rbp), %r10d
     movl        %r10d, -8(%rbp)
     jmp         .Lloop.st.1
 .Lloop.br.1:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -53,17 +53,17 @@ main:
     call        target@PLT
     movl        %eax, -4(%rbp)
     cmpl        $-4845, -4(%rbp)
-    movl        $0, -12(%rbp)
-    setne       -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        $0, -8(%rbp)
+    setne       -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.3
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.3:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

@@ -94,14 +94,14 @@ let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t) :
   | Function { name; global; params; body; frame } ->
       let body_opt = optimise body o statics in
       Function { name; global; params; body = body_opt; frame }
-  | StaticVariable { name; global; init } ->
-      StaticVariable { name; global; init }
+  | StaticVariable { name; global; t; init } ->
+      StaticVariable { name; global; t; init }
 
 (** Construct a set of variable names whose storage is static and whose value
     may be observed across function boundaries or translation units. *)
 let collect_escaping_globals (te : Env.tenv) =
   Env.static_vars te
-  |> List.map (fun (name, _, _) -> name)
+  |> List.map (fun (name, _, _, _) -> name)
   |> Cfg.StringSet.of_list
 
 let optimise_prog (Program p : Ir.prog) (o : opts) (te : Env.tenv) : Ir.prog =

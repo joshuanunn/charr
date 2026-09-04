@@ -1,7 +1,7 @@
 (Ast.Program
    [(Ast.VarDecl
        { Ast.name = (Ast.Identifier "glob"); init = None;
-         storage = (Some Ast.Static) });
+         var_type = Ctype.Int; storage = (Some Ast.Static) });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
           body =
@@ -9,40 +9,72 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "a");
-                            init = (Some (Ast.Var (Ast.Identifier "glob")));
-                            storage = None }));
+                            init =
+                            (Some { Ast.e = (Ast.Var (Ast.Identifier "glob"));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "b");
-                             init = (Some (Ast.Var (Ast.Identifier "glob")));
-                             storage = None }));
+                             init =
+                             (Some { Ast.e =
+                                     (Ast.Var (Ast.Identifier "glob"));
+                                     typ = None });
+                             var_type = Ctype.Int; storage = None }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "c");
-                             init = (Some (Ast.Var (Ast.Identifier "glob")));
-                             storage = None }));
+                             init =
+                             (Some { Ast.e =
+                                     (Ast.Var (Ast.Identifier "glob"));
+                                     typ = None });
+                             var_type = Ctype.Int; storage = None }));
                      (Ast.D
                         (Ast.VarDecl
                            { Ast.name = (Ast.Identifier "d");
-                             init = (Some (Ast.Var (Ast.Identifier "glob")));
-                             storage = None }));
+                             init =
+                             (Some { Ast.e =
+                                     (Ast.Var (Ast.Identifier "glob"));
+                                     typ = None });
+                             var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.Unary {op = Ast.PostIncrement;
-                             exp = (Ast.Var (Ast.Identifier "a"))}));
+                           { Ast.e =
+                             Ast.Unary {op = Ast.PostIncrement;
+                               exp =
+                               { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                 typ = None }};
+                             typ = None }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.Unary {op = Ast.PostDecrement;
-                             exp = (Ast.Var (Ast.Identifier "b"))}));
+                           { Ast.e =
+                             Ast.Unary {op = Ast.PostDecrement;
+                               exp =
+                               { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                                 typ = None }};
+                             typ = None }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.Unary {op = Ast.PreIncrement;
-                             exp = (Ast.Var (Ast.Identifier "c"))}));
+                           { Ast.e =
+                             Ast.Unary {op = Ast.PreIncrement;
+                               exp =
+                               { Ast.e = (Ast.Var (Ast.Identifier "c"));
+                                 typ = None }};
+                             typ = None }));
                      (Ast.S
                         (Ast.Expression
-                           Ast.Unary {op = Ast.PreDecrement;
-                             exp = (Ast.Var (Ast.Identifier "d"))}));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 10)))]));
+                           { Ast.e =
+                             Ast.Unary {op = Ast.PreDecrement;
+                               exp =
+                               { Ast.e = (Ast.Var (Ast.Identifier "d"));
+                                 typ = None }};
+                             typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -50,8 +82,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

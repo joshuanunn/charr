@@ -1,21 +1,21 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
     movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    movl        -12(%rbp), %r10d
-    addl        %r10d, -4(%rbp)
-    movl        -4(%rbp), %eax
+    addl        %r10d, -12(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -25,18 +25,18 @@ target:
     movl        x.2(%rip), %edi
     movl        x.2(%rip), %esi
     call        callee@PLT
-    movl        %eax, -8(%rbp)
+    movl        %eax, -4(%rbp)
     movl        x.2(%rip), %r10d
-    movl        %r10d, -12(%rbp)
-    addl        $1, -12(%rbp)
-    movl        -12(%rbp), %r10d
+    movl        %r10d, -8(%rbp)
+    addl        $1, -8(%rbp)
+    movl        -8(%rbp), %r10d
     movl        %r10d, x.2(%rip)
-    movl        -8(%rbp), %eax
+    movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -51,7 +51,7 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     call        target@PLT
     movl        %eax, -12(%rbp)
@@ -63,17 +63,17 @@ main:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .data       
+    ret
+    .data
     .align      4
 x.2:
     .long       3
-    .bss        
+    .bss
     .align      4
 y.3:
     .zero       4

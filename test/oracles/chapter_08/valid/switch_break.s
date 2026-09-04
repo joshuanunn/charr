@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -7,19 +7,19 @@ main:
     movl        $5, -4(%rbp)
     movl        $1, -8(%rbp)
     cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.5
+    jne         .Lswit.cs.1.2
     movl        $0, -12(%rbp)
     cmpl        $0, -12(%rbp)
-    jne         .Lswit.cs.1.6
+    jne         .Lswit.cs.1.3
     jmp         .Lswit.br.1
-.Lswit.cs.1.5:
+.Lswit.cs.1.2:
     movl        $10, -4(%rbp)
     jmp         .Lswit.br.1
-.Lswit.cs.1.6:
+.Lswit.cs.1.3:
     movl        $0, -4(%rbp)
 .Lswit.br.1:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

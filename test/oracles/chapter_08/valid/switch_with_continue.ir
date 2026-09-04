@@ -1,38 +1,38 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "acc.0")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "i.1")};
-        (Ir.Label "loop.st.2");
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+         dst = (Ir.Var "acc.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "i.1")};
+        (Ir.Label "loop.st.4");
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant 10); dst = (Ir.Var "tmp.2")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.2"); target = "loop.br.2"};
+          src2 = (Ir.Constant (Ctype.ConstInt 10l));
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.2");
+          target = "loop.br.4"};
         Ir.Binary {op = Ir.Remainder; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.3")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "main.if.en.4"};
-        Ir.Jump {target = "loop.ct.2"}; (Ir.Label "main.if.en.4");
+          src2 = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.3");
+          target = "main.if.en.4"};
+        Ir.Jump {target = "loop.ct.4"}; (Ir.Label "main.if.en.4");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "acc.0");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.5")};
-        Ir.Copy {src = (Ir.Var "tmp.5"); dst = (Ir.Var "acc.0")};
-        (Ir.Label "loop.ct.2");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.5")};
+        Ir.Copy {src = (Ir.Var "main.tmp.5"); dst = (Ir.Var "acc.0")};
+        (Ir.Label "loop.ct.4");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "tmp.6")};
-        Ir.Copy {src = (Ir.Var "tmp.6"); dst = (Ir.Var "i.1")};
-        Ir.Jump {target = "loop.st.2"}; (Ir.Label "loop.br.2");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.6")};
+        Ir.Copy {src = (Ir.Var "main.tmp.6"); dst = (Ir.Var "i.1")};
+        Ir.Jump {target = "loop.st.4"}; (Ir.Label "loop.br.4");
         (Ir.Return (Ir.Var "acc.0"))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 7;
-        offset = -32;
+        offset = 0;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
-          acc.0 -> -12,
-          i.1   -> -16,
-          tmp.2 -> -20,
-          tmp.3 -> -24,
-          tmp.5 -> -28,
-          tmp.6 -> -32,
         }}}
      ])

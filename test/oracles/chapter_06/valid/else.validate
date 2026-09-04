@@ -6,11 +6,25 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a.0");
-                           init = (Some (Ast.LiteralInt 0)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
-                       Ast.If {cond_exp = (Ast.Var (Ast.Identifier "a.0"));
-                         then_smt = (Ast.Return (Ast.LiteralInt 1));
-                         else_smt = (Some (Ast.Return (Ast.LiteralInt 2)))})
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e = (Ast.Var (Ast.Identifier "a.0"));
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                              typ = (Some Ctype.Int) });
+                         else_smt =
+                         (Some (Ast.Return
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 2l));
+                                    typ = (Some Ctype.Int) }))})
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -1,5 +1,5 @@
     .globl      f
-    .text       
+    .text
 f:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -7,9 +7,9 @@ f:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -23,14 +23,14 @@ main:
     movl        global(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      flag
-    .data       
+    .data
     .align      4
 flag:
     .long       1
     .globl      global
-    .bss        
+    .bss
     .align      4
 global:
     .zero       4

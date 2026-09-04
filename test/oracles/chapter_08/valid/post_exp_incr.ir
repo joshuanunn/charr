@@ -1,29 +1,29 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.Copy {src = (Ir.Constant 1); dst = (Ir.Var "product.0")};
-        Ir.Copy {src = (Ir.Constant 0); dst = (Ir.Var "i.1")};
+      [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+         dst = (Ir.Var "product.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "i.1")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant 10); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 10l));
+          dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "loop.br.1"};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "product.0");
-          src2 = (Ir.Constant 2); dst = (Ir.Var "tmp.1")};
-        Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "product.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.Copy {src = (Ir.Var "main.tmp.1"); dst = (Ir.Var "product.0")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant 1); dst = (Ir.Var "i.1")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "i.1")};
         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
         (Ir.Return (Ir.Var "product.0"))];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 3;
-        offset = -20;
+        offset = 0;
         stack slots = {
-          product.0 -> -4,
-          i.1       -> -8,
-          tmp.0     -> -12,
-          tmp.1     -> -16,
-          tmp.2     -> -20,
         }}}
      ])

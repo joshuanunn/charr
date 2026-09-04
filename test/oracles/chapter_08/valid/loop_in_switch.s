@@ -1,5 +1,5 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -7,24 +7,24 @@ main:
     movl        $10, -4(%rbp)
     movl        $0, -8(%rbp)
     cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.1
+    jne         .Lswit.cs.1.2
     movl        $1, -12(%rbp)
     cmpl        $0, -12(%rbp)
-    jne         .Lswit.cs.1.10
+    jne         .Lswit.cs.1.3
     jmp         .Lswit.df.1
-.Lswit.cs.1.1:
+.Lswit.cs.1.2:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-.Lswit.cs.1.10:
+    ret
+.Lswit.cs.1.3:
     movl        $0, -16(%rbp)
-.Lloop.st.2:
+.Lloop.st.4:
     cmpl        $5, -16(%rbp)
     movl        $0, -20(%rbp)
     setl        -20(%rbp)
     cmpl        $0, -20(%rbp)
-    je          .Lloop.br.2
+    je          .Lloop.br.4
     movl        -4(%rbp), %r10d
     movl        %r10d, -24(%rbp)
     subl        $1, -24(%rbp)
@@ -35,22 +35,22 @@ main:
     sete        -28(%rbp)
     cmpl        $0, -28(%rbp)
     je          .Lmain.if.en.5
-    jmp         .Lloop.br.2
+    jmp         .Lloop.br.4
 .Lmain.if.en.5:
     movl        -16(%rbp), %r10d
     movl        %r10d, -32(%rbp)
     addl        $1, -32(%rbp)
     movl        -32(%rbp), %r10d
     movl        %r10d, -16(%rbp)
-    jmp         .Lloop.st.2
-.Lloop.br.2:
+    jmp         .Lloop.st.4
+.Lloop.br.4:
     movl        $123, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lswit.df.1:
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

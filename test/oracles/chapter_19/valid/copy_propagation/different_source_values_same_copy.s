@@ -1,27 +1,27 @@
     .globl      callee
-    .text       
+    .text
 callee:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    movl        %esi, -12(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        -4(%rbp), %r10d
+    movl        %r10d, -12(%rbp)
     movl        -8(%rbp), %r10d
-    movl        %r10d, -4(%rbp)
-    movl        -12(%rbp), %r10d
-    addl        %r10d, -4(%rbp)
-    movl        -4(%rbp), %eax
+    addl        %r10d, -12(%rbp)
+    movl        -12(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
-    movl        %edi, -8(%rbp)
-    cmpl        $0, -8(%rbp)
+    movl        %edi, -4(%rbp)
+    cmpl        $0, -4(%rbp)
     je          .Ltarget.if.el.1
     movl        $20, y.4(%rip)
     movl        $20, x.3(%rip)
@@ -33,52 +33,52 @@ target:
     movl        y.4(%rip), %edi
     movl        y.4(%rip), %esi
     call        callee@PLT
-    movl        %eax, -4(%rbp)
-    movl        -4(%rbp), %eax
+    movl        %eax, -8(%rbp)
+    movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $32, %rsp
+    subq        $16, %rsp
     movl        $0, %edi
     call        target@PLT
-    movl        %eax, -8(%rbp)
-    cmpl        $200, -8(%rbp)
-    movl        $0, -12(%rbp)
-    setne       -12(%rbp)
-    cmpl        $0, -12(%rbp)
+    movl        %eax, -4(%rbp)
+    cmpl        $200, -4(%rbp)
+    movl        $0, -8(%rbp)
+    setne       -8(%rbp)
+    cmpl        $0, -8(%rbp)
     je          .Lmain.if.en.2
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.2:
     movl        $1, %edi
     call        target@PLT
-    movl        %eax, -16(%rbp)
-    cmpl        $40, -16(%rbp)
-    movl        $0, -20(%rbp)
-    setne       -20(%rbp)
-    cmpl        $0, -20(%rbp)
+    movl        %eax, -12(%rbp)
+    cmpl        $40, -12(%rbp)
+    movl        $0, -16(%rbp)
+    setne       -16(%rbp)
+    cmpl        $0, -16(%rbp)
     je          .Lmain.if.en.5
     movl        $2, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
 .Lmain.if.en.5:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
-    .bss        
+    ret
+    .bss
     .align      4
 x.3:
     .zero       4
-    .bss        
+    .bss
     .align      4
 y.4:
     .zero       4

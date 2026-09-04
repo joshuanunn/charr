@@ -1,0 +1,178 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "switch_on_int");
+         params = [(Ast.Identifier "i")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      Ast.Switch {
+                        cond =
+                        { Ast.e = (Ast.Var (Ast.Identifier "i")); typ = None
+                          };
+                        body =
+                        (Ast.Compound
+                           (Ast.Block
+                              [(Ast.S
+                                  Ast.Case {
+                                    value =
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 5l));
+                                      typ = None };
+                                    body =
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 0l));
+                                         typ = None });
+                                    id = None});
+                                (Ast.S
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant
+                                          (Ctype.ConstLong 8589934592L));
+                                       typ = None };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 1l));
+                                          typ = None });
+                                     id = None});
+                                (Ast.S
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant
+                                          (Ctype.ConstLong 34359738367L));
+                                       typ = None };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 2l));
+                                          typ = None });
+                                     id = None});
+                                (Ast.S
+                                   Ast.Default {
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 3l));
+                                          typ = None });
+                                     id = None})
+                                ]));
+                        id = None})
+                    ]));
+         fun_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.FunctionCall {
+                                 name = (Ast.Identifier "switch_on_int");
+                                 args =
+                                 [{ Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 5l));
+                                    typ = None }
+                                   ]};
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = None }};
+                           typ = None };
+                         then_smt =
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                              typ = None });
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "switch_on_int");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 0l));
+                                     typ = None }
+                                    ]};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                               typ = None });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "switch_on_int");
+                                  args =
+                                  [{ Ast.e =
+                                     Ast.Unary {op = Ast.Negate;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 1l));
+                                         typ = None }};
+                                     typ = None }
+                                    ]};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                               typ = None });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "switch_on_int");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstLong 17179869184L));
+                                     typ = None }
+                                    ]};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                typ = None }};
+                            typ = None };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                               typ = None });
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])

@@ -6,16 +6,35 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_and.0");
-                           init = (Some (Ast.LiteralInt 3)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "to_and.0")),
-                             Ast.Binary {op = Ast.BwAnd;
-                               left = (Ast.Var (Ast.Identifier "to_and.0"));
-                               right = (Ast.LiteralInt 6)}
-                             ))));
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "to_and.0"))))
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e =
+                                 (Ast.Var (Ast.Identifier "to_and.0"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.BwAnd;
+                                   left =
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "to_and.0"));
+                                     typ = (Some Ctype.Int) };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 6l));
+                                     typ = (Some Ctype.Int) }};
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "to_and.0"));
+                            typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

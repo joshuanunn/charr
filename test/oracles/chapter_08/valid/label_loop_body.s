@@ -1,9 +1,8 @@
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
-    subq        $16, %rsp
     jmp         .Llabel.0
 .Lloop.ct.1:
     jmp         .Lloop.br.1
@@ -13,5 +12,5 @@ main:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

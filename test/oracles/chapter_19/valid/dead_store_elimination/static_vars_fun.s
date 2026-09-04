@@ -1,28 +1,28 @@
     .globl      get_x
-    .text       
+    .text
 get_x:
     pushq       %rbp
     movq        %rsp, %rbp
     movl        x(%rip), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $16, %rsp
     movl        $5, x(%rip)
     call        get_x@PLT
-    movl        %eax, -8(%rbp)
+    movl        %eax, -4(%rbp)
     movl        $10, x(%rip)
-    movl        -8(%rbp), %eax
+    movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      x
-    .data       
+    .data
     .align      4
 x:
     .long       100

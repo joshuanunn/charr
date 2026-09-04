@@ -4,10 +4,17 @@
          body =
          (Some (Ast.Block
                   [(Ast.S (Ast.Goto (Ast.Identifier "_foo_1_")));
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = None }));
                     (Ast.S
                        (Ast.Label ((Ast.Identifier "_foo_1_"),
-                          (Ast.Return (Ast.LiteralInt 1)))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                               typ = None })
+                          )))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

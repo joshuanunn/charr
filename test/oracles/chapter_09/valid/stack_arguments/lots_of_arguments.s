@@ -1,112 +1,112 @@
     .globl      foo
-    .text       
+    .text
 foo:
     pushq       %rbp
     movq        %rsp, %rbp
     subq        $96, %rsp
-    movl        %edi, -64(%rbp)
-    movl        %esi, -68(%rbp)
-    movl        %edx, -72(%rbp)
-    movl        %ecx, -76(%rbp)
-    movl        %r8d, -80(%rbp)
-    movl        %r9d, -84(%rbp)
+    movl        %edi, -4(%rbp)
+    movl        %esi, -8(%rbp)
+    movl        %edx, -12(%rbp)
+    movl        %ecx, -16(%rbp)
+    movl        %r8d, -20(%rbp)
+    movl        %r9d, -24(%rbp)
     movl        16(%rbp), %r10d
-    movl        %r10d, -88(%rbp)
+    movl        %r10d, -28(%rbp)
     movl        24(%rbp), %r10d
-    movl        %r10d, -92(%rbp)
-    cmpl        $1, -64(%rbp)
-    movl        $0, -4(%rbp)
-    sete        -4(%rbp)
-    cmpl        $0, -4(%rbp)
-    je          .Lfoo.and.fl.3
-    cmpl        $2, -68(%rbp)
-    movl        $0, -8(%rbp)
-    sete        -8(%rbp)
-    cmpl        $0, -8(%rbp)
-    je          .Lfoo.and.fl.3
-    movl        $1, -12(%rbp)
-    jmp         .Lfoo.and.en.4
-.Lfoo.and.fl.3:
-    movl        $0, -12(%rbp)
-.Lfoo.and.en.4:
-    cmpl        $0, -12(%rbp)
-    je          .Lfoo.and.fl.7
-    cmpl        $3, -72(%rbp)
-    movl        $0, -16(%rbp)
-    sete        -16(%rbp)
-    cmpl        $0, -16(%rbp)
-    je          .Lfoo.and.fl.7
-    movl        $1, -20(%rbp)
-    jmp         .Lfoo.and.en.8
-.Lfoo.and.fl.7:
-    movl        $0, -20(%rbp)
-.Lfoo.and.en.8:
-    cmpl        $0, -20(%rbp)
-    je          .Lfoo.and.fl.11
-    cmpl        $4, -76(%rbp)
-    movl        $0, -24(%rbp)
-    sete        -24(%rbp)
-    cmpl        $0, -24(%rbp)
-    je          .Lfoo.and.fl.11
-    movl        $1, -28(%rbp)
-    jmp         .Lfoo.and.en.12
-.Lfoo.and.fl.11:
-    movl        $0, -28(%rbp)
-.Lfoo.and.en.12:
-    cmpl        $0, -28(%rbp)
-    je          .Lfoo.and.fl.15
-    cmpl        $5, -80(%rbp)
-    movl        $0, -32(%rbp)
-    sete        -32(%rbp)
-    cmpl        $0, -32(%rbp)
-    je          .Lfoo.and.fl.15
-    movl        $1, -36(%rbp)
-    jmp         .Lfoo.and.en.16
-.Lfoo.and.fl.15:
+    movl        %r10d, -32(%rbp)
+    cmpl        $1, -4(%rbp)
     movl        $0, -36(%rbp)
-.Lfoo.and.en.16:
+    sete        -36(%rbp)
     cmpl        $0, -36(%rbp)
-    je          .Lfoo.and.fl.19
-    cmpl        $6, -84(%rbp)
+    je          .Lfoo.and.fl.3
+    cmpl        $2, -8(%rbp)
     movl        $0, -40(%rbp)
     sete        -40(%rbp)
     cmpl        $0, -40(%rbp)
-    je          .Lfoo.and.fl.19
+    je          .Lfoo.and.fl.3
     movl        $1, -44(%rbp)
-    jmp         .Lfoo.and.en.20
-.Lfoo.and.fl.19:
+    jmp         .Lfoo.and.en.4
+.Lfoo.and.fl.3:
     movl        $0, -44(%rbp)
-.Lfoo.and.en.20:
+.Lfoo.and.en.4:
     cmpl        $0, -44(%rbp)
-    je          .Lfoo.and.fl.23
-    cmpl        $7, -88(%rbp)
+    je          .Lfoo.and.fl.7
+    cmpl        $3, -12(%rbp)
     movl        $0, -48(%rbp)
     sete        -48(%rbp)
     cmpl        $0, -48(%rbp)
-    je          .Lfoo.and.fl.23
+    je          .Lfoo.and.fl.7
     movl        $1, -52(%rbp)
-    jmp         .Lfoo.and.en.24
-.Lfoo.and.fl.23:
+    jmp         .Lfoo.and.en.8
+.Lfoo.and.fl.7:
     movl        $0, -52(%rbp)
-.Lfoo.and.en.24:
+.Lfoo.and.en.8:
     cmpl        $0, -52(%rbp)
-    je          .Lfoo.and.fl.27
-    cmpl        $8, -92(%rbp)
+    je          .Lfoo.and.fl.11
+    cmpl        $4, -16(%rbp)
     movl        $0, -56(%rbp)
     sete        -56(%rbp)
     cmpl        $0, -56(%rbp)
-    je          .Lfoo.and.fl.27
+    je          .Lfoo.and.fl.11
     movl        $1, -60(%rbp)
+    jmp         .Lfoo.and.en.12
+.Lfoo.and.fl.11:
+    movl        $0, -60(%rbp)
+.Lfoo.and.en.12:
+    cmpl        $0, -60(%rbp)
+    je          .Lfoo.and.fl.15
+    cmpl        $5, -20(%rbp)
+    movl        $0, -64(%rbp)
+    sete        -64(%rbp)
+    cmpl        $0, -64(%rbp)
+    je          .Lfoo.and.fl.15
+    movl        $1, -68(%rbp)
+    jmp         .Lfoo.and.en.16
+.Lfoo.and.fl.15:
+    movl        $0, -68(%rbp)
+.Lfoo.and.en.16:
+    cmpl        $0, -68(%rbp)
+    je          .Lfoo.and.fl.19
+    cmpl        $6, -24(%rbp)
+    movl        $0, -72(%rbp)
+    sete        -72(%rbp)
+    cmpl        $0, -72(%rbp)
+    je          .Lfoo.and.fl.19
+    movl        $1, -76(%rbp)
+    jmp         .Lfoo.and.en.20
+.Lfoo.and.fl.19:
+    movl        $0, -76(%rbp)
+.Lfoo.and.en.20:
+    cmpl        $0, -76(%rbp)
+    je          .Lfoo.and.fl.23
+    cmpl        $7, -28(%rbp)
+    movl        $0, -80(%rbp)
+    sete        -80(%rbp)
+    cmpl        $0, -80(%rbp)
+    je          .Lfoo.and.fl.23
+    movl        $1, -84(%rbp)
+    jmp         .Lfoo.and.en.24
+.Lfoo.and.fl.23:
+    movl        $0, -84(%rbp)
+.Lfoo.and.en.24:
+    cmpl        $0, -84(%rbp)
+    je          .Lfoo.and.fl.27
+    cmpl        $8, -32(%rbp)
+    movl        $0, -88(%rbp)
+    sete        -88(%rbp)
+    cmpl        $0, -88(%rbp)
+    je          .Lfoo.and.fl.27
+    movl        $1, -92(%rbp)
     jmp         .Lfoo.and.en.28
 .Lfoo.and.fl.27:
-    movl        $0, -60(%rbp)
+    movl        $0, -92(%rbp)
 .Lfoo.and.en.28:
-    movl        -60(%rbp), %eax
+    movl        -92(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -125,5 +125,5 @@ main:
     movl        -4(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .section    .note.GNU-stack,"",@progbits

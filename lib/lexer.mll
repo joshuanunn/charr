@@ -9,6 +9,15 @@ let line_number lexbuf =
     Lexing.pos_bol = lexbuf.Lexing.lex_curr_pos;
   } in
   lexbuf.Lexing.lex_curr_p <- new_pos
+
+let convert_int s =
+  try Int64.of_string s
+  with Failure _ -> raise (Lexing_error (
+    "Constant " ^ s ^ " too large to represent as an int or long"))
+
+let convert_long s =
+  (* Remove trailing 'l'/'L' from literal long before conversion *)
+  convert_int (String.sub s 0 (String.length s - 1))
 }
 
 let whitespace = [' ' '\t' '\r']+
@@ -17,8 +26,9 @@ let alpha = ['a'-'z' 'A'-'Z' '_']
 let alphanum = ['a'-'z' 'A'-'Z' '0'-'9' '_']
 let identifier = alpha alphanum*
 let digit = ['0'-'9']
+let long_integer = digit+ ['l' 'L']
 let integer = digit+
-let invalid_integer = integer alpha*
+let invalid_integer = digit+ alphanum*
 
 rule read =
   parse
@@ -27,6 +37,7 @@ rule read =
   | "static" { Parser.KW_STATIC }
   | "extern" { Parser.KW_EXTERN }
   | "int" { Parser.KW_INT }
+  | "long" { Parser.KW_LONG }
   | "void" { Parser.KW_VOID }
   | "return" { Parser.KW_RETURN }
   | "if" { Parser.KW_IF }
@@ -81,7 +92,8 @@ rule read =
   | ">" { Parser.GT }
   | "!" { Parser.NOT }
   | "=" { Parser.ASSIGN }
-  | integer { Parser.LITERAL_INT (int_of_string (Lexing.lexeme lexbuf)) }
+  | long_integer { Parser.LITERAL_LONG (convert_long (Lexing.lexeme lexbuf)) }
+  | integer { Parser.LITERAL_INT (convert_int (Lexing.lexeme lexbuf)) }
   | invalid_integer { raise (Lexing_error ("Invalid integer: " ^ Lexing.lexeme lexbuf)) }
   | identifier { Parser.IDENTIFIER (Lexing.lexeme lexbuf) }
   | eof { Parser.EOF }

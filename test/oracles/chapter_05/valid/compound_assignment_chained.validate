@@ -6,144 +6,359 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a.0");
-                           init = (Some (Ast.LiteralInt 250)); storage = None
-                           }));
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 250l));
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b.1");
-                            init = (Some (Ast.LiteralInt 200));
-                            storage = None }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 200l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "c.2");
-                            init = (Some (Ast.LiteralInt 100));
-                            storage = None }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 100l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "d.3");
-                            init = (Some (Ast.LiteralInt 75)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 75l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "e.4");
                             init =
-                            (Some Ast.Unary {op = Ast.Negate;
-                                    exp = (Ast.LiteralInt 25)});
-                            storage = None }));
+                            (Some { Ast.e =
+                                    Ast.Unary {op = Ast.Negate;
+                                      exp =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 25l));
+                                        typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "f.5");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x.6");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment ((Ast.Var (Ast.Identifier "x.6")),
-                             (Ast.Assignment (
-                                (Ast.Var (Ast.Identifier "a.0")),
-                                Ast.Binary {op = Ast.Add;
-                                  left = (Ast.Var (Ast.Identifier "a.0"));
-                                  right =
-                                  (Ast.Assignment (
-                                     (Ast.Var (Ast.Identifier "b.1")),
-                                     Ast.Binary {op = Ast.Subtract;
-                                       left =
-                                       (Ast.Var (Ast.Identifier "b.1"));
-                                       right =
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "c.2")),
-                                          Ast.Binary {op = Ast.Multiply;
-                                            left =
-                                            (Ast.Var (Ast.Identifier "c.2"));
-                                            right =
-                                            (Ast.Assignment (
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "x.6"));
+                                 typ = (Some Ctype.Int) },
+                               { Ast.e =
+                                 (Ast.Assignment (
+                                    { Ast.e =
+                                      (Ast.Var (Ast.Identifier "a.0"));
+                                      typ = (Some Ctype.Int) },
+                                    { Ast.e =
+                                      Ast.Binary {op = Ast.Add;
+                                        left =
+                                        { Ast.e =
+                                          (Ast.Var (Ast.Identifier "a.0"));
+                                          typ = (Some Ctype.Int) };
+                                        right =
+                                        { Ast.e =
+                                          (Ast.Assignment (
+                                             { Ast.e =
                                                (Ast.Var
-                                                  (Ast.Identifier "d.3")),
-                                               Ast.Binary {op = Ast.Divide;
+                                                  (Ast.Identifier "b.1"));
+                                               typ = (Some Ctype.Int) },
+                                             { Ast.e =
+                                               Ast.Binary {op = Ast.Subtract;
                                                  left =
-                                                 (Ast.Var
-                                                    (Ast.Identifier "d.3"));
+                                                 { Ast.e =
+                                                   (Ast.Var
+                                                      (Ast.Identifier "b.1"));
+                                                   typ = (Some Ctype.Int) };
                                                  right =
-                                                 (Ast.Assignment (
-                                                    (Ast.Var
-                                                       (Ast.Identifier "e.4")),
-                                                    Ast.Binary {
-                                                      op = Ast.Remainder;
-                                                      left =
-                                                      (Ast.Var
-                                                         (Ast.Identifier
-                                                            "e.4"));
-                                                      right =
-                                                      (Ast.Assignment (
-                                                         (Ast.Var
-                                                            (Ast.Identifier
-                                                               "f.5")),
-                                                         Ast.Unary {
-                                                           op = Ast.Negate;
-                                                           exp =
-                                                           (Ast.LiteralInt 7)}
-                                                         ))}
-                                                    ))}
-                                               ))}
-                                          ))}
-                                     ))}
-                                ))
-                             ))));
+                                                 { Ast.e =
+                                                   (Ast.Assignment (
+                                                      { Ast.e =
+                                                        (Ast.Var
+                                                           (Ast.Identifier
+                                                              "c.2"));
+                                                        typ =
+                                                        (Some Ctype.Int) },
+                                                      { Ast.e =
+                                                        Ast.Binary {
+                                                          op = Ast.Multiply;
+                                                          left =
+                                                          { Ast.e =
+                                                            (Ast.Var
+                                                               (Ast.Identifier
+                                                                  "c.2"));
+                                                            typ =
+                                                            (Some Ctype.Int)
+                                                            };
+                                                          right =
+                                                          { Ast.e =
+                                                            (Ast.Assignment (
+                                                               { Ast.e =
+                                                                 (Ast.Var
+                                                                    (
+                                                                    Ast.Identifier
+                                                                    "d.3"));
+                                                                 typ =
+                                                                 (Some Ctype.Int)
+                                                                 },
+                                                               { Ast.e =
+                                                                 Ast.Binary {
+                                                                   op =
+                                                                   Ast.Divide;
+                                                                   left =
+                                                                   { Ast.e =
+                                                                    (Ast.Var
+                                                                    (Ast.Identifier
+                                                                    "d.3"));
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    };
+                                                                   right =
+                                                                   { Ast.e =
+                                                                    (Ast.Assignment (
+                                                                    { Ast.e =
+                                                                    (Ast.Var
+                                                                    (Ast.Identifier
+                                                                    "e.4"));
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    },
+                                                                    { Ast.e =
+                                                                    Ast.Binary {
+                                                                    op =
+                                                                    Ast.Remainder;
+                                                                    left =
+                                                                    { Ast.e =
+                                                                    (Ast.Var
+                                                                    (Ast.Identifier
+                                                                    "e.4"));
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    };
+                                                                    right =
+                                                                    { Ast.e =
+                                                                    (Ast.Assignment (
+                                                                    { Ast.e =
+                                                                    (Ast.Var
+                                                                    (Ast.Identifier
+                                                                    "f.5"));
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    },
+                                                                    { Ast.e =
+                                                                    Ast.Unary {
+                                                                    op =
+                                                                    Ast.Negate;
+                                                                    exp =
+                                                                    { Ast.e =
+                                                                    (Ast.Constant
+                                                                    (Ctype.ConstInt
+                                                                    7l));
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    }};
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    }));
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    }};
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    }));
+                                                                    typ =
+                                                                    (Some Ctype.Int)
+                                                                    }};
+                                                                 typ =
+                                                                 (Some Ctype.Int)
+                                                                 }
+                                                               ));
+                                                            typ =
+                                                            (Some Ctype.Int)
+                                                            }};
+                                                        typ =
+                                                        (Some Ctype.Int) }
+                                                      ));
+                                                   typ = (Some Ctype.Int) }};
+                                               typ = (Some Ctype.Int) }
+                                             ));
+                                          typ = (Some Ctype.Int) }};
+                                      typ = (Some Ctype.Int) }
+                                    ));
+                                 typ = (Some Ctype.Int) }
+                               ));
+                            typ = (Some Ctype.Int) }));
                     (Ast.S
                        (Ast.Return
-                          Ast.Binary {op = Ast.And;
-                            left =
+                          { Ast.e =
                             Ast.Binary {op = Ast.And;
                               left =
-                              Ast.Binary {op = Ast.And;
-                                left =
+                              { Ast.e =
                                 Ast.Binary {op = Ast.And;
                                   left =
-                                  Ast.Binary {op = Ast.And;
-                                    left =
+                                  { Ast.e =
                                     Ast.Binary {op = Ast.And;
                                       left =
-                                      Ast.Binary {op = Ast.Equal;
-                                        left =
-                                        (Ast.Var (Ast.Identifier "a.0"));
-                                        right = (Ast.LiteralInt 2250)};
+                                      { Ast.e =
+                                        Ast.Binary {op = Ast.And;
+                                          left =
+                                          { Ast.e =
+                                            Ast.Binary {op = Ast.And;
+                                              left =
+                                              { Ast.e =
+                                                Ast.Binary {op = Ast.And;
+                                                  left =
+                                                  { Ast.e =
+                                                    Ast.Binary {
+                                                      op = Ast.Equal;
+                                                      left =
+                                                      { Ast.e =
+                                                        (Ast.Var
+                                                           (Ast.Identifier
+                                                              "a.0"));
+                                                        typ =
+                                                        (Some Ctype.Int) };
+                                                      right =
+                                                      { Ast.e =
+                                                        (Ast.Constant
+                                                           (Ctype.ConstInt
+                                                              2250l));
+                                                        typ =
+                                                        (Some Ctype.Int) }};
+                                                    typ = (Some Ctype.Int) };
+                                                  right =
+                                                  { Ast.e =
+                                                    Ast.Binary {
+                                                      op = Ast.Equal;
+                                                      left =
+                                                      { Ast.e =
+                                                        (Ast.Var
+                                                           (Ast.Identifier
+                                                              "b.1"));
+                                                        typ =
+                                                        (Some Ctype.Int) };
+                                                      right =
+                                                      { Ast.e =
+                                                        (Ast.Constant
+                                                           (Ctype.ConstInt
+                                                              2000l));
+                                                        typ =
+                                                        (Some Ctype.Int) }};
+                                                    typ = (Some Ctype.Int) }};
+                                                typ = (Some Ctype.Int) };
+                                              right =
+                                              { Ast.e =
+                                                Ast.Binary {op = Ast.Equal;
+                                                  left =
+                                                  { Ast.e =
+                                                    (Ast.Var
+                                                       (Ast.Identifier "c.2"));
+                                                    typ = (Some Ctype.Int) };
+                                                  right =
+                                                  { Ast.e =
+                                                    Ast.Unary {
+                                                      op = Ast.Negate;
+                                                      exp =
+                                                      { Ast.e =
+                                                        (Ast.Constant
+                                                           (Ctype.ConstInt
+                                                              1800l));
+                                                        typ =
+                                                        (Some Ctype.Int) }};
+                                                    typ = (Some Ctype.Int) }};
+                                                typ = (Some Ctype.Int) }};
+                                            typ = (Some Ctype.Int) };
+                                          right =
+                                          { Ast.e =
+                                            Ast.Binary {op = Ast.Equal;
+                                              left =
+                                              { Ast.e =
+                                                (Ast.Var
+                                                   (Ast.Identifier "d.3"));
+                                                typ = (Some Ctype.Int) };
+                                              right =
+                                              { Ast.e =
+                                                Ast.Unary {op = Ast.Negate;
+                                                  exp =
+                                                  { Ast.e =
+                                                    (Ast.Constant
+                                                       (Ctype.ConstInt 18l));
+                                                    typ = (Some Ctype.Int) }};
+                                                typ = (Some Ctype.Int) }};
+                                            typ = (Some Ctype.Int) }};
+                                        typ = (Some Ctype.Int) };
                                       right =
-                                      Ast.Binary {op = Ast.Equal;
-                                        left =
-                                        (Ast.Var (Ast.Identifier "b.1"));
-                                        right = (Ast.LiteralInt 2000)}};
-                                    right =
+                                      { Ast.e =
+                                        Ast.Binary {op = Ast.Equal;
+                                          left =
+                                          { Ast.e =
+                                            (Ast.Var (Ast.Identifier "e.4"));
+                                            typ = (Some Ctype.Int) };
+                                          right =
+                                          { Ast.e =
+                                            Ast.Unary {op = Ast.Negate;
+                                              exp =
+                                              { Ast.e =
+                                                (Ast.Constant
+                                                   (Ctype.ConstInt 4l));
+                                                typ = (Some Ctype.Int) }};
+                                            typ = (Some Ctype.Int) }};
+                                        typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.Int) };
+                                  right =
+                                  { Ast.e =
                                     Ast.Binary {op = Ast.Equal;
-                                      left = (Ast.Var (Ast.Identifier "c.2"));
+                                      left =
+                                      { Ast.e =
+                                        (Ast.Var (Ast.Identifier "f.5"));
+                                        typ = (Some Ctype.Int) };
                                       right =
-                                      Ast.Unary {op = Ast.Negate;
-                                        exp = (Ast.LiteralInt 1800)}}};
-                                  right =
-                                  Ast.Binary {op = Ast.Equal;
-                                    left = (Ast.Var (Ast.Identifier "d.3"));
-                                    right =
-                                    Ast.Unary {op = Ast.Negate;
-                                      exp = (Ast.LiteralInt 18)}}};
-                                right =
-                                Ast.Binary {op = Ast.Equal;
-                                  left = (Ast.Var (Ast.Identifier "e.4"));
-                                  right =
-                                  Ast.Unary {op = Ast.Negate;
-                                    exp = (Ast.LiteralInt 4)}}};
+                                      { Ast.e =
+                                        Ast.Unary {op = Ast.Negate;
+                                          exp =
+                                          { Ast.e =
+                                            (Ast.Constant (Ctype.ConstInt 7l));
+                                            typ = (Some Ctype.Int) }};
+                                        typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.Int) };
                               right =
-                              Ast.Binary {op = Ast.Equal;
-                                left = (Ast.Var (Ast.Identifier "f.5"));
-                                right =
-                                Ast.Unary {op = Ast.Negate;
-                                  exp = (Ast.LiteralInt 7)}}};
-                            right =
-                            Ast.Binary {op = Ast.Equal;
-                              left = (Ast.Var (Ast.Identifier "x.6"));
-                              right = (Ast.LiteralInt 2250)}}))
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Equal;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "x.6"));
+                                    typ = (Some Ctype.Int) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 2250l));
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

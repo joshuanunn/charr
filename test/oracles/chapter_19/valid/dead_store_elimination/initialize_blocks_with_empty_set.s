@@ -1,5 +1,5 @@
     .globl      target
-    .text       
+    .text
 target:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -21,9 +21,9 @@ target:
     movl        $0, %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      main
-    .text       
+    .text
 main:
     pushq       %rbp
     movq        %rsp, %rbp
@@ -36,13 +36,13 @@ main:
     movl        -8(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
-    ret         
+    ret
     .globl      j
-    .data       
+    .data
     .align      4
 j:
     .long       3
-    .bss        
+    .bss
     .align      4
 i.0:
     .zero       4

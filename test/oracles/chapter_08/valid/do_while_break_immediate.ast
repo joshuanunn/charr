@@ -6,14 +6,28 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 10)); storage = None
-                           }));
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 10l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        Ast.DoWhile {body = (Ast.Break None);
                          cond =
-                         (Ast.Assignment ((Ast.Var (Ast.Identifier "a")),
-                            (Ast.LiteralInt 1)));
+                         { Ast.e =
+                           (Ast.Assignment (
+                              { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                typ = None },
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                typ = None }
+                              ));
+                           typ = None };
                          id = None});
-                    (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "a"))))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -11,23 +11,25 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "a");
-          src2 = (Ir.Constant 5); dst = (Ir.Var "tmp.0")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "main.if.en.1"};
-         (Ir.Return (Ir.Constant 1)); (Ir.Label "main.if.en.1");
-         Ir.Copy {src = (Ir.Constant 4); dst = (Ir.Var "a")};
-         Ir.FunCall {fun_name = "return_a"; args = []; dst = (Ir.Var "tmp.2")};
-         Ir.Binary {op = Ir.Add; src1 = (Ir.Constant 3);
-           src2 = (Ir.Var "tmp.2"); dst = (Ir.Var "tmp.3")};
-         (Ir.Return (Ir.Var "tmp.3"))];
+          src2 = (Ir.Constant (Ctype.ConstInt 5l));
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+           target = "main.if.en.1"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.1");
+         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "a")};
+         Ir.FunCall {fun_name = "return_a"; args = [];
+           dst = (Ir.Var "main.tmp.2")};
+         Ir.Binary {op = Ir.Add; src1 = (Ir.Constant (Ctype.ConstInt 3l));
+           src2 = (Ir.Var "main.tmp.2"); dst = (Ir.Var "main.tmp.3")};
+         (Ir.Return (Ir.Var "main.tmp.3"))];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 4;
-         offset = -16;
+         offset = 0;
          stack slots = {
-           a.0   -> -4,
-           tmp.0 -> -8,
-           tmp.2 -> -12,
-           tmp.3 -> -16,
          }}};
-     Ir.StaticVariable {name = "a"; global = true; init = 5}])
+     Ir.StaticVariable {name = "a"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit 5l)}
+     ])

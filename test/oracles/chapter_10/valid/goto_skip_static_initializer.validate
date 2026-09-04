@@ -7,11 +7,19 @@
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x.1");
-                            init = (Some (Ast.LiteralInt 10));
-                            storage = (Some Ast.Static) }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 10l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = (Some Ast.Static)
+                            }));
                     (Ast.S
                        (Ast.Label ((Ast.GotoLabel "end.0"),
-                          (Ast.Return (Ast.Var (Ast.Identifier "x.1"))))))
+                          (Ast.Return
+                             { Ast.e = (Ast.Var (Ast.Identifier "x.1"));
+                               typ = (Some Ctype.Int) })
+                          )))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

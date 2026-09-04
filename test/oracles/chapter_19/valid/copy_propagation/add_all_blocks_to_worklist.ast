@@ -1,19 +1,32 @@
 (Ast.Program
    [(Ast.VarDecl
-       { Ast.name = (Ast.Identifier "global"); init = None; storage = None });
+       { Ast.name = (Ast.Identifier "global"); init = None;
+         var_type = Ctype.Int; storage = None });
      (Ast.VarDecl
         { Ast.name = (Ast.Identifier "flag");
-          init = (Some (Ast.LiteralInt 1)); storage = None });
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l)); typ = None });
+          var_type = Ctype.Int; storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "f"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "global")),
-                             (Ast.LiteralInt 100)))));
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "global"));
+                                 typ = None },
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 100l));
+                                 typ = None }
+                               ));
+                            typ = None }));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -21,22 +34,36 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "global")),
-                             (Ast.LiteralInt 0)))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "global"));
+                                 typ = None },
+                               { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                 typ = None }
+                               ));
+                            typ = None }));
                      (Ast.S
-                        Ast.If {cond_exp = (Ast.Var (Ast.Identifier "flag"));
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e = (Ast.Var (Ast.Identifier "flag"));
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Expression
-                                       Ast.FunctionCall {
-                                         name = (Ast.Identifier "f");
-                                         args = []}))
+                                       { Ast.e =
+                                         Ast.FunctionCall {
+                                           name = (Ast.Identifier "f");
+                                           args = []};
+                                         typ = None }))
                                   ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "global"))))
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "global"));
+                             typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

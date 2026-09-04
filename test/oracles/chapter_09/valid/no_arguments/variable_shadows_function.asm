@@ -1,39 +1,57 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [(Asm.AllocateStack 32); (Asm.Call "foo");
-        (Asm.Mov ((Asm.Reg Asm.AX), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -8)));
-        (Asm.Mov ((Asm.Imm 0), (Asm.Stack -12)));
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
+         dst = (Asm.Reg Asm.SP)};
+        (Asm.Call "foo");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
+          dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -8)};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
         (Asm.SetCC (Asm.G, (Asm.Stack -12)));
-        (Asm.Cmp ((Asm.Imm 0), (Asm.Stack -12)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
         (Asm.JmpCC (Asm.E, "main.if.en.2"));
-        (Asm.Mov ((Asm.Imm 3), (Asm.Stack -16)));
-        (Asm.Mov ((Asm.Stack -8), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -20)));
-        (Asm.Mov ((Asm.Stack -16), (Asm.Reg Asm.R10)));
-        Asm.Binary {op = Asm.Add; src = (Asm.Reg Asm.R10);
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -20)};
-        (Asm.Mov ((Asm.Stack -20), (Asm.Reg Asm.R10)));
-        (Asm.Mov ((Asm.Reg Asm.R10), (Asm.Stack -4)));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -16);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Binary {op = Asm.Add; typ = Asm.Longword;
+          src = (Asm.Reg Asm.R10); dst = (Asm.Stack -20)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -8)};
         (Asm.Label "main.if.en.2");
-        (Asm.Mov ((Asm.Stack -4), (Asm.Reg Asm.AX))); Asm.Ret];
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
         counter = 4;
         offset = -20;
         stack slots = {
-          x.0   -> -4,
-          tmp.0 -> -8,
-          tmp.1 -> -12,
-          foo.1 -> -16,
-          tmp.3 -> -20,
+          main.tmp.0 -> -4,
+          x.0        -> -8,
+          main.tmp.1 -> -12,
+          foo.1      -> -16,
+          main.tmp.3 -> -20,
         }}};
      Asm.Function {name = "foo"; global = true;
-       instructions = [(Asm.Mov ((Asm.Imm 4), (Asm.Reg Asm.AX))); Asm.Ret];
+       instructions =
+       [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
+          dst = (Asm.Reg Asm.AX)};
+         Asm.Ret];
        frame =
        Env.lenv {
          namespace = "foo";

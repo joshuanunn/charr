@@ -1,7 +1,14 @@
 (Ast.Program
    [(Ast.FunDecl
        { Ast.name = (Ast.Identifier "callee"); params = [];
-         body = (Some (Ast.Block [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      (Ast.Return
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                           typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target"); params = [];
@@ -10,19 +17,33 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "x.1");
-                            init = (Some (Ast.LiteralInt 10)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 10l));
+                                    typ = (Some Ctype.Int) });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S (Ast.Goto (Ast.GotoLabel "end.0")));
                      (Ast.S
                         (Ast.Expression
-                           (Ast.Assignment ((Ast.Var (Ast.Identifier "x.1")),
-                              Ast.FunctionCall {
-                                name = (Ast.Identifier "callee"); args = []}
-                              ))));
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "x.1"));
+                                  typ = (Some Ctype.Int) },
+                                { Ast.e =
+                                  Ast.FunctionCall {
+                                    name = (Ast.Identifier "callee");
+                                    args = []};
+                                  typ = (Some Ctype.Int) }
+                                ));
+                             typ = (Some Ctype.Int) }));
                      (Ast.S
                         (Ast.Label ((Ast.GotoLabel "end.0"),
-                           (Ast.Return (Ast.Var (Ast.Identifier "x.1"))))))
+                           (Ast.Return
+                              { Ast.e = (Ast.Var (Ast.Identifier "x.1"));
+                                typ = (Some Ctype.Int) })
+                           )))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -30,8 +51,11 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.FunctionCall {name = (Ast.Identifier "target");
-                            args = []}))
+                          { Ast.e =
+                            Ast.FunctionCall {
+                              name = (Ast.Identifier "target"); args = []};
+                            typ = (Some Ctype.Int) }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

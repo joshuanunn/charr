@@ -1,6 +1,6 @@
 type switch_ctx = {
   id : Ast.ident;
-  cases : (int, unit) Hashtbl.t;
+  cases : (int64, unit) Hashtbl.t;
   mutable has_default : bool;
 }
 
@@ -19,6 +19,12 @@ let loop_label () : Ast.ident =
 let switch_label () : Ast.ident =
   incr counter;
   SwitchLabel (Printf.sprintf "%d" !counter)
+
+(** [case_label switch_id] generates a new unique identifier for an individual
+    [case] within the switch identified by [switch_id]. *)
+let case_label (switch_id : string) : Ast.ident =
+  incr counter;
+  CaseLabel (Printf.sprintf "%s.%d" switch_id !counter)
 
 (** Get the current active control label for a [break] statement. This must be
     the innermost loop or switch on the stack. *)
@@ -41,6 +47,11 @@ let rec find_switch (stack : context list) : switch_ctx =
   | SwitchCtx s :: _ -> s
   | _ :: rest -> find_switch rest
   | [] -> failwith "case/default statement is outside of a switch"
+
+let get_switch_label (switch : switch_ctx) : string =
+  match switch.id with
+  | SwitchLabel s -> s
+  | _ -> failwith "internal error: switch context id is not a SwitchLabel"
 
 (** [label_control_stmt s label] traverses a statement [s] and:
     - assigns unique labels to loops and switches
@@ -113,12 +124,13 @@ let rec label_control_stmt (s : Ast.stmt) (stack : context list) : Ast.stmt =
             { cond; body = label_control_stmt body new_stack; id = Some new_id }
       | Some _ -> failwith "switch statement has already been labeled")
   | Case { value; body; _ } ->
-      let int_value = Ast.literal_to_int value in
+      let int64_value = Ast.literal_to_int64 value in
       let switch = find_switch stack in
-      if Hashtbl.mem switch.cases int_value then
-        failwith (Printf.sprintf "duplicate case value: %d" int_value);
-      Hashtbl.add switch.cases int_value ();
-      Case { value; body = label_control_stmt body stack; id = Some switch.id }
+      if Hashtbl.mem switch.cases int64_value then
+        failwith (Printf.sprintf "duplicate case value: %Ld" int64_value);
+      Hashtbl.add switch.cases int64_value ();
+      let case_id = case_label (get_switch_label switch) in
+      Case { value; body = label_control_stmt body stack; id = Some case_id }
   | Default { body; _ } ->
       let switch = find_switch stack in
       if switch.has_default then failwith "multiple default labels in switch";
@@ -141,7 +153,13 @@ and label_block (b : Ast.block) (stack : context list) : Ast.block =
 (** [label_func f] labels all control statements in function [f]. *)
 let label_func (f : Ast.fun_decl) : Ast.fun_decl =
   let body = Option.map (fun b -> label_block b []) f.body in
-  { name = f.name; params = f.params; body; storage = f.storage }
+  {
+    name = f.name;
+    params = f.params;
+    body;
+    fun_type = f.fun_type;
+    storage = f.storage;
+  }
 
 (** [label_prog p] applies labeling to the entire program [p]. *)
 let label_prog (Program p : Ast.prog) : Ast.prog =

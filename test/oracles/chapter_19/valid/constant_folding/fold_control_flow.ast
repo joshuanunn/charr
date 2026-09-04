@@ -4,44 +4,83 @@
          body =
          (Some (Ast.Block
                   [(Ast.S
-                      Ast.If {cond_exp = (Ast.LiteralInt 0);
-                        then_smt = (Ast.Return (Ast.LiteralInt 1));
+                      Ast.If {
+                        cond_exp =
+                        { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                          typ = None };
+                        then_smt =
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                             typ = None });
                         else_smt = None});
-                    (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_if_else_true"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
-                       Ast.If {cond_exp = (Ast.LiteralInt 1);
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                           typ = None };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = None }))
+                                 ]));
                          else_smt =
                          (Some (Ast.Compound
                                   (Ast.Block
-                                     [(Ast.S (Ast.Return (Ast.LiteralInt 3)))
+                                     [(Ast.S
+                                         (Ast.Return
+                                            { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstInt 3l));
+                                              typ = None }))
                                        ])))})
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_if_else_false"); params = [];
           body =
           (Some (Ast.Block
                    [(Ast.S
-                       Ast.If {cond_exp = (Ast.LiteralInt 0);
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                           typ = None };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = None }))
+                                 ]));
                          else_smt =
                          (Some (Ast.Compound
                                   (Ast.Block
-                                     [(Ast.S (Ast.Return (Ast.LiteralInt 3)))
+                                     [(Ast.S
+                                         (Ast.Return
+                                            { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstInt 3l));
+                                              typ = None }))
                                        ])))})
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_conditional_true"); params = [];
@@ -49,10 +88,20 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.Conditional {cond_exp = (Ast.LiteralInt 1);
-                            then_exp = (Ast.LiteralInt 2);
-                            else_exp = (Ast.LiteralInt 3)}))
+                          { Ast.e =
+                            Ast.Conditional {
+                              cond_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                typ = None };
+                              then_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                typ = None };
+                              else_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                                typ = None }};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_conditional_false");
@@ -61,10 +110,20 @@
           (Some (Ast.Block
                    [(Ast.S
                        (Ast.Return
-                          Ast.Conditional {cond_exp = (Ast.LiteralInt 0);
-                            then_exp = (Ast.LiteralInt 4);
-                            else_exp = (Ast.LiteralInt 5)}))
+                          { Ast.e =
+                            Ast.Conditional {
+                              cond_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                typ = None };
+                              then_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                                typ = None };
+                              else_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                                typ = None }};
+                            typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_do_loop"); params = [];
@@ -73,8 +132,11 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.DoWhile {
                           body =
@@ -82,13 +144,29 @@
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "retval")),
-                                          (Ast.LiteralInt 10)))))
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
+                                              (Ast.Var
+                                                 (Ast.Identifier "retval"));
+                                              typ = None },
+                                            { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstInt 10l));
+                                              typ = None }
+                                            ));
+                                         typ = None }))
                                   ]));
-                          cond = (Ast.LiteralInt 0); id = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                          cond =
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = None };
+                          id = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "retval"));
+                             typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_while_loop_false"); params = [];
@@ -97,22 +175,41 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
-                        Ast.While {cond = (Ast.LiteralInt 0);
+                        Ast.While {
+                          cond =
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = None };
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "retval")),
-                                          (Ast.LiteralInt 10)))))
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
+                                              (Ast.Var
+                                                 (Ast.Identifier "retval"));
+                                              typ = None },
+                                            { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstInt 10l));
+                                              typ = None }
+                                            ));
+                                         typ = None }))
                                   ]));
                           id = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "retval"));
+                             typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_while_loop_true"); params = [];
@@ -121,22 +218,41 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
-                        Ast.While {cond = (Ast.LiteralInt 1048576);
+                        Ast.While {
+                          cond =
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 1048576l));
+                            typ = None };
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "retval")),
-                                          (Ast.LiteralInt 10)))));
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
+                                              (Ast.Var
+                                                 (Ast.Identifier "retval"));
+                                              typ = None },
+                                            { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstInt 10l));
+                                              typ = None }
+                                            ));
+                                         typ = None }));
                                   (Ast.S (Ast.Break None))]));
                           id = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "retval"));
+                             typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_for_loop_true"); params = [];
@@ -145,28 +261,50 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.For {
                           init =
                           (Ast.InclDecl
                              { Ast.name = (Ast.Identifier "i");
-                               init = (Some (Ast.LiteralInt 100));
-                               storage = None });
-                          cond = (Some (Ast.LiteralInt 123)); post = None;
+                               init =
+                               (Some { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 100l));
+                                       typ = None });
+                               var_type = Ctype.Int; storage = None });
+                          cond =
+                          (Some { Ast.e =
+                                  (Ast.Constant (Ctype.ConstInt 123l));
+                                  typ = None });
+                          post = None;
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "retval")),
-                                          (Ast.Var (Ast.Identifier "i"))))));
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
+                                              (Ast.Var
+                                                 (Ast.Identifier "retval"));
+                                              typ = None },
+                                            { Ast.e =
+                                              (Ast.Var (Ast.Identifier "i"));
+                                              typ = None }
+                                            ));
+                                         typ = None }));
                                   (Ast.S (Ast.Break None))]));
                           id = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "retval"));
+                             typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "target_for_loop_false"); params = [];
@@ -175,28 +313,49 @@
                    [(Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "retval");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                      (Ast.S
                         Ast.For {
                           init =
                           (Ast.InclDecl
                              { Ast.name = (Ast.Identifier "i");
-                               init = (Some (Ast.LiteralInt 100));
-                               storage = None });
-                          cond = (Some (Ast.LiteralInt 0)); post = None;
+                               init =
+                               (Some { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 100l));
+                                       typ = None });
+                               var_type = Ctype.Int; storage = None });
+                          cond =
+                          (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                  typ = None });
+                          post = None;
                           body =
                           (Ast.Compound
                              (Ast.Block
                                 [(Ast.S
                                     (Ast.Expression
-                                       (Ast.Assignment (
-                                          (Ast.Var (Ast.Identifier "retval")),
-                                          (Ast.Var (Ast.Identifier "i"))))));
+                                       { Ast.e =
+                                         (Ast.Assignment (
+                                            { Ast.e =
+                                              (Ast.Var
+                                                 (Ast.Identifier "retval"));
+                                              typ = None },
+                                            { Ast.e =
+                                              (Ast.Var (Ast.Identifier "i"));
+                                              typ = None }
+                                            ));
+                                         typ = None }));
                                   (Ast.S (Ast.Break None))]));
                           id = None});
-                     (Ast.S (Ast.Return (Ast.Var (Ast.Identifier "retval"))))
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Var (Ast.Identifier "retval"));
+                             typ = None }))
                      ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None });
      (Ast.FunDecl
         { Ast.name = (Ast.Identifier "main"); params = [];
@@ -205,146 +364,266 @@
                    [(Ast.S
                        Ast.If {
                          cond_exp =
-                         Ast.Binary {op = Ast.NotEqual;
-                           left =
-                           Ast.FunctionCall {
-                             name = (Ast.Identifier "target_if"); args = []};
-                           right = (Ast.LiteralInt 0)};
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.FunctionCall {
+                                 name = (Ast.Identifier "target_if");
+                                 args = []};
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = None }};
+                           typ = None };
                          then_smt =
                          (Ast.Compound
                             (Ast.Block
-                               [(Ast.S (Ast.Return (Ast.LiteralInt 1)))]));
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = None }))
+                                 ]));
                          else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name = (Ast.Identifier "target_if_else_true");
-                              args = []};
-                            right = (Ast.LiteralInt 2)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_if_else_true");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 2)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 2l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name = (Ast.Identifier "target_if_else_false");
-                              args = []};
-                            right = (Ast.LiteralInt 3)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_if_else_false");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 3)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 3l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name =
-                              (Ast.Identifier "target_conditional_true");
-                              args = []};
-                            right = (Ast.LiteralInt 2)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_conditional_true");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 4)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 4l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name =
-                              (Ast.Identifier "target_conditional_false");
-                              args = []};
-                            right = (Ast.LiteralInt 5)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_conditional_false");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 5)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 5l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name = (Ast.Identifier "target_do_loop");
-                              args = []};
-                            right = (Ast.LiteralInt 10)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "target_do_loop");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 6)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 6l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name =
-                              (Ast.Identifier "target_while_loop_false");
-                              args = []};
-                            right = (Ast.LiteralInt 0)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_while_loop_false");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 7)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 7l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name =
-                              (Ast.Identifier "target_while_loop_true");
-                              args = []};
-                            right = (Ast.LiteralInt 10)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_while_loop_true");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 8)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 8l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name = (Ast.Identifier "target_for_loop_true");
-                              args = []};
-                            right = (Ast.LiteralInt 100)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_for_loop_true");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 100l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 9)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 9l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
                      (Ast.S
                         Ast.If {
                           cond_exp =
-                          Ast.Binary {op = Ast.NotEqual;
-                            left =
-                            Ast.FunctionCall {
-                              name = (Ast.Identifier "target_for_loop_false");
-                              args = []};
-                            right = (Ast.LiteralInt 0)};
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "target_for_loop_false");
+                                  args = []};
+                                typ = None };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                                typ = None }};
+                            typ = None };
                           then_smt =
                           (Ast.Compound
                              (Ast.Block
-                                [(Ast.S (Ast.Return (Ast.LiteralInt 10)))]));
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 10l));
+                                         typ = None }))
+                                  ]));
                           else_smt = None});
-                     (Ast.S (Ast.Return (Ast.LiteralInt 0)))]));
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = None }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])

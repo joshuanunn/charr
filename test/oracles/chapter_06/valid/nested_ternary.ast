@@ -6,30 +6,60 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "a");
-                           init = (Some (Ast.LiteralInt 1)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "b");
-                            init = (Some (Ast.LiteralInt 2)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 2l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.D
                        (Ast.VarDecl
                           { Ast.name = (Ast.Identifier "flag");
-                            init = (Some (Ast.LiteralInt 0)); storage = None
-                            }));
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Return
-                          Ast.Conditional {
-                            cond_exp =
-                            Ast.Binary {op = Ast.GreaterThan;
-                              left = (Ast.Var (Ast.Identifier "a"));
-                              right = (Ast.Var (Ast.Identifier "b"))};
-                            then_exp = (Ast.LiteralInt 5);
-                            else_exp =
+                          { Ast.e =
                             Ast.Conditional {
-                              cond_exp = (Ast.Var (Ast.Identifier "flag"));
-                              then_exp = (Ast.LiteralInt 6);
-                              else_exp = (Ast.LiteralInt 7)}}))
+                              cond_exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.GreaterThan;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "a"));
+                                    typ = None };
+                                  right =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "b"));
+                                    typ = None }};
+                                typ = None };
+                              then_exp =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                                typ = None };
+                              else_exp =
+                              { Ast.e =
+                                Ast.Conditional {
+                                  cond_exp =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "flag"));
+                                    typ = None };
+                                  then_exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 6l));
+                                    typ = None };
+                                  else_exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 7l));
+                                    typ = None }};
+                                typ = None }};
+                            typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

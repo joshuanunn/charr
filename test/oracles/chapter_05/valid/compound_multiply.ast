@@ -6,18 +6,35 @@
                   [(Ast.D
                       (Ast.VarDecl
                          { Ast.name = (Ast.Identifier "to_multiply");
-                           init = (Some (Ast.LiteralInt 4)); storage = None }));
+                           init =
+                           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                                   typ = None });
+                           var_type = Ctype.Int; storage = None }));
                     (Ast.S
                        (Ast.Expression
-                          (Ast.Assignment (
-                             (Ast.Var (Ast.Identifier "to_multiply")),
-                             Ast.Binary {op = Ast.Multiply;
-                               left =
-                               (Ast.Var (Ast.Identifier "to_multiply"));
-                               right = (Ast.LiteralInt 3)}
-                             ))));
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e =
+                                 (Ast.Var (Ast.Identifier "to_multiply"));
+                                 typ = None },
+                               { Ast.e =
+                                 Ast.Binary {op = Ast.Multiply;
+                                   left =
+                                   { Ast.e =
+                                     (Ast.Var (Ast.Identifier "to_multiply"));
+                                     typ = None };
+                                   right =
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstInt 3l));
+                                     typ = None }};
+                                 typ = None }
+                               ));
+                            typ = None }));
                     (Ast.S
-                       (Ast.Return (Ast.Var (Ast.Identifier "to_multiply"))))
+                       (Ast.Return
+                          { Ast.e = (Ast.Var (Ast.Identifier "to_multiply"));
+                            typ = None }))
                     ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])

@@ -27,10 +27,12 @@ type binary_operator =
   | GreaterThan
 [@@deriving show]
 
-type value = Constant of int | Var of string [@@deriving show]
+type value = Constant of Ctype.const | Var of string [@@deriving show]
 
 type instruction =
   | Return of value
+  | SignExtend of { src : value; dst : value }
+  | Truncate of { src : value; dst : value }
   | Unary of { op : unary_operator; src : value; dst : value }
   | Binary of { op : binary_operator; src1 : value; src2 : value; dst : value }
   | Copy of { src : value; dst : value }
@@ -49,7 +51,12 @@ type top_level =
       body : instruction list;
       frame : Env.lenv;
     }
-  | StaticVariable of { name : string; global : bool; init : int }
+  | StaticVariable of {
+      name : string;
+      global : bool;
+      t : Ctype.t;
+      init : Ctype.static_init;
+    }
 [@@deriving show]
 
 type prog = Program of top_level list [@@deriving show]
