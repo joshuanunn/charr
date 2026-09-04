@@ -132,7 +132,6 @@ let rec resolve_stmt (s : Ast.stmt) (se : Env.senv) : Ast.stmt =
       result
   | Switch { cond; body; id } ->
       let cond' = resolve_expr cond se in
-      (* TODO: add typecheck as cond' should resolve to an integer. *)
       let body' = resolve_stmt body se in
       Switch { cond = cond'; body = body'; id }
   | Case { value; body; id } -> (

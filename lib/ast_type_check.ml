@@ -304,6 +304,10 @@ and type_stmt (s : Ast.stmt) (ret : Ctype.t) (swt : Ctype.t option)
       Ast.For { init = init'; cond = cond'; post = post'; body = body'; id }
   | Switch { cond; body; id } ->
       let cond' = type_expr cond te in
+      (match Ast.get_type cond' with
+      | Ctype.Int | Ctype.Long -> ()
+      | Ctype.FunType _ ->
+          failwith "internal error: switch condition resolved to function type");
       let switch_type = Some (Ast.get_type cond') in
       let body' = type_stmt body ret switch_type te in
       Ast.Switch { cond = cond'; body = body'; id }
