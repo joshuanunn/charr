@@ -38,12 +38,12 @@
         counter = 3;
         offset = -44;
         stack slots = {
-          x.3   -> -8,
-          y.4   -> -16,
-          z.5   -> -24,
-          tmp.0 -> -32,
-          tmp.1 -> -40,
-          tmp.2 -> -44,
+          x.3               -> -8,
+          y.4               -> -16,
+          z.5               -> -24,
+          my_function.tmp.0 -> -32,
+          my_function.tmp.1 -> -40,
+          my_function.tmp.2 -> -44,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -138,8 +138,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 3L);
            dst = (Asm.Reg Asm.DX)};
          (Asm.Call "my_function");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -84)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 6L);
@@ -173,21 +171,21 @@
          counter = 20;
          offset = -92;
          stack slots = {
-           sum.9  -> -4,
-           i.10   -> -16,
-           tmp.1  -> -24,
-           tmp.2  -> -28,
-           tmp.3  -> -32,
-           tmp.4  -> -40,
-           tmp.5  -> -48,
-           tmp.6  -> -56,
-           tmp.7  -> -60,
-           tmp.9  -> -72,
-           tmp.10 -> -76,
-           tmp.13 -> -80,
-           tmp.15 -> -84,
-           tmp.16 -> -88,
-           tmp.18 -> -92,
+           sum.9       -> -4,
+           i.10        -> -16,
+           main.tmp.1  -> -24,
+           main.tmp.2  -> -28,
+           main.tmp.3  -> -32,
+           main.tmp.4  -> -40,
+           main.tmp.5  -> -48,
+           main.tmp.6  -> -56,
+           main.tmp.7  -> -60,
+           main.tmp.9  -> -72,
+           main.tmp.10 -> -76,
+           main.tmp.13 -> -80,
+           main.tmp.15 -> -84,
+           main.tmp.16 -> -88,
+           main.tmp.18 -> -92,
          }}};
      Asm.StaticVariable {name = "a"; global = false; alignment = 8;
        init = (Ctype.LongInit 0L)}

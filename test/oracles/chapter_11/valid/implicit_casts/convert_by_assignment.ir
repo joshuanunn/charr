@@ -2,8 +2,9 @@
    [Ir.Function {name = "return_truncated_long"; global = true;
       params = ["l.0"];
       body =
-      [Ir.Truncate {src = (Ir.Var "l.0"); dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0"))];
+      [Ir.Truncate {src = (Ir.Var "l.0");
+         dst = (Ir.Var "return_truncated_long.tmp.0")};
+        (Ir.Return (Ir.Var "return_truncated_long.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "return_truncated_long";
@@ -14,8 +15,9 @@
      Ir.Function {name = "return_extended_int"; global = true;
        params = ["i.1"];
        body =
-       [Ir.SignExtend {src = (Ir.Var "i.1"); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+       [Ir.SignExtend {src = (Ir.Var "i.1");
+          dst = (Ir.Var "return_extended_int.tmp.0")};
+         (Ir.Return (Ir.Var "return_extended_int.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "return_extended_int";
@@ -26,10 +28,13 @@
      Ir.Function {name = "truncate_on_assignment"; global = true;
        params = ["l.2"; "expected.3"];
        body =
-       [Ir.Truncate {src = (Ir.Var "l.2"); dst = (Ir.Var "tmp.0")};
-         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Var "expected.3"); dst = (Ir.Var "tmp.1")};
-         (Ir.Return (Ir.Var "tmp.1"))];
+       [Ir.Truncate {src = (Ir.Var "l.2");
+          dst = (Ir.Var "truncate_on_assignment.tmp.0")};
+         Ir.Binary {op = Ir.Equal;
+           src1 = (Ir.Var "truncate_on_assignment.tmp.0");
+           src2 = (Ir.Var "expected.3");
+           dst = (Ir.Var "truncate_on_assignment.tmp.1")};
+         (Ir.Return (Ir.Var "truncate_on_assignment.tmp.1"))];
        frame =
        Env.lenv {
          namespace = "truncate_on_assignment";
@@ -41,30 +46,34 @@
        body =
        [Ir.FunCall {fun_name = "return_truncated_long";
           args = [(Ir.Constant (Ctype.ConstLong 4294967298L))];
-          dst = (Ir.Var "tmp.0")};
-         Ir.SignExtend {src = (Ir.Var "tmp.0"); dst = (Ir.Var "tmp.1")};
-         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.1");
-           src2 = (Ir.Constant (Ctype.ConstLong 2L)); dst = (Ir.Var "tmp.2")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.2"); target = "main.if.en.3"};
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.SignExtend {src = (Ir.Var "main.tmp.0");
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.1");
+           src2 = (Ir.Constant (Ctype.ConstLong 2L));
+           dst = (Ir.Var "main.tmp.2")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.2");
+           target = "main.if.en.3"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.3");
          Ir.FunCall {fun_name = "return_extended_int";
            args = [(Ir.Constant (Ctype.ConstInt -10l))];
-           dst = (Ir.Var "tmp.5")};
-         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.5");
+           dst = (Ir.Var "main.tmp.5")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.5");
            src2 = (Ir.Constant (Ctype.ConstLong -10L));
-           dst = (Ir.Var "tmp.8")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.8"); target = "main.if.en.9"};
+           dst = (Ir.Var "main.tmp.8")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.8");
+           target = "main.if.en.9"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.9");
          Ir.FunCall {fun_name = "truncate_on_assignment";
            args =
            [(Ir.Constant (Ctype.ConstLong 17179869184L));
              (Ir.Constant (Ctype.ConstInt 0l))];
-           dst = (Ir.Var "tmp.13")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.13");
-           dst = (Ir.Var "tmp.14")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.14");
+           dst = (Ir.Var "main.tmp.13")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.13");
+           dst = (Ir.Var "main.tmp.14")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.14");
            target = "main.if.en.15"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.15");

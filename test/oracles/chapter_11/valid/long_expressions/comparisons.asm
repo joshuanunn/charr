@@ -43,7 +43,7 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           l_geq_2_60.tmp.0 -> -4,
          }}};
      Asm.Function {name = "uint_max_leq_l"; global = true;
        instructions =
@@ -65,7 +65,7 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           uint_max_leq_l.tmp.0 -> -4,
          }}};
      Asm.Function {name = "l_eq_l2"; global = true;
        instructions =
@@ -87,15 +87,13 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           l_eq_l2.tmp.0 -> -4,
          }}};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 48L);
           dst = (Asm.Reg Asm.SP)};
          (Asm.Call "compare_constants");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -110,8 +108,6 @@
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.2");
          (Asm.Call "compare_constants_2");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -12)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -130,8 +126,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
            dst = (Asm.Data "l")};
          (Asm.Call "l_geq_2_60");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -20)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -140,8 +134,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.8"); (Asm.Call "uint_max_leq_l");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -24)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -155,8 +147,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
            dst = (Asm.Data "l")};
          (Asm.Call "l_geq_2_60");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -28)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -170,8 +160,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret; (Asm.Label "main.if.en.13"); (Asm.Call "uint_max_leq_l");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -36)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -190,8 +178,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
            dst = (Asm.Data "l2")};
          (Asm.Call "l_eq_l2");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -44)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -214,18 +200,18 @@
          counter = 20;
          offset = -48;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.7  -> -20,
-           tmp.9  -> -24,
-           tmp.11 -> -28,
-           tmp.12 -> -32,
-           tmp.14 -> -36,
-           tmp.15 -> -40,
-           tmp.17 -> -44,
-           tmp.18 -> -48,
+           main.tmp.0  -> -4,
+           main.tmp.1  -> -8,
+           main.tmp.3  -> -12,
+           main.tmp.4  -> -16,
+           main.tmp.7  -> -20,
+           main.tmp.9  -> -24,
+           main.tmp.11 -> -28,
+           main.tmp.12 -> -32,
+           main.tmp.14 -> -36,
+           main.tmp.15 -> -40,
+           main.tmp.17 -> -44,
+           main.tmp.18 -> -48,
          }}};
      Asm.StaticVariable {name = "l"; global = true; alignment = 8;
        init = (Ctype.LongInit 0L)};

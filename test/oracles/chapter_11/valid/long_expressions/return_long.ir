@@ -1,11 +1,11 @@
 (Ir.Program
    [Ir.Function {name = "add"; global = true; params = ["a.0"; "b.1"];
       body =
-      [Ir.SignExtend {src = (Ir.Var "a.0"); dst = (Ir.Var "tmp.0")};
-        Ir.SignExtend {src = (Ir.Var "b.1"); dst = (Ir.Var "tmp.1")};
-        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "tmp.0");
-          src2 = (Ir.Var "tmp.1"); dst = (Ir.Var "tmp.2")};
-        (Ir.Return (Ir.Var "tmp.2"))];
+      [Ir.SignExtend {src = (Ir.Var "a.0"); dst = (Ir.Var "add.tmp.0")};
+        Ir.SignExtend {src = (Ir.Var "b.1"); dst = (Ir.Var "add.tmp.1")};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "add.tmp.0");
+          src2 = (Ir.Var "add.tmp.1"); dst = (Ir.Var "add.tmp.2")};
+        (Ir.Return (Ir.Var "add.tmp.2"))];
       frame =
       Env.lenv {
         namespace = "add";
@@ -19,11 +19,12 @@
           args =
           [(Ir.Constant (Ctype.ConstInt 2147483645l));
             (Ir.Constant (Ctype.ConstInt 2147483645l))];
-          dst = (Ir.Var "tmp.0")};
-         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "main.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstLong 4294967290L));
-           dst = (Ir.Var "tmp.1")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+           target = "main.if.en.2"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.2");
          (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];

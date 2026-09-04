@@ -2,14 +2,17 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "i");
-         src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "main.if.en.1"};
+         src2 = (Ir.Constant (Ctype.ConstInt 0l));
+         dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "main.if.en.1"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
         (Ir.Label "main.if.en.1");
         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "j");
           src2 = (Ir.Constant (Ctype.ConstLong 123456L));
-          dst = (Ir.Var "tmp.2")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.2"); target = "main.if.en.3"};
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.2");
+          target = "main.if.en.3"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
         (Ir.Label "main.if.en.3");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];

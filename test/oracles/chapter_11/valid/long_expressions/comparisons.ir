@@ -21,8 +21,8 @@
        body =
        [Ir.Binary {op = Ir.GreaterOrEqual; src1 = (Ir.Var "l");
           src2 = (Ir.Constant (Ctype.ConstLong 1152921504606846976L));
-          dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          dst = (Ir.Var "l_geq_2_60.tmp.0")};
+         (Ir.Return (Ir.Var "l_geq_2_60.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "l_geq_2_60";
@@ -34,8 +34,8 @@
        body =
        [Ir.Binary {op = Ir.LessOrEqual;
           src1 = (Ir.Constant (Ctype.ConstLong 4294967295L));
-          src2 = (Ir.Var "l"); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          src2 = (Ir.Var "l"); dst = (Ir.Var "uint_max_leq_l.tmp.0")};
+         (Ir.Return (Ir.Var "uint_max_leq_l.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "uint_max_leq_l";
@@ -46,8 +46,8 @@
      Ir.Function {name = "l_eq_l2"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "l"); src2 = (Ir.Var "l2");
-          dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          dst = (Ir.Var "l_eq_l2.tmp.0")};
+         (Ir.Return (Ir.Var "l_eq_l2.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "l_eq_l2";
@@ -58,56 +58,60 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "compare_constants"; args = [];
-          dst = (Ir.Var "tmp.0")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.0");
-           dst = (Ir.Var "tmp.1")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.0");
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+           target = "main.if.en.2"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "compare_constants_2"; args = [];
-           dst = (Ir.Var "tmp.3")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.3");
-           dst = (Ir.Var "tmp.4")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
+           dst = (Ir.Var "main.tmp.3")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.3");
+           dst = (Ir.Var "main.tmp.4")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.4");
+           target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
          Ir.Copy {
            src = (Ir.Constant (Ctype.ConstLong -9223372036854775807L));
            dst = (Ir.Var "l")};
          Ir.FunCall {fun_name = "l_geq_2_60"; args = [];
-           dst = (Ir.Var "tmp.7")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.7"); target = "main.if.en.8"};
+           dst = (Ir.Var "main.tmp.7")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.7");
+           target = "main.if.en.8"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
          (Ir.Label "main.if.en.8");
          Ir.FunCall {fun_name = "uint_max_leq_l"; args = [];
-           dst = (Ir.Var "tmp.9")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.9");
+           dst = (Ir.Var "main.tmp.9")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.9");
            target = "main.if.en.10"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.10");
          Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 1152921504606846976L));
            dst = (Ir.Var "l")};
          Ir.FunCall {fun_name = "l_geq_2_60"; args = [];
-           dst = (Ir.Var "tmp.11")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.11");
-           dst = (Ir.Var "tmp.12")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.12");
+           dst = (Ir.Var "main.tmp.11")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.11");
+           dst = (Ir.Var "main.tmp.12")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.12");
            target = "main.if.en.13"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
          (Ir.Label "main.if.en.13");
          Ir.FunCall {fun_name = "uint_max_leq_l"; args = [];
-           dst = (Ir.Var "tmp.14")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.14");
-           dst = (Ir.Var "tmp.15")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.15");
+           dst = (Ir.Var "main.tmp.14")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.14");
+           dst = (Ir.Var "main.tmp.15")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.15");
            target = "main.if.en.16"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
          (Ir.Label "main.if.en.16");
          Ir.Copy {src = (Ir.Var "l"); dst = (Ir.Var "l2")};
-         Ir.FunCall {fun_name = "l_eq_l2"; args = []; dst = (Ir.Var "tmp.17")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.17");
-           dst = (Ir.Var "tmp.18")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.18");
+         Ir.FunCall {fun_name = "l_eq_l2"; args = [];
+           dst = (Ir.Var "main.tmp.17")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.17");
+           dst = (Ir.Var "main.tmp.18")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.18");
            target = "main.if.en.19"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 7l)));
          (Ir.Label "main.if.en.19");

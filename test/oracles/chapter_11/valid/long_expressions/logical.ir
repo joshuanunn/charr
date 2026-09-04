@@ -1,8 +1,9 @@
 (Ir.Program
    [Ir.Function {name = "not"; global = true; params = ["l.0"];
       body =
-      [Ir.Unary {op = Ir.Not; src = (Ir.Var "l.0"); dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0"))];
+      [Ir.Unary {op = Ir.Not; src = (Ir.Var "l.0");
+         dst = (Ir.Var "not.tmp.0")};
+        (Ir.Return (Ir.Var "not.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "not";
@@ -28,11 +29,11 @@
        [Ir.JumpIfZero {condition = (Ir.Var "l1.2"); target = "and.and.fl.1"};
          Ir.JumpIfZero {condition = (Ir.Var "l2.3"); target = "and.and.fl.1"};
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
-           dst = (Ir.Var "tmp.0")};
+           dst = (Ir.Var "and.tmp.0")};
          Ir.Jump {target = "and.and.en.2"}; (Ir.Label "and.and.fl.1");
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
-           dst = (Ir.Var "tmp.0")};
-         (Ir.Label "and.and.en.2"); (Ir.Return (Ir.Var "tmp.0"))];
+           dst = (Ir.Var "and.tmp.0")};
+         (Ir.Label "and.and.en.2"); (Ir.Return (Ir.Var "and.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "and";
@@ -45,11 +46,11 @@
        [Ir.JumpIfNotZero {condition = (Ir.Var "l1.4"); target = "or.or.tr.1"};
          Ir.JumpIfNotZero {condition = (Ir.Var "l2.5"); target = "or.or.tr.1"};
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
-           dst = (Ir.Var "tmp.0")};
+           dst = (Ir.Var "or.tmp.0")};
          Ir.Jump {target = "or.or.en.2"}; (Ir.Label "or.or.tr.1");
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
-           dst = (Ir.Var "tmp.0")};
-         (Ir.Label "or.or.en.2"); (Ir.Return (Ir.Var "tmp.0"))];
+           dst = (Ir.Var "or.tmp.0")};
+         (Ir.Label "or.or.en.2"); (Ir.Return (Ir.Var "or.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "or";
@@ -61,38 +62,42 @@
        body =
        [Ir.FunCall {fun_name = "not";
           args = [(Ir.Constant (Ctype.ConstLong 1152921504606846976L))];
-          dst = (Ir.Var "tmp.0")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "main.if.en.1"};
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+           target = "main.if.en.1"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.1");
          Ir.FunCall {fun_name = "not";
            args = [(Ir.Constant (Ctype.ConstLong 0L))];
-           dst = (Ir.Var "tmp.2")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.2");
-           dst = (Ir.Var "tmp.3")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.3"); target = "main.if.en.4"};
+           dst = (Ir.Var "main.tmp.2")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.2");
+           dst = (Ir.Var "main.tmp.3")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.3");
+           target = "main.if.en.4"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.4");
          Ir.FunCall {fun_name = "if_cond";
            args = [(Ir.Constant (Ctype.ConstLong 1152921504606846976L))];
-           dst = (Ir.Var "tmp.5")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.5");
-           dst = (Ir.Var "tmp.6")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.6"); target = "main.if.en.7"};
+           dst = (Ir.Var "main.tmp.5")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.5");
+           dst = (Ir.Var "main.tmp.6")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.6");
+           target = "main.if.en.7"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
          (Ir.Label "main.if.en.7");
          Ir.FunCall {fun_name = "if_cond";
            args = [(Ir.Constant (Ctype.ConstLong 0L))];
-           dst = (Ir.Var "tmp.8")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.8"); target = "main.if.en.9"};
+           dst = (Ir.Var "main.tmp.8")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.8");
+           target = "main.if.en.9"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.9");
          Ir.FunCall {fun_name = "and";
            args =
            [(Ir.Constant (Ctype.ConstLong 0L));
              (Ir.Constant (Ctype.ConstInt 1l))];
-           dst = (Ir.Var "tmp.10")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.10");
+           dst = (Ir.Var "main.tmp.10")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.10");
            target = "main.if.en.11"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
          (Ir.Label "main.if.en.11");
@@ -100,10 +105,10 @@
            args =
            [(Ir.Constant (Ctype.ConstInt 1l));
              (Ir.Constant (Ctype.ConstLong 1152921504606846976L))];
-           dst = (Ir.Var "tmp.12")};
-         Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.12");
-           dst = (Ir.Var "tmp.13")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.13");
+           dst = (Ir.Var "main.tmp.12")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.12");
+           dst = (Ir.Var "main.tmp.13")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.13");
            target = "main.if.en.14"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
          (Ir.Label "main.if.en.14");

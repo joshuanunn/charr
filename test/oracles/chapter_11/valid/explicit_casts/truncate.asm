@@ -27,10 +27,10 @@
         counter = 2;
         offset = -20;
         stack slots = {
-          l.0        -> -8,
-          expected.1 -> -12,
-          tmp.0      -> -16,
-          tmp.1      -> -20,
+          l.0            -> -8,
+          expected.1     -> -12,
+          truncate.tmp.0 -> -16,
+          truncate.tmp.1 -> -20,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -41,8 +41,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 10L);
            dst = (Asm.Reg Asm.SI)};
          (Asm.Call "truncate");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -61,8 +59,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm -10L);
            dst = (Asm.Reg Asm.SI)};
          (Asm.Call "truncate");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -12)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -81,8 +77,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
            dst = (Asm.Reg Asm.SI)};
          (Asm.Call "truncate");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -20)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -101,8 +95,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
            dst = (Asm.Reg Asm.SI)};
          (Asm.Call "truncate");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -28)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -125,13 +117,13 @@
          counter = 19;
          offset = -32;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.5  -> -12,
-           tmp.6  -> -16,
-           tmp.8  -> -20,
-           tmp.9  -> -24,
-           tmp.13 -> -28,
-           tmp.14 -> -32,
+           main.tmp.0  -> -4,
+           main.tmp.1  -> -8,
+           main.tmp.5  -> -12,
+           main.tmp.6  -> -16,
+           main.tmp.8  -> -20,
+           main.tmp.9  -> -24,
+           main.tmp.13 -> -28,
+           main.tmp.14 -> -32,
          }}}
      ])

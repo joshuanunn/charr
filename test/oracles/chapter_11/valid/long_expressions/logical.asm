@@ -18,8 +18,8 @@
         counter = 1;
         offset = -12;
         stack slots = {
-          l.0   -> -8,
-          tmp.0 -> -12,
+          l.0       -> -8,
+          not.tmp.0 -> -12,
         }}};
      Asm.Function {name = "if_cond"; global = true;
        instructions =
@@ -73,9 +73,9 @@
          counter = 3;
          offset = -16;
          stack slots = {
-           l1.2  -> -8,
-           l2.3  -> -12,
-           tmp.0 -> -16,
+           l1.2      -> -8,
+           l2.3      -> -12,
+           and.tmp.0 -> -16,
          }}};
      Asm.Function {name = "or"; global = true;
        instructions =
@@ -106,9 +106,9 @@
          counter = 3;
          offset = -20;
          stack slots = {
-           l1.4  -> -4,
-           l2.5  -> -16,
-           tmp.0 -> -20,
+           l1.4     -> -4,
+           l2.5     -> -16,
+           or.tmp.0 -> -20,
          }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -117,8 +117,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 1152921504606846976L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "not");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -130,8 +128,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "not");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -8)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -148,8 +144,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 1152921504606846976L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "if_cond");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -16)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -166,8 +160,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "if_cond");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -24)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -181,8 +173,6 @@
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
            dst = (Asm.Reg Asm.SI)};
          (Asm.Call "and");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -28)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -196,8 +186,6 @@
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 1152921504606846976L);
            dst = (Asm.Reg Asm.SI)};
          (Asm.Call "or");
-         Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 0L);
-           dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -32)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -220,14 +208,14 @@
          counter = 15;
          offset = -36;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.2  -> -8,
-           tmp.3  -> -12,
-           tmp.5  -> -16,
-           tmp.6  -> -20,
-           tmp.8  -> -24,
-           tmp.10 -> -28,
-           tmp.12 -> -32,
-           tmp.13 -> -36,
+           main.tmp.0  -> -4,
+           main.tmp.2  -> -8,
+           main.tmp.3  -> -12,
+           main.tmp.5  -> -16,
+           main.tmp.6  -> -20,
+           main.tmp.8  -> -24,
+           main.tmp.10 -> -28,
+           main.tmp.12 -> -32,
+           main.tmp.13 -> -36,
          }}}
      ])

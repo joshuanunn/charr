@@ -4,16 +4,18 @@
       ["a.0"; "b.1"; "c.2"; "d.3"; "e.4"; "f.5"; "g.6"; "h.7"; "i.8"];
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "a.0"); src2 = (Ir.Var "b.1");
-         dst = (Ir.Var "tmp.0")};
-        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "tmp.0");
-          src2 = (Ir.Constant (Ctype.ConstLong 100L)); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1");
+         dst = (Ir.Var "test_sum.tmp.0")};
+        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "test_sum.tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstLong 100L));
+          dst = (Ir.Var "test_sum.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "test_sum.tmp.1");
           target = "test_sum.if.en.2"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
         (Ir.Label "test_sum.if.en.2");
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.8");
-          src2 = (Ir.Constant (Ctype.ConstLong 100L)); dst = (Ir.Var "tmp.3")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.3");
+          src2 = (Ir.Constant (Ctype.ConstLong 100L));
+          dst = (Ir.Var "test_sum.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "test_sum.tmp.3");
           target = "test_sum.if.en.4"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
         (Ir.Label "test_sum.if.en.4");
@@ -38,8 +40,8 @@
             (Ir.Constant (Ctype.ConstInt 0l));
             (Ir.Constant (Ctype.ConstInt 0l));
             (Ir.Constant (Ctype.ConstLong 34359738368L))];
-          dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";

@@ -35,7 +35,7 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Binary {op = Asm.Add; typ = Asm.Quadword;
           src = (Asm.Reg Asm.R10); dst = (Asm.Stack -56)};
-        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 100L);
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Imm 100L);
           dst = (Asm.Stack -56)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -60)};
@@ -66,18 +66,18 @@
         counter = 5;
         offset = -64;
         stack slots = {
-          a.0   -> -8,
-          b.1   -> -16,
-          c.2   -> -20,
-          d.3   -> -24,
-          e.4   -> -28,
-          f.5   -> -32,
-          g.6   -> -36,
-          h.7   -> -40,
-          i.8   -> -48,
-          tmp.0 -> -56,
-          tmp.1 -> -60,
-          tmp.3 -> -64,
+          a.0            -> -8,
+          b.1            -> -16,
+          c.2            -> -20,
+          d.3            -> -24,
+          e.4            -> -28,
+          f.5            -> -32,
+          g.6            -> -36,
+          h.7            -> -40,
+          i.8            -> -48,
+          test_sum.tmp.0 -> -56,
+          test_sum.tmp.1 -> -60,
+          test_sum.tmp.3 -> -64,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -104,16 +104,16 @@
          Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 32L);
            dst = (Asm.Reg Asm.SP)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
-           dst = (Asm.Stack -8)};
-         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
+           dst = (Asm.Stack -4)};
+         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
          Asm.Ret];
        frame =
        Env.lenv {
          namespace = "main";
          counter = 1;
-         offset = -8;
+         offset = -4;
          stack slots = {
-           tmp.0 -> -8,
+           main.tmp.0 -> -4,
          }}}
      ])

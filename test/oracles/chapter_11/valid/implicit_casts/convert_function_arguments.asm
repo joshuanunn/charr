@@ -25,10 +25,10 @@
           dst = (Asm.Stack -52)};
         Asm.Cmp {typ = Asm.Quadword; src = (Asm.Imm -1L);
           dst = (Asm.Stack -8)};
-        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 0L);
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -56)};
         (Asm.SetCC (Asm.NE, (Asm.Stack -56)));
-        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Imm 0L);
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -56)};
         (Asm.JmpCC (Asm.E, "foo.if.en.2"));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
@@ -69,10 +69,10 @@
         Asm.Ret; (Asm.Label "foo.if.en.9");
         Asm.Cmp {typ = Asm.Quadword; src = (Asm.Imm -101L);
           dst = (Asm.Stack -32)};
-        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 0L);
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -72)};
         (Asm.SetCC (Asm.NE, (Asm.Stack -72)));
-        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Imm 0L);
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -72)};
         (Asm.JmpCC (Asm.E, "foo.if.en.12"));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
@@ -120,22 +120,22 @@
         counter = 21;
         offset = -84;
         stack slots = {
-          a.0    -> -8,
-          b.1    -> -12,
-          c.2    -> -16,
-          d.3    -> -20,
-          e.4    -> -32,
-          f.5    -> -36,
-          g.6    -> -48,
-          h.7    -> -52,
-          tmp.1  -> -56,
-          tmp.3  -> -60,
-          tmp.5  -> -64,
-          tmp.8  -> -68,
-          tmp.11 -> -72,
-          tmp.14 -> -76,
-          tmp.17 -> -80,
-          tmp.19 -> -84,
+          a.0        -> -8,
+          b.1        -> -12,
+          c.2        -> -16,
+          d.3        -> -20,
+          e.4        -> -32,
+          f.5        -> -36,
+          g.6        -> -48,
+          h.7        -> -52,
+          foo.tmp.1  -> -56,
+          foo.tmp.3  -> -60,
+          foo.tmp.5  -> -64,
+          foo.tmp.8  -> -68,
+          foo.tmp.11 -> -72,
+          foo.tmp.14 -> -76,
+          foo.tmp.17 -> -80,
+          foo.tmp.19 -> -84,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -168,6 +168,6 @@
          counter = 16;
          offset = -4;
          stack slots = {
-           tmp.15 -> -4,
+           main.tmp.15 -> -4,
          }}}
      ])

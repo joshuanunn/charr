@@ -40,9 +40,9 @@
         counter = 5;
         offset = -16;
         stack slots = {
-          tmp.0 -> -8,
-          tmp.1 -> -12,
-          tmp.3 -> -16,
+          main.tmp.0 -> -8,
+          main.tmp.1 -> -12,
+          main.tmp.3 -> -16,
         }}};
      Asm.StaticVariable {name = "foo"; global = false; alignment = 8;
        init = (Ctype.LongInit 4294967290L)}
