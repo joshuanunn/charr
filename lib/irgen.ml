@@ -48,9 +48,8 @@ let convert_binop (u : Ast.binop) : Ir.binary_operator =
 (** Collect all [case] and [default] labels inside a statement AST node. *)
 let rec collect_cases (s : Ast.stmt) : (Ast.expr option * string) list =
   match s with
-  | Case { value; body; id = Some (SwitchLabel i) } ->
-      let int64_value = Ast.literal_to_int64 value in
-      let label_name = Printf.sprintf "swit.cs.%s.%Ld" i int64_value in
+  | Case { value; body; id = Some (CaseLabel i) } ->
+      let label_name = Printf.sprintf "swit.cs.%s" i in
       let subcases = collect_cases body in
       (Some value, label_name) :: subcases
   | Default { body; id = Some (SwitchLabel i) } ->
@@ -332,11 +331,10 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) (te : Env.tenv) :
           cond_ins @ dispatch_ins @ jmp_default @ body_ins
           @ [ Ir.Label switch_break ]
       | _ -> failwith "case statement has missing label")
-  | Case { value; body; id } -> (
+  | Case { body; id; _ } -> (
       match id with
-      | Some (SwitchLabel i) ->
-          let int64_value = Ast.literal_to_int64 value in
-          let l_case = Printf.sprintf "swit.cs.%s.%Ld" i int64_value in
+      | Some (CaseLabel i) ->
+          let l_case = Printf.sprintf "swit.cs.%s" i in
           let body_ins = convert_stmt body le te in
           [ Ir.Label l_case ] @ body_ins
       | _ -> failwith "case statement has missing label")

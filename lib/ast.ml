@@ -8,6 +8,7 @@ type ident =
   | GotoLabel of string
   | LoopLabel of string
   | SwitchLabel of string
+  | CaseLabel of string
 [@@deriving show]
 
 type unop =
