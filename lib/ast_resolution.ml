@@ -139,7 +139,6 @@ let rec resolve_stmt (s : Ast.stmt) (se : Env.senv) : Ast.stmt =
       let value' = resolve_expr value se in
       let body' = resolve_stmt body se in
       match value'.e with
-      (* TODO: add support for other integer types once implemented *)
       | Constant _ -> Case { value = value'; body = body'; id }
       | _ -> failwith "case label must be a constant integer expression")
   | Default { body; id } -> Default { body = resolve_stmt body se; id }
