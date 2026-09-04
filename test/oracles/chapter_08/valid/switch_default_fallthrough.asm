@@ -18,7 +18,7 @@
         counter = 2;
         offset = -8;
         stack slots = {
-          a.0   -> -4,
-          tmp.0 -> -8,
+          a.0        -> -4,
+          main.tmp.0 -> -8,
         }}}
      ])

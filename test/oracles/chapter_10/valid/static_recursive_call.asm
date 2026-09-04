@@ -45,11 +45,11 @@
         counter = 6;
         offset = -20;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
-          tmp.2 -> -12,
-          tmp.3 -> -16,
-          tmp.5 -> -20,
+          print_alphabet.tmp.0 -> -4,
+          print_alphabet.tmp.1 -> -8,
+          print_alphabet.tmp.2 -> -12,
+          print_alphabet.tmp.3 -> -16,
+          print_alphabet.tmp.5 -> -20,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -67,7 +67,7 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           main.tmp.0 -> -4,
          }}};
      Asm.StaticVariable {name = "count.1"; global = false; alignment = 4;
        init = (Ctype.IntInit 0l)}

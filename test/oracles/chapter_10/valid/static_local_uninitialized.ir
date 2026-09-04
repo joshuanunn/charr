@@ -2,9 +2,9 @@
    [Ir.Function {name = "foo"; global = true; params = [];
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.0");
-         src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x.0")};
-        (Ir.Return (Ir.Var "tmp.0"))];
+         src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "foo.tmp.0")};
+        Ir.Copy {src = (Ir.Var "foo.tmp.0"); dst = (Ir.Var "x.0")};
+        (Ir.Return (Ir.Var "foo.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "foo";
@@ -18,13 +18,16 @@
           dst = (Ir.Var "i.2")};
          (Ir.Label "loop.st.1");
          Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.2");
-           src2 = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "tmp.0")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
-         Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "tmp.1")};
-         Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "ret.1")};
+           src2 = (Ir.Constant (Ctype.ConstInt 4l));
+           dst = (Ir.Var "main.tmp.0")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+           target = "loop.br.1"};
+         Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "main.tmp.1")};
+         Ir.Copy {src = (Ir.Var "main.tmp.1"); dst = (Ir.Var "ret.1")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.2");
-           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.2")};
-         Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "i.2")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l));
+           dst = (Ir.Var "main.tmp.2")};
+         Ir.Copy {src = (Ir.Var "main.tmp.2"); dst = (Ir.Var "i.2")};
          Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
          (Ir.Return (Ir.Var "ret.1"))];
        frame =

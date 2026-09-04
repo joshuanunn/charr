@@ -28,9 +28,9 @@
         counter = 4;
         offset = -12;
         stack slots = {
-          flag.0 -> -4,
-          arg.1  -> -8,
-          tmp.1  -> -12,
+          flag.0        -> -4,
+          arg.1         -> -8,
+          test_jz.tmp.1 -> -12,
         }}};
      Asm.Function {name = "test_jnz"; global = true;
        instructions =
@@ -64,9 +64,9 @@
          counter = 4;
          offset = -12;
          stack slots = {
-           flag.2 -> -4,
-           arg.3  -> -8,
-           tmp.1  -> -12,
+           flag.2         -> -4,
+           arg.3          -> -8,
+           test_jnz.tmp.1 -> -12,
          }}};
      Asm.Function {name = "test_binary"; global = true;
        instructions =
@@ -120,12 +120,12 @@
          counter = 6;
          offset = -24;
          stack slots = {
-           flag.4 -> -4,
-           arg1.5 -> -8,
-           arg2.6 -> -12,
-           tmp.0  -> -16,
-           tmp.3  -> -20,
-           tmp.5  -> -24,
+           flag.4            -> -4,
+           arg1.5            -> -8,
+           arg2.6            -> -12,
+           test_binary.tmp.0 -> -16,
+           test_binary.tmp.3 -> -20,
+           test_binary.tmp.5 -> -24,
          }}};
      Asm.Function {name = "test_unary"; global = true;
        instructions =
@@ -155,9 +155,9 @@
          counter = 2;
          offset = -12;
          stack slots = {
-           flag.7 -> -4,
-           arg.8  -> -8,
-           tmp.1  -> -12,
+           flag.7           -> -4,
+           arg.8            -> -8,
+           test_unary.tmp.1 -> -12,
          }}};
      Asm.Function {name = "f"; global = true;
        instructions =
@@ -180,8 +180,8 @@
          counter = 1;
          offset = -8;
          stack slots = {
-           arg.9 -> -4,
-           tmp.0 -> -8,
+           arg.9   -> -4,
+           f.tmp.0 -> -8,
          }}};
      Asm.Function {name = "test_funcall"; global = true;
        instructions =
@@ -211,9 +211,9 @@
          counter = 2;
          offset = -12;
          stack slots = {
-           flag.10 -> -4,
-           arg.11  -> -8,
-           tmp.1   -> -12,
+           flag.10            -> -4,
+           arg.11             -> -8,
+           test_funcall.tmp.1 -> -12,
          }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -432,27 +432,27 @@
          counter = 35;
          offset = -88;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.3  -> -12,
-           tmp.4  -> -16,
-           tmp.6  -> -20,
-           tmp.7  -> -24,
-           tmp.9  -> -28,
-           tmp.10 -> -32,
-           tmp.12 -> -36,
-           tmp.13 -> -40,
-           tmp.15 -> -44,
-           tmp.16 -> -48,
-           tmp.18 -> -52,
-           tmp.19 -> -56,
-           tmp.21 -> -60,
-           tmp.23 -> -64,
-           tmp.25 -> -68,
-           tmp.27 -> -72,
-           tmp.29 -> -76,
-           tmp.30 -> -80,
-           tmp.32 -> -84,
-           tmp.33 -> -88,
+           main.tmp.0  -> -4,
+           main.tmp.1  -> -8,
+           main.tmp.3  -> -12,
+           main.tmp.4  -> -16,
+           main.tmp.6  -> -20,
+           main.tmp.7  -> -24,
+           main.tmp.9  -> -28,
+           main.tmp.10 -> -32,
+           main.tmp.12 -> -36,
+           main.tmp.13 -> -40,
+           main.tmp.15 -> -44,
+           main.tmp.16 -> -48,
+           main.tmp.18 -> -52,
+           main.tmp.19 -> -56,
+           main.tmp.21 -> -60,
+           main.tmp.23 -> -64,
+           main.tmp.25 -> -68,
+           main.tmp.27 -> -72,
+           main.tmp.29 -> -76,
+           main.tmp.30 -> -80,
+           main.tmp.32 -> -84,
+           main.tmp.33 -> -88,
          }}}
      ])

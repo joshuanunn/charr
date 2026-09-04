@@ -5,8 +5,8 @@
          args =
          [(Ir.Constant (Ctype.ConstInt 2l));
            (Ir.Constant (Ctype.ConstInt 1l))];
-         dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0"))];
+         dst = (Ir.Var "main.tmp.0")};
+        (Ir.Return (Ir.Var "main.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "main";
@@ -17,8 +17,8 @@
      Ir.Function {name = "foo"; global = true; params = ["x.2"; "y.3"];
        body =
        [Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "x.2");
-          src2 = (Ir.Var "y.3"); dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          src2 = (Ir.Var "y.3"); dst = (Ir.Var "foo.tmp.0")};
+         (Ir.Return (Ir.Var "foo.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "foo";

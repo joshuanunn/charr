@@ -2,8 +2,9 @@
    [Ir.Function {name = "callee"; global = true; params = [];
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x");
-         src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "x")};
+         src2 = (Ir.Constant (Ctype.ConstInt 1l));
+         dst = (Ir.Var "callee.tmp.0")};
+        Ir.Copy {src = (Ir.Var "callee.tmp.0"); dst = (Ir.Var "x")};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
       frame =
       Env.lenv {
@@ -18,12 +19,13 @@
           dst = (Ir.Var "i.0")};
          (Ir.Label "loop.st.1");
          Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.0");
-           src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.0")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
-         Ir.FunCall {fun_name = "callee"; args = []; dst = (Ir.Var "tmp.2")};
+           src2 = (Ir.Constant (Ctype.ConstInt 10l));
+           dst = (Ir.Var "f.tmp.0")};
+         Ir.JumpIfZero {condition = (Ir.Var "f.tmp.0"); target = "loop.br.1"};
+         Ir.FunCall {fun_name = "callee"; args = []; dst = (Ir.Var "f.tmp.2")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.0");
-           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.3")};
-         Ir.Copy {src = (Ir.Var "tmp.3"); dst = (Ir.Var "i.0")};
+           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "f.tmp.3")};
+         Ir.Copy {src = (Ir.Var "f.tmp.3"); dst = (Ir.Var "i.0")};
          Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
          (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
@@ -35,7 +37,7 @@
          }}};
      Ir.Function {name = "main"; global = true; params = [];
        body =
-       [Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "tmp.0")};
+       [Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "main.tmp.0")};
          (Ir.Return (Ir.Var "x"))];
        frame =
        Env.lenv {

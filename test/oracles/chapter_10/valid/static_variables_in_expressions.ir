@@ -2,9 +2,11 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.0");
-         src2 = (Ir.Var "j.1"); dst = (Ir.Var "tmp.0")};
-        Ir.Unary {op = Ir.Not; src = (Ir.Var "tmp.0"); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+         src2 = (Ir.Var "j.1"); dst = (Ir.Var "main.tmp.0")};
+        Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.0");
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+          target = "main.if.en.2"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
         (Ir.Label "main.if.en.2");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];

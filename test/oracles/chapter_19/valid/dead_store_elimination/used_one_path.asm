@@ -31,9 +31,9 @@
         counter = 2;
         offset = -12;
         stack slots = {
-          arg.0  -> -4,
-          flag.1 -> -8,
-          tmp.0  -> -12,
+          arg.0   -> -4,
+          flag.1  -> -8,
+          f.tmp.0 -> -12,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -84,9 +84,9 @@
          counter = 6;
          offset = -16;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
-           tmp.4 -> -16,
+           main.tmp.0 -> -4,
+           main.tmp.1 -> -8,
+           main.tmp.3 -> -12,
+           main.tmp.4 -> -16,
          }}}
      ])

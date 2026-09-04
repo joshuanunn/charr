@@ -167,25 +167,25 @@
         counter = 42;
         offset = -76;
         stack slots = {
-          flag.0 -> -4,
-          w.1    -> -8,
-          x.2    -> -12,
-          y.3    -> -16,
-          z.4    -> -20,
-          tmp.10 -> -24,
-          tmp.11 -> -28,
-          tmp.12 -> -32,
-          tmp.16 -> -36,
-          tmp.17 -> -40,
-          tmp.21 -> -44,
-          tmp.22 -> -48,
-          tmp.26 -> -52,
-          tmp.27 -> -56,
-          tmp.28 -> -60,
-          tmp.32 -> -64,
-          tmp.33 -> -68,
-          tmp.37 -> -72,
-          tmp.38 -> -76,
+          flag.0        -> -4,
+          w.1           -> -8,
+          x.2           -> -12,
+          y.3           -> -16,
+          z.4           -> -20,
+          target.tmp.10 -> -24,
+          target.tmp.11 -> -28,
+          target.tmp.12 -> -32,
+          target.tmp.16 -> -36,
+          target.tmp.17 -> -40,
+          target.tmp.21 -> -44,
+          target.tmp.22 -> -48,
+          target.tmp.26 -> -52,
+          target.tmp.27 -> -56,
+          target.tmp.28 -> -60,
+          target.tmp.32 -> -64,
+          target.tmp.33 -> -68,
+          target.tmp.37 -> -72,
+          target.tmp.38 -> -76,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -222,7 +222,7 @@
          counter = 4;
          offset = -8;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.2 -> -8,
+           main.tmp.0 -> -4,
+           main.tmp.2 -> -8,
          }}}
      ])

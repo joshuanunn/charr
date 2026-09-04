@@ -4,12 +4,14 @@
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
          dst = (Ir.Var "retval.1")};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "flag.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "target.tmp.0")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "target.tmp.0");
           target = "swit.cs.1.1"};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "flag.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.1");
+          src2 = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "target.tmp.1")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "target.tmp.1");
           target = "swit.cs.1.2"};
         Ir.Jump {target = "swit.df.1"}; (Ir.Label "swit.cs.1.1");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
@@ -17,8 +19,8 @@
         (Ir.Label "swit.cs.1.2"); (Ir.Return (Ir.Var "retval.1"));
         (Ir.Label "swit.df.1");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -1l));
-          dst = (Ir.Var "tmp.2")};
-        (Ir.Return (Ir.Var "tmp.2"))];
+          dst = (Ir.Var "target.tmp.2")};
+        (Ir.Return (Ir.Var "target.tmp.2"))];
       frame =
       Env.lenv {
         namespace = "target";
@@ -29,8 +31,9 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
-          args = [(Ir.Constant (Ctype.ConstInt 1l))]; dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          args = [(Ir.Constant (Ctype.ConstInt 1l))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";

@@ -3,9 +3,9 @@
       body =
       [(Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "a.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "a.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "f.if.en.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "f.tmp.0")};
+        Ir.Copy {src = (Ir.Var "f.tmp.0"); dst = (Ir.Var "a.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "f.tmp.0"); target = "f.if.en.1"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 17l)));
         (Ir.Label "f.if.en.1"); Ir.Jump {target = "loop.st.1"}];
       frame =
@@ -18,8 +18,9 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
-          args = [(Ir.Constant (Ctype.ConstInt 10l))]; dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          args = [(Ir.Constant (Ctype.ConstInt 10l))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";

@@ -9,16 +9,18 @@
           dst = (Ir.Var "i.4")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "n0.2");
-          src2 = (Ir.Var "n1.3"); dst = (Ir.Var "tmp.0")};
+          src2 = (Ir.Var "n1.3"); dst = (Ir.Var "fib.tmp.0")};
         Ir.Copy {src = (Ir.Var "n1.3"); dst = (Ir.Var "n0.2")};
-        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "n1.3")};
+        Ir.Copy {src = (Ir.Var "fib.tmp.0"); dst = (Ir.Var "n1.3")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.4");
-          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.1")};
-        Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "i.4")};
-        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "tmp.1");
-          src2 = (Ir.Var "count.1"); dst = (Ir.Var "tmp.2")};
-        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.2"); target = "loop.st.1"};
-        (Ir.Return (Ir.Var "n1.3"))];
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "fib.tmp.1")};
+        Ir.Copy {src = (Ir.Var "fib.tmp.1"); dst = (Ir.Var "i.4")};
+        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "fib.tmp.1");
+          src2 = (Ir.Var "count.1"); dst = (Ir.Var "fib.tmp.2")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "fib.tmp.2");
+          target = "loop.st.1"};
+        (Ir.Return (Ir.Var "fib.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "fib";
@@ -29,11 +31,12 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "fib";
-          args = [(Ir.Constant (Ctype.ConstInt 20l))]; dst = (Ir.Var "tmp.0")};
-         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.0");
+          args = [(Ir.Constant (Ctype.ConstInt 20l))];
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "main.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstInt 10946l));
-           dst = (Ir.Var "tmp.1")};
-         (Ir.Return (Ir.Var "tmp.1"))];
+           dst = (Ir.Var "main.tmp.1")};
+         (Ir.Return (Ir.Var "main.tmp.1"))];
        frame =
        Env.lenv {
          namespace = "main";

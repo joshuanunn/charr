@@ -31,8 +31,8 @@
         counter = 2;
         offset = -8;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
+          target.tmp.0 -> -4,
+          target.tmp.1 -> -8,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -55,8 +55,8 @@
          counter = 2;
          offset = -8;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
+           main.tmp.0 -> -4,
+           main.tmp.1 -> -8,
          }}};
      Asm.StaticVariable {name = "j"; global = true; alignment = 4;
        init = (Ctype.IntInit 3l)};

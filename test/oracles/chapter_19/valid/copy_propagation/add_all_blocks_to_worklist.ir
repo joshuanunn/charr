@@ -16,7 +16,7 @@
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "global")};
          Ir.JumpIfZero {condition = (Ir.Var "flag"); target = "main.if.en.0"};
-         Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "tmp.1")};
+         Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "main.tmp.1")};
          (Ir.Label "main.if.en.0"); (Ir.Return (Ir.Var "global"))];
        frame =
        Env.lenv {

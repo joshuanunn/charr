@@ -154,18 +154,18 @@
          counter = 17;
          offset = -48;
          stack slots = {
-           tmp.0  -> -4,
-           tmp.1  -> -8,
-           tmp.2  -> -12,
-           tmp.4  -> -16,
-           tmp.5  -> -20,
-           tmp.7  -> -24,
-           tmp.8  -> -28,
-           tmp.10 -> -32,
-           tmp.11 -> -36,
-           tmp.13 -> -40,
-           tmp.14 -> -44,
-           tmp.15 -> -48,
+           main.tmp.0  -> -4,
+           main.tmp.1  -> -8,
+           main.tmp.2  -> -12,
+           main.tmp.4  -> -16,
+           main.tmp.5  -> -20,
+           main.tmp.7  -> -24,
+           main.tmp.8  -> -28,
+           main.tmp.10 -> -32,
+           main.tmp.11 -> -36,
+           main.tmp.13 -> -40,
+           main.tmp.14 -> -44,
+           main.tmp.15 -> -48,
          }}};
      Asm.StaticVariable {name = "two"; global = true; alignment = 4;
        init = (Ctype.IntInit 2l)};

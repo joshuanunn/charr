@@ -2,10 +2,13 @@
    [Ir.Function {name = "main"; global = true; params = [];
       body =
       [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "x");
-         src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.3")};
-        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "tmp.3");
-          src2 = (Ir.Constant (Ctype.ConstInt 30l)); dst = (Ir.Var "tmp.4")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
+         src2 = (Ir.Constant (Ctype.ConstInt 2l));
+         dst = (Ir.Var "main.tmp.3")};
+        Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "main.tmp.3");
+          src2 = (Ir.Constant (Ctype.ConstInt 30l));
+          dst = (Ir.Var "main.tmp.4")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.4");
+          target = "main.if.en.5"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
         (Ir.Label "main.if.en.5");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))];

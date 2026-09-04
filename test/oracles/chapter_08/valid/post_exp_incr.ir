@@ -7,11 +7,14 @@
           dst = (Ir.Var "i.1")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 10l));
+          dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "loop.br.1"};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "product.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.1")};
-        Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "product.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 2l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.Copy {src = (Ir.Var "main.tmp.1"); dst = (Ir.Var "product.0")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.1");
           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "i.1")};
         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");

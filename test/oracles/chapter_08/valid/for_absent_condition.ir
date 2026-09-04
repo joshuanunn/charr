@@ -5,13 +5,16 @@
          dst = (Ir.Var "i.0")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 100l)); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "main.if.en.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 100l));
+          dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "main.if.en.1"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
         (Ir.Label "main.if.en.1");
         Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 100l)); dst = (Ir.Var "tmp.2")};
-        Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "i.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 100l));
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.Copy {src = (Ir.Var "main.tmp.2"); dst = (Ir.Var "i.0")};
         Ir.Jump {target = "loop.st.1"}];
       frame =
       Env.lenv {

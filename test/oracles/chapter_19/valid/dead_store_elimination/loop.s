@@ -28,7 +28,7 @@ fib:
     setl        -28(%rbp)
     cmpl        $0, -28(%rbp)
     jne         .Lloop.st.1
-    movl        -12(%rbp), %eax
+    movl        -20(%rbp), %eax
     movq        %rbp, %rsp
     popq        %rbp
     ret         

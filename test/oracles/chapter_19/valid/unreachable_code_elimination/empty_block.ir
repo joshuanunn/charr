@@ -14,20 +14,24 @@
           args =
           [(Ir.Constant (Ctype.ConstInt 1l));
             (Ir.Constant (Ctype.ConstInt 1l))];
-          dst = (Ir.Var "tmp.0")};
-         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.1")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.0");
+           src2 = (Ir.Constant (Ctype.ConstInt 1l));
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+           target = "main.if.en.2"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "target";
            args =
            [(Ir.Constant (Ctype.ConstInt 0l));
              (Ir.Constant (Ctype.ConstInt 0l))];
-           dst = (Ir.Var "tmp.3")};
-         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
-           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.4")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
+           dst = (Ir.Var "main.tmp.3")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.3");
+           src2 = (Ir.Constant (Ctype.ConstInt 1l));
+           dst = (Ir.Var "main.tmp.4")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.4");
+           target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
          (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];

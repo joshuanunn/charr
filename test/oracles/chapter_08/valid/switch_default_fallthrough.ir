@@ -3,8 +3,8 @@
       body =
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "a.0")};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
-          dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.0");
+          dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "main.tmp.0");
           target = "swit.cs.1.1"};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "a.0")};

@@ -33,8 +33,8 @@
         offset = -12;
         stack slots = {
           new_total.0 -> -4,
-          tmp.0       -> -8,
-          tmp.2       -> -12,
+          f.tmp.0     -> -8,
+          f.tmp.2     -> -12,
         }}};
      Asm.Function {name = "indirect_update"; global = true;
        instructions =
@@ -54,7 +54,7 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           indirect_update.tmp.0 -> -4,
          }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -74,7 +74,7 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           main.tmp.0 -> -4,
          }}};
      Asm.StaticVariable {name = "total.1"; global = false; alignment = 4;
        init = (Ctype.IntInit 0l)}

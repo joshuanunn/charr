@@ -3,14 +3,15 @@
       body =
       [Ir.Copy {src = (Ir.Var "new_total.0"); dst = (Ir.Var "total.1")};
         Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "new_total.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 100l)); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "f.if.en.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 100l));
+          dst = (Ir.Var "f.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "f.tmp.0"); target = "f.if.en.1"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
         (Ir.Label "f.if.en.1");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
           dst = (Ir.Var "total.1")};
         Ir.FunCall {fun_name = "indirect_update"; args = [];
-          dst = (Ir.Var "tmp.2")};
+          dst = (Ir.Var "f.tmp.2")};
         (Ir.Return (Ir.Var "total.1"))];
       frame =
       Env.lenv {
@@ -23,7 +24,7 @@
        body =
        [Ir.FunCall {fun_name = "f";
           args = [(Ir.Constant (Ctype.ConstInt 101l))];
-          dst = (Ir.Var "tmp.0")};
+          dst = (Ir.Var "indirect_update.tmp.0")};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {
@@ -35,8 +36,9 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
-          args = [(Ir.Constant (Ctype.ConstInt 1l))]; dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          args = [(Ir.Constant (Ctype.ConstInt 1l))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";

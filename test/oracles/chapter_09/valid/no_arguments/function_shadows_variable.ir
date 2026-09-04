@@ -4,14 +4,15 @@
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l));
          dst = (Ir.Var "bar.1")};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
-          dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
-        Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "tmp.3")};
-        Ir.Copy {src = (Ir.Var "tmp.3"); dst = (Ir.Var "bar.1")};
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+          target = "main.if.en.2"};
+        Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "main.tmp.3")};
+        Ir.Copy {src = (Ir.Var "main.tmp.3"); dst = (Ir.Var "bar.1")};
         (Ir.Label "main.if.en.2");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Constant (Ctype.ConstInt 3l));
-          src2 = (Ir.Var "bar.1"); dst = (Ir.Var "tmp.4")};
-        (Ir.Return (Ir.Var "tmp.4"))];
+          src2 = (Ir.Var "bar.1"); dst = (Ir.Var "main.tmp.4")};
+        (Ir.Return (Ir.Var "main.tmp.4"))];
       frame =
       Env.lenv {
         namespace = "main";

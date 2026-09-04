@@ -3,8 +3,8 @@
       params = ["flag.0"; "flag2.1"; "y.2"];
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "y.2"); src2 = (Ir.Var "y.2");
-         dst = (Ir.Var "tmp.2")};
-        (Ir.Return (Ir.Var "tmp.2"))];
+         dst = (Ir.Var "target.tmp.2")};
+        (Ir.Return (Ir.Var "target.tmp.2"))];
       frame =
       Env.lenv {
         namespace = "target";
@@ -19,8 +19,8 @@
           [(Ir.Constant (Ctype.ConstInt 0l));
             (Ir.Constant (Ctype.ConstInt 1l));
             (Ir.Constant (Ctype.ConstInt 10l))];
-          dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";

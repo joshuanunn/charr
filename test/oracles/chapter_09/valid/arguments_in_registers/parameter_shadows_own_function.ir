@@ -2,8 +2,8 @@
    [Ir.Function {name = "a"; global = true; params = ["a.0"];
       body =
       [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "a.0");
-         src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0"))];
+         src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "a.tmp.0")};
+        (Ir.Return (Ir.Var "a.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "a";
@@ -14,8 +14,9 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "a";
-          args = [(Ir.Constant (Ctype.ConstInt 1l))]; dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          args = [(Ir.Constant (Ctype.ConstInt 1l))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";

@@ -22,7 +22,7 @@
         counter = 1;
         offset = -4;
         stack slots = {
-          tmp.0 -> -4,
+          callee.tmp.0 -> -4,
         }}};
      Asm.Function {name = "target"; global = true;
        instructions =
@@ -45,8 +45,8 @@
          counter = 2;
          offset = -8;
          stack slots = {
-           flag.0 -> -4,
-           tmp.1  -> -8,
+           flag.0       -> -4,
+           target.tmp.1 -> -8,
          }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -104,11 +104,11 @@
          counter = 8;
          offset = -20;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
-           tmp.4 -> -16,
-           tmp.6 -> -20,
+           main.tmp.0 -> -4,
+           main.tmp.1 -> -8,
+           main.tmp.3 -> -12,
+           main.tmp.4 -> -16,
+           main.tmp.6 -> -20,
          }}};
      Asm.StaticVariable {name = "var"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)}

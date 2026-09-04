@@ -29,10 +29,10 @@
         counter = 5;
         offset = -16;
         stack slots = {
-          bar.1 -> -4,
-          tmp.1 -> -8,
-          tmp.3 -> -12,
-          tmp.4 -> -16,
+          bar.1      -> -4,
+          main.tmp.1 -> -8,
+          main.tmp.3 -> -12,
+          main.tmp.4 -> -16,
         }}};
      Asm.Function {name = "foo"; global = true;
        instructions =

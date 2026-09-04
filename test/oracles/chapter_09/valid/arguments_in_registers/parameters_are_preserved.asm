@@ -80,17 +80,17 @@
         counter = 14;
         offset = -44;
         stack slots = {
-          w.0    -> -4,
-          x.1    -> -8,
-          y.2    -> -12,
-          z.3    -> -16,
-          tmp.0  -> -20,
-          tmp.1  -> -24,
-          tmp.2  -> -28,
-          tmp.5  -> -32,
-          tmp.6  -> -36,
-          tmp.9  -> -40,
-          tmp.10 -> -44,
+          w.0      -> -4,
+          x.1      -> -8,
+          y.2      -> -12,
+          z.3      -> -16,
+          g.tmp.0  -> -20,
+          g.tmp.1  -> -24,
+          g.tmp.2  -> -28,
+          g.tmp.5  -> -32,
+          g.tmp.6  -> -36,
+          g.tmp.9  -> -40,
+          g.tmp.10 -> -44,
         }}};
      Asm.Function {name = "f"; global = true;
        instructions =
@@ -237,24 +237,24 @@
          counter = 22;
          offset = -72;
          stack slots = {
-           a.4    -> -4,
-           b.5    -> -8,
-           c.6    -> -12,
-           d.7    -> -16,
-           tmp.0  -> -20,
-           tmp.1  -> -24,
-           tmp.2  -> -28,
-           tmp.3  -> -32,
-           tmp.4  -> -36,
-           tmp.5  -> -40,
-           tmp.6  -> -44,
-           tmp.7  -> -48,
-           tmp.10 -> -52,
-           tmp.11 -> -56,
-           tmp.14 -> -60,
-           tmp.15 -> -64,
-           tmp.18 -> -68,
-           tmp.19 -> -72,
+           a.4      -> -4,
+           b.5      -> -8,
+           c.6      -> -12,
+           d.7      -> -16,
+           f.tmp.0  -> -20,
+           f.tmp.1  -> -24,
+           f.tmp.2  -> -28,
+           f.tmp.3  -> -32,
+           f.tmp.4  -> -36,
+           f.tmp.5  -> -40,
+           f.tmp.6  -> -44,
+           f.tmp.7  -> -48,
+           f.tmp.10 -> -52,
+           f.tmp.11 -> -56,
+           f.tmp.14 -> -60,
+           f.tmp.15 -> -64,
+           f.tmp.18 -> -68,
+           f.tmp.19 -> -72,
          }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -280,6 +280,6 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           main.tmp.0 -> -4,
          }}}
      ])

@@ -4,8 +4,8 @@
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
          dst = (Ir.Var "x.0")};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
-          dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1");
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
           target = "main.cond.el.3"};
         Ir.Jump {target = "main.cond.en.2"}; (Ir.Label "main.cond.el.3");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 9l));

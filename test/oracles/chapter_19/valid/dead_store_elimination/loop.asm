@@ -47,7 +47,7 @@
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -28)};
         (Asm.JmpCC (Asm.NE, "loop.st.1"));
-        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
           dst = (Asm.Reg Asm.AX)};
         Asm.Ret];
       frame =
@@ -56,13 +56,13 @@
         counter = 3;
         offset = -28;
         stack slots = {
-          count.1 -> -4,
-          n0.2    -> -8,
-          n1.3    -> -12,
-          i.4     -> -16,
-          tmp.0   -> -20,
-          tmp.1   -> -24,
-          tmp.2   -> -28,
+          count.1   -> -4,
+          n0.2      -> -8,
+          n1.3      -> -12,
+          i.4       -> -16,
+          fib.tmp.0 -> -20,
+          fib.tmp.1 -> -24,
+          fib.tmp.2 -> -28,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -87,7 +87,7 @@
          counter = 2;
          offset = -8;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
+           main.tmp.0 -> -4,
+           main.tmp.1 -> -8,
          }}}
      ])

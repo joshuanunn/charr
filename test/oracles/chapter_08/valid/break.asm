@@ -80,15 +80,15 @@
         counter = 12;
         offset = -40;
         stack slots = {
-          a.0   -> -4,
-          tmp.0 -> -8,
-          b.1   -> -12,
-          tmp.1 -> -16,
-          tmp.2 -> -20,
-          tmp.3 -> -24,
-          tmp.5 -> -28,
-          tmp.6 -> -32,
-          tmp.8 -> -36,
-          tmp.9 -> -40,
+          a.0        -> -4,
+          main.tmp.0 -> -8,
+          b.1        -> -12,
+          main.tmp.1 -> -16,
+          main.tmp.2 -> -20,
+          main.tmp.3 -> -24,
+          main.tmp.5 -> -28,
+          main.tmp.6 -> -32,
+          main.tmp.8 -> -36,
+          main.tmp.9 -> -40,
         }}}
      ])

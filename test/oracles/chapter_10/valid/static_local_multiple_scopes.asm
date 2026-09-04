@@ -47,11 +47,11 @@
         counter = 5;
         offset = -20;
         stack slots = {
-          tmp.0 -> -4,
-          tmp.1 -> -8,
-          tmp.2 -> -12,
-          tmp.3 -> -16,
-          tmp.4 -> -20,
+          print_letters.tmp.0 -> -4,
+          print_letters.tmp.1 -> -8,
+          print_letters.tmp.2 -> -12,
+          print_letters.tmp.3 -> -16,
+          print_letters.tmp.4 -> -20,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -90,10 +90,10 @@
          counter = 3;
          offset = -16;
          stack slots = {
-           i.3   -> -4,
-           tmp.0 -> -8,
-           tmp.1 -> -12,
-           tmp.2 -> -16,
+           i.3        -> -4,
+           main.tmp.0 -> -8,
+           main.tmp.1 -> -12,
+           main.tmp.2 -> -16,
          }}};
      Asm.StaticVariable {name = "i.1"; global = false; alignment = 4;
        init = (Ctype.IntInit 65l)};

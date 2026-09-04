@@ -110,19 +110,19 @@
         counter = 15;
         offset = -52;
         stack slots = {
-          w.0    -> -4,
-          x.1    -> -8,
-          y.2    -> -12,
-          tmp.0  -> -16,
-          z.3    -> -20,
-          tmp.2  -> -24,
-          tmp.3  -> -28,
-          tmp.4  -> -32,
-          tmp.5  -> -36,
-          tmp.6  -> -40,
-          tmp.8  -> -44,
-          tmp.10 -> -48,
-          tmp.13 -> -52,
+          w.0         -> -4,
+          x.1         -> -8,
+          y.2         -> -12,
+          main.tmp.0  -> -16,
+          z.3         -> -20,
+          main.tmp.2  -> -24,
+          main.tmp.3  -> -28,
+          main.tmp.4  -> -32,
+          main.tmp.5  -> -36,
+          main.tmp.6  -> -40,
+          main.tmp.8  -> -44,
+          main.tmp.10 -> -48,
+          main.tmp.13 -> -52,
         }}};
      Asm.StaticVariable {name = "zero"; global = false; alignment = 4;
        init = (Ctype.IntInit 0l)}

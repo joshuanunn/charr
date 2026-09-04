@@ -63,12 +63,12 @@
         counter = 5;
         offset = -24;
         stack slots = {
-          x.0   -> -4,
-          tmp.0 -> -8,
-          tmp.1 -> -12,
-          tmp.2 -> -16,
-          tmp.3 -> -20,
-          tmp.4 -> -24,
+          x.0          -> -4,
+          target.tmp.0 -> -8,
+          target.tmp.1 -> -12,
+          target.tmp.2 -> -16,
+          target.tmp.3 -> -20,
+          target.tmp.4 -> -24,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -110,9 +110,9 @@
          counter = 5;
          offset = -12;
          stack slots = {
-           tmp.0 -> -4,
-           tmp.1 -> -8,
-           tmp.3 -> -12,
+           main.tmp.0 -> -4,
+           main.tmp.1 -> -8,
+           main.tmp.3 -> -12,
          }}};
      Asm.StaticVariable {name = "globvar"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)}

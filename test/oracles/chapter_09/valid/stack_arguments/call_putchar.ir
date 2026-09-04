@@ -3,10 +3,10 @@
       params = ["a.1"; "b.2"; "c.3"; "d.4"; "e.5"; "f.6"; "g.7"; "h.8"];
       body =
       [Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "h.8")];
-         dst = (Ir.Var "tmp.0")};
+         dst = (Ir.Var "foo.tmp.0")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "a.1"); src2 = (Ir.Var "g.7");
-          dst = (Ir.Var "tmp.1")};
-        (Ir.Return (Ir.Var "tmp.1"))];
+          dst = (Ir.Var "foo.tmp.1")};
+        (Ir.Return (Ir.Var "foo.tmp.1"))];
       frame =
       Env.lenv {
         namespace = "foo";
@@ -26,8 +26,8 @@
             (Ir.Constant (Ctype.ConstInt 6l));
             (Ir.Constant (Ctype.ConstInt 7l));
             (Ir.Constant (Ctype.ConstInt 65l))];
-          dst = (Ir.Var "tmp.0")};
-         (Ir.Return (Ir.Var "tmp.0"))];
+          dst = (Ir.Var "main.tmp.0")};
+         (Ir.Return (Ir.Var "main.tmp.0"))];
        frame =
        Env.lenv {
          namespace = "main";

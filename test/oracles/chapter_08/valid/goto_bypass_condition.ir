@@ -4,13 +4,16 @@
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "i.1")};
         (Ir.Label "while_start.0");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "i.1")};
-        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "tmp.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.0")};
+        Ir.Copy {src = (Ir.Var "main.tmp.0"); dst = (Ir.Var "i.1")};
+        Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "main.tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstInt 10l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+          target = "main.if.en.2"};
         Ir.Jump {target = "while_start.0"}; (Ir.Label "main.if.en.2");
-        (Ir.Return (Ir.Var "tmp.0"))];
+        (Ir.Return (Ir.Var "main.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "main";

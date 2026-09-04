@@ -6,14 +6,17 @@
           dst = (Ir.Var "sum.1")};
         (Ir.Label "loop.ct.1");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "i.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.0")};
-        Ir.Copy {src = (Ir.Var "tmp.0"); dst = (Ir.Var "i.0")};
-        Ir.Binary {op = Ir.LessOrEqual; src1 = (Ir.Var "tmp.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "loop.br.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.0")};
+        Ir.Copy {src = (Ir.Var "main.tmp.0"); dst = (Ir.Var "i.0")};
+        Ir.Binary {op = Ir.LessOrEqual; src1 = (Ir.Var "main.tmp.0");
+          src2 = (Ir.Constant (Ctype.ConstInt 5l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+          target = "loop.br.1"};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "sum.1");
-          src2 = (Ir.Var "tmp.0"); dst = (Ir.Var "tmp.2")};
-        Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "sum.1")};
+          src2 = (Ir.Var "main.tmp.0"); dst = (Ir.Var "main.tmp.2")};
+        Ir.Copy {src = (Ir.Var "main.tmp.2"); dst = (Ir.Var "sum.1")};
         Ir.Jump {target = "loop.ct.1"}; (Ir.Label "loop.br.1");
         (Ir.Return (Ir.Var "sum.1"))];
       frame =

@@ -24,9 +24,9 @@
         counter = 5;
         offset = -12;
         stack slots = {
-          x.0   -> -4,
-          tmp.0 -> -8,
-          tmp.4 -> -12,
+          x.0          -> -4,
+          target.tmp.0 -> -8,
+          target.tmp.4 -> -12,
         }}};
      Asm.Function {name = "main"; global = true;
        instructions =
@@ -44,7 +44,7 @@
          counter = 1;
          offset = -4;
          stack slots = {
-           tmp.0 -> -4,
+           main.tmp.0 -> -4,
          }}};
      Asm.StaticVariable {name = "flag"; global = true; alignment = 4;
        init = (Ctype.IntInit 1l)}

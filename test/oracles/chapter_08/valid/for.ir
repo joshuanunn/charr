@@ -7,14 +7,18 @@
           dst = (Ir.Var "i.1")};
         (Ir.Label "loop.st.1");
         Ir.Binary {op = Ir.GreaterOrEqual; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "loop.br.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "loop.br.1"};
         Ir.Binary {op = Ir.Divide; src1 = (Ir.Var "a.0");
-          src2 = (Ir.Constant (Ctype.ConstInt 3l)); dst = (Ir.Var "tmp.1")};
-        Ir.Copy {src = (Ir.Var "tmp.1"); dst = (Ir.Var "a.0")};
+          src2 = (Ir.Constant (Ctype.ConstInt 3l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.Copy {src = (Ir.Var "main.tmp.1"); dst = (Ir.Var "a.0")};
         Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "i.1");
-          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.2")};
-        Ir.Copy {src = (Ir.Var "tmp.2"); dst = (Ir.Var "i.1")};
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.Copy {src = (Ir.Var "main.tmp.2"); dst = (Ir.Var "i.1")};
         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
         (Ir.Return (Ir.Var "a.0"))];
       frame =

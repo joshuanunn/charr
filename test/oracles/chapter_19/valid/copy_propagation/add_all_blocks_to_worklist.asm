@@ -34,7 +34,7 @@
          counter = 2;
          offset = -4;
          stack slots = {
-           tmp.1 -> -4,
+           main.tmp.1 -> -4,
          }}};
      Asm.StaticVariable {name = "flag"; global = true; alignment = 4;
        init = (Ctype.IntInit 1l)};

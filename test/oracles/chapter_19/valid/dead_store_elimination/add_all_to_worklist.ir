@@ -4,14 +4,14 @@
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 76l));
          dst = (Ir.Var "x.2")};
         Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "arg.1");
-          src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "tmp.0")};
-        Ir.JumpIfZero {condition = (Ir.Var "tmp.0"); target = "f.if.en.1"};
+          src2 = (Ir.Constant (Ctype.ConstInt 10l)); dst = (Ir.Var "f.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "f.tmp.0"); target = "f.if.en.1"};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 77l));
           dst = (Ir.Var "x.2")};
         (Ir.Label "f.if.en.1");
         Ir.JumpIfZero {condition = (Ir.Var "arg.1"); target = "f.if.en.2"};
         Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "x.2")];
-          dst = (Ir.Var "tmp.3")};
+          dst = (Ir.Var "f.tmp.3")};
         (Ir.Label "f.if.en.2"); (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))
         ];
       frame =
@@ -24,12 +24,14 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
-          args = [(Ir.Constant (Ctype.ConstInt 0l))]; dst = (Ir.Var "tmp.0")};
+          args = [(Ir.Constant (Ctype.ConstInt 0l))];
+          dst = (Ir.Var "main.tmp.0")};
          Ir.FunCall {fun_name = "f";
-           args = [(Ir.Constant (Ctype.ConstInt 1l))]; dst = (Ir.Var "tmp.1")};
+           args = [(Ir.Constant (Ctype.ConstInt 1l))];
+           dst = (Ir.Var "main.tmp.1")};
          Ir.FunCall {fun_name = "f";
            args = [(Ir.Constant (Ctype.ConstInt 11l))];
-           dst = (Ir.Var "tmp.2")};
+           dst = (Ir.Var "main.tmp.2")};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
        frame =
        Env.lenv {

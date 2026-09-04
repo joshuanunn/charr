@@ -1,18 +1,22 @@
 (Ir.Program
    [Ir.Function {name = "main"; global = true; params = [];
       body =
-      [Ir.FunCall {fun_name = "update_x"; args = []; dst = (Ir.Var "tmp.0")};
+      [Ir.FunCall {fun_name = "update_x"; args = [];
+         dst = (Ir.Var "main.tmp.0")};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "x");
-          src2 = (Ir.Constant (Ctype.ConstInt 0l)); dst = (Ir.Var "tmp.1")};
-        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.1");
+          src2 = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "main.tmp.1");
           target = "swit.cs.1.0"};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "x");
-          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "tmp.2")};
-        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.2");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.2")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "main.tmp.2");
           target = "swit.cs.1.1"};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "x");
-          src2 = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "tmp.3")};
-        Ir.JumpIfNotZero {condition = (Ir.Var "tmp.3");
+          src2 = (Ir.Constant (Ctype.ConstInt 4l));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.JumpIfNotZero {condition = (Ir.Var "main.tmp.3");
           target = "swit.cs.1.4"};
         Ir.Jump {target = "swit.df.1"}; (Ir.Label "swit.cs.1.0");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));

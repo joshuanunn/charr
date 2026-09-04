@@ -41,11 +41,11 @@
         counter = 4;
         offset = -20;
         stack slots = {
-          tmp.0 -> -4,
-          x.0   -> -8,
-          tmp.1 -> -12,
-          foo.1 -> -16,
-          tmp.3 -> -20,
+          main.tmp.0 -> -4,
+          x.0        -> -8,
+          main.tmp.1 -> -12,
+          foo.1      -> -16,
+          main.tmp.3 -> -20,
         }}};
      Asm.Function {name = "foo"; global = true;
        instructions =

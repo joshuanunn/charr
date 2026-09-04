@@ -2,8 +2,8 @@
    [Ir.Function {name = "callee"; global = true; params = ["a.0"; "b.1"];
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "a.0"); src2 = (Ir.Var "b.1");
-         dst = (Ir.Var "tmp.0")};
-        (Ir.Return (Ir.Var "tmp.0"))];
+         dst = (Ir.Var "callee.tmp.0")};
+        (Ir.Return (Ir.Var "callee.tmp.0"))];
       frame =
       Env.lenv {
         namespace = "callee";
@@ -26,8 +26,9 @@
            dst = (Ir.Var "x.3")};
          (Ir.Label "target.if.en.0");
          Ir.FunCall {fun_name = "callee";
-           args = [(Ir.Var "y.4"); (Ir.Var "y.4")]; dst = (Ir.Var "tmp.2")};
-         (Ir.Return (Ir.Var "tmp.2"))];
+           args = [(Ir.Var "y.4"); (Ir.Var "y.4")];
+           dst = (Ir.Var "target.tmp.2")};
+         (Ir.Return (Ir.Var "target.tmp.2"))];
        frame =
        Env.lenv {
          namespace = "target";
@@ -38,17 +39,23 @@
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
-          args = [(Ir.Constant (Ctype.ConstInt 0l))]; dst = (Ir.Var "tmp.0")};
-         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.0");
-           src2 = (Ir.Constant (Ctype.ConstInt 200l)); dst = (Ir.Var "tmp.1")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.1"); target = "main.if.en.2"};
+          args = [(Ir.Constant (Ctype.ConstInt 0l))];
+          dst = (Ir.Var "main.tmp.0")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.0");
+           src2 = (Ir.Constant (Ctype.ConstInt 200l));
+           dst = (Ir.Var "main.tmp.1")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.1");
+           target = "main.if.en.2"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.2");
          Ir.FunCall {fun_name = "target";
-           args = [(Ir.Constant (Ctype.ConstInt 1l))]; dst = (Ir.Var "tmp.3")};
-         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "tmp.3");
-           src2 = (Ir.Constant (Ctype.ConstInt 40l)); dst = (Ir.Var "tmp.4")};
-         Ir.JumpIfZero {condition = (Ir.Var "tmp.4"); target = "main.if.en.5"};
+           args = [(Ir.Constant (Ctype.ConstInt 1l))];
+           dst = (Ir.Var "main.tmp.3")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.3");
+           src2 = (Ir.Constant (Ctype.ConstInt 40l));
+           dst = (Ir.Var "main.tmp.4")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.4");
+           target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
          (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
