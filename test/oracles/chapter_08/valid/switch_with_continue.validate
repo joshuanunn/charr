@@ -22,7 +22,7 @@
                                        { Ast.e =
                                          (Ast.Constant (Ctype.ConstInt 0l));
                                          typ = (Some Ctype.Int) });
-                                    id = (Some (Ast.SwitchLabel "1"))});
+                                    id = (Some (Ast.CaseLabel "1.2"))});
                                 (Ast.S
                                    Ast.Case {
                                      value =
@@ -154,7 +154,7 @@
                                                               (Ast.Continue
                                                                  (Some (
                                                                  Ast.LoopLabel
-                                                                   "2")));
+                                                                   "4")));
                                                               else_smt = None});
                                                           (Ast.S
                                                              (Ast.Expression
@@ -195,7 +195,7 @@
                                                                   }))
                                                           ]));
                                                   id =
-                                                  (Some (Ast.LoopLabel "2"))});
+                                                  (Some (Ast.LoopLabel "4"))});
                                              (Ast.S
                                                 (Ast.Return
                                                    { Ast.e =
@@ -204,7 +204,7 @@
                                                            "acc.0"));
                                                      typ = (Some Ctype.Int) }))
                                              ]));
-                                     id = (Some (Ast.SwitchLabel "1"))})
+                                     id = (Some (Ast.CaseLabel "1.3"))})
                                 ]));
                         id = (Some (Ast.SwitchLabel "1"))});
                     (Ast.S

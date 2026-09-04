@@ -17,22 +17,22 @@ main:
     movl        $0, -20(%rbp)
     sete        -20(%rbp)
     cmpl        $0, -20(%rbp)
-    jne         .Lswit.cs.2.0
+    jne         .Lswit.cs.2.3
     cmpl        $1, -12(%rbp)
     movl        $0, -24(%rbp)
     sete        -24(%rbp)
     cmpl        $0, -24(%rbp)
-    jne         .Lswit.cs.2.1
+    jne         .Lswit.cs.2.4
     cmpl        $2, -12(%rbp)
     movl        $0, -28(%rbp)
     sete        -28(%rbp)
     cmpl        $0, -28(%rbp)
-    jne         .Lswit.cs.2.2
+    jne         .Lswit.cs.2.5
     jmp         .Lswit.df.2
-.Lswit.cs.2.0:
+.Lswit.cs.2.3:
     movl        $2, -4(%rbp)
     jmp         .Lswit.br.2
-.Lswit.cs.2.1:
+.Lswit.cs.2.4:
     movl        -4(%rbp), %r10d
     movl        %r10d, -32(%rbp)
     movl        -32(%rbp), %r11d
@@ -41,7 +41,7 @@ main:
     movl        -32(%rbp), %r10d
     movl        %r10d, -4(%rbp)
     jmp         .Lswit.br.2
-.Lswit.cs.2.2:
+.Lswit.cs.2.5:
     movl        -4(%rbp), %r10d
     movl        %r10d, -36(%rbp)
     movl        -36(%rbp), %r11d

@@ -68,7 +68,7 @@
                                                         ));
                                                      typ = (Some Ctype.Int) }))
                                              ]));
-                                     id = (Some (Ast.SwitchLabel "1"))})
+                                     id = (Some (Ast.CaseLabel "1.2"))})
                                  ]));
                          id = (Some (Ast.SwitchLabel "1"))});
                     (Ast.S

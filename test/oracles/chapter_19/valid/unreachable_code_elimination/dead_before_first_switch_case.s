@@ -18,9 +18,9 @@ target:
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.1
+    jne         .Lswit.cs.1.2
     jmp         .Lswit.df.1
-.Lswit.cs.1.1:
+.Lswit.cs.1.2:
     movl        $1, %eax
     movq        %rbp, %rsp
     popq        %rbp

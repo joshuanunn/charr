@@ -33,7 +33,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Stack -8)};
-         (Asm.JmpCC (Asm.NE, "swit.cs.1.1"));
+         (Asm.JmpCC (Asm.NE, "swit.cs.1.2"));
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 2L);
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -41,9 +41,9 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Stack -12)};
-         (Asm.JmpCC (Asm.NE, "swit.cs.1.2")); (Asm.Jmp "swit.df.1");
-         (Asm.Label "swit.cs.1.1"); (Asm.Jmp "swit.br.1");
-         (Asm.Label "swit.cs.1.2");
+         (Asm.JmpCC (Asm.NE, "swit.cs.1.3")); (Asm.Jmp "swit.df.1");
+         (Asm.Label "swit.cs.1.2"); (Asm.Jmp "swit.br.1");
+         (Asm.Label "swit.cs.1.3");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 10L);
            dst = (Asm.Reg Asm.DI)};
          (Asm.Call "callee");

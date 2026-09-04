@@ -6,9 +6,9 @@
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L); dst = (Asm.Stack -4)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
-        (Asm.JmpCC (Asm.NE, "swit.cs.1.1"));
+        (Asm.JmpCC (Asm.NE, "swit.cs.1.2"));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
-        (Asm.Label "swit.cs.1.1");
+        (Asm.Label "swit.cs.1.2");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.AX)};
         Asm.Ret];

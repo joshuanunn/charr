@@ -9,27 +9,27 @@ target:
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.1
+    jne         .Lswit.cs.1.2
     cmpl        $2, -4(%rbp)
     movl        $0, -12(%rbp)
     sete        -12(%rbp)
     cmpl        $0, -12(%rbp)
-    jne         .Lswit.cs.1.2
+    jne         .Lswit.cs.1.3
     cmpl        $3, -4(%rbp)
     movl        $0, -16(%rbp)
     sete        -16(%rbp)
     cmpl        $0, -16(%rbp)
-    jne         .Lswit.cs.1.3
+    jne         .Lswit.cs.1.4
     jmp         .Lswit.df.1
-.Lswit.cs.1.1:
-    movl        $1, globvar(%rip)
 .Lswit.cs.1.2:
+    movl        $1, globvar(%rip)
+.Lswit.cs.1.3:
     movl        globvar(%rip), %r10d
     movl        %r10d, -20(%rbp)
     addl        $3, -20(%rbp)
     movl        -20(%rbp), %r10d
     movl        %r10d, globvar(%rip)
-.Lswit.cs.1.3:
+.Lswit.cs.1.4:
     movl        globvar(%rip), %r10d
     movl        %r10d, -24(%rbp)
     movl        -24(%rbp), %r11d

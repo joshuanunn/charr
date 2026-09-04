@@ -5,10 +5,10 @@
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "main.tmp.0")};
         Ir.JumpIfNotZero {condition = (Ir.Var "main.tmp.0");
-          target = "swit.cs.1.1"};
+          target = "swit.cs.1.2"};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "a.0")};
-        (Ir.Label "swit.cs.1.1"); (Ir.Return (Ir.Var "a.0"))];
+        (Ir.Label "swit.cs.1.2"); (Ir.Return (Ir.Var "a.0"))];
       frame =
       Env.lenv {
         namespace = "main";

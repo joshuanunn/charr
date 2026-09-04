@@ -7,13 +7,13 @@
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
         (Asm.SetCC (Asm.E, (Asm.Stack -4)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
-        (Asm.JmpCC (Asm.NE, "swit.cs.1.1"));
+        (Asm.JmpCC (Asm.NE, "swit.cs.1.2"));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 3L); dst = (Asm.Data "a")};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         (Asm.SetCC (Asm.E, (Asm.Stack -8)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
         (Asm.JmpCC (Asm.NE, "swit.cs.1.3")); (Asm.Jmp "swit.br.1");
-        (Asm.Label "swit.cs.1.1");
+        (Asm.Label "swit.cs.1.2");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Data "x.0")};
         (Asm.Label "swit.cs.1.3");

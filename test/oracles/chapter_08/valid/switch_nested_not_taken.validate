@@ -48,7 +48,7 @@
                                                         typ =
                                                         (Some Ctype.Int) });
                                                    id =
-                                                   (Some (Ast.SwitchLabel "2"))});
+                                                   (Some (Ast.CaseLabel "3.4"))});
                                                (Ast.S
                                                   Ast.Default {
                                                     body =
@@ -61,10 +61,10 @@
                                                          (Some Ctype.Int) });
                                                     id =
                                                     (Some (Ast.SwitchLabel
-                                                             "2"))})
+                                                             "3"))})
                                                ]));
-                                       id = (Some (Ast.SwitchLabel "2"))};
-                                     id = (Some (Ast.SwitchLabel "1"))});
+                                       id = (Some (Ast.SwitchLabel "3"))};
+                                     id = (Some (Ast.CaseLabel "1.2"))});
                                  (Ast.S
                                     Ast.Default {
                                       body =

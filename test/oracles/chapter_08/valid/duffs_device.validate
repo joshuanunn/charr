@@ -143,8 +143,8 @@
                                                          typ =
                                                          (Some Ctype.Int) });
                                                     id =
-                                                    (Some (Ast.SwitchLabel
-                                                             "1"))});
+                                                    (Some (Ast.CaseLabel
+                                                             "1.4"))});
                                                (Ast.S
                                                   Ast.Case {
                                                     value =
@@ -191,8 +191,8 @@
                                                          typ =
                                                          (Some Ctype.Int) });
                                                     id =
-                                                    (Some (Ast.SwitchLabel
-                                                             "1"))});
+                                                    (Some (Ast.CaseLabel
+                                                             "1.5"))});
                                                (Ast.S
                                                   Ast.Case {
                                                     value =
@@ -239,8 +239,8 @@
                                                          typ =
                                                          (Some Ctype.Int) });
                                                     id =
-                                                    (Some (Ast.SwitchLabel
-                                                             "1"))});
+                                                    (Some (Ast.CaseLabel
+                                                             "1.6"))});
                                                (Ast.S
                                                   Ast.Case {
                                                     value =
@@ -287,8 +287,8 @@
                                                          typ =
                                                          (Some Ctype.Int) });
                                                     id =
-                                                    (Some (Ast.SwitchLabel
-                                                             "1"))})
+                                                    (Some (Ast.CaseLabel
+                                                             "1.7"))})
                                                ]));
                                        cond =
                                        { Ast.e =
@@ -326,8 +326,8 @@
                                                 (Ctype.ConstInt 0l));
                                              typ = (Some Ctype.Int) }};
                                          typ = (Some Ctype.Int) };
-                                       id = (Some (Ast.LoopLabel "2"))};
-                                     id = (Some (Ast.SwitchLabel "1"))})
+                                       id = (Some (Ast.LoopLabel "3"))};
+                                     id = (Some (Ast.CaseLabel "1.2"))})
                                  ]));
                          id = (Some (Ast.SwitchLabel "1"))});
                     (Ast.S

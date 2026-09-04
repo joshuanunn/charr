@@ -21,9 +21,9 @@ main:
     movl        $0, -20(%rbp)
     sete        -20(%rbp)
     cmpl        $0, -20(%rbp)
-    jne         .Lswit.cs.2.0
+    jne         .Lswit.cs.2.3
     jmp         .Lswit.df.2
-.Lswit.cs.2.0:
+.Lswit.cs.2.3:
     jmp         .Lloop.ct.1
 .Lswit.df.2:
     movl        -4(%rbp), %r10d

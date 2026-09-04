@@ -18,25 +18,25 @@ target:
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.1
+    jne         .Lswit.cs.1.2
     cmpl        $2, -4(%rbp)
     movl        $0, -12(%rbp)
     sete        -12(%rbp)
     cmpl        $0, -12(%rbp)
-    jne         .Lswit.cs.1.2
+    jne         .Lswit.cs.1.3
     cmpl        $3, -4(%rbp)
     movl        $0, -16(%rbp)
     sete        -16(%rbp)
     cmpl        $0, -16(%rbp)
-    jne         .Lswit.cs.1.3
+    jne         .Lswit.cs.1.4
     jmp         .Lswit.df.1
-.Lswit.cs.1.1:
+.Lswit.cs.1.2:
     movl        $1, -20(%rbp)
     jmp         .Lswit.br.1
-.Lswit.cs.1.2:
+.Lswit.cs.1.3:
     movl        $2, -20(%rbp)
     jmp         .Lswit.br.1
-.Lswit.cs.1.3:
+.Lswit.cs.1.4:
     movl        $10, -20(%rbp)
     jmp         .Lswit.br.1
 .Lswit.df.1:

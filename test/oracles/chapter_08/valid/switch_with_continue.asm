@@ -5,7 +5,7 @@
          dst = (Asm.Reg Asm.SP)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
-        (Asm.Label "loop.st.2");
+        (Asm.Label "loop.st.4");
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 10L);
           dst = (Asm.Stack -8)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -13,7 +13,7 @@
         (Asm.SetCC (Asm.L, (Asm.Stack -12)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -12)};
-        (Asm.JmpCC (Asm.E, "loop.br.2"));
+        (Asm.JmpCC (Asm.E, "loop.br.4"));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
           dst = (Asm.Reg Asm.AX)};
         (Asm.Cdq Asm.Longword);
@@ -24,7 +24,7 @@
           dst = (Asm.Stack -16)};
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -16)};
-        (Asm.JmpCC (Asm.E, "main.if.en.4")); (Asm.Jmp "loop.ct.2");
+        (Asm.JmpCC (Asm.E, "main.if.en.4")); (Asm.Jmp "loop.ct.4");
         (Asm.Label "main.if.en.4");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.R10)};
@@ -36,7 +36,7 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -4)};
-        (Asm.Label "loop.ct.2");
+        (Asm.Label "loop.ct.4");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
@@ -47,7 +47,7 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -8)};
-        (Asm.Jmp "loop.st.2"); (Asm.Label "loop.br.2");
+        (Asm.Jmp "loop.st.4"); (Asm.Label "loop.br.4");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.AX)};
         Asm.Ret];

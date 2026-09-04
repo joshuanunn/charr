@@ -134,8 +134,8 @@
                                                                   (Some Ctype.Int)
                                                                   });
                                                              id =
-                                                             (Some (Ast.SwitchLabel
-                                                                    "3"))});
+                                                             (Some (Ast.CaseLabel
+                                                                    "3.4"))});
                                                          (Ast.S
                                                             Ast.Case {
                                                               value =
@@ -185,8 +185,8 @@
                                                                    });
                                                               id =
                                                               (Some (
-                                                              Ast.SwitchLabel
-                                                                "3"))});
+                                                              Ast.CaseLabel
+                                                                "3.5"))});
                                                          (Ast.S
                                                             Ast.Default {
                                                               body =

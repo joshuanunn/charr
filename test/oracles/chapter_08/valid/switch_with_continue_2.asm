@@ -29,8 +29,8 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -20)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -20)};
-        (Asm.JmpCC (Asm.NE, "swit.cs.2.0")); (Asm.Jmp "swit.df.2");
-        (Asm.Label "swit.cs.2.0"); (Asm.Jmp "loop.ct.1");
+        (Asm.JmpCC (Asm.NE, "swit.cs.2.3")); (Asm.Jmp "swit.df.2");
+        (Asm.Label "swit.cs.2.3"); (Asm.Jmp "loop.ct.1");
         (Asm.Label "swit.df.2");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.R10)};

@@ -55,7 +55,7 @@
                                         { Ast.e =
                                           (Ast.Constant (Ctype.ConstInt 5l));
                                           typ = (Some Ctype.Int) });
-                                     id = (Some (Ast.SwitchLabel "1"))});
+                                     id = (Some (Ast.CaseLabel "1.2"))});
                                  (Ast.S
                                     Ast.Case {
                                       value =
@@ -76,7 +76,7 @@
                                                 typ = (Some Ctype.Int) }
                                               ));
                                            typ = (Some Ctype.Int) });
-                                      id = (Some (Ast.SwitchLabel "1"))});
+                                      id = (Some (Ast.CaseLabel "1.3"))});
                                  (Ast.S
                                     Ast.Case {
                                       value =
@@ -97,7 +97,7 @@
                                                 typ = (Some Ctype.Int) }
                                               ));
                                            typ = (Some Ctype.Int) });
-                                      id = (Some (Ast.SwitchLabel "1"))});
+                                      id = (Some (Ast.CaseLabel "1.4"))});
                                  (Ast.S
                                     Ast.Case {
                                       value =
@@ -127,7 +127,7 @@
                                                 typ = (Some Ctype.Int) }
                                               ));
                                            typ = (Some Ctype.Int) });
-                                      id = (Some (Ast.SwitchLabel "1"))})
+                                      id = (Some (Ast.CaseLabel "1.5"))})
                                  ]));
                          id = (Some (Ast.SwitchLabel "1"))});
                     (Ast.S

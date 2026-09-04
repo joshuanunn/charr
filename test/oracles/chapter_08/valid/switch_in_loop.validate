@@ -97,7 +97,7 @@
                                                       typ = (Some Ctype.Int)
                                                       });
                                                  id =
-                                                 (Some (Ast.SwitchLabel "2"))});
+                                                 (Some (Ast.CaseLabel "2.3"))});
                                              (Ast.S
                                                 (Ast.Break
                                                    (Some (Ast.SwitchLabel "2"))));
@@ -146,7 +146,7 @@
                                                        typ = (Some Ctype.Int)
                                                        });
                                                   id =
-                                                  (Some (Ast.SwitchLabel "2"))});
+                                                  (Some (Ast.CaseLabel "2.4"))});
                                              (Ast.S
                                                 (Ast.Break
                                                    (Some (Ast.SwitchLabel "2"))));
@@ -195,7 +195,7 @@
                                                        typ = (Some Ctype.Int)
                                                        });
                                                   id =
-                                                  (Some (Ast.SwitchLabel "2"))});
+                                                  (Some (Ast.CaseLabel "2.5"))});
                                              (Ast.S
                                                 (Ast.Break
                                                    (Some (Ast.SwitchLabel "2"))));

@@ -19,7 +19,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -20)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -20)};
-        (Asm.JmpCC (Asm.NE, "swit.cs.1.0"));
+        (Asm.JmpCC (Asm.NE, "swit.cs.1.2"));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 4L);
           dst = (Asm.Stack -16)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -35,7 +35,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -28)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -28)};
-        (Asm.JmpCC (Asm.NE, "swit.cs.1.3"));
+        (Asm.JmpCC (Asm.NE, "swit.cs.1.5"));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 2L);
           dst = (Asm.Stack -16)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -43,7 +43,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -32)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -32)};
-        (Asm.JmpCC (Asm.NE, "swit.cs.1.2"));
+        (Asm.JmpCC (Asm.NE, "swit.cs.1.6"));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 1L);
           dst = (Asm.Stack -16)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -51,8 +51,8 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -36)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -36)};
-        (Asm.JmpCC (Asm.NE, "swit.cs.1.1")); (Asm.Jmp "swit.br.1");
-        (Asm.Label "swit.cs.1.0"); (Asm.Label "loop.st.2");
+        (Asm.JmpCC (Asm.NE, "swit.cs.1.7")); (Asm.Jmp "swit.br.1");
+        (Asm.Label "swit.cs.1.2"); (Asm.Label "loop.st.3");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
@@ -74,7 +74,7 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -4)};
-        (Asm.Label "swit.cs.1.3");
+        (Asm.Label "swit.cs.1.5");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
@@ -85,7 +85,7 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -4)};
-        (Asm.Label "swit.cs.1.2");
+        (Asm.Label "swit.cs.1.6");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
@@ -96,7 +96,7 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -4)};
-        (Asm.Label "swit.cs.1.1");
+        (Asm.Label "swit.cs.1.7");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
@@ -124,7 +124,7 @@
         (Asm.SetCC (Asm.G, (Asm.Stack -64)));
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -64)};
-        (Asm.JmpCC (Asm.NE, "loop.st.2")); (Asm.Label "swit.br.1");
+        (Asm.JmpCC (Asm.NE, "loop.st.3")); (Asm.Label "swit.br.1");
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Stack -68)};

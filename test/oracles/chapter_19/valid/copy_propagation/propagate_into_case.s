@@ -22,16 +22,16 @@ target:
     movl        $0, -8(%rbp)
     sete        -8(%rbp)
     cmpl        $0, -8(%rbp)
-    jne         .Lswit.cs.1.1
+    jne         .Lswit.cs.1.2
     cmpl        $2, -4(%rbp)
     movl        $0, -12(%rbp)
     sete        -12(%rbp)
     cmpl        $0, -12(%rbp)
-    jne         .Lswit.cs.1.2
+    jne         .Lswit.cs.1.3
     jmp         .Lswit.df.1
-.Lswit.cs.1.1:
-    jmp         .Lswit.br.1
 .Lswit.cs.1.2:
+    jmp         .Lswit.br.1
+.Lswit.cs.1.3:
     movl        $10, %edi
     call        callee@PLT
     movl        %eax, -16(%rbp)

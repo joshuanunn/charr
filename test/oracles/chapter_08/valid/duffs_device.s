@@ -13,7 +13,7 @@ main:
     movl        $0, -20(%rbp)
     sete        -20(%rbp)
     cmpl        $0, -20(%rbp)
-    jne         .Lswit.cs.1.0
+    jne         .Lswit.cs.1.2
     cmpl        $4, -16(%rbp)
     movl        $0, -24(%rbp)
     sete        -24(%rbp)
@@ -23,20 +23,20 @@ main:
     movl        $0, -28(%rbp)
     sete        -28(%rbp)
     cmpl        $0, -28(%rbp)
-    jne         .Lswit.cs.1.3
+    jne         .Lswit.cs.1.5
     cmpl        $2, -16(%rbp)
     movl        $0, -32(%rbp)
     sete        -32(%rbp)
     cmpl        $0, -32(%rbp)
-    jne         .Lswit.cs.1.2
+    jne         .Lswit.cs.1.6
     cmpl        $1, -16(%rbp)
     movl        $0, -36(%rbp)
     sete        -36(%rbp)
     cmpl        $0, -36(%rbp)
-    jne         .Lswit.cs.1.1
+    jne         .Lswit.cs.1.7
     jmp         .Lswit.br.1
-.Lswit.cs.1.0:
-.Lloop.st.2:
+.Lswit.cs.1.2:
+.Lloop.st.3:
     movl        -4(%rbp), %r10d
     movl        %r10d, -40(%rbp)
     subl        $1, -40(%rbp)
@@ -48,19 +48,19 @@ main:
     subl        $1, -44(%rbp)
     movl        -44(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-.Lswit.cs.1.3:
+.Lswit.cs.1.5:
     movl        -4(%rbp), %r10d
     movl        %r10d, -48(%rbp)
     subl        $1, -48(%rbp)
     movl        -48(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-.Lswit.cs.1.2:
+.Lswit.cs.1.6:
     movl        -4(%rbp), %r10d
     movl        %r10d, -52(%rbp)
     subl        $1, -52(%rbp)
     movl        -52(%rbp), %r10d
     movl        %r10d, -4(%rbp)
-.Lswit.cs.1.1:
+.Lswit.cs.1.7:
     movl        -4(%rbp), %r10d
     movl        %r10d, -56(%rbp)
     subl        $1, -56(%rbp)
@@ -75,7 +75,7 @@ main:
     movl        $0, -64(%rbp)
     setg        -64(%rbp)
     cmpl        $0, -64(%rbp)
-    jne         .Lloop.st.2
+    jne         .Lloop.st.3
 .Lswit.br.1:
     cmpl        $0, -4(%rbp)
     movl        $0, -68(%rbp)

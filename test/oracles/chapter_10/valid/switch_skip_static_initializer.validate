@@ -23,7 +23,7 @@
                                        (Ast.Constant (Ctype.ConstInt 1l));
                                        typ = (Some Ctype.Int) };
                                      body = Ast.Null;
-                                     id = (Some (Ast.SwitchLabel "1"))});
+                                     id = (Some (Ast.CaseLabel "1.2"))});
                                  (Ast.D
                                     (Ast.VarDecl
                                        { Ast.name = (Ast.Identifier "x.0");
@@ -58,7 +58,7 @@
                                          { Ast.e =
                                            (Ast.Var (Ast.Identifier "x.0"));
                                            typ = (Some Ctype.Int) });
-                                      id = (Some (Ast.SwitchLabel "1"))})
+                                      id = (Some (Ast.CaseLabel "1.3"))})
                                  ]));
                          id = (Some (Ast.SwitchLabel "1"))});
                      (Ast.S

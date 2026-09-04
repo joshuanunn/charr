@@ -81,7 +81,7 @@
                                                  (Ast.Continue
                                                     (Some (Ast.LoopLabel "1")));
                                                  id =
-                                                 (Some (Ast.SwitchLabel "2"))});
+                                                 (Some (Ast.CaseLabel "2.3"))});
                                              (Ast.S
                                                 Ast.Default {
                                                   body =

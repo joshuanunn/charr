@@ -30,7 +30,7 @@
                                         { Ast.e =
                                           (Ast.Constant (Ctype.ConstInt 0l));
                                           typ = (Some Ctype.Int) });
-                                     id = (Some (Ast.SwitchLabel "1"))});
+                                     id = (Some (Ast.CaseLabel "1.2"))});
                                  (Ast.S
                                     Ast.Case {
                                       value =
@@ -157,11 +157,11 @@
                                                      then_smt =
                                                      (Ast.Break
                                                         (Some (Ast.LoopLabel
-                                                                 "2")));
+                                                                 "4")));
                                                      else_smt = None})
                                                 ]));
-                                        id = (Some (Ast.LoopLabel "2"))};
-                                      id = (Some (Ast.SwitchLabel "1"))});
+                                        id = (Some (Ast.LoopLabel "4"))};
+                                      id = (Some (Ast.CaseLabel "1.3"))});
                                  (Ast.S
                                     (Ast.Return
                                        { Ast.e =

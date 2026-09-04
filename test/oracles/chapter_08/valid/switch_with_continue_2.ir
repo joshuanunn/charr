@@ -18,8 +18,8 @@
           src2 = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "main.tmp.2")};
         Ir.JumpIfNotZero {condition = (Ir.Var "main.tmp.2");
-          target = "swit.cs.2.0"};
-        Ir.Jump {target = "swit.df.2"}; (Ir.Label "swit.cs.2.0");
+          target = "swit.cs.2.3"};
+        Ir.Jump {target = "swit.df.2"}; (Ir.Label "swit.cs.2.3");
         Ir.Jump {target = "loop.ct.1"}; (Ir.Label "swit.df.2");
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "sum.0");
           src2 = (Ir.Constant (Ctype.ConstInt 1l));
