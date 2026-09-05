@@ -4,9 +4,13 @@
 
 %token <string> IDENTIFIER
 %token <int64> LITERAL_INT
+%token <int64> LITERAL_UINT
 %token <int64> LITERAL_LONG
+%token <int64> LITERAL_ULONG
 %token KW_STATIC
 %token KW_EXTERN
+%token KW_SIGNED
+%token KW_UNSIGNED
 %token KW_INT
 %token KW_LONG
 %token KW_VOID
