@@ -1,0 +1,158 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "ui");
+                           init =
+                           (Some { Ast.e =
+                                   Ast.Unary {op = Ast.Negate;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstUInt 1l));
+                                       typ = None }};
+                                   typ = None });
+                           var_type = Ctype.UInt; storage = None }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.BwLeftShift;
+                                 left =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "ui"));
+                                   typ = None };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstLong 2L));
+                                   typ = None }};
+                               typ = None };
+                             right =
+                             { Ast.e =
+                               (Ast.Constant (Ctype.ConstLong 4294967292L));
+                               typ = None }};
+                           typ = None };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = None }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.BwRightShift;
+                                 left =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "ui"));
+                                   typ = None };
+                                 right =
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                   typ = None }};
+                               typ = None };
+                             right =
+                             { Ast.e =
+                               (Ast.Constant (Ctype.ConstInt 1073741823l));
+                               typ = None }};
+                           typ = None };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = None }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "shiftcount");
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 5l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = (Some Ast.Static)
+                            }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.BwRightShift;
+                                 left =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstUInt 1000000l));
+                                   typ = None };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Var (Ast.Identifier "shiftcount"));
+                                   typ = None }};
+                               typ = None };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 31250l));
+                               typ = None }};
+                           typ = None };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 3l));
+                                        typ = None }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.BwLeftShift;
+                                 left =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstUInt 1000000l));
+                                   typ = None };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Var (Ast.Identifier "shiftcount"));
+                                   typ = None }};
+                               typ = None };
+                             right =
+                             { Ast.e =
+                               (Ast.Constant (Ctype.ConstInt 32000000l));
+                               typ = None }};
+                           typ = None };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 4l));
+                                        typ = None }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = None }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
+     ])
