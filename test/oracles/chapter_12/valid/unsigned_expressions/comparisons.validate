@@ -1,0 +1,382 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "one_hundred");
+         init =
+         (Some { Ast.e = (Ast.Constant (Ctype.ConstUInt 100l)); typ = None });
+         var_type = Ctype.UInt; storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "large_uint");
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstUInt -2l)); typ = None });
+          var_type = Ctype.UInt; storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "one_hundred_ulong");
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstULong 100L)); typ = None
+                  });
+          var_type = Ctype.ULong; storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "large_ulong");
+          init =
+          (Some { Ast.e = (Ast.Constant (Ctype.ConstULong 4294967294L));
+                  typ = None });
+          var_type = Ctype.ULong; storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.LessThan;
+                             left =
+                             { Ast.e =
+                               (Ast.Var (Ast.Identifier "large_uint"));
+                               typ = (Some Ctype.UInt) };
+                             right =
+                             { Ast.e =
+                               (Ast.Var (Ast.Identifier "one_hundred"));
+                               typ = (Some Ctype.UInt) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                              typ = (Some Ctype.Int) });
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.LessOrEqual;
+                              left =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "large_uint"));
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "one_hundred"));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.GreaterOrEqual;
+                              left =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "one_hundred"));
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "large_uint"));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.GreaterThan;
+                              left =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "one_hundred"));
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "large_uint"));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 4l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.LessOrEqual;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "one_hundred"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_uint"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 5l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.LessThan;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "one_hundred"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_uint"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 6l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.GreaterThan;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_uint"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "one_hundred"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 7l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.GreaterOrEqual;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_uint"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "one_hundred"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 8l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.LessThan;
+                              left =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "large_ulong"));
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "one_hundred_ulong"));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 9l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.LessOrEqual;
+                              left =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "large_ulong"));
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "one_hundred_ulong"));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 10l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.GreaterOrEqual;
+                              left =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "one_hundred_ulong"));
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "large_ulong"));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 11l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.GreaterThan;
+                              left =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "one_hundred_ulong"));
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "large_ulong"));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 12l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.LessOrEqual;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var
+                                       (Ast.Identifier "one_hundred_ulong"));
+                                    typ = (Some Ctype.ULong) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_ulong"));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 13l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.LessThan;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var
+                                       (Ast.Identifier "one_hundred_ulong"));
+                                    typ = (Some Ctype.ULong) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_ulong"));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 14l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.GreaterThan;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_ulong"));
+                                    typ = (Some Ctype.ULong) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var
+                                       (Ast.Identifier "one_hundred_ulong"));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 15l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.GreaterOrEqual;
+                                  left =
+                                  { Ast.e =
+                                    (Ast.Var (Ast.Identifier "large_ulong"));
+                                    typ = (Some Ctype.ULong) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Var
+                                       (Ast.Identifier "one_hundred_ulong"));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 16l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])
+Env.tenv {
+  large_uint -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Initial ((Ctype.UIntInit -2l)); global = true } }
+  large_ulong -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Initial ((Ctype.ULongInit 4294967294L)); global = true } }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  one_hundred -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Initial ((Ctype.UIntInit 100l)); global = true } }
+  one_hundred_ulong -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Initial ((Ctype.ULongInit 100L)); global = true } }
+}

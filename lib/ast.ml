@@ -270,6 +270,5 @@ let mk_cast_expr types exp =
 
 let literal_to_int64 l =
   match l.e with
-  | Constant (Ctype.ConstInt i) -> Int64.of_int32 i
-  | Constant (Ctype.ConstLong l) -> l
+  | Constant c -> Ctype.const_to_int64 c
   | _ -> failwith "Expected constant"

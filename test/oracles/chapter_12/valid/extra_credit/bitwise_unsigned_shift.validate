@@ -1,0 +1,181 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "ui.0");
+                           init =
+                           (Some { Ast.e =
+                                   Ast.Unary {op = Ast.Negate;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstUInt 1l));
+                                       typ = (Some Ctype.UInt) }};
+                                   typ = (Some Ctype.UInt) });
+                           var_type = Ctype.UInt; storage = None }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Cast {target_type = Ctype.Long;
+                                 exp =
+                                 { Ast.e =
+                                   Ast.Binary {op = Ast.BwLeftShift;
+                                     left =
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "ui.0"));
+                                       typ = (Some Ctype.UInt) };
+                                     right =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstLong 2L));
+                                       typ = (Some Ctype.Long) }};
+                                   typ = (Some Ctype.UInt) }};
+                               typ = (Some Ctype.Long) };
+                             right =
+                             { Ast.e =
+                               (Ast.Constant (Ctype.ConstLong 4294967292L));
+                               typ = (Some Ctype.Long) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.BwRightShift;
+                                 left =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "ui.0"));
+                                   typ = (Some Ctype.UInt) };
+                                 right =
+                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.UInt) };
+                             right =
+                             { Ast.e =
+                               Ast.Cast {target_type = Ctype.UInt;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 1073741823l));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.UInt) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.D
+                       (Ast.VarDecl
+                          { Ast.name = (Ast.Identifier "shiftcount.1");
+                            init =
+                            (Some { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 5l));
+                                    typ = None });
+                            var_type = Ctype.Int; storage = (Some Ast.Static)
+                            }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.BwRightShift;
+                                 left =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstUInt 1000000l));
+                                   typ = (Some Ctype.UInt) };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Var (Ast.Identifier "shiftcount.1"));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.UInt) };
+                             right =
+                             { Ast.e =
+                               Ast.Cast {target_type = Ctype.UInt;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 31250l));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.UInt) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 3l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Binary {op = Ast.BwLeftShift;
+                                 left =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstUInt 1000000l));
+                                   typ = (Some Ctype.UInt) };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Var (Ast.Identifier "shiftcount.1"));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.UInt) };
+                             right =
+                             { Ast.e =
+                               Ast.Cast {target_type = Ctype.UInt;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstInt 32000000l));
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.UInt) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 4l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
+     ])
+Env.tenv {
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  shiftcount.1 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 5l)); global = false } }
+  ui.0 -> { c_type = Ctype.UInt; attrs = LocalAttr }
+}

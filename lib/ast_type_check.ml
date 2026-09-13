@@ -1,6 +1,11 @@
 (* Rules defined in "usual arithmetic conversions" from the C standard *)
-let get_common_type type1 type2 =
-  if Ctype.equal type1 type2 then type1 else Ctype.Long
+let get_common_type t1 t2 =
+  if Ctype.equal t1 t2 then t1
+  else
+    match Ctype.compare_size t1 t2 with
+    | 0 -> if Ctype.is_signed t1 then t2 else t1
+    | n when n > 0 -> t1
+    | _ -> t2
 
 let convert_to e t =
   if Ctype.equal (Ast.get_type e) t then e
@@ -19,7 +24,9 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
     | Some { e = Ast.Constant c; _ } -> (
         match Ctype.const_convert v.var_type c with
         | ConstInt i -> Env.Initial (Ctype.IntInit i)
-        | ConstLong l -> Env.Initial (Ctype.LongInit l))
+        | ConstLong l -> Env.Initial (Ctype.LongInit l)
+        | ConstUInt i -> Env.Initial (Ctype.UIntInit i)
+        | ConstULong l -> Env.Initial (Ctype.ULongInit l))
     | None -> (
         match storage with
         | Some Extern -> Env.NoInitialiser
@@ -71,7 +78,9 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
 (** Type check a block-scope variable declaration.
 
     Handles [extern], [static], and automatic variables, enforcing initialiser
-    rules and updating the type environment accordingly. *)
+    rules and updating the type environment accordingly. Note that for [extern]
+    and [static], the AST is not mutated and only environment entries are added
+    in tenv. In contrast, the AST is mutated for automatic variables.*)
 and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
   match v.storage with
   (* extern local variable *)
@@ -100,12 +109,16 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
             match v.var_type with
             | Ctype.Int -> Env.Initial (Ctype.IntInit 0l)
             | Ctype.Long -> Env.Initial (Ctype.LongInit 0L)
+            | Ctype.UInt -> Env.Initial (Ctype.UIntInit 0l)
+            | Ctype.ULong -> Env.Initial (Ctype.ULongInit 0L)
             | Ctype.FunType _ ->
                 failwith "internal error: variable with function type")
         | Some { e = Ast.Constant c; _ } -> (
             match Ctype.const_convert v.var_type c with
             | ConstInt i -> Env.Initial (Ctype.IntInit i)
-            | ConstLong l -> Env.Initial (Ctype.LongInit l))
+            | ConstLong l -> Env.Initial (Ctype.LongInit l)
+            | ConstUInt i -> Env.Initial (Ctype.UIntInit i)
+            | ConstULong l -> Env.Initial (Ctype.ULongInit l))
         | Some _ -> failwith "non-constant initialiser on local static variable"
       in
       Env.add te v.name
@@ -174,7 +187,9 @@ and type_expr (e : Ast.expr) (te : Env.tenv) : Ast.expr =
   | Constant c -> (
       match c with
       | Ctype.ConstInt _ -> Ast.set_type e Ctype.Int
-      | Ctype.ConstLong _ -> Ast.set_type e Ctype.Long)
+      | Ctype.ConstLong _ -> Ast.set_type e Ctype.Long
+      | Ctype.ConstUInt _ -> Ast.set_type e Ctype.UInt
+      | Ctype.ConstULong _ -> Ast.set_type e Ctype.ULong)
   | Var v -> (
       match Env.find te v with
       | Some { c_type = Ctype.FunType _; _ } ->
@@ -305,7 +320,7 @@ and type_stmt (s : Ast.stmt) (ret : Ctype.t) (swt : Ctype.t option)
   | Switch { cond; body; id } ->
       let cond' = type_expr cond te in
       (match Ast.get_type cond' with
-      | Ctype.Int | Ctype.Long -> ()
+      | Ctype.Int | Ctype.Long | Ctype.UInt | Ctype.ULong -> ()
       | Ctype.FunType _ ->
           failwith "internal error: switch condition resolved to function type");
       let switch_type = Some (Ast.get_type cond') in

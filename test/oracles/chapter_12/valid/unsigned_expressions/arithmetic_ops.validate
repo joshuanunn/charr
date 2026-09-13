@@ -1,0 +1,581 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "ui_a"); init = None;
+         var_type = Ctype.UInt; storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "ui_b"); init = None;
+          var_type = Ctype.UInt; storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "ul_a"); init = None;
+          var_type = Ctype.ULong; storage = None });
+     (Ast.VarDecl
+        { Ast.name = (Ast.Identifier "ul_b"); init = None;
+          var_type = Ctype.ULong; storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "addition"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Add;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Constant
+                                       (Ctype.ConstUInt -2147483643l));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant (Ctype.ConstUInt -2147483633l));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "subtraction"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Subtract;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ul_a"));
+                                    typ = (Some Ctype.ULong) };
+                                  right =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ul_b"));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant (Ctype.ConstULong -1073742824L));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "multiplication"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Multiply;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_b"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant (Ctype.ConstUInt -1073741824l));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "division"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Divide;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_b"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                Ast.Cast {target_type = Ctype.UInt;
+                                  exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "division_large_dividend"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Divide;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                    typ = (Some Ctype.UInt) };
+                                  right =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_b"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                Ast.Cast {target_type = Ctype.UInt;
+                                  exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 2l));
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "division_by_literal"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Divide;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ul_a"));
+                                    typ = (Some Ctype.ULong) };
+                                  right =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstULong 5L));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant
+                                   (Ctype.ConstULong 219902325555L));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "remaind"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Binary {op = Ast.Remainder;
+                                  left =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ul_b"));
+                                    typ = (Some Ctype.ULong) };
+                                  right =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ul_a"));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstULong 5L));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "complement"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Unary {op = Ast.BwNot;
+                                  exp =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                    typ = (Some Ctype.UInt) }};
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                Ast.Cast {target_type = Ctype.UInt;
+                                  exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 0l));
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                 typ = (Some Ctype.UInt) },
+                               { Ast.e = (Ast.Constant (Ctype.ConstUInt 10l));
+                                 typ = (Some Ctype.UInt) }
+                               ));
+                            typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "addition");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 1l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ul_a"));
+                                  typ = (Some Ctype.ULong) },
+                                { Ast.e =
+                                  (Ast.Constant
+                                     (Ctype.ConstULong -1073741824L));
+                                  typ = (Some Ctype.ULong) }
+                                ));
+                             typ = (Some Ctype.ULong) }));
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ul_b"));
+                                  typ = (Some Ctype.ULong) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstULong 1000L));
+                                  typ = (Some Ctype.ULong) }
+                                ));
+                             typ = (Some Ctype.ULong) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "subtraction");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 2l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                  typ = (Some Ctype.UInt) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstUInt 1073741824l));
+                                  typ = (Some Ctype.UInt) }
+                                ));
+                             typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ui_b"));
+                                  typ = (Some Ctype.UInt) },
+                                { Ast.e = (Ast.Constant (Ctype.ConstUInt 3l));
+                                  typ = (Some Ctype.UInt) }
+                                ));
+                             typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "multiplication");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 3l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                  typ = (Some Ctype.UInt) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstUInt 100l));
+                                  typ = (Some Ctype.UInt) }
+                                ));
+                             typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ui_b"));
+                                  typ = (Some Ctype.UInt) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstUInt -2l));
+                                  typ = (Some Ctype.UInt) }
+                                ));
+                             typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "division");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 4l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                  typ = (Some Ctype.UInt) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstUInt -2l));
+                                  typ = (Some Ctype.UInt) }
+                                ));
+                             typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ui_b"));
+                                  typ = (Some Ctype.UInt) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstUInt 2147483647l));
+                                  typ = (Some Ctype.UInt) }
+                                ));
+                             typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "division_large_dividend");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 5l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ul_a"));
+                                  typ = (Some Ctype.ULong) },
+                                { Ast.e =
+                                  (Ast.Constant
+                                     (Ctype.ConstULong 1099511627775L));
+                                  typ = (Some Ctype.ULong) }
+                                ));
+                             typ = (Some Ctype.ULong) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name =
+                                  (Ast.Identifier "division_by_literal");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 6l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ul_a"));
+                                  typ = (Some Ctype.ULong) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstULong 100L));
+                                  typ = (Some Ctype.ULong) }
+                                ));
+                             typ = (Some Ctype.ULong) }));
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ul_b"));
+                                  typ = (Some Ctype.ULong) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstULong -11L));
+                                  typ = (Some Ctype.ULong) }
+                                ));
+                             typ = (Some Ctype.ULong) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "remaind");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 7l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Expression
+                           { Ast.e =
+                             (Ast.Assignment (
+                                { Ast.e = (Ast.Var (Ast.Identifier "ui_a"));
+                                  typ = (Some Ctype.UInt) },
+                                { Ast.e =
+                                  (Ast.Constant (Ctype.ConstUInt -1l));
+                                  typ = (Some Ctype.UInt) }
+                                ));
+                             typ = (Some Ctype.UInt) }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "complement");
+                                  args = []};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 8l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])
+Env.tenv {
+  addition -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  complement -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  division -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  division_by_literal -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  division_large_dividend -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  multiplication -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  remaind -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  subtraction -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  ui_a -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Tentative; global = true } }
+  ui_b -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Tentative; global = true } }
+  ul_a -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Tentative; global = true } }
+  ul_b -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Tentative; global = true } }
+}

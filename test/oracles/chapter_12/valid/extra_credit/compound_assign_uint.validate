@@ -1,0 +1,69 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "x.0");
+                           init =
+                           (Some { Ast.e =
+                                   Ast.Unary {op = Ast.Negate;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstUInt 1l));
+                                       typ = (Some Ctype.UInt) }};
+                                   typ = (Some Ctype.UInt) });
+                           var_type = Ctype.UInt; storage = None }));
+                    (Ast.S
+                       (Ast.Expression
+                          { Ast.e =
+                            (Ast.Assignment (
+                               { Ast.e = (Ast.Var (Ast.Identifier "x.0"));
+                                 typ = (Some Ctype.UInt) },
+                               { Ast.e =
+                                 Ast.Cast {target_type = Ctype.UInt;
+                                   exp =
+                                   { Ast.e =
+                                     Ast.Binary {op = Ast.Divide;
+                                       left =
+                                       { Ast.e =
+                                         Ast.Cast {target_type = Ctype.Long;
+                                           exp =
+                                           { Ast.e =
+                                             (Ast.Var (Ast.Identifier "x.0"));
+                                             typ = (Some Ctype.UInt) }};
+                                         typ = (Some Ctype.Long) };
+                                       right =
+                                       { Ast.e =
+                                         Ast.Unary {op = Ast.Negate;
+                                           exp =
+                                           { Ast.e =
+                                             (Ast.Constant
+                                                (Ctype.ConstLong 10L));
+                                             typ = (Some Ctype.Long) }};
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.Long) }};
+                                 typ = (Some Ctype.UInt) }
+                               ));
+                            typ = (Some Ctype.UInt) }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "x.0"));
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant (Ctype.ConstUInt -429496729l));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
+     ])
+Env.tenv {
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  x.0 -> { c_type = Ctype.UInt; attrs = LocalAttr }
+}
