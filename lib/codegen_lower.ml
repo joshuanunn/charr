@@ -88,6 +88,9 @@ let lower_instruction (i : Asm.instruction) (ae : Asm_symtab.t) (le : Env.lenv)
       Mov { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
   | Movsx { src; dst } ->
       Movsx { src = lower_operand src ae le; dst = lower_operand dst ae le }
+  | MovZeroExtend { src; dst } ->
+      MovZeroExtend
+        { src = lower_operand src ae le; dst = lower_operand dst ae le }
   | Unary { op; typ; dst } -> Unary { op; typ; dst = lower_operand dst ae le }
   | Binary { op; typ; src; dst } ->
       Binary
@@ -105,6 +108,7 @@ let lower_instruction (i : Asm.instruction) (ae : Asm_symtab.t) (le : Env.lenv)
       Sar { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
   | SetCC (cc, op) -> SetCC (cc, lower_operand op ae le)
   | Idiv { typ; src } -> Idiv { typ; src = lower_operand src ae le }
+  | Div { typ; src } -> Idiv { typ; src = lower_operand src ae le }
   | Push src -> Push (lower_operand src ae le)
   | _ -> i
 

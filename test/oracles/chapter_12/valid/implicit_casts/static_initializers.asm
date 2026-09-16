@@ -1,0 +1,132 @@
+(Asm.Program
+   [Asm.Function {name = "main"; global = true;
+      instructions =
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm -2147483636L);
+          dst = (Asm.Data "u")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -4)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        (Asm.JmpCC (Asm.E, "main.if.en.1"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.1");
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm -2147483646L);
+          dst = (Asm.Data "i")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -8)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -8)};
+        (Asm.JmpCC (Asm.E, "main.if.en.4"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.4");
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm -9223372036854775716L);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "l")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -12)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -12)};
+        (Asm.JmpCC (Asm.E, "main.if.en.7"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.7");
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 2147483650L);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "l2")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -16)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -16)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -16)};
+        (Asm.JmpCC (Asm.E, "main.if.en.9"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.9");
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 4294967294L);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "ul")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -20)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -20)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -20)};
+        (Asm.JmpCC (Asm.E, "main.if.en.11"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.11");
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 9223372036854775798L);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "ul2")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -24)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -24)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -24)};
+        (Asm.JmpCC (Asm.E, "main.if.en.13"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 6L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.13");
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm -2147483498L);
+          dst = (Asm.Data "i2")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -28)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -28)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -28)};
+        (Asm.JmpCC (Asm.E, "main.if.en.16"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 7L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.16");
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm -2147483498L);
+          dst = (Asm.Data "ui2")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -32)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -32)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -32)};
+        (Asm.JmpCC (Asm.E, "main.if.en.18"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 8L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.18");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 19;
+        offset = -32;
+        stack slots = {
+          main.tmp.0  -> -4,
+          main.tmp.3  -> -8,
+          main.tmp.6  -> -12,
+          main.tmp.8  -> -16,
+          main.tmp.10 -> -20,
+          main.tmp.12 -> -24,
+          main.tmp.15 -> -28,
+          main.tmp.17 -> -32,
+        }}};
+     Asm.StaticVariable {name = "i"; global = true; alignment = 4;
+       init = (Ctype.IntInit -2147483646l)};
+     Asm.StaticVariable {name = "ul"; global = true; alignment = 8;
+       init = (Ctype.ULongInit 4294967294L)};
+     Asm.StaticVariable {name = "ul2"; global = true; alignment = 8;
+       init = (Ctype.ULongInit 9223372036854775798L)};
+     Asm.StaticVariable {name = "ui2"; global = true; alignment = 4;
+       init = (Ctype.UIntInit -2147483498l)};
+     Asm.StaticVariable {name = "i2"; global = true; alignment = 4;
+       init = (Ctype.IntInit -2147483498l)};
+     Asm.StaticVariable {name = "u"; global = true; alignment = 4;
+       init = (Ctype.UIntInit -2147483636l)};
+     Asm.StaticVariable {name = "l"; global = true; alignment = 8;
+       init = (Ctype.LongInit -9223372036854775716L)};
+     Asm.StaticVariable {name = "l2"; global = true; alignment = 8;
+       init = (Ctype.LongInit 2147483650L)}
+     ])

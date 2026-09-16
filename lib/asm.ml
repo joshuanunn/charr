@@ -1,5 +1,5 @@
 type reg = AX | CX | DX | DI | SI | R8 | R9 | R10 | R11 | SP [@@deriving show]
-type cond_code = E | NE | G | GE | L | LE [@@deriving show]
+type cond_code = E | NE | G | GE | L | LE | A | AE | B | BE [@@deriving show]
 type assembly_type = Longword | Quadword [@@deriving show]
 
 type operand =
@@ -18,6 +18,7 @@ type binary_operator = Add | Sub | Mult | BwAnd | BwXor | BwOr
 type instruction =
   | Mov of { typ : assembly_type; src : operand; dst : operand }
   | Movsx of { src : operand; dst : operand }
+  | MovZeroExtend of { src : operand; dst : operand }
   | Unary of { op : unary_operator; typ : assembly_type; dst : operand }
   | Binary of {
       op : binary_operator;
@@ -27,6 +28,7 @@ type instruction =
     }
   | Cmp of { typ : assembly_type; src : operand; dst : operand }
   | Idiv of { typ : assembly_type; src : operand }
+  | Div of { typ : assembly_type; src : operand }
   | Cdq of assembly_type
   | Shl of { typ : assembly_type; src : operand; dst : operand }
   | Sar of { typ : assembly_type; src : operand; dst : operand }
