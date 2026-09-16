@@ -28,8 +28,7 @@ let const_convert (target : t) (c : const) : const =
   match target with
   | Int -> ConstInt (Int64.to_int32 (const_to_int64 c))
   | Long -> ConstLong (const_to_int64 c)
-  | UInt ->
-      ConstUInt (Int64.to_int32 (Int64.logand (const_to_int64 c) uint_max))
+  | UInt -> ConstUInt (Int64.to_int32 (const_to_int64 c))
   | ULong -> ConstULong (const_to_int64 c)
   | FunType _ ->
       failwith "internal error: cannot convert constant to function type"
