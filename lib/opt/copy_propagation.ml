@@ -1,18 +1,29 @@
-let get_block_copies (n : Cfg.node) : Cfg.CopySet.t =
+(** Copies only propagate when src/dst same type or signedness. *)
+let should_copy_propagate src dst te =
+  let src_typ = Ir.get_value_type src te in
+  let dst_typ = Ir.get_value_type dst te in
+  Ctype.equal src_typ dst_typ
+  || Ctype.is_signed src_typ = Ctype.is_signed dst_typ
+
+let get_block_copies (n : Cfg.node) (te : Env.tenv) : Cfg.CopySet.t =
   match n with
   | Cfg.BasicBlock r ->
       List.fold_left
         (fun acc instr ->
-          match instr with Ir.Copy _ -> Cfg.CopySet.add instr acc | _ -> acc)
+          match instr with
+          | Ir.Copy { src; dst } when should_copy_propagate src dst te ->
+              Cfg.CopySet.add instr acc
+          | _ -> acc)
         Cfg.CopySet.empty r.instructions
   | Cfg.EntryNode _ | Cfg.ExitNode _ -> Cfg.CopySet.empty
 
 (** Construct a preliminary set of all copy instructions across all blocks. *)
-let find_all_copy_instructions (blocks : Cfg.node list) : Cfg.CopySet.t =
+let find_all_copy_instructions (blocks : Cfg.node list) (te : Env.tenv) :
+    Cfg.CopySet.t =
   List.fold_left
     (fun acc block ->
       match block with
-      | Cfg.BasicBlock _ -> Cfg.CopySet.union acc (get_block_copies block)
+      | Cfg.BasicBlock _ -> Cfg.CopySet.union acc (get_block_copies block te)
       | _ -> acc)
     Cfg.CopySet.empty blocks
 
@@ -79,7 +90,7 @@ let meet (cfg : Cfg.graph) (id : Cfg.node_id) (all_copies : Cfg.CopySet.t) =
     before it and updating the current reaching copies. At the end of the block,
     records the set of copies that reach the block’s exit. *)
 let transfer (cfg : Cfg.graph) (id : Cfg.node_id) initial_reaching_copies
-    static_names instr_info =
+    static_names instr_info (te : Env.tenv) =
   let current_reaching_copies = ref initial_reaching_copies in
   let block_instructions =
     Cfg.with_basicblock cfg id (fun r -> r.instructions)
@@ -93,19 +104,20 @@ let transfer (cfg : Cfg.graph) (id : Cfg.node_id) initial_reaching_copies
 
       (* Update reaching copies *)
       match instruction with
-      | Ir.Copy { dst; _ } ->
-          if not (is_inverse_copy instruction !current_reaching_copies) then begin
+      | Ir.Copy { src; dst } ->
+          let inverse = is_inverse_copy instruction !current_reaching_copies in
+          current_reaching_copies := kill_copy_dest dst !current_reaching_copies;
+          if (not inverse) && should_copy_propagate src dst te then
             current_reaching_copies :=
-              !current_reaching_copies |> kill_copy_dest dst
-              |> Cfg.CopySet.add instruction
-          end
+              Cfg.CopySet.add instruction !current_reaching_copies
       | Ir.FunCall { dst; _ } ->
           current_reaching_copies :=
             kill_for_fun_call dst static_names !current_reaching_copies
       | Ir.Unary { dst; _ }
       | Ir.Binary { dst; _ }
       | Ir.SignExtend { dst; _ }
-      | Ir.Truncate { dst; _ } ->
+      | Ir.Truncate { dst; _ }
+      | Ir.ZeroExtend { dst; _ } ->
           current_reaching_copies := kill_copy_dest dst !current_reaching_copies
       | _ -> ())
     block_instructions;
@@ -174,6 +186,9 @@ let rewrite_instruction (instr : Ir.instruction) (copies : Cfg.CopySet.t) :
   | Ir.Truncate { src; dst } ->
       let new_src = replace_operand src copies in
       Some (Ir.Truncate { src = new_src; dst })
+  | Ir.ZeroExtend { src; dst } ->
+      let new_src = replace_operand src copies in
+      Some (Ir.ZeroExtend { src = new_src; dst })
 
 let rewrite_block (block_id : int) (instrs : Ir.instruction list)
     (instr_info : Cfg.CopySet.t Cfg.InstrMap.t) : Ir.instruction list =
@@ -211,9 +226,10 @@ let update_worklist (cfg : Cfg.graph) (id : Cfg.node_id) worklist =
     by ID, then annotate each block with the set of cumulative copy instructions
     which are assumed to have reached the end of each block. Entry and Exit
     nodes are not annotated. *)
-let find_reaching_copies (cfg : Cfg.graph) (static_names : Cfg.StringSet.t) =
+let find_reaching_copies (cfg : Cfg.graph) (static_names : Cfg.StringSet.t)
+    (te : Env.tenv) =
   let sorted_blocks = Cfg.blocks_sorted cfg.blocks in
-  let all_copies = find_all_copy_instructions sorted_blocks in
+  let all_copies = find_all_copy_instructions sorted_blocks te in
 
   (* Preliminary annotation of all BasicBlocks with copies from all blocks and
     build a set of work items to process. *)
@@ -245,7 +261,7 @@ let find_reaching_copies (cfg : Cfg.graph) (static_names : Cfg.StringSet.t) =
 
     (* Apply meet and transfer functions to block *)
     let incoming_copies = meet cfg block all_copies in
-    transfer cfg block incoming_copies static_names instr_info;
+    transfer cfg block incoming_copies static_names instr_info te;
 
     (* Update worklist *)
     if
@@ -258,6 +274,6 @@ let find_reaching_copies (cfg : Cfg.graph) (static_names : Cfg.StringSet.t) =
   done;
   !instr_info
 
-let apply (cfg : Cfg.graph) (statics : Cfg.StringSet.t) : unit =
-  let reaching_copies = find_reaching_copies cfg statics in
+let apply (cfg : Cfg.graph) (statics : Cfg.StringSet.t) (te : Env.tenv) : unit =
+  let reaching_copies = find_reaching_copies cfg statics te in
   rewrite_cfg cfg reaching_copies

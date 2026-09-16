@@ -1,0 +1,43 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Unary {op = Ir.Negate; src = (Ir.Var "negative_one");
+         dst = (Ir.Var "main.tmp.0")};
+        Ir.Copy {src = (Ir.Var "main.tmp.0"); dst = (Ir.Var "negative_one")};
+        Ir.Copy {src = (Ir.Var "main.tmp.0"); dst = (Ir.Var "main.tmp.1")};
+        Ir.Binary {op = Ir.GreaterOrEqual;
+          src1 = (Ir.Constant (Ctype.ConstULong 68719476736L));
+          src2 = (Ir.Var "main.tmp.1"); dst = (Ir.Var "main.tmp.2")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.2");
+          target = "main.if.en.3"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "main.if.en.3");
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstLong -2147483658L));
+          dst = (Ir.Var "main.tmp.4")};
+        Ir.Binary {op = Ir.GreaterOrEqual; src1 = (Ir.Var "main.tmp.4");
+          src2 = (Ir.Var "zero"); dst = (Ir.Var "main.tmp.5")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.5");
+          target = "main.if.en.6"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "main.if.en.6");
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstULong 4294967296L));
+          dst = (Ir.Var "main.tmp.7")};
+        Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.7");
+          dst = (Ir.Var "main.tmp.8")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.8");
+          target = "main.if.en.9"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+        (Ir.Label "main.if.en.9");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 10;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.StaticVariable {name = "negative_one"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 1L)};
+     Ir.StaticVariable {name = "zero"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 0L)}
+     ])

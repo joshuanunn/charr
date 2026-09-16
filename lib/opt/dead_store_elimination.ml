@@ -76,6 +76,9 @@ let transfer (cfg : Cfg.graph) (id : Cfg.node_id) end_live_variables
       | Ir.Truncate { src; dst } ->
           live_variables := kill_live_dest dst !live_variables;
           live_variables := add_live_var src !live_variables
+      | Ir.ZeroExtend { src; dst } ->
+          live_variables := kill_live_dest dst !live_variables;
+          live_variables := add_live_var src !live_variables
       | Ir.Jump _ | Ir.Label _ -> ())
     (List.rev block_instructions);
 

@@ -1,0 +1,183 @@
+(Ir.Program
+   [Ir.Function {name = "check_int"; global = true;
+      params = ["converted.0"; "expected.1"];
+      body =
+      [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "converted.0");
+         src2 = (Ir.Var "expected.1"); dst = (Ir.Var "check_int.tmp.0")};
+        (Ir.Return (Ir.Var "check_int.tmp.0"))];
+      frame =
+      Env.lenv {
+        namespace = "check_int";
+        counter = 1;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.Function {name = "check_long"; global = true;
+       params = ["converted.2"; "expected.3"];
+       body =
+       [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "converted.2");
+          src2 = (Ir.Var "expected.3"); dst = (Ir.Var "check_long.tmp.0")};
+         (Ir.Return (Ir.Var "check_long.tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "check_long";
+         counter = 1;
+         offset = 0;
+         stack slots = {
+         }}};
+     Ir.Function {name = "check_ulong"; global = true;
+       params = ["converted.4"; "expected.5"];
+       body =
+       [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "converted.4");
+          src2 = (Ir.Var "expected.5"); dst = (Ir.Var "check_ulong.tmp.0")};
+         (Ir.Return (Ir.Var "check_ulong.tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "check_ulong";
+         counter = 1;
+         offset = 0;
+         stack slots = {
+         }}};
+     Ir.Function {name = "return_extended_uint"; global = true;
+       params = ["u.6"];
+       body =
+       [Ir.ZeroExtend {src = (Ir.Var "u.6");
+          dst = (Ir.Var "return_extended_uint.tmp.0")};
+         (Ir.Return (Ir.Var "return_extended_uint.tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "return_extended_uint";
+         counter = 1;
+         offset = 0;
+         stack slots = {
+         }}};
+     Ir.Function {name = "return_extended_int"; global = true;
+       params = ["i.7"];
+       body =
+       [Ir.SignExtend {src = (Ir.Var "i.7");
+          dst = (Ir.Var "return_extended_int.tmp.0")};
+         (Ir.Return (Ir.Var "return_extended_int.tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "return_extended_int";
+         counter = 1;
+         offset = 0;
+         stack slots = {
+         }}};
+     Ir.Function {name = "return_truncated_ulong"; global = true;
+       params = ["ul.8"];
+       body =
+       [Ir.Truncate {src = (Ir.Var "ul.8");
+          dst = (Ir.Var "return_truncated_ulong.tmp.0")};
+         (Ir.Return (Ir.Var "return_truncated_ulong.tmp.0"))];
+       frame =
+       Env.lenv {
+         namespace = "return_truncated_ulong";
+         counter = 1;
+         offset = 0;
+         stack slots = {
+         }}};
+     Ir.Function {name = "extend_on_assignment"; global = true;
+       params = ["ui.9"; "expected.10"];
+       body =
+       [Ir.ZeroExtend {src = (Ir.Var "ui.9");
+          dst = (Ir.Var "extend_on_assignment.tmp.0")};
+         Ir.Binary {op = Ir.Equal;
+           src1 = (Ir.Var "extend_on_assignment.tmp.0");
+           src2 = (Ir.Var "expected.10");
+           dst = (Ir.Var "extend_on_assignment.tmp.1")};
+         (Ir.Return (Ir.Var "extend_on_assignment.tmp.1"))];
+       frame =
+       Env.lenv {
+         namespace = "extend_on_assignment";
+         counter = 2;
+         offset = 0;
+         stack slots = {
+         }}};
+     Ir.Function {name = "main"; global = true; params = [];
+       body =
+       [Ir.FunCall {fun_name = "check_int";
+          args =
+          [(Ir.Constant (Ctype.ConstInt 5l));
+            (Ir.Constant (Ctype.ConstInt 5l))];
+          dst = (Ir.Var "main.tmp.1")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.1");
+           dst = (Ir.Var "main.tmp.2")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.2");
+           target = "main.if.en.3"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+         (Ir.Label "main.if.en.3");
+         Ir.FunCall {fun_name = "check_long";
+           args =
+           [(Ir.Constant (Ctype.ConstLong 2147483658L));
+             (Ir.Constant (Ctype.ConstLong 2147483658L))];
+           dst = (Ir.Var "main.tmp.5")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.5");
+           dst = (Ir.Var "main.tmp.6")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.6");
+           target = "main.if.en.7"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+         (Ir.Label "main.if.en.7");
+         Ir.FunCall {fun_name = "check_ulong";
+           args =
+           [(Ir.Constant (Ctype.ConstULong -1L));
+             (Ir.Constant (Ctype.ConstULong -1L))];
+           dst = (Ir.Var "main.tmp.10")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.10");
+           dst = (Ir.Var "main.tmp.11")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.11");
+           target = "main.if.en.12"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+         (Ir.Label "main.if.en.12");
+         Ir.FunCall {fun_name = "return_extended_uint";
+           args = [(Ir.Constant (Ctype.ConstUInt -2147483638l))];
+           dst = (Ir.Var "main.tmp.13")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.13");
+           src2 = (Ir.Constant (Ctype.ConstLong 2147483658L));
+           dst = (Ir.Var "main.tmp.14")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.14");
+           target = "main.if.en.15"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+         (Ir.Label "main.if.en.15");
+         Ir.FunCall {fun_name = "return_extended_int";
+           args = [(Ir.Constant (Ctype.ConstInt -1l))];
+           dst = (Ir.Var "main.tmp.17")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.17");
+           src2 = (Ir.Constant (Ctype.ConstULong -1L));
+           dst = (Ir.Var "main.tmp.18")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.18");
+           target = "main.if.en.19"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
+         (Ir.Label "main.if.en.19");
+         Ir.FunCall {fun_name = "return_truncated_ulong";
+           args = [(Ir.Constant (Ctype.ConstULong 1125902054326372L))];
+           dst = (Ir.Var "main.tmp.20")};
+         Ir.SignExtend {src = (Ir.Var "main.tmp.20");
+           dst = (Ir.Var "main.tmp.21")};
+         Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.21");
+           src2 = (Ir.Constant (Ctype.ConstLong -2147483548L));
+           dst = (Ir.Var "main.tmp.23")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.23");
+           target = "main.if.en.24"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
+         (Ir.Label "main.if.en.24");
+         Ir.FunCall {fun_name = "extend_on_assignment";
+           args =
+           [(Ir.Constant (Ctype.ConstUInt -2147483638l));
+             (Ir.Constant (Ctype.ConstLong 2147483658L))];
+           dst = (Ir.Var "main.tmp.25")};
+         Ir.Unary {op = Ir.Not; src = (Ir.Var "main.tmp.25");
+           dst = (Ir.Var "main.tmp.26")};
+         Ir.JumpIfZero {condition = (Ir.Var "main.tmp.26");
+           target = "main.if.en.27"};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 7l)));
+         (Ir.Label "main.if.en.27");
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+       frame =
+       Env.lenv {
+         namespace = "main";
+         counter = 32;
+         offset = 0;
+         stack slots = {
+         }}}
+     ])

@@ -1,0 +1,34 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Copy {src = (Ir.Var "ui"); dst = (Ir.Var "main.tmp.0")};
+        Ir.SignExtend {src = (Ir.Var "main.tmp.0");
+          dst = (Ir.Var "main.tmp.1")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.1");
+          src2 = (Ir.Constant (Ctype.ConstLong -96L));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.3");
+          target = "main.if.en.4"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "main.if.en.4");
+        Ir.Copy {src = (Ir.Var "ui"); dst = (Ir.Var "main.tmp.5")};
+        Ir.SignExtend {src = (Ir.Var "main.tmp.5");
+          dst = (Ir.Var "main.tmp.6")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.6");
+          src2 = (Ir.Constant (Ctype.ConstULong -96L));
+          dst = (Ir.Var "main.tmp.7")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.7");
+          target = "main.if.en.8"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "main.if.en.8");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 9;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.StaticVariable {name = "ui"; global = true; t = Ctype.UInt;
+       init = (Ctype.UIntInit -96l)}
+     ])

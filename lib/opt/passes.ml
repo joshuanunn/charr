@@ -52,12 +52,14 @@ let cfg_to_instructions (cfg : Cfg.graph) : Ir.instruction list =
   |> List.concat_map (fun (_, node) -> Cfg.get_instructions node)
 
 let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
-    : Ir.instruction list =
+    (te : Env.tenv) : Ir.instruction list =
   let rec loop body =
     if body = [] then body
     else
       let post_folding =
-        if o.folding then List.filter_map Constant_folding.apply body else body
+        if o.folding then
+          List.filter_map (fun b -> Constant_folding.apply b te) body
+        else body
       in
 
       let cfg = instructions_to_cfg post_folding in
@@ -71,7 +73,7 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
               Cfg.pp_graph cfg)
       end;
       if o.propagation then begin
-        Copy_propagation.apply cfg statics;
+        Copy_propagation.apply cfg statics te;
         Debug.log (fun () ->
             Format.eprintf "=== After Copy Propagation ===\n%a\n" Cfg.pp_graph
               cfg)
@@ -87,12 +89,12 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
   in
   loop body
 
-let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t) :
-    Ir.top_level =
+let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t)
+    (te : Env.tenv) : Ir.top_level =
   (* only optimise function bodies *)
   match f with
   | Function { name; global; params; body; frame } ->
-      let body_opt = optimise body o statics in
+      let body_opt = optimise body o statics te in
       Function { name; global; params; body = body_opt; frame }
   | StaticVariable { name; global; t; init } ->
       StaticVariable { name; global; t; init }
@@ -106,5 +108,7 @@ let collect_escaping_globals (te : Env.tenv) =
 
 let optimise_prog (Program p : Ir.prog) (o : opts) (te : Env.tenv) : Ir.prog =
   let statics = collect_escaping_globals te in
-  let compiled_funcs = List.map (function f -> optimise_func f o statics) p in
+  let compiled_funcs =
+    List.map (function f -> optimise_func f o statics te) p
+  in
   Ir.Program compiled_funcs

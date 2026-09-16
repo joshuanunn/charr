@@ -50,8 +50,14 @@ let fold_binop (op : Ir.binary_operator) (c1 : Ctype.const) (c2 : Ctype.const) :
       | BwOr -> Some (Ctype.const_of_int64 t (Int64.logor n1 n2))
       | _ -> assert false)
 
-let apply (i : Ir.instruction) : Ir.instruction option =
+let apply (i : Ir.instruction) (te : Env.tenv) : Ir.instruction option =
   match i with
+  | Copy { src = Constant c; dst }
+  | SignExtend { src = Constant c; dst }
+  | Truncate { src = Constant c; dst }
+  | ZeroExtend { src = Constant c; dst } ->
+      let dst_typ = Ir.get_value_type dst te in
+      Some (Copy { src = Constant (Ctype.const_convert dst_typ c); dst })
   | Unary { op; src = Constant c; dst } -> (
       match fold_unop op c with
       | Some v -> Some (Copy { src = Constant v; dst })
@@ -64,8 +70,4 @@ let apply (i : Ir.instruction) : Ir.instruction option =
       if Ctype.is_zero c then Some (Jump { target }) else None
   | JumpIfNotZero { condition = Constant c; target } ->
       if Ctype.is_zero c then None else Some (Jump { target })
-  | SignExtend { src = Constant c; dst } ->
-      Some (Copy { src = Constant (Ctype.const_convert Ctype.Long c); dst })
-  | Truncate { src = Constant c; dst } ->
-      Some (Copy { src = Constant (Ctype.const_convert Ctype.Int c); dst })
   | ins -> Some ins

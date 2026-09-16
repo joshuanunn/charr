@@ -77,17 +77,20 @@ let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
       match id with
       | Identifier v -> (Var v, [])
       | _ -> failwith "Var name must be Identifier")
-  | Cast { target_type; exp } -> (
+  | Cast { target_type; exp } ->
       let result, result_instructions = convert_expr exp le te in
-      if Ctype.equal (Ast.get_type exp) target_type then
-        (result, result_instructions) (* no-op: exp is already of target_type *)
+      let inner_type = Ast.get_type exp in
+      if Ctype.equal inner_type target_type then (result, result_instructions)
+        (* no-op: exp is already of target_type *)
       else
         let dst = make_tmp le te target_type in
-        match target_type with
-        | Ctype.Long ->
-            (dst, result_instructions @ [ Ir.SignExtend { src = result; dst } ])
-        | _ -> (dst, result_instructions @ [ Ir.Truncate { src = result; dst } ])
-      )
+        if Ctype.compare_size target_type inner_type = 0 then
+          (dst, result_instructions @ [ Ir.Copy { src = result; dst } ])
+        else if Ctype.compare_size target_type inner_type < 0 then
+          (dst, result_instructions @ [ Ir.Truncate { src = result; dst } ])
+        else if Ctype.is_signed inner_type then
+          (dst, result_instructions @ [ Ir.SignExtend { src = result; dst } ])
+        else (dst, result_instructions @ [ Ir.ZeroExtend { src = result; dst } ])
   | Unary { op : Ast.unop; exp : Ast.expr } -> (
       let src, src_instructions = convert_expr exp le te in
       match op with
@@ -452,6 +455,8 @@ let convert_symbols (te : Env.tenv) : Ir.top_level list =
             match t with
             | Ctype.Int -> Ctype.IntInit 0l
             | Ctype.Long -> Ctype.LongInit 0L
+            | Ctype.UInt -> Ctype.UIntInit 0l
+            | Ctype.ULong -> Ctype.ULongInit 0L
             | Ctype.FunType _ ->
                 failwith "internal error: static variable with function type"
           in
