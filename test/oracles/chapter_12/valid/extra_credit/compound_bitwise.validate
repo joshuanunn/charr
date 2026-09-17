@@ -19,28 +19,24 @@
                                { Ast.e = (Ast.Var (Ast.Identifier "ul.0"));
                                  typ = (Some Ctype.ULong) },
                                { Ast.e =
-                                 Ast.Cast {target_type = Ctype.ULong;
-                                   exp =
+                                 Ast.Binary {op = Ast.BwAnd;
+                                   left =
                                    { Ast.e =
-                                     Ast.Binary {op = Ast.BwAnd;
-                                       left =
+                                     (Ast.Var (Ast.Identifier "ul.0"));
+                                     typ = (Some Ctype.ULong) };
+                                   right =
+                                   { Ast.e =
+                                     Ast.Cast {target_type = Ctype.ULong;
+                                       exp =
                                        { Ast.e =
-                                         (Ast.Var (Ast.Identifier "ul.0"));
-                                         typ = (Some Ctype.ULong) };
-                                       right =
-                                       { Ast.e =
-                                         Ast.Cast {target_type = Ctype.ULong;
+                                         Ast.Unary {op = Ast.Negate;
                                            exp =
                                            { Ast.e =
-                                             Ast.Unary {op = Ast.Negate;
-                                               exp =
-                                               { Ast.e =
-                                                 (Ast.Constant
-                                                    (Ctype.ConstInt 1000l));
-                                                 typ = (Some Ctype.Int) }};
+                                             (Ast.Constant
+                                                (Ctype.ConstInt 1000l));
                                              typ = (Some Ctype.Int) }};
-                                         typ = (Some Ctype.ULong) }};
-                                     typ = (Some Ctype.Int) }};
+                                         typ = (Some Ctype.Int) }};
+                                     typ = (Some Ctype.ULong) }};
                                  typ = (Some Ctype.ULong) }
                                ));
                             typ = (Some Ctype.ULong) }));
@@ -75,24 +71,20 @@
                                { Ast.e = (Ast.Var (Ast.Identifier "ul.0"));
                                  typ = (Some Ctype.ULong) },
                                { Ast.e =
-                                 Ast.Cast {target_type = Ctype.ULong;
-                                   exp =
+                                 Ast.Binary {op = Ast.BwOr;
+                                   left =
                                    { Ast.e =
-                                     Ast.Binary {op = Ast.BwOr;
-                                       left =
+                                     (Ast.Var (Ast.Identifier "ul.0"));
+                                     typ = (Some Ctype.ULong) };
+                                   right =
+                                   { Ast.e =
+                                     Ast.Cast {target_type = Ctype.ULong;
+                                       exp =
                                        { Ast.e =
-                                         (Ast.Var (Ast.Identifier "ul.0"));
-                                         typ = (Some Ctype.ULong) };
-                                       right =
-                                       { Ast.e =
-                                         Ast.Cast {target_type = Ctype.ULong;
-                                           exp =
-                                           { Ast.e =
-                                             (Ast.Constant
-                                                (Ctype.ConstUInt -256l));
-                                             typ = (Some Ctype.UInt) }};
-                                         typ = (Some Ctype.ULong) }};
-                                     typ = (Some Ctype.Int) }};
+                                         (Ast.Constant
+                                            (Ctype.ConstUInt -256l));
+                                         typ = (Some Ctype.UInt) }};
+                                     typ = (Some Ctype.ULong) }};
                                  typ = (Some Ctype.ULong) }
                                ));
                             typ = (Some Ctype.ULong) }));
@@ -178,7 +170,7 @@
                                       { Ast.e =
                                         (Ast.Var (Ast.Identifier "l.3"));
                                         typ = (Some Ctype.Long) }};
-                                    typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.Long) }};
                                 typ = (Some Ctype.UInt) }
                               ));
                            typ = (Some Ctype.UInt) };

@@ -1,13 +1,13 @@
 (Asm.Program
    [Asm.Function {name = "main"; global = true;
       instructions =
-      [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+      [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
          dst = (Asm.Reg Asm.AX)};
         Asm.Ret];
       frame =
       Env.lenv {
         namespace = "main";
-        counter = 24;
+        counter = 22;
         offset = 0;
         stack slots = {
         }}}

@@ -225,8 +225,14 @@ and type_expr (e : Ast.expr) (te : Env.tenv) : Ast.expr =
           let converted_right = convert_to typed_right common_type in
           let result =
             match op with
-            | Add | Subtract | Multiply | Divide | Remainder -> common_type
-            | _ -> Ctype.Int (* comparisons *)
+            | Add | Subtract | Multiply | Divide | Remainder | BwAnd | BwXor
+            | BwOr ->
+                common_type
+            | Equal | NotEqual | LessOrEqual | GreaterOrEqual | LessThan
+            | GreaterThan ->
+                Ctype.Int (* comparisons *)
+            | And | Or | BwLeftShift | BwRightShift ->
+                failwith "internal error: unreachable as handled by outer match"
           in
           binary converted_left converted_right result)
   | Assignment (lvalue, rvalue) -> (
