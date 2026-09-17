@@ -32,19 +32,13 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
-                                 { Ast.e =
-                                   Ast.Binary {op = Ast.BwAnd;
-                                     left =
-                                     { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l1.0"));
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l2.1"));
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                               Ast.Binary {op = Ast.BwAnd;
+                                 left =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l2.1"));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -69,19 +63,13 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
-                                 { Ast.e =
-                                   Ast.Binary {op = Ast.BwOr;
-                                     left =
-                                     { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l1.0"));
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l2.1"));
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                               Ast.Binary {op = Ast.BwOr;
+                                 left =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l2.1"));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -110,19 +98,13 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
-                                 { Ast.e =
-                                   Ast.Binary {op = Ast.BwXor;
-                                     left =
-                                     { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l1.0"));
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l2.1"));
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                               Ast.Binary {op = Ast.BwXor;
+                                 left =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l1.0"));
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l2.1"));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -151,24 +133,20 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
+                               Ast.Binary {op = Ast.BwAnd;
+                                 left =
                                  { Ast.e =
-                                   Ast.Binary {op = Ast.BwAnd;
-                                     left =
+                                   Ast.Unary {op = Ast.Negate;
+                                     exp =
                                      { Ast.e =
-                                       Ast.Unary {op = Ast.Negate;
-                                         exp =
-                                         { Ast.e =
-                                           (Ast.Constant (Ctype.ConstLong 1L));
-                                           typ = (Some Ctype.Long) }};
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Constant
-                                          (Ctype.ConstLong 34359738368L));
+                                       (Ast.Constant (Ctype.ConstLong 1L));
                                        typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 34359738368L));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -192,20 +170,16 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
+                               Ast.Binary {op = Ast.BwOr;
+                                 left =
                                  { Ast.e =
-                                   Ast.Binary {op = Ast.BwOr;
-                                     left =
-                                     { Ast.e =
-                                       (Ast.Constant (Ctype.ConstLong 0L));
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Constant
-                                          (Ctype.ConstLong 34359738368L));
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                                   (Ast.Constant (Ctype.ConstLong 0L));
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 34359738368L));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -229,21 +203,17 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
+                               Ast.Binary {op = Ast.BwXor;
+                                 left =
                                  { Ast.e =
-                                   Ast.Binary {op = Ast.BwXor;
-                                     left =
-                                     { Ast.e =
-                                       (Ast.Constant
-                                          (Ctype.ConstLong 34359738368L));
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Constant
-                                          (Ctype.ConstLong 137438953472L));
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 34359738368L));
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 137438953472L));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -301,23 +271,18 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
+                               Ast.Binary {op = Ast.BwAnd;
+                                 left =
                                  { Ast.e =
-                                   Ast.Binary {op = Ast.BwAnd;
-                                     left =
+                                   Ast.Cast {target_type = Ctype.Long;
+                                     exp =
                                      { Ast.e =
-                                       Ast.Cast {target_type = Ctype.Long;
-                                         exp =
-                                         { Ast.e =
-                                           (Ast.Var (Ast.Identifier "i.3"));
-                                           typ = (Some Ctype.Int) }};
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l.2"));
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                                       (Ast.Var (Ast.Identifier "i.3"));
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l.2"));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -354,14 +319,19 @@
                                        (Ast.Var (Ast.Identifier "i.3"));
                                        typ = (Some Ctype.Int) }};
                                    typ = (Some Ctype.Long) }};
-                               typ = (Some Ctype.Int) };
+                               typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
-                               Ast.Unary {op = Ast.Negate;
+                               Ast.Cast {target_type = Ctype.Long;
                                  exp =
-                                 { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                 { Ast.e =
+                                   Ast.Unary {op = Ast.Negate;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstInt 1l));
+                                       typ = (Some Ctype.Int) }};
                                    typ = (Some Ctype.Int) }};
-                               typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.Long) }};
                            typ = (Some Ctype.Int) };
                          then_smt =
                          (Ast.Compound
@@ -380,23 +350,18 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
+                               Ast.Binary {op = Ast.BwXor;
+                                 left =
+                                 { Ast.e = (Ast.Var (Ast.Identifier "l.2"));
+                                   typ = (Some Ctype.Long) };
+                                 right =
                                  { Ast.e =
-                                   Ast.Binary {op = Ast.BwXor;
-                                     left =
+                                   Ast.Cast {target_type = Ctype.Long;
+                                     exp =
                                      { Ast.e =
-                                       (Ast.Var (Ast.Identifier "l.2"));
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       Ast.Cast {target_type = Ctype.Long;
-                                         exp =
-                                         { Ast.e =
-                                           (Ast.Var (Ast.Identifier "i.3"));
-                                           typ = (Some Ctype.Int) }};
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                                       (Ast.Var (Ast.Identifier "i.3"));
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -425,25 +390,20 @@
                            Ast.Binary {op = Ast.NotEqual;
                              left =
                              { Ast.e =
-                               Ast.Cast {target_type = Ctype.Long;
-                                 exp =
+                               Ast.Binary {op = Ast.BwXor;
+                                 left =
                                  { Ast.e =
-                                   Ast.Binary {op = Ast.BwXor;
-                                     left =
+                                   Ast.Cast {target_type = Ctype.Long;
+                                     exp =
                                      { Ast.e =
-                                       Ast.Cast {target_type = Ctype.Long;
-                                         exp =
-                                         { Ast.e =
-                                           (Ast.Var (Ast.Identifier "i2.4"));
-                                           typ = (Some Ctype.Int) }};
-                                       typ = (Some Ctype.Long) };
-                                     right =
-                                     { Ast.e =
-                                       (Ast.Constant
-                                          (Ctype.ConstLong
-                                             4611686018427387903L));
-                                       typ = (Some Ctype.Long) }};
-                                   typ = (Some Ctype.Int) }};
+                                       (Ast.Var (Ast.Identifier "i2.4"));
+                                       typ = (Some Ctype.Int) }};
+                                   typ = (Some Ctype.Long) };
+                                 right =
+                                 { Ast.e =
+                                   (Ast.Constant
+                                      (Ctype.ConstLong 4611686018427387903L));
+                                   typ = (Some Ctype.Long) }};
                                typ = (Some Ctype.Long) };
                              right =
                              { Ast.e =
@@ -473,3 +433,11 @@
          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])
+Env.tenv {
+  i.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  i2.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  l.2 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  l1.0 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  l2.1 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

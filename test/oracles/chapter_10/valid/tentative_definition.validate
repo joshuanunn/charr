@@ -83,3 +83,8 @@
         { Ast.name = (Ast.Identifier "foo"); init = None;
           var_type = Ctype.Int; storage = None })
      ])
+Env.tenv {
+  foo -> { c_type = Ctype.Int; attrs = StaticAttr { init = Tentative; global = true } }
+  i.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

@@ -132,3 +132,8 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
+Env.tenv {
+  l.0 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  switch_on_long -> { c_type = Ctype.FunType {params = [Ctype.Long]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

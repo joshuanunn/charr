@@ -256,3 +256,12 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
+Env.tenv {
+  i -> { c_type = Ctype.Int; attrs = StaticAttr { init = Tentative; global = true } }
+  i.2 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 0l)); global = false } }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  new_val.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  result.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  update_global.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  update_static_or_global -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

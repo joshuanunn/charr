@@ -351,3 +351,10 @@
          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])
+Env.tenv {
+  i.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  switch1.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  switch2.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  switch3.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
+}
