@@ -7,7 +7,7 @@
           dst = (Asm.Stack -4)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Data "shiftcount.1");
           dst = (Asm.Reg Asm.CX)};
-        Asm.Sar {typ = Asm.Longword; src = (Asm.Reg Asm.CX);
+        Asm.Shr {typ = Asm.Longword; src = (Asm.Reg Asm.CX);
           dst = (Asm.Stack -4)};
         Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 31250L);
           dst = (Asm.Stack -4)};

@@ -93,7 +93,7 @@
            dst = (Asm.Reg Asm.AX)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.DX)};
-         Asm.Idiv {typ = Asm.Longword; src = (Asm.Data "ui_b")};
+         Asm.Div {typ = Asm.Longword; src = (Asm.Data "ui_b")};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
@@ -121,7 +121,7 @@
            dst = (Asm.Reg Asm.AX)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.DX)};
-         Asm.Idiv {typ = Asm.Longword; src = (Asm.Data "ui_b")};
+         Asm.Div {typ = Asm.Longword; src = (Asm.Data "ui_b")};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -4)};
          Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 2L);
@@ -151,7 +151,7 @@
            dst = (Asm.Reg Asm.DX)};
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 5L);
            dst = (Asm.Reg Asm.R10)};
-         Asm.Idiv {typ = Asm.Quadword; src = (Asm.Reg Asm.R10)};
+         Asm.Div {typ = Asm.Quadword; src = (Asm.Reg Asm.R10)};
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Reg Asm.AX);
            dst = (Asm.Stack -8)};
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 219902325555L);
@@ -181,7 +181,7 @@
            dst = (Asm.Reg Asm.AX)};
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.DX)};
-         Asm.Idiv {typ = Asm.Quadword; src = (Asm.Data "ul_a")};
+         Asm.Div {typ = Asm.Quadword; src = (Asm.Data "ul_a")};
          Asm.Mov {typ = Asm.Quadword; src = (Asm.Reg Asm.DX);
            dst = (Asm.Stack -8)};
          Asm.Cmp {typ = Asm.Quadword; src = (Asm.Imm 5L);

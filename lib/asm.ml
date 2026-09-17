@@ -32,6 +32,7 @@ type instruction =
   | Cdq of assembly_type
   | Shl of { typ : assembly_type; src : operand; dst : operand }
   | Sar of { typ : assembly_type; src : operand; dst : operand }
+  | Shr of { typ : assembly_type; src : operand; dst : operand }
   | Jmp of string
   | JmpCC of cond_code * string
   | SetCC of cond_code * operand

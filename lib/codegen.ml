@@ -262,19 +262,23 @@ let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
                 Shl { typ = src1_typ; src = Reg CX; dst = dst_val };
               ])
       | BwRightShift -> (
+          let shift_ins typ src dst =
+            if signed_operands then Asm.Sar { typ; src; dst }
+            else Asm.Shr { typ; src; dst }
+          in
           match src2_val with
           (* special case: shift using an immediate operand *)
           | Imm _ ->
               [
                 Mov { typ = src1_typ; src = src1_val; dst = dst_val };
-                Sar { typ = src1_typ; src = src2_val; dst = dst_val };
+                shift_ins src1_typ src2_val dst_val;
               ]
           (* otherwise: shift using value in cl register *)
           | _ ->
               [
                 Mov { typ = src1_typ; src = src1_val; dst = dst_val };
                 Mov { typ = src2_typ; src = src2_val; dst = Reg CX };
-                Sar { typ = src1_typ; src = Reg CX; dst = dst_val };
+                shift_ins src1_typ (Reg CX) dst_val;
               ])
       (* Everything else *)
       | Add | Subtract | Multiply | BwAnd | BwXor | BwOr ->
