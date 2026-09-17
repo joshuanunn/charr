@@ -1,0 +1,56 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "i");
+         src2 = (Ir.Constant (Ctype.ConstInt 5l));
+         dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "main.if.en.1"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "main.if.en.1");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "l");
+          src2 = (Ir.Constant (Ctype.ConstLong 7L));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.3");
+          target = "main.if.en.4"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "main.if.en.4");
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "counter.0")};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
+          dst = (Ir.Var "index.1")};
+        (Ir.Label "loop.st.1");
+        Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "index.1");
+          src2 = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "main.tmp.5")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.5");
+          target = "loop.br.1"};
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "counter.0");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.6")};
+        Ir.Copy {src = (Ir.Var "main.tmp.6"); dst = (Ir.Var "counter.0")};
+        Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "index.1");
+          src2 = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.7")};
+        Ir.Copy {src = (Ir.Var "main.tmp.7"); dst = (Ir.Var "index.1")};
+        Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "counter.0");
+          src2 = (Ir.Constant (Ctype.ConstInt 10l));
+          dst = (Ir.Var "main.tmp.8")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.8");
+          target = "main.if.en.9"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+        (Ir.Label "main.if.en.9");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 10;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.StaticVariable {name = "i"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 5l)};
+     Ir.StaticVariable {name = "l"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 7L)}
+     ])

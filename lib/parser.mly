@@ -4,9 +4,13 @@
 
 %token <string> IDENTIFIER
 %token <int64> LITERAL_INT
+%token <int64> LITERAL_UINT
 %token <int64> LITERAL_LONG
+%token <int64> LITERAL_ULONG
 %token KW_STATIC
 %token KW_EXTERN
+%token KW_SIGNED
+%token KW_UNSIGNED
 %token KW_INT
 %token KW_LONG
 %token KW_VOID
@@ -71,6 +75,10 @@
 
 %start <Ast.prog> prog
 
+(* Type inference is fragile for optional lists, so declare upfront *)
+%type <(Ctype.t * Ast.ident) list> param_list_opt
+%type <Ast.expr list> arg_expr_list_opt
+
 %%
 
 prog:
@@ -93,8 +101,10 @@ specifier_list:
   ;
 
 type_specifier:
-  | KW_INT { Ctype.Int }
-  | KW_LONG { Ctype.Long }
+  | KW_INT { Ast.TSInt }
+  | KW_LONG { Ast.TSLong }
+  | KW_SIGNED { Ast.TSSigned }
+  | KW_UNSIGNED { Ast.TSUnsigned }
   ;
 
 specifier:
@@ -319,4 +329,6 @@ identifier:
 constant:
   | LITERAL_INT { Ast.mk_int_const $1 }
   | LITERAL_LONG { Ast.mk_long_const $1 }
+  | LITERAL_UINT { Ast.mk_uint_const $1 }
+  | LITERAL_ULONG { Ast.mk_ulong_const $1 }
   ;

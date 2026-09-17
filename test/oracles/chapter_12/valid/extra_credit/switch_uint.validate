@@ -1,0 +1,165 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "switch_on_uint");
+         params = [(Ast.Identifier "ui.0")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.S
+                      Ast.Switch {
+                        cond =
+                        { Ast.e = (Ast.Var (Ast.Identifier "ui.0"));
+                          typ = (Some Ctype.UInt) };
+                        body =
+                        (Ast.Compound
+                           (Ast.Block
+                              [(Ast.S
+                                  Ast.Case {
+                                    value =
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstUInt 5l));
+                                      typ = (Some Ctype.UInt) };
+                                    body =
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 0l));
+                                         typ = (Some Ctype.Int) });
+                                    id = (Some (Ast.CaseLabel "1.2"))});
+                                (Ast.S
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstUInt -10l));
+                                       typ = (Some Ctype.UInt) };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 1l));
+                                          typ = (Some Ctype.Int) });
+                                     id = (Some (Ast.CaseLabel "1.3"))});
+                                (Ast.S
+                                   Ast.Case {
+                                     value =
+                                     { Ast.e =
+                                       (Ast.Constant (Ctype.ConstUInt 10l));
+                                       typ = (Some Ctype.UInt) };
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 2l));
+                                          typ = (Some Ctype.Int) });
+                                     id = (Some (Ast.CaseLabel "1.4"))});
+                                (Ast.S
+                                   Ast.Default {
+                                     body =
+                                     (Ast.Return
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 3l));
+                                          typ = (Some Ctype.Int) });
+                                     id = (Some (Ast.SwitchLabel "1"))})
+                                ]));
+                        id = (Some (Ast.SwitchLabel "1"))})
+                    ]));
+         fun_type = Ctype.FunType {params = [Ctype.UInt]; ret = Ctype.Int};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.FunctionCall {
+                                 name = (Ast.Identifier "switch_on_uint");
+                                 args =
+                                 [{ Ast.e =
+                                    Ast.Cast {target_type = Ctype.UInt;
+                                      exp =
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 5l));
+                                        typ = (Some Ctype.Int) }};
+                                    typ = (Some Ctype.UInt) }
+                                   ]};
+                               typ = (Some Ctype.Int) };
+                             right =
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                              typ = (Some Ctype.Int) });
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "switch_on_uint");
+                                  args =
+                                  [{ Ast.e =
+                                     Ast.Cast {target_type = Ctype.UInt;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant
+                                            (Ctype.ConstLong 4294967286L));
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.UInt) }
+                                    ]};
+                                typ = (Some Ctype.Int) };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "switch_on_uint");
+                                  args =
+                                  [{ Ast.e =
+                                     Ast.Cast {target_type = Ctype.UInt;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 10l));
+                                         typ = (Some Ctype.Int) }};
+                                     typ = (Some Ctype.UInt) }
+                                    ]};
+                                typ = (Some Ctype.Int) };
+                              right =
+                              { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 3l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])
+Env.tenv {
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  switch_on_uint -> { c_type = Ctype.FunType {params = [Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  ui.0 -> { c_type = Ctype.UInt; attrs = LocalAttr }
+}

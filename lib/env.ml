@@ -267,6 +267,41 @@ type tenv = { typed_idents : (string, type_entry) Hashtbl.t }
 (** Type information for identifiers and IR temporaries. Names must be globally
     unique within a translation unit. *)
 
+let pp_initial_value fmt = function
+  | Tentative -> Format.fprintf fmt "Tentative"
+  | Initial init ->
+      Format.fprintf fmt "Initial (%s)" (Ctype.show_static_init init)
+  | NoInitialiser -> Format.fprintf fmt "NoInitialiser"
+
+let pp_identifier_attrs fmt = function
+  | FunAttr { defined; global } ->
+      Format.fprintf fmt "FunAttr { defined = %b; global = %b }" defined global
+  | StaticAttr { init; global } ->
+      Format.fprintf fmt "StaticAttr { init = %a; global = %b }"
+        pp_initial_value init global
+  | LocalAttr -> Format.fprintf fmt "LocalAttr"
+
+let pp_type_entry fmt (entry : type_entry) =
+  Format.fprintf fmt "{ c_type = %s; attrs = %a }" (Ctype.show entry.c_type)
+    pp_identifier_attrs entry.attrs
+
+let pp_tenv fmt (te : tenv) =
+  let entries =
+    Hashtbl.fold (fun name entry acc -> (name, entry) :: acc) te.typed_idents []
+    |> List.sort (fun (name1, _) (name2, _) -> String.compare name1 name2)
+  in
+  Format.fprintf fmt "@[<v>";
+  Format.fprintf fmt "Env.tenv {@;<2 2>@[<v>";
+  List.iteri
+    (fun i (name, entry) ->
+      if i > 0 then Format.fprintf fmt "@,";
+      Format.fprintf fmt "%s -> %a" name pp_type_entry entry)
+    entries;
+  Format.fprintf fmt "@]@,}@]"
+
+(** Pretty printer for tenv, as not fully supported by ppx_deriving show. *)
+let show_tenv te = Format.asprintf "%a" pp_tenv te
+
 (** Create a new type environment with an empty global scope *)
 let make_tenv () : tenv = { typed_idents = Hashtbl.create 16 }
 

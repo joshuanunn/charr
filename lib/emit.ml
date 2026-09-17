@@ -8,6 +8,10 @@ let emit_cc (o : Asm.cond_code) : string =
   | GE -> "ge"
   | L -> "l"
   | LE -> "le"
+  | A -> "a"
+  | AE -> "ae"
+  | B -> "b"
+  | BE -> "be"
 
 let width_of_asm_type : Asm.assembly_type -> operand_width = function
   | Longword -> Long
@@ -99,19 +103,23 @@ let emit_binary_op = function
   | Asm.BwOr -> "or"
 
 let static_init_directive : Ctype.static_init -> string * string = function
-  | IntInit 0l -> (".zero", "4")
-  | LongInit 0L -> (".zero", "8")
+  | IntInit 0l | UIntInit 0l -> (".zero", "4")
+  | LongInit 0L | ULongInit 0L -> (".zero", "8")
   | IntInit i -> (".long", Int32.to_string i)
+  | UIntInit i -> (".long", Printf.sprintf "%lu" i)
   | LongInit i -> (".quad", Int64.to_string i)
+  | ULongInit i -> (".quad", Printf.sprintf "%Lu" i)
 
 let is_zero_init : Ctype.static_init -> bool = function
-  | IntInit 0l | LongInit 0L -> true
+  | IntInit 0l | UIntInit 0l | LongInit 0L | ULongInit 0L -> true
   | _ -> false
 
 let emit_instruction (i : Asm.instruction) : string list =
   match i with
   | Mov { typ; src; dst } -> [ emit_typed_binop "mov" typ src dst ]
   | Movsx { src; dst } -> [ emit_two_operand "movslq" Long Quad src dst ]
+  | MovZeroExtend _ ->
+      failwith "internal error: MovZeroExtend instruction has not been fixed"
   | Ret ->
       [
         format_instruction "movq" "%rbp, %rsp";
@@ -123,6 +131,7 @@ let emit_instruction (i : Asm.instruction) : string list =
       [ emit_typed_binop (emit_binary_op op) typ src dst ]
   | Cmp { typ; src; dst } -> [ emit_typed_binop "cmp" typ src dst ]
   | Idiv { typ; src } -> [ emit_typed_unop "idiv" typ src ]
+  | Div { typ; src } -> [ emit_typed_unop "div" typ src ]
   | Cdq typ ->
       let mnemonic =
         match typ with Asm.Longword -> "cdq" | Asm.Quadword -> "cqo"
@@ -134,6 +143,9 @@ let emit_instruction (i : Asm.instruction) : string list =
   | Sar { typ; src; dst } ->
       let width = width_of_asm_type typ in
       [ emit_two_operand ("sar" ^ suffix_of_asm_type typ) Byte width src dst ]
+  | Shr { typ; src; dst } ->
+      let width = width_of_asm_type typ in
+      [ emit_two_operand ("shr" ^ suffix_of_asm_type typ) Byte width src dst ]
   | Jmp l -> [ format_instruction "jmp" (Printf.sprintf ".L%s" l) ]
   | JmpCC (c, l) ->
       [

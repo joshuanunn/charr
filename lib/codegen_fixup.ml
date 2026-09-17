@@ -1,4 +1,5 @@
 let is_mem_operand = function Asm.Stack _ | Asm.Data _ -> true | _ -> false
+let is_reg_operand = function Asm.Reg _ -> true | _ -> false
 
 let fits_int32 (n : int64) : bool =
   n >= Int64.of_int32 Int32.min_int && n <= Int64.of_int32 Int32.max_int
@@ -49,6 +50,15 @@ let fixup_instruction (i : Asm.instruction) : Asm.instruction list =
       [
         Mov { typ = Longword; src = Imm d; dst = Reg R10 };
         Movsx { src = Reg R10; dst };
+      ]
+  (* movzeroextend where destination is a register *)
+  | MovZeroExtend { src; dst } when is_reg_operand dst ->
+      [ Mov { typ = Longword; src; dst = Reg AX } ]
+  (* movzeroextend where destination is in memory *)
+  | MovZeroExtend { src; dst } when is_mem_operand dst ->
+      [
+        Mov { typ = Longword; src; dst = Reg R11 };
+        Mov { typ = Quadword; src = Reg R11; dst };
       ]
   (* 1. cmpq cannot use an out-of-range immediate as its source; if dst is
         also a constant, stage both through registers *)
@@ -108,9 +118,11 @@ let fixup_instruction (i : Asm.instruction) : Asm.instruction list =
         Mov { typ = Quadword; src = Imm n; dst = Reg R10 };
         Binary { op; typ = Quadword; src = Reg R10; dst };
       ]
-  (* div cannot operate on constant values *)
+  (* idiv/div cannot operate on constant values *)
   | Idiv { typ; src = Imm c } ->
       [ Mov { typ; src = Imm c; dst = Reg R10 }; Idiv { typ; src = Reg R10 } ]
+  | Div { typ; src = Imm c } ->
+      [ Mov { typ; src = Imm c; dst = Reg R10 }; Div { typ; src = Reg R10 } ]
   | Push (Imm n) when not (fits_int32 n) ->
       [ Mov { typ = Quadword; src = Imm n; dst = Reg R10 }; Push (Reg R10) ]
   | _ -> [ i ]

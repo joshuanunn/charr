@@ -155,3 +155,9 @@
          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])
+Env.tenv {
+  a.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  a.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  sum.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
+}

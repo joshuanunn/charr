@@ -335,3 +335,15 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
+Env.tenv {
+  addition -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  comparison -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  conditional -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  division -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  i -> { c_type = Ctype.Int; attrs = StaticAttr { init = Tentative; global = true } }
+  int_result.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  l -> { c_type = Ctype.Long; attrs = StaticAttr { init = Tentative; global = true } }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  result.0 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  result.2 -> { c_type = Ctype.Long; attrs = LocalAttr }
+}

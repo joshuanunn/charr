@@ -1,26 +1,23 @@
-let get_value_type (o : Ir.value) (te : Env.tenv) : Ctype.t =
-  match o with
-  | Constant c -> Ctype.const_type c
-  | Var i -> (
-      match Env.find te (Ast.Identifier i) with
-      | Some ti -> ti.c_type
-      | None ->
-          failwith ("internal error: '" ^ i ^ "' not found in type environment")
-      )
-
 let get_assembly_type_of_ctype (t : Ctype.t) : Asm.assembly_type =
   match t with
   | Int -> Asm.Longword
   | Long -> Asm.Quadword
+  | UInt -> Asm.Longword
+  | ULong -> Asm.Quadword
   | FunType _ -> failwith "internal error: no assembly type for function type"
 
 let get_assembly_type (o : Ir.value) (te : Env.tenv) : Asm.assembly_type =
-  get_assembly_type_of_ctype (get_value_type o te)
+  get_assembly_type_of_ctype (Ir.get_value_type o te)
+
+let value_is_signed (o : Ir.value) (te : Env.tenv) : bool =
+  Ctype.is_signed (Ir.get_value_type o te)
 
 let get_assembly_alignment (t : Ctype.t) : int =
   match t with
   | Int -> 4
   | Long -> 8
+  | UInt -> 4
+  | ULong -> 8
   | FunType _ ->
       failwith "internal error: no assembly alignment for function type"
 
@@ -28,6 +25,8 @@ let compile_val (o : Ir.value) : Asm.operand =
   match o with
   | Constant (ConstInt n) -> Imm (Int64.of_int32 n)
   | Constant (ConstLong n) -> Imm n
+  | Constant (ConstUInt n) -> Imm (Int64.of_int32 n)
+  | Constant (ConstULong n) -> Imm n
   | Var i -> Pseudo i
 
 let split_at n lst =
@@ -153,14 +152,14 @@ let compile_binary_op (bop : Ir.binary_operator) : Asm.binary_operator =
   | BwOr -> BwOr
   | _ -> failwith "Cannot compile IR binary operator to ASM binary"
 
-let compile_cc (bop : Ir.binary_operator) : Asm.cond_code =
+let compile_cc (bop : Ir.binary_operator) (is_signed : bool) : Asm.cond_code =
   match bop with
   | Equal -> E
   | NotEqual -> NE
-  | LessOrEqual -> LE
-  | GreaterOrEqual -> GE
-  | LessThan -> L
-  | GreaterThan -> G
+  | LessOrEqual -> if is_signed then LE else BE
+  | GreaterOrEqual -> if is_signed then GE else AE
+  | LessThan -> if is_signed then L else B
+  | GreaterThan -> if is_signed then G else A
   | _ -> failwith "Cannot compile IR binary operator to ASM cond code"
 
 let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
@@ -177,6 +176,8 @@ let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
       [
         Mov { typ = Asm.Longword; src = compile_val src; dst = compile_val dst };
       ]
+  | ZeroExtend { src; dst } ->
+      [ MovZeroExtend { src = compile_val src; dst = compile_val dst } ]
   | Unary { op; src; dst } -> (
       let src_val = compile_val src in
       let dst_val = compile_val dst in
@@ -203,29 +204,46 @@ let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
       let src1_typ = get_assembly_type src1 te in
       let src2_typ = get_assembly_type src2 te in
       let dst_typ = get_assembly_type dst te in
+      let signed_operands = value_is_signed src1 te in
       match op with
       (* Division *)
       | Divide ->
-          [
-            Mov { typ = src1_typ; src = src1_val; dst = Reg AX };
-            Cdq src1_typ;
-            Idiv { typ = src1_typ; src = src2_val };
-            Mov { typ = src1_typ; src = Reg AX; dst = dst_val };
-          ]
+          if signed_operands then
+            [
+              Mov { typ = src1_typ; src = src1_val; dst = Reg AX };
+              Cdq src1_typ;
+              Idiv { typ = src1_typ; src = src2_val };
+              Mov { typ = src1_typ; src = Reg AX; dst = dst_val };
+            ]
+          else
+            [
+              Mov { typ = src1_typ; src = src1_val; dst = Reg AX };
+              Mov { typ = src1_typ; src = Imm 0L; dst = Reg DX };
+              Div { typ = src1_typ; src = src2_val };
+              Mov { typ = src1_typ; src = Reg AX; dst = dst_val };
+            ]
       | Remainder ->
-          [
-            Mov { typ = src1_typ; src = src1_val; dst = Reg AX };
-            Cdq src1_typ;
-            Idiv { typ = src1_typ; src = src2_val };
-            Mov { typ = src1_typ; src = Reg DX; dst = dst_val };
-          ]
+          if signed_operands then
+            [
+              Mov { typ = src1_typ; src = src1_val; dst = Reg AX };
+              Cdq src1_typ;
+              Idiv { typ = src1_typ; src = src2_val };
+              Mov { typ = src1_typ; src = Reg DX; dst = dst_val };
+            ]
+          else
+            [
+              Mov { typ = src1_typ; src = src1_val; dst = Reg AX };
+              Mov { typ = src1_typ; src = Imm 0L; dst = Reg DX };
+              Div { typ = src1_typ; src = src2_val };
+              Mov { typ = src1_typ; src = Reg DX; dst = dst_val };
+            ]
       (* Relational operators *)
       | Equal | NotEqual | LessOrEqual | GreaterOrEqual | LessThan | GreaterThan
         ->
           [
             Cmp { typ = src1_typ; src = src2_val; dst = src1_val };
             Mov { typ = dst_typ; src = Imm 0L; dst = dst_val };
-            SetCC (compile_cc op, dst_val);
+            SetCC (compile_cc op signed_operands, dst_val);
           ]
       (* Bitwise left and right shifts *)
       | BwLeftShift -> (
@@ -244,19 +262,23 @@ let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
                 Shl { typ = src1_typ; src = Reg CX; dst = dst_val };
               ])
       | BwRightShift -> (
+          let shift_ins typ src dst =
+            if signed_operands then Asm.Sar { typ; src; dst }
+            else Asm.Shr { typ; src; dst }
+          in
           match src2_val with
           (* special case: shift using an immediate operand *)
           | Imm _ ->
               [
                 Mov { typ = src1_typ; src = src1_val; dst = dst_val };
-                Sar { typ = src1_typ; src = src2_val; dst = dst_val };
+                shift_ins src1_typ src2_val dst_val;
               ]
           (* otherwise: shift using value in cl register *)
           | _ ->
               [
                 Mov { typ = src1_typ; src = src1_val; dst = dst_val };
                 Mov { typ = src2_typ; src = src2_val; dst = Reg CX };
-                Sar { typ = src1_typ; src = Reg CX; dst = dst_val };
+                shift_ins src1_typ (Reg CX) dst_val;
               ])
       (* Everything else *)
       | Add | Subtract | Multiply | BwAnd | BwXor | BwOr ->

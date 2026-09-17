@@ -1,0 +1,403 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "ulong_to_int");
+         params = [(Ast.Identifier "ul.0"); (Ast.Identifier "expected.1")];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "result.2");
+                           init =
+                           (Some { Ast.e =
+                                   Ast.Cast {target_type = Ctype.Int;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "ul.0"));
+                                       typ = (Some Ctype.ULong) }};
+                                   typ = (Some Ctype.Int) });
+                           var_type = Ctype.Int; storage = None }));
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "result.2"));
+                                typ = (Some Ctype.Int) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "expected.1"));
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type =
+         Ctype.FunType {params = [Ctype.ULong; Ctype.Int]; ret = Ctype.Int};
+         storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "ulong_to_uint");
+          params = [(Ast.Identifier "ul.3"); (Ast.Identifier "expected.4")];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Cast {target_type = Ctype.UInt;
+                                  exp =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "ul.3"));
+                                    typ = (Some Ctype.ULong) }};
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "expected.4"));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type =
+          Ctype.FunType {params = [Ctype.ULong; Ctype.UInt]; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "long_to_uint");
+          params = [(Ast.Identifier "l.5"); (Ast.Identifier "expected.6")];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       (Ast.Return
+                          { Ast.e =
+                            Ast.Binary {op = Ast.Equal;
+                              left =
+                              { Ast.e =
+                                Ast.Cast {target_type = Ctype.UInt;
+                                  exp =
+                                  { Ast.e = (Ast.Var (Ast.Identifier "l.5"));
+                                    typ = (Some Ctype.Long) }};
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                (Ast.Var (Ast.Identifier "expected.6"));
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type =
+          Ctype.FunType {params = [Ctype.Long; Ctype.UInt]; ret = Ctype.Int};
+          storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Unary {op = Ast.Not;
+                             exp =
+                             { Ast.e =
+                               Ast.FunctionCall {
+                                 name = (Ast.Identifier "long_to_uint");
+                                 args =
+                                 [{ Ast.e =
+                                    (Ast.Constant (Ctype.ConstLong 100L));
+                                    typ = (Some Ctype.Long) };
+                                   { Ast.e =
+                                     (Ast.Constant (Ctype.ConstUInt 100l));
+                                     typ = (Some Ctype.UInt) }
+                                   ]};
+                               typ = (Some Ctype.Int) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "long_to_uint");
+                                  args =
+                                  [{ Ast.e =
+                                     Ast.Unary {op = Ast.Negate;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant
+                                            (Ctype.ConstLong
+                                               9223372036854774574L));
+                                         typ = (Some Ctype.Long) }};
+                                     typ = (Some Ctype.Long) };
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstUInt 1234l));
+                                      typ = (Some Ctype.UInt) }
+                                    ]};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 2l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "ulong_to_int");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant (Ctype.ConstULong 100L));
+                                     typ = (Some Ctype.ULong) };
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstInt 100l));
+                                      typ = (Some Ctype.Int) }
+                                    ]};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 3l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "ulong_to_uint");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant (Ctype.ConstULong 100L));
+                                     typ = (Some Ctype.ULong) };
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstUInt 100l));
+                                      typ = (Some Ctype.UInt) }
+                                    ]};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 4l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "ulong_to_uint");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstULong 4294967200L));
+                                     typ = (Some Ctype.ULong) };
+                                    { Ast.e =
+                                      (Ast.Constant (Ctype.ConstUInt -96l));
+                                      typ = (Some Ctype.UInt) }
+                                    ]};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 5l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "ulong_to_int");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstULong 4294967200L));
+                                     typ = (Some Ctype.ULong) };
+                                    { Ast.e =
+                                      Ast.Unary {op = Ast.Negate;
+                                        exp =
+                                        { Ast.e =
+                                          (Ast.Constant (Ctype.ConstInt 96l));
+                                          typ = (Some Ctype.Int) }};
+                                      typ = (Some Ctype.Int) }
+                                    ]};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 6l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "ulong_to_uint");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstULong
+                                           1152921506754330624L));
+                                     typ = (Some Ctype.ULong) };
+                                    { Ast.e =
+                                      (Ast.Constant
+                                         (Ctype.ConstUInt -2147483648l));
+                                      typ = (Some Ctype.UInt) }
+                                    ]};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 7l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Unary {op = Ast.Not;
+                              exp =
+                              { Ast.e =
+                                Ast.FunctionCall {
+                                  name = (Ast.Identifier "ulong_to_int");
+                                  args =
+                                  [{ Ast.e =
+                                     (Ast.Constant
+                                        (Ctype.ConstULong
+                                           1152921506754330624L));
+                                     typ = (Some Ctype.ULong) };
+                                    { Ast.e =
+                                      Ast.Cast {target_type = Ctype.Int;
+                                        exp =
+                                        { Ast.e =
+                                          Ast.Unary {op = Ast.Negate;
+                                            exp =
+                                            { Ast.e =
+                                              (Ast.Constant
+                                                 (Ctype.ConstLong 2147483648L));
+                                              typ = (Some Ctype.Long) }};
+                                          typ = (Some Ctype.Long) }};
+                                      typ = (Some Ctype.Int) }
+                                    ]};
+                                typ = (Some Ctype.Int) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Compound
+                             (Ast.Block
+                                [(Ast.S
+                                    (Ast.Return
+                                       { Ast.e =
+                                         (Ast.Constant (Ctype.ConstInt 8l));
+                                         typ = (Some Ctype.Int) }))
+                                  ]));
+                          else_smt = None});
+                     (Ast.D
+                        (Ast.VarDecl
+                           { Ast.name = (Ast.Identifier "ui.7");
+                             init =
+                             (Some { Ast.e =
+                                     Ast.Cast {target_type = Ctype.UInt;
+                                       exp =
+                                       { Ast.e =
+                                         (Ast.Constant
+                                            (Ctype.ConstULong 17179869189L));
+                                         typ = (Some Ctype.ULong) }};
+                                     typ = (Some Ctype.UInt) });
+                             var_type = Ctype.UInt; storage = None }));
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e = (Ast.Var (Ast.Identifier "ui.7"));
+                                typ = (Some Ctype.UInt) };
+                              right =
+                              { Ast.e =
+                                Ast.Cast {target_type = Ctype.UInt;
+                                  exp =
+                                  { Ast.e =
+                                    (Ast.Constant (Ctype.ConstInt 5l));
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.UInt) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 9l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])
+Env.tenv {
+  expected.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  expected.4 -> { c_type = Ctype.UInt; attrs = LocalAttr }
+  expected.6 -> { c_type = Ctype.UInt; attrs = LocalAttr }
+  l.5 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  long_to_uint -> { c_type = Ctype.FunType {params = [Ctype.Long; Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  result.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  ui.7 -> { c_type = Ctype.UInt; attrs = LocalAttr }
+  ul.0 -> { c_type = Ctype.ULong; attrs = LocalAttr }
+  ul.3 -> { c_type = Ctype.ULong; attrs = LocalAttr }
+  ulong_to_int -> { c_type = Ctype.FunType {params = [Ctype.ULong; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  ulong_to_uint -> { c_type = Ctype.FunType {params = [Ctype.ULong; Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

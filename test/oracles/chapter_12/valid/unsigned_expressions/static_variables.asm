@@ -1,0 +1,78 @@
+(Asm.Program
+   [Asm.Function {name = "main"; global = true;
+      instructions =
+      [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
+         dst = (Asm.Reg Asm.SP)};
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm 9223372036854775803L);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "x")};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -4)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L); dst = (Asm.Stack -4)};
+        (Asm.JmpCC (Asm.E, "main.if.en.1"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.1");
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Data "x");
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -16)};
+        Asm.Binary {op = Asm.Add; typ = Asm.Quadword; src = (Asm.Imm 10L);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Stack -16);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Data "x")};
+        Asm.Mov {typ = Asm.Quadword; src = (Asm.Imm -9223372036854775803L);
+          dst = (Asm.Reg Asm.R10)};
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Reg Asm.R10);
+          dst = (Asm.Stack -16)};
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -20)};
+        (Asm.SetCC (Asm.NE, (Asm.Stack -20)));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -20)};
+        (Asm.JmpCC (Asm.E, "main.if.en.5"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.5");
+        Asm.Cmp {typ = Asm.Quadword; src = (Asm.Imm 0L);
+          dst = (Asm.Data "zero_long")};
+        (Asm.JmpCC (Asm.NE, "main.or.tr.7"));
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Data "zero_int")};
+        (Asm.JmpCC (Asm.NE, "main.or.tr.7"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -24)};
+        (Asm.Jmp "main.or.en.8"); (Asm.Label "main.or.tr.7");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Stack -24)};
+        (Asm.Label "main.or.en.8");
+        Asm.Cmp {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Stack -24)};
+        (Asm.JmpCC (Asm.E, "main.if.en.9"));
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret; (Asm.Label "main.if.en.9");
+        Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
+          dst = (Asm.Reg Asm.AX)};
+        Asm.Ret];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 10;
+        offset = -24;
+        stack slots = {
+          main.tmp.0 -> -4,
+          main.tmp.3 -> -16,
+          main.tmp.4 -> -20,
+          main.tmp.6 -> -24,
+        }}};
+     Asm.StaticVariable {name = "zero_long"; global = true; alignment = 8;
+       init = (Ctype.ULongInit 0L)};
+     Asm.StaticVariable {name = "x"; global = false; alignment = 8;
+       init = (Ctype.ULongInit 9223372036854775803L)};
+     Asm.StaticVariable {name = "zero_int"; global = true; alignment = 4;
+       init = (Ctype.UIntInit 0l)}
+     ])

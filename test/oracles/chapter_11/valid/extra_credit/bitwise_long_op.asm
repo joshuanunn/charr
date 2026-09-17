@@ -7,7 +7,7 @@
       frame =
       Env.lenv {
         namespace = "main";
-        counter = 52;
+        counter = 44;
         offset = 0;
         stack slots = {
         }}}

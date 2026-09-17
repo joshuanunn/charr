@@ -1,0 +1,80 @@
+(Ast.Program
+   [(Ast.VarDecl
+       { Ast.name = (Ast.Identifier "ui");
+         init =
+         (Some { Ast.e = (Ast.Constant (Ctype.ConstUInt -96l)); typ = None });
+         var_type = Ctype.UInt; storage = None });
+     (Ast.FunDecl
+        { Ast.name = (Ast.Identifier "main"); params = [];
+          body =
+          (Some (Ast.Block
+                   [(Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Cast {target_type = Ctype.Long;
+                                 exp =
+                                 { Ast.e =
+                                   Ast.Cast {target_type = Ctype.Int;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "ui"));
+                                       typ = (Some Ctype.UInt) }};
+                                   typ = (Some Ctype.Int) }};
+                               typ = (Some Ctype.Long) };
+                             right =
+                             { Ast.e =
+                               Ast.Unary {op = Ast.Negate;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstLong 96L));
+                                   typ = (Some Ctype.Long) }};
+                               typ = (Some Ctype.Long) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Return
+                            { Ast.e = (Ast.Constant (Ctype.ConstInt 1l));
+                              typ = (Some Ctype.Int) });
+                         else_smt = None});
+                     (Ast.S
+                        Ast.If {
+                          cond_exp =
+                          { Ast.e =
+                            Ast.Binary {op = Ast.NotEqual;
+                              left =
+                              { Ast.e =
+                                Ast.Cast {target_type = Ctype.ULong;
+                                  exp =
+                                  { Ast.e =
+                                    Ast.Cast {target_type = Ctype.Int;
+                                      exp =
+                                      { Ast.e =
+                                        (Ast.Var (Ast.Identifier "ui"));
+                                        typ = (Some Ctype.UInt) }};
+                                    typ = (Some Ctype.Int) }};
+                                typ = (Some Ctype.ULong) };
+                              right =
+                              { Ast.e =
+                                (Ast.Constant (Ctype.ConstULong -96L));
+                                typ = (Some Ctype.ULong) }};
+                            typ = (Some Ctype.Int) };
+                          then_smt =
+                          (Ast.Return
+                             { Ast.e = (Ast.Constant (Ctype.ConstInt 2l));
+                               typ = (Some Ctype.Int) });
+                          else_smt = None});
+                     (Ast.S
+                        (Ast.Return
+                           { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                             typ = (Some Ctype.Int) }))
+                     ]));
+          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+          storage = None })
+     ])
+Env.tenv {
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  ui -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Initial ((Ctype.UIntInit -96l)); global = true } }
+}

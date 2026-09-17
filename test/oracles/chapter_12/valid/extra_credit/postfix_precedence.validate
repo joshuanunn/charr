@@ -1,0 +1,76 @@
+(Ast.Program
+   [(Ast.FunDecl
+       { Ast.name = (Ast.Identifier "main"); params = [];
+         body =
+         (Some (Ast.Block
+                  [(Ast.D
+                      (Ast.VarDecl
+                         { Ast.name = (Ast.Identifier "ui.0");
+                           init =
+                           (Some { Ast.e =
+                                   (Ast.Constant (Ctype.ConstUInt -1l));
+                                   typ = (Some Ctype.UInt) });
+                           var_type = Ctype.UInt; storage = None }));
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e =
+                           Ast.Binary {op = Ast.NotEqual;
+                             left =
+                             { Ast.e =
+                               Ast.Cast {target_type = Ctype.ULong;
+                                 exp =
+                                 { Ast.e =
+                                   Ast.Unary {op = Ast.PostIncrement;
+                                     exp =
+                                     { Ast.e =
+                                       (Ast.Var (Ast.Identifier "ui.0"));
+                                       typ = (Some Ctype.UInt) }};
+                                   typ = (Some Ctype.UInt) }};
+                               typ = (Some Ctype.ULong) };
+                             right =
+                             { Ast.e =
+                               Ast.Cast {target_type = Ctype.ULong;
+                                 exp =
+                                 { Ast.e =
+                                   (Ast.Constant (Ctype.ConstUInt -1l));
+                                   typ = (Some Ctype.UInt) }};
+                               typ = (Some Ctype.ULong) }};
+                           typ = (Some Ctype.Int) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 1l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       Ast.If {
+                         cond_exp =
+                         { Ast.e = (Ast.Var (Ast.Identifier "ui.0"));
+                           typ = (Some Ctype.UInt) };
+                         then_smt =
+                         (Ast.Compound
+                            (Ast.Block
+                               [(Ast.S
+                                   (Ast.Return
+                                      { Ast.e =
+                                        (Ast.Constant (Ctype.ConstInt 2l));
+                                        typ = (Some Ctype.Int) }))
+                                 ]));
+                         else_smt = None});
+                    (Ast.S
+                       (Ast.Return
+                          { Ast.e = (Ast.Constant (Ctype.ConstInt 0l));
+                            typ = (Some Ctype.Int) }))
+                    ]));
+         fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
+         storage = None })
+     ])
+Env.tenv {
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  ui.0 -> { c_type = Ctype.UInt; attrs = LocalAttr }
+}

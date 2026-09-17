@@ -33,6 +33,7 @@ type instruction =
   | Return of value
   | SignExtend of { src : value; dst : value }
   | Truncate of { src : value; dst : value }
+  | ZeroExtend of { src : value; dst : value }
   | Unary of { op : unary_operator; src : value; dst : value }
   | Binary of { op : binary_operator; src1 : value; src2 : value; dst : value }
   | Copy of { src : value; dst : value }
@@ -60,3 +61,13 @@ type top_level =
 [@@deriving show]
 
 type prog = Program of top_level list [@@deriving show]
+
+let get_value_type (o : value) (te : Env.tenv) : Ctype.t =
+  match o with
+  | Constant c -> Ctype.const_type c
+  | Var i -> (
+      match Env.find te (Ast.Identifier i) with
+      | Some ti -> ti.c_type
+      | None ->
+          failwith ("internal error: '" ^ i ^ "' not found in type environment")
+      )

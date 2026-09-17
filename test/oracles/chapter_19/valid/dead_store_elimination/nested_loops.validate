@@ -301,3 +301,13 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
+Env.tenv {
+  a.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  b.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  c.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  d.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  putchar -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = false; global = true } }
+  target -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int];
+  ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

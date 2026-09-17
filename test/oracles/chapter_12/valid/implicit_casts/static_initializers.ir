@@ -1,0 +1,84 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "u");
+         src2 = (Ir.Constant (Ctype.ConstUInt -2147483636l));
+         dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "main.if.en.1"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
+        (Ir.Label "main.if.en.1");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "i");
+          src2 = (Ir.Constant (Ctype.ConstInt -2147483646l));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.3");
+          target = "main.if.en.4"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
+        (Ir.Label "main.if.en.4");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "l");
+          src2 = (Ir.Constant (Ctype.ConstLong -9223372036854775716L));
+          dst = (Ir.Var "main.tmp.6")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.6");
+          target = "main.if.en.7"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+        (Ir.Label "main.if.en.7");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "l2");
+          src2 = (Ir.Constant (Ctype.ConstLong 2147483650L));
+          dst = (Ir.Var "main.tmp.8")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.8");
+          target = "main.if.en.9"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+        (Ir.Label "main.if.en.9");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "ul");
+          src2 = (Ir.Constant (Ctype.ConstULong 4294967294L));
+          dst = (Ir.Var "main.tmp.10")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.10");
+          target = "main.if.en.11"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
+        (Ir.Label "main.if.en.11");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "ul2");
+          src2 = (Ir.Constant (Ctype.ConstULong 9223372036854775798L));
+          dst = (Ir.Var "main.tmp.12")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.12");
+          target = "main.if.en.13"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
+        (Ir.Label "main.if.en.13");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "i2");
+          src2 = (Ir.Constant (Ctype.ConstInt -2147483498l));
+          dst = (Ir.Var "main.tmp.15")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.15");
+          target = "main.if.en.16"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 7l)));
+        (Ir.Label "main.if.en.16");
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "ui2");
+          src2 = (Ir.Constant (Ctype.ConstUInt -2147483498l));
+          dst = (Ir.Var "main.tmp.17")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.17");
+          target = "main.if.en.18"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 8l)));
+        (Ir.Label "main.if.en.18");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 19;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.StaticVariable {name = "i"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit -2147483646l)};
+     Ir.StaticVariable {name = "ul"; global = true; t = Ctype.ULong;
+       init = (Ctype.ULongInit 4294967294L)};
+     Ir.StaticVariable {name = "ul2"; global = true; t = Ctype.ULong;
+       init = (Ctype.ULongInit 9223372036854775798L)};
+     Ir.StaticVariable {name = "ui2"; global = true; t = Ctype.UInt;
+       init = (Ctype.UIntInit -2147483498l)};
+     Ir.StaticVariable {name = "i2"; global = true; t = Ctype.Int;
+       init = (Ctype.IntInit -2147483498l)};
+     Ir.StaticVariable {name = "u"; global = true; t = Ctype.UInt;
+       init = (Ctype.UIntInit -2147483636l)};
+     Ir.StaticVariable {name = "l"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit -9223372036854775716L)};
+     Ir.StaticVariable {name = "l2"; global = true; t = Ctype.Long;
+       init = (Ctype.LongInit 2147483650L)}
+     ])

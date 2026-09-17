@@ -68,7 +68,9 @@ let run_parser lexbuf =
 
 let run_validator lexbuf s_env t_env =
   report_errors ~stage:"Semantic analysis" lexbuf (fun () ->
-      print_endline (Ast.show_prog (validate lexbuf s_env t_env)))
+      let ast = validate lexbuf s_env t_env in
+      print_endline (Ast.show_prog ast);
+      print_endline (Env.show_tenv t_env))
 
 let run_irgen lexbuf opts s_env t_env =
   report_errors ~stage:"IR generation" lexbuf (fun () ->

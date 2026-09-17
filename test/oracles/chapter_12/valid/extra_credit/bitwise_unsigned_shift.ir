@@ -1,0 +1,34 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.BwRightShift;
+         src1 = (Ir.Constant (Ctype.ConstUInt 1000000l));
+         src2 = (Ir.Var "shiftcount.1"); dst = (Ir.Var "main.tmp.9")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.9");
+          src2 = (Ir.Constant (Ctype.ConstUInt 31250l));
+          dst = (Ir.Var "main.tmp.11")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.11");
+          target = "main.if.en.12"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
+        (Ir.Label "main.if.en.12");
+        Ir.Binary {op = Ir.BwLeftShift;
+          src1 = (Ir.Constant (Ctype.ConstUInt 1000000l));
+          src2 = (Ir.Var "shiftcount.1"); dst = (Ir.Var "main.tmp.13")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.13");
+          src2 = (Ir.Constant (Ctype.ConstUInt 32000000l));
+          dst = (Ir.Var "main.tmp.15")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.15");
+          target = "main.if.en.16"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
+        (Ir.Label "main.if.en.16");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 17;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.StaticVariable {name = "shiftcount.1"; global = false; t = Ctype.Int;
+       init = (Ctype.IntInit 5l)}
+     ])

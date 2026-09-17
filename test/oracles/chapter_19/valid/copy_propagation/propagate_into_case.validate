@@ -166,3 +166,12 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
+Env.tenv {
+  arg.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  arg.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  callee -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  flag.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  globvar -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 0l)); global = true } }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  target -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

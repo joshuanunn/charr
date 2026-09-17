@@ -106,3 +106,20 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
+Env.tenv {
+  a.0 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  b.1 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  c.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  d.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  e.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  f.5 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  g.6 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  h.7 -> { c_type = Ctype.Int; attrs = LocalAttr }
+  i.8 -> { c_type = Ctype.Long; attrs = LocalAttr }
+  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+  test_sum -> { c_type = Ctype.FunType {
+  params =
+  [Ctype.Long; Ctype.Long; Ctype.Int; Ctype.Int; Ctype.Int; Ctype.Int;
+    Ctype.Int; Ctype.Int; Ctype.Long];
+  ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
+}

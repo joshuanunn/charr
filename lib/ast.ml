@@ -1,6 +1,7 @@
 type storage_class = Static | Extern [@@deriving show]
+type type_specifier = TSInt | TSLong | TSSigned | TSUnsigned [@@deriving show]
 
-type specifier = SpecType of Ctype.t | SpecStorage of storage_class
+type specifier = SpecType of type_specifier | SpecStorage of storage_class
 [@@deriving show]
 
 type ident =
@@ -119,14 +120,28 @@ type decl_specs = { spec_type : Ctype.t; spec_storage : storage_class option }
 [@@deriving show]
 
 let extract_type types =
-  match List.sort Ctype.compare types with
-  | [] -> failwith "No type specifier"
-  | [ Ctype.Int ] -> Ctype.Int
-  | [ Ctype.Long ] | [ Ctype.Int; Ctype.Long ] -> Ctype.Long
-  | _ ->
-      failwith
-        ("Invalid type specifier: "
-        ^ String.concat " " (List.map Ctype.show types))
+  let width =
+    match
+      List.filter (function TSInt | TSLong -> true | _ -> false) types
+    with
+    | [] | [ TSInt ] -> Ctype.Int
+    | [ TSLong; TSInt ] | [ TSInt; TSLong ] | [ TSLong ] -> Ctype.Long
+    | _ -> failwith "Invalid type specifier: multiple type keywords"
+  in
+  let is_signed =
+    match
+      List.filter (function TSSigned | TSUnsigned -> true | _ -> false) types
+    with
+    | [] | [ TSSigned ] -> true
+    | [ TSUnsigned ] -> false
+    | _ -> failwith "Invalid type specifier: conflicting signed/unsigned"
+  in
+  match (width, is_signed) with
+  | Ctype.Int, true -> Ctype.Int
+  | Ctype.Int, false -> Ctype.UInt
+  | Ctype.Long, true -> Ctype.Long
+  | Ctype.Long, false -> Ctype.ULong
+  | _ -> failwith "internal error: not able to determine type width"
 
 let extract_specifiers (sl : specifier list) : decl_specs =
   let types, storages =
@@ -180,6 +195,13 @@ let mk_int_const i =
   else untyped_expr (Constant (Ctype.ConstLong i))
 
 let mk_long_const i = untyped_expr (Constant (Ctype.ConstLong i))
+
+let mk_uint_const i =
+  if Int64.unsigned_compare i Ctype.uint_max <= 0 then
+    untyped_expr (Constant (Ctype.ConstUInt (Int64.to_int32 i)))
+  else untyped_expr (Constant (Ctype.ConstULong i))
+
+let mk_ulong_const i = untyped_expr (Constant (Ctype.ConstULong i))
 let mk_var_expr i = untyped_expr (Var i)
 let mk_binop_expr op left right = untyped_expr (Binary { op; left; right })
 let mk_unop_expr op exp = untyped_expr (Unary { op; exp })
@@ -248,6 +270,5 @@ let mk_cast_expr types exp =
 
 let literal_to_int64 l =
   match l.e with
-  | Constant (Ctype.ConstInt i) -> Int64.of_int32 i
-  | Constant (Ctype.ConstLong l) -> l
+  | Constant c -> Ctype.const_to_int64 c
   | _ -> failwith "Expected constant"

@@ -1,0 +1,50 @@
+(Ir.Program
+   [Ir.Function {name = "main"; global = true; params = [];
+      body =
+      [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "x");
+         src2 = (Ir.Constant (Ctype.ConstULong 9223372036854775803L));
+         dst = (Ir.Var "main.tmp.0")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.0");
+          target = "main.if.en.1"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+        (Ir.Label "main.if.en.1");
+        Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x");
+          src2 = (Ir.Constant (Ctype.ConstULong 10L));
+          dst = (Ir.Var "main.tmp.3")};
+        Ir.Copy {src = (Ir.Var "main.tmp.3"); dst = (Ir.Var "x")};
+        Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "main.tmp.3");
+          src2 = (Ir.Constant (Ctype.ConstULong -9223372036854775803L));
+          dst = (Ir.Var "main.tmp.4")};
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.4");
+          target = "main.if.en.5"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+        (Ir.Label "main.if.en.5");
+        Ir.JumpIfNotZero {condition = (Ir.Var "zero_long");
+          target = "main.or.tr.7"};
+        Ir.JumpIfNotZero {condition = (Ir.Var "zero_int");
+          target = "main.or.tr.7"};
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
+          dst = (Ir.Var "main.tmp.6")};
+        Ir.Jump {target = "main.or.en.8"}; (Ir.Label "main.or.tr.7");
+        Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
+          dst = (Ir.Var "main.tmp.6")};
+        (Ir.Label "main.or.en.8");
+        Ir.JumpIfZero {condition = (Ir.Var "main.tmp.6");
+          target = "main.if.en.9"};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
+        (Ir.Label "main.if.en.9");
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
+      frame =
+      Env.lenv {
+        namespace = "main";
+        counter = 10;
+        offset = 0;
+        stack slots = {
+        }}};
+     Ir.StaticVariable {name = "zero_long"; global = true; t = Ctype.ULong;
+       init = (Ctype.ULongInit 0L)};
+     Ir.StaticVariable {name = "x"; global = false; t = Ctype.ULong;
+       init = (Ctype.ULongInit 9223372036854775803L)};
+     Ir.StaticVariable {name = "zero_int"; global = true; t = Ctype.UInt;
+       init = (Ctype.UIntInit 0l)}
+     ])
