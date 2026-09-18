@@ -9,7 +9,7 @@ A compiler for a large subset of the C programming language, implemented in OCam
 
 ### Types
 - `int` and `long` integers
-- Unsigned integer types (`signed` and `unsigned`)
+- `signed` and `unsigned` integer specifiers
 - Implicit conversions between integer types
 - Explicit casts, e.g. `(long)`, `(int)`
 
