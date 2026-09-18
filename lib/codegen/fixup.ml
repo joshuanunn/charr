@@ -166,6 +166,6 @@ let fixup_func (f : Asm.top_level) : Asm.top_level =
 (** [fixup_prog p] rewrites the assembly program [p] by fixing up any invalid
     instructions in each function and prepending stack allocation based on the
     function frame. *)
-let fixup_prog (Asm.Program p) : Asm.prog =
+let apply (Asm.Program p) : Asm.prog =
   let fixed_funcs = List.map fixup_func p in
   Program fixed_funcs

@@ -134,6 +134,6 @@ let lower_func (f : Asm.top_level) (ae : Asm_symtab.t) : Asm.top_level =
 
 (** Lowers all pseudo operands in the program [p], with pseudo registers
     replaced with stack-based addressing or data-section references. *)
-let lower_prog (Asm.Program p) (ae : Asm_symtab.t) : Asm.prog =
+let apply (Asm.Program p) (ae : Asm_symtab.t) : Asm.prog =
   let lowered_funcs = List.map (fun func -> lower_func func ae) p in
   Program lowered_funcs

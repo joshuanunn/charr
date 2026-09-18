@@ -417,7 +417,6 @@ let build_backend_symtab (te : Env.tenv) : Asm_symtab.t =
     te.typed_idents;
   ae
 
-let compile_prog (Program p : Ir.prog) (te : Env.tenv) : Asm.prog * Asm_symtab.t
-    =
+let apply (Program p : Ir.prog) (te : Env.tenv) : Asm.prog * Asm_symtab.t =
   let compiled_funcs = List.map (fun f -> compile_func f te) p in
   (Asm.Program compiled_funcs, build_backend_symtab te)

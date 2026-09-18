@@ -12,10 +12,10 @@ let gen_ir lexbuf opts s_env t_env =
 
 let gen_asm lexbuf opts s_env t_env =
   let asm, a_env =
-    Codegen.compile_prog (gen_ir lexbuf opts s_env t_env) t_env
+    Codegen.Translate.apply (gen_ir lexbuf opts s_env t_env) t_env
   in
-  let asm = Codegen_lower.lower_prog asm a_env in
-  let asm = Codegen_fixup.fixup_prog asm in
+  let asm = Codegen.Lower.apply asm a_env in
+  let asm = Codegen.Fixup.apply asm in
   (asm, a_env)
 
 let report_errors ~stage lexbuf f =
