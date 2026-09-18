@@ -12,10 +12,12 @@ let gen_ir lexbuf opts s_env t_env =
 
 let gen_asm lexbuf opts s_env t_env =
   let asm, a_env =
-    Codegen.Translate.apply (gen_ir lexbuf opts s_env t_env) t_env
+    Targets.X86_64.Codegen.Translate.apply
+      (gen_ir lexbuf opts s_env t_env)
+      t_env
   in
-  let asm = Codegen.Lower.apply asm a_env in
-  let asm = Codegen.Fixup.apply asm in
+  let asm = Targets.X86_64.Codegen.Lower.apply asm a_env in
+  let asm = Targets.X86_64.Codegen.Fixup.apply asm in
   (asm, a_env)
 
 let report_errors ~stage lexbuf f =
@@ -79,17 +81,17 @@ let run_irgen lexbuf opts s_env t_env =
 let run_codegen lexbuf opts s_env t_env =
   report_errors ~stage:"Code generation" lexbuf (fun () ->
       let asm, _ = gen_asm lexbuf opts s_env t_env in
-      print_endline (Asm.show_prog asm))
+      print_endline (Targets.X86_64.Asm.show_prog asm))
 
 let run_emit lexbuf opts s_env t_env =
   report_errors ~stage:"Assembly emission" lexbuf (fun () ->
       let asm, _ = gen_asm lexbuf opts s_env t_env in
-      print_string (Emit.emit_prog asm))
+      print_string (Targets.X86_64.Emission.apply asm))
 
 let run_exe lexbuf opts output_path s_env t_env =
   report_errors ~stage:"Executable generation" lexbuf (fun () ->
       let asm, _ = gen_asm lexbuf opts s_env t_env in
-      let asm_text = Emit.emit_prog asm in
+      let asm_text = Targets.X86_64.Emission.apply asm in
       let oc = open_out output_path in
       Fun.protect
         ~finally:(fun () -> close_out oc)

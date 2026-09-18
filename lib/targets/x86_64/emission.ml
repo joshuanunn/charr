@@ -196,7 +196,7 @@ let emit_top_level (f : Asm.top_level) : string list =
           format_instruction directive value;
         ]
 
-let emit_prog (Asm.Program p) : string =
+let apply (Asm.Program p) : string =
   let footer =
     [ format_instruction ".section" ".note.GNU-stack,\"\",@progbits\n" ]
   in
