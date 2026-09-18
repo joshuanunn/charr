@@ -8,7 +8,7 @@ let validate lexbuf s_env t_env =
 
 let gen_ir lexbuf opts s_env t_env =
   let ir = Irgen.convert_prog (validate lexbuf s_env t_env) t_env in
-  Passes.optimise_prog ir opts t_env
+  Opt.Passes.optimise_prog ir opts t_env
 
 let gen_asm lexbuf opts s_env t_env =
   let asm, a_env =

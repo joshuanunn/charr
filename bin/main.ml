@@ -21,7 +21,7 @@ let () =
         exit 1
   in
 
-  let enabled_opts = Charr.Passes.unpack_opts opt_flags in
+  let enabled_opts = Charr.Opt.Passes.unpack_opts opt_flags in
 
   let () =
     match int_of_string_opt Sys.argv.(4) with
