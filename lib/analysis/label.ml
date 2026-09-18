@@ -161,8 +161,8 @@ let label_func (f : Ast.fun_decl) : Ast.fun_decl =
     storage = f.storage;
   }
 
-(** [label_prog p] applies labeling to the entire program [p]. *)
-let label_prog (Program p : Ast.prog) : Ast.prog =
+(** [apply p] applies labeling to the entire program [p]. *)
+let apply (Program p : Ast.prog) : Ast.prog =
   let labelled_funcs =
     List.map
       (function

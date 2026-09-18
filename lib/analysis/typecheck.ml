@@ -394,7 +394,7 @@ and type_block (b : Ast.block) (ret : Ctype.t) (swt : Ctype.t option)
 
     Processes all top-level declarations and function definitions using a shared
     global type environment. *)
-and type_prog (Program p : Ast.prog) (te : Env.tenv) : Ast.prog =
+and apply (Program p : Ast.prog) (te : Env.tenv) : Ast.prog =
   Ast.Program
     (List.map
        (function

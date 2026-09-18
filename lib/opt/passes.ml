@@ -108,7 +108,7 @@ let collect_escaping_globals (te : Env.tenv) =
   |> List.map (fun (name, _, _, _) -> name)
   |> Cfg.StringSet.of_list
 
-let optimise_prog (Program p : Ir.prog) (o : opts) (te : Env.tenv) : Ir.prog =
+let apply (Program p : Ir.prog) (o : opts) (te : Env.tenv) : Ir.prog =
   let statics = collect_escaping_globals te in
   let compiled_funcs =
     List.map (function f -> optimise_func f o statics te) p

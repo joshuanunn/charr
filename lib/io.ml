@@ -2,13 +2,13 @@ let parse lexbuf = Parser.prog Lexer.read lexbuf
 
 let validate lexbuf s_env t_env =
   let ast = parse lexbuf in
-  let ast = Analysis.Resolution.resolve_prog ast s_env in
-  let ast = Analysis.Typecheck.type_prog ast t_env in
-  Analysis.Label.label_prog ast
+  let ast = Analysis.Resolution.apply ast s_env in
+  let ast = Analysis.Typecheck.apply ast t_env in
+  Analysis.Label.apply ast
 
 let gen_ir lexbuf opts s_env t_env =
   let ir = Irgen.convert_prog (validate lexbuf s_env t_env) t_env in
-  Opt.Passes.optimise_prog ir opts t_env
+  Opt.Passes.apply ir opts t_env
 
 let gen_asm lexbuf opts s_env t_env =
   let asm, a_env =

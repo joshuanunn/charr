@@ -243,10 +243,10 @@ and resolve_block (b : Ast.block) (se : Env.senv) : Ast.block =
   in
   Block resolved_items
 
-(** [resolve_prog p se] resolves a top-level program [p] with environment [se].
+(** [apply p se] resolves a top-level program [p] with environment [se].
     Predeclares all top-level functions and variables before resolving function
     bodies. *)
-and resolve_prog (Program p : Ast.prog) (se : Env.senv) : Ast.prog =
+and apply (Program p : Ast.prog) (se : Env.senv) : Ast.prog =
   (* PASS 1: Pre-declare names of all top-level functions and variables *)
   List.iter
     (function
