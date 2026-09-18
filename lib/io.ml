@@ -1,4 +1,4 @@
-let parse lexbuf = Parser.prog Lexer.read lexbuf
+let parse lexbuf = Frontend.Parser.prog Frontend.Lexer.read lexbuf
 
 let validate lexbuf s_env t_env =
   let ast = parse lexbuf in
@@ -20,14 +20,14 @@ let gen_asm lexbuf opts s_env t_env =
 
 let report_errors ~stage lexbuf f =
   try f () with
-  | Lexer.Lexing_error msg ->
+  | Frontend.Lexer.Lexing_error msg ->
       let pos = lexbuf.Lexing.lex_curr_p in
       Printf.eprintf "Lexing error at line %d, column %d: %s\n"
         pos.Lexing.pos_lnum
         (pos.Lexing.pos_cnum - pos.Lexing.pos_bol)
         msg;
       exit 1
-  | Parser.Error ->
+  | Frontend.Parser.Error ->
       let pos = lexbuf.Lexing.lex_curr_p in
       Printf.eprintf "Parse error at line %d, column %d\n" pos.Lexing.pos_lnum
         (pos.Lexing.pos_cnum - pos.Lexing.pos_bol);
@@ -49,10 +49,10 @@ let with_input_file path f =
 let run_lexer lexbuf =
   let rec loop () =
     try
-      let tok = Lexer.read lexbuf in
-      print_endline (Lexer_pp.show_token tok);
-      if tok != Parser.EOF then loop ()
-    with Lexer.Lexing_error msg ->
+      let tok = Frontend.Lexer.read lexbuf in
+      print_endline (Frontend.Lexer_pp.show_token tok);
+      if tok != Frontend.Parser.EOF then loop ()
+    with Frontend.Lexer.Lexing_error msg ->
       let pos = lexbuf.Lexing.lex_curr_p in
       Printf.eprintf "Lexing error at line %d, column %d: %s\n"
         pos.Lexing.pos_lnum
