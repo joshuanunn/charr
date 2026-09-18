@@ -463,7 +463,7 @@ let convert_symbols (te : Env.tenv) : Ir.top_level list =
           Some (Ir.StaticVariable { name; global; t; init })
       | Env.NoInitialiser -> None)
 
-let convert_prog (Program p : Ast.prog) (te : Env.tenv) : Ir.prog =
+let apply (Program p : Ast.prog) (te : Env.tenv) : Ir.prog =
   (* AST pass: convert top-level function definitions into IR functions *)
   let ir_funcs =
     List.filter_map

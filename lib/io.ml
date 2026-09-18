@@ -7,7 +7,7 @@ let validate lexbuf s_env t_env =
   Analysis.Label.apply ast
 
 let gen_ir lexbuf opts s_env t_env =
-  let ir = Irgen.convert_prog (validate lexbuf s_env t_env) t_env in
+  let ir = Irgen.Translate.apply (validate lexbuf s_env t_env) t_env in
   Opt.Passes.apply ir opts t_env
 
 let gen_asm lexbuf opts s_env t_env =
