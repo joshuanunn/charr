@@ -61,11 +61,11 @@ let assign_stack_offset (le : Env.lenv) (v : string) (typ : Asm.assembly_type) :
 (** Resolve a pseudo operand to either a data-section reference (for static
     storage) or a stack slot (for automatic storage), leaving other operands
     unchanged. *)
-let lower_operand (o : Asm.operand) (ae : Asm_symtab.t) (le : Env.lenv) :
+let lower_operand (o : Asm.operand) (ae : Symtab.t) (le : Env.lenv) :
     Asm.operand =
   match o with
   | Pseudo v -> (
-      match Asm_symtab.find ae v with
+      match Symtab.find ae v with
       | Some (ObjEntry { typ; is_static }) ->
           if is_static then Asm.Data v
           else Asm.Stack (assign_stack_offset le v typ)
@@ -81,8 +81,8 @@ let lower_operand (o : Asm.operand) (ae : Asm_symtab.t) (le : Env.lenv) :
 
 (** Lowers any pseudo-registers in the instruction [i], replacing them with
     stack operands or data-section references. *)
-let lower_instruction (i : Asm.instruction) (ae : Asm_symtab.t) (le : Env.lenv)
-    : Asm.instruction =
+let lower_instruction (i : Asm.instruction) (ae : Symtab.t) (le : Env.lenv) :
+    Asm.instruction =
   match i with
   | Mov { typ; src; dst } ->
       Mov { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
@@ -116,7 +116,7 @@ let lower_instruction (i : Asm.instruction) (ae : Asm_symtab.t) (le : Env.lenv)
 
 (** Lowers all pseudo operands in the function [f], where all variables have
     been resolved to stack locations or data-section references. *)
-let lower_func (f : Asm.top_level) (ae : Asm_symtab.t) : Asm.top_level =
+let lower_func (f : Asm.top_level) (ae : Symtab.t) : Asm.top_level =
   match f with
   | Function fn ->
       let lowered_instructions =
@@ -134,6 +134,6 @@ let lower_func (f : Asm.top_level) (ae : Asm_symtab.t) : Asm.top_level =
 
 (** Lowers all pseudo operands in the program [p], with pseudo registers
     replaced with stack-based addressing or data-section references. *)
-let apply (Asm.Program p) (ae : Asm_symtab.t) : Asm.prog =
+let apply (Asm.Program p) (ae : Symtab.t) : Asm.prog =
   let lowered_funcs = List.map (fun func -> lower_func func ae) p in
   Program lowered_funcs

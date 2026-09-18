@@ -400,23 +400,19 @@ let compile_func (f : Ir.top_level) (te : Env.tenv) : Asm.top_level =
       StaticVariable
         { name; global; alignment = get_assembly_alignment t; init }
 
-let build_backend_symtab (te : Env.tenv) : Asm_symtab.t =
-  let ae = Asm_symtab.make () in
+let build_backend_symtab (te : Env.tenv) : Symtab.t =
+  let ae = Symtab.make () in
   Hashtbl.iter
     (fun name (entry : Env.type_entry) ->
       match entry.attrs with
-      | FunAttr { defined; _ } -> Asm_symtab.add_fun ae name defined
+      | FunAttr { defined; _ } -> Symtab.add_fun ae name defined
       | StaticAttr _ ->
-          Asm_symtab.add_obj ae name
-            (get_assembly_type_of_ctype entry.c_type)
-            true
+          Symtab.add_obj ae name (get_assembly_type_of_ctype entry.c_type) true
       | LocalAttr ->
-          Asm_symtab.add_obj ae name
-            (get_assembly_type_of_ctype entry.c_type)
-            false)
+          Symtab.add_obj ae name (get_assembly_type_of_ctype entry.c_type) false)
     te.typed_idents;
   ae
 
-let apply (Program p : Ir.prog) (te : Env.tenv) : Asm.prog * Asm_symtab.t =
+let apply (Program p : Ir.prog) (te : Env.tenv) : Asm.prog * Symtab.t =
   let compiled_funcs = List.map (fun f -> compile_func f te) p in
   (Asm.Program compiled_funcs, build_backend_symtab te)
