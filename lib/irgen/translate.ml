@@ -2,9 +2,10 @@ let identifier_to_string = function
   | Ast.Identifier s -> s
   | _ -> failwith "expected Identifier"
 
-let make_tmp (le : Env.lenv) (te : Env.tenv) (t : Ctype.t) : Ir.value =
-  let var_name = Env.declare_tmp le in
-  Env.add te (Ast.Identifier var_name) { c_type = t; attrs = Env.LocalAttr };
+let make_tmp (le : Ir.Frame.t) (te : Analysis.Tenv.t) (t : Ctype.t) : Ir.value =
+  let var_name = Ir.Frame.declare_tmp le in
+  Analysis.Tenv.add te (Ast.Identifier var_name)
+    { c_type = t; attrs = Analysis.Tenv.LocalAttr };
   Ir.Var var_name
 
 let update_op (u : Ast.unop) : Ir.binary_operator =
@@ -68,7 +69,7 @@ let rec collect_cases (s : Ast.stmt) : (Ast.expr option * string) list =
   | Label (_, s) -> collect_cases s
   | _ -> []
 
-let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
+let rec convert_expr (e : Ast.expr) (le : Ir.Frame.t) (te : Analysis.Tenv.t) :
     Ir.value * Ir.instruction list =
   match e.e with
   | Constant c -> (Constant c, [])
@@ -129,8 +130,8 @@ let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
       let lhs, lhs_ins = convert_expr left le te in
       let rhs, rhs_ins = convert_expr right le te in
       let dst = make_tmp le te (Ast.get_type e) in
-      let lbs = Env.declare_label le "and.fl" in
-      let lbe = Env.declare_label le "and.en" in
+      let lbs = Ir.Frame.declare_label le "and.fl" in
+      let lbe = Ir.Frame.declare_label le "and.en" in
       let jzl = Ir.JumpIfZero { condition = lhs; target = lbs } in
       let jzr = Ir.JumpIfZero { condition = rhs; target = lbs } in
       let c1 = Ir.Copy { src = Constant (ConstInt 1l); dst } in
@@ -143,8 +144,8 @@ let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
       let lhs, lhs_ins = convert_expr left le te in
       let rhs, rhs_ins = convert_expr right le te in
       let dst = make_tmp le te (Ast.get_type e) in
-      let lbs = Env.declare_label le "or.tr" in
-      let lbe = Env.declare_label le "or.en" in
+      let lbs = Ir.Frame.declare_label le "or.tr" in
+      let lbe = Ir.Frame.declare_label le "or.en" in
       let jzl = Ir.JumpIfNotZero { condition = lhs; target = lbs } in
       let jzr = Ir.JumpIfNotZero { condition = rhs; target = lbs } in
       let c0 = Ir.Copy { src = Constant (ConstInt 0l); dst } in
@@ -168,8 +169,8 @@ let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
   | Conditional { cond_exp; then_exp; else_exp } ->
       let result = make_tmp le te (Ast.get_type e) in
       let cond, cond_ins = convert_expr cond_exp le te in
-      let l_end = Env.declare_label le "cond.en" in
-      let l_e2 = Env.declare_label le "cond.el" in
+      let l_end = Ir.Frame.declare_label le "cond.en" in
+      let l_e2 = Ir.Frame.declare_label le "cond.el" in
       let jz_cond = Ir.JumpIfZero { condition = cond; target = l_e2 } in
       let v1, e1_ins = convert_expr then_exp le te in
       let c1 = Ir.Copy { src = v1; dst = result } in
@@ -197,7 +198,7 @@ let rec convert_expr (e : Ast.expr) (le : Env.lenv) (te : Env.tenv) :
       let src2, src2_instructions = convert_expr right le te in
       (src2, src1_instructions @ src2_instructions)
 
-let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) (te : Env.tenv) :
+let rec convert_stmt (s : Ast.stmt) (le : Ir.Frame.t) (te : Analysis.Tenv.t) :
     Ir.instruction list =
   match s with
   | Return v ->
@@ -208,14 +209,14 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) (te : Env.tenv) :
       instructions
   | If { cond_exp; then_smt; else_smt = None } ->
       let cond, cond_ins = convert_expr cond_exp le te in
-      let l_end = Env.declare_label le "if.en" in
+      let l_end = Ir.Frame.declare_label le "if.en" in
       let jz_cond = Ir.JumpIfZero { condition = cond; target = l_end } in
       let then_ins = convert_stmt then_smt le te in
       cond_ins @ [ jz_cond ] @ then_ins @ [ Ir.Label l_end ]
   | If { cond_exp; then_smt; else_smt = Some s } ->
       let cond, cond_ins = convert_expr cond_exp le te in
-      let l_end = Env.declare_label le "if.en" in
-      let l_else = Env.declare_label le "if.el" in
+      let l_end = Ir.Frame.declare_label le "if.en" in
+      let l_else = Ir.Frame.declare_label le "if.el" in
       let jz_cond = Ir.JumpIfZero { condition = cond; target = l_else } in
       let then_ins = convert_stmt then_smt le te in
       let j_end = Ir.Jump { target = l_end } in
@@ -358,12 +359,12 @@ let rec convert_stmt (s : Ast.stmt) (le : Env.lenv) (te : Env.tenv) :
       | _ -> failwith "label statement has missing label")
   | Null -> []
 
-and convert_dclr (d : Ast.decl) (le : Env.lenv) (te : Env.tenv) :
+and convert_dclr (d : Ast.decl) (le : Ir.Frame.t) (te : Analysis.Tenv.t) :
     Ir.instruction list =
   match d with
   (* Function declarations without body are discarded *)
   | FunDecl _ -> []
-  (* Don't generate instructions for statics as these are handled in Env.tenv *)
+  (* Don't generate instructions for statics as these are handled in Tenv.t *)
   | VarDecl { storage = Some Static; _ } -> []
   (* Don't generate instructions for externs *)
   | VarDecl { storage = Some Extern; _ } -> []
@@ -375,8 +376,8 @@ and convert_dclr (d : Ast.decl) (le : Env.lenv) (te : Env.tenv) :
       let _, instructions = convert_expr initialiser le te in
       instructions
 
-and convert_for_init (i : Ast.for_init) (le : Env.lenv) (te : Env.tenv) :
-    Ir.instruction list =
+and convert_for_init (i : Ast.for_init) (le : Ir.Frame.t) (te : Analysis.Tenv.t)
+    : Ir.instruction list =
   match i with
   (* No need to generate instructions for variable declaration *)
   | InclDecl { init = None; _ } -> []
@@ -391,7 +392,7 @@ and convert_for_init (i : Ast.for_init) (le : Env.lenv) (te : Env.tenv) :
   | InitExp None -> []
 
 and convert_for_cond (e : Ast.expr option) (exit_target : string)
-    (le : Env.lenv) (te : Env.tenv) : Ir.instruction list =
+    (le : Ir.Frame.t) (te : Analysis.Tenv.t) : Ir.instruction list =
   match e with
   | Some exp ->
       let cond, cond_ins = convert_expr exp le te in
@@ -399,15 +400,15 @@ and convert_for_cond (e : Ast.expr option) (exit_target : string)
       cond_ins @ [ jz_cond ]
   | None -> []
 
-and convert_for_post (e : Ast.expr option) (le : Env.lenv) (te : Env.tenv) :
-    Ir.instruction list =
+and convert_for_post (e : Ast.expr option) (le : Ir.Frame.t)
+    (te : Analysis.Tenv.t) : Ir.instruction list =
   match e with
   | Some exp ->
       let _, ins = convert_expr exp le te in
       ins
   | None -> []
 
-and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
+and convert_func (f : Ast.fun_decl) (te : Analysis.Tenv.t) : Ir.top_level =
   match f.body with
   | None ->
       failwith
@@ -416,7 +417,7 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
   | Some (Block items) ->
       (* Create a new environment for the function to track frame contents *)
       let func_name = identifier_to_string f.name in
-      let le = Env.make_lenv func_name in
+      let le = Ir.Frame.make func_name in
       let body =
         List.map
           (fun node ->
@@ -430,7 +431,7 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
          that C standard states that in such cases, the return value is
          undefined, so choose by convention to always return int type. *)
       let body_safe_return = body @ [ Return (Constant (ConstInt 0l)) ] in
-      let global = Env.fun_is_global te f.name in
+      let global = Analysis.Tenv.fun_is_global te f.name in
       Function
         {
           name = func_name;
@@ -445,12 +446,13 @@ and convert_func (f : Ast.fun_decl) (te : Env.tenv) : Ir.top_level =
           frame = le;
         }
 
-let convert_symbols (te : Env.tenv) : Ir.top_level list =
-  Env.static_vars te
+let convert_symbols (te : Analysis.Tenv.t) : Ir.top_level list =
+  Analysis.Tenv.static_vars te
   |> List.filter_map (fun (name, global, t, init) ->
       match init with
-      | Env.Initial init -> Some (Ir.StaticVariable { name; global; t; init })
-      | Env.Tentative ->
+      | Analysis.Tenv.Initial init ->
+          Some (Ir.StaticVariable { name; global; t; init })
+      | Analysis.Tenv.Tentative ->
           let init =
             match t with
             | Ctype.Int -> Ctype.IntInit 0l
@@ -461,9 +463,9 @@ let convert_symbols (te : Env.tenv) : Ir.top_level list =
                 failwith "internal error: static variable with function type"
           in
           Some (Ir.StaticVariable { name; global; t; init })
-      | Env.NoInitialiser -> None)
+      | Analysis.Tenv.NoInitialiser -> None)
 
-let apply (Program p : Ast.prog) (te : Env.tenv) : Ir.prog =
+let apply (Program p : Ast.prog) (te : Analysis.Tenv.t) : Ir.prog =
   (* AST pass: convert top-level function definitions into IR functions *)
   let ir_funcs =
     List.filter_map

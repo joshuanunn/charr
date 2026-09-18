@@ -46,22 +46,22 @@ let align_down (n : int) (alignment : int) : int =
     values, leaving the 4-byte gap above it unused.
 
     **)
-let assign_stack_offset (le : Env.lenv) (v : string) (typ : Asm.assembly_type) :
-    int =
-  match Env.get_offset_opt le v with
+let assign_stack_offset (le : Ir.Frame.t) (v : string) (typ : Asm.assembly_type)
+    : int =
+  match Ir.Frame.get_offset_opt le v with
   | Some offset -> offset
   | None ->
       let tentative = le.offset - stack_size typ in
       let offset =
         if typ = Asm.Quadword then align_down tentative 8 else tentative
       in
-      Env.set_offset le v offset;
+      Ir.Frame.set_offset le v offset;
       offset
 
 (** Resolve a pseudo operand to either a data-section reference (for static
     storage) or a stack slot (for automatic storage), leaving other operands
     unchanged. *)
-let lower_operand (o : Asm.operand) (ae : Symtab.t) (le : Env.lenv) :
+let lower_operand (o : Asm.operand) (ae : Symtab.t) (le : Ir.Frame.t) :
     Asm.operand =
   match o with
   | Pseudo v -> (
@@ -81,7 +81,7 @@ let lower_operand (o : Asm.operand) (ae : Symtab.t) (le : Env.lenv) :
 
 (** Lowers any pseudo-registers in the instruction [i], replacing them with
     stack operands or data-section references. *)
-let lower_instruction (i : Asm.instruction) (ae : Symtab.t) (le : Env.lenv) :
+let lower_instruction (i : Asm.instruction) (ae : Symtab.t) (le : Ir.Frame.t) :
     Asm.instruction =
   match i with
   | Mov { typ; src; dst } ->

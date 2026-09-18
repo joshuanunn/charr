@@ -72,7 +72,7 @@ let run_validator lexbuf s_env t_env =
   report_errors ~stage:"Semantic analysis" lexbuf (fun () ->
       let ast = validate lexbuf s_env t_env in
       print_endline (Ast.show_prog ast);
-      print_endline (Env.show_tenv t_env))
+      print_endline (Analysis.Tenv.show_t t_env))
 
 let run_irgen lexbuf opts s_env t_env =
   report_errors ~stage:"IR generation" lexbuf (fun () ->

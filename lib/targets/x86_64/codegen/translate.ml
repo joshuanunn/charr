@@ -6,10 +6,11 @@ let get_assembly_type_of_ctype (t : Ctype.t) : Asm.assembly_type =
   | ULong -> Asm.Quadword
   | FunType _ -> failwith "internal error: no assembly type for function type"
 
-let get_assembly_type (o : Ir.value) (te : Env.tenv) : Asm.assembly_type =
+let get_assembly_type (o : Ir.value) (te : Analysis.Tenv.t) : Asm.assembly_type
+    =
   get_assembly_type_of_ctype (Ir.get_value_type o te)
 
-let value_is_signed (o : Ir.value) (te : Env.tenv) : bool =
+let value_is_signed (o : Ir.value) (te : Analysis.Tenv.t) : bool =
   Ctype.is_signed (Ir.get_value_type o te)
 
 let get_assembly_alignment (t : Ctype.t) : int =
@@ -113,7 +114,7 @@ let build_stack_pushes args te =
     Codegen_lower.
 
     **)
-let copy_args_to_stack (params : string list) (te : Env.tenv) :
+let copy_args_to_stack (params : string list) (te : Analysis.Tenv.t) :
     Asm.instruction list =
   let reg_order = [ Asm.DI; Asm.SI; Asm.DX; Asm.CX; Asm.R8; Asm.R9 ] in
 
@@ -162,7 +163,7 @@ let compile_cc (bop : Ir.binary_operator) (is_signed : bool) : Asm.cond_code =
   | GreaterThan -> if is_signed then G else A
   | _ -> failwith "Cannot compile IR binary operator to ASM cond code"
 
-let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
+let compile_instruction (s : Ir.instruction) (te : Analysis.Tenv.t) :
     Asm.instruction list =
   match s with
   | Return v ->
@@ -385,7 +386,7 @@ let compile_instruction (s : Ir.instruction) (te : Env.tenv) :
       pad_stack @ pass_register_args @ pass_stack_args @ emit_call
       @ dealloc_stack @ ret_value
 
-let compile_func (f : Ir.top_level) (te : Env.tenv) : Asm.top_level =
+let compile_func (f : Ir.top_level) (te : Analysis.Tenv.t) : Asm.top_level =
   match f with
   | Function fn ->
       let args_ins = copy_args_to_stack fn.params te in
@@ -400,10 +401,10 @@ let compile_func (f : Ir.top_level) (te : Env.tenv) : Asm.top_level =
       StaticVariable
         { name; global; alignment = get_assembly_alignment t; init }
 
-let build_backend_symtab (te : Env.tenv) : Symtab.t =
+let build_backend_symtab (te : Analysis.Tenv.t) : Symtab.t =
   let ae = Symtab.make () in
   Hashtbl.iter
-    (fun name (entry : Env.type_entry) ->
+    (fun name (entry : Analysis.Tenv.type_entry) ->
       match entry.attrs with
       | FunAttr { defined; _ } -> Symtab.add_fun ae name defined
       | StaticAttr _ ->
@@ -413,6 +414,6 @@ let build_backend_symtab (te : Env.tenv) : Symtab.t =
     te.typed_idents;
   ae
 
-let apply (Program p : Ir.prog) (te : Env.tenv) : Asm.prog * Symtab.t =
+let apply (Program p : Ir.prog) (te : Analysis.Tenv.t) : Asm.prog * Symtab.t =
   let compiled_funcs = List.map (fun f -> compile_func f te) p in
   (Asm.Program compiled_funcs, build_backend_symtab te)

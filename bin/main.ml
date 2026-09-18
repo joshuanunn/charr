@@ -33,8 +33,8 @@ let () =
   in
 
   (* Initialise new environments *)
-  let s_env = Charr.Env.make_senv () in
-  let t_env = Charr.Env.make_tenv () in
+  let s_env = Charr.Analysis.Senv.make () in
+  let t_env = Charr.Analysis.Tenv.make () in
   Charr.Io.with_input_file source_path (fun lexbuf ->
       match phase with
       | 1 -> Charr.Io.run_lexer lexbuf

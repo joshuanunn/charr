@@ -47,7 +47,7 @@ type top_level =
       name : string;
       global : bool;
       instructions : instruction list;
-      frame : Env.lenv;
+      frame : Ir.Frame.t;
     }
   | StaticVariable of {
       name : string;

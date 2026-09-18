@@ -54,7 +54,7 @@ let cfg_to_instructions (cfg : Cfg.graph) : Ir.instruction list =
   |> List.concat_map (fun (_, node) -> Cfg.get_instructions node)
 
 let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
-    (te : Env.tenv) : Ir.instruction list =
+    (te : Analysis.Tenv.t) : Ir.instruction list =
   let rec loop body =
     if body = [] then body
     else
@@ -92,7 +92,7 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
   loop body
 
 let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t)
-    (te : Env.tenv) : Ir.top_level =
+    (te : Analysis.Tenv.t) : Ir.top_level =
   (* only optimise function bodies *)
   match f with
   | Function { name; global; params; body; frame } ->
@@ -103,12 +103,12 @@ let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t)
 
 (** Construct a set of variable names whose storage is static and whose value
     may be observed across function boundaries or translation units. *)
-let collect_escaping_globals (te : Env.tenv) =
-  Env.static_vars te
+let collect_escaping_globals (te : Analysis.Tenv.t) =
+  Analysis.Tenv.static_vars te
   |> List.map (fun (name, _, _, _) -> name)
   |> Cfg.StringSet.of_list
 
-let apply (Program p : Ir.prog) (o : opts) (te : Env.tenv) : Ir.prog =
+let apply (Program p : Ir.prog) (o : opts) (te : Analysis.Tenv.t) : Ir.prog =
   let statics = collect_escaping_globals te in
   let compiled_funcs =
     List.map (function f -> optimise_func f o statics te) p
