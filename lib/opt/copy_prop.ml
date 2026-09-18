@@ -1,3 +1,5 @@
+(** Copy propagation pass *)
+
 (** Copies only propagate when src/dst same type or signedness. *)
 let should_copy_propagate src dst te =
   let src_typ = Ir.get_value_type src te in

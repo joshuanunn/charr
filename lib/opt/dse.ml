@@ -1,3 +1,5 @@
+(** Dead store elimination pass *)
+
 (** Kill any live variables which are written to. *)
 let kill_live_dest dst live_vars =
   match dst with Ir.Var n -> Cfg.StringSet.remove n live_vars | _ -> live_vars

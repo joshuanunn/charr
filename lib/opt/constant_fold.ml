@@ -1,3 +1,5 @@
+(** Constant folding pass *)
+
 let fold_unop (op : Ir.unary_operator) (c : Ctype.const) : Ctype.const option =
   let n = Ctype.const_to_int64 c in
   match op with
