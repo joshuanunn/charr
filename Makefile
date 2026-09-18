@@ -1,18 +1,8 @@
 BIN := charr
 
-SRC := \
-	bin/dune \
-	bin/main.ml \
-	lib/dune \
-	$(wildcard lib/*.ml) \
-	$(wildcard lib/*.mll) \
-	$(wildcard lib/*.mly)
-
 .PHONY: all test test_lex test_parse test_exe regenerate_oracles clean
 
-all: $(BIN)
-
-$(BIN): $(SRC)
+all:
 	dune fmt || true
 	dune build
 	dune install
