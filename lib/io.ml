@@ -2,9 +2,9 @@ let parse lexbuf = Parser.prog Lexer.read lexbuf
 
 let validate lexbuf s_env t_env =
   let ast = parse lexbuf in
-  let ast = Analysis.Ast_resolution.resolve_prog ast s_env in
-  let ast = Analysis.Ast_type_check.type_prog ast t_env in
-  Analysis.Ast_flow_label.label_prog ast
+  let ast = Analysis.Resolution.resolve_prog ast s_env in
+  let ast = Analysis.Typecheck.type_prog ast t_env in
+  Analysis.Label.label_prog ast
 
 let gen_ir lexbuf opts s_env t_env =
   let ir = Irgen.convert_prog (validate lexbuf s_env t_env) t_env in
