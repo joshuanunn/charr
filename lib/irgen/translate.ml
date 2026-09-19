@@ -8,6 +8,9 @@ let make_tmp (fr : Ir.Frame.t) (te : Analysis.Tenv.t) (t : Ctype.t) : Ir.value =
     { c_type = t; attrs = Analysis.Tenv.LocalAttr };
   Ir.Var var_name
 
+let build_initialiser (name : Ast.ident) (rhs : Ast.expr) : Ast.expr =
+  Ast.untyped_expr (Ast.Assignment (Ast.untyped_expr (Ast.Var name), rhs))
+
 let update_op (u : Ast.unop) : Ir.binary_operator =
   match u with
   | PreIncrement -> Add
@@ -372,7 +375,7 @@ and convert_dclr (d : Ast.decl) (fr : Ir.Frame.t) (te : Analysis.Tenv.t) :
   | VarDecl { storage = _; init = None; _ } -> []
   (* Handle a declaration with initialiser as an assignment expression *)
   | VarDecl { storage = _; name; init = Some rhs; _ } ->
-      let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
+      let initialiser = build_initialiser name rhs in
       let _, instructions = convert_expr initialiser fr te in
       instructions
 
@@ -383,7 +386,7 @@ and convert_for_init (i : Ast.for_init) (fr : Ir.Frame.t) (te : Analysis.Tenv.t)
   | InclDecl { init = None; _ } -> []
   (* Handle a declaration with initialiser as an assignment expression *)
   | InclDecl { name; init = Some rhs; _ } ->
-      let initialiser = Ast.mk_assign_expr (Ast.mk_var_expr name) rhs in
+      let initialiser = build_initialiser name rhs in
       let _, instructions = convert_expr initialiser fr te in
       instructions
   | InitExp (Some e) ->
