@@ -183,7 +183,7 @@ and resolve_decl (d : Ast.decl) (se : Senv.t) : Ast.decl =
       (match Senv.find_in_current_scope se name with
       | Some prev ->
           if not (prev.has_linkage && has_linkage) then
-            failwith ("conflicting declarations of " ^ Util.ident_name name)
+            failwith ("conflicting declarations of " ^ Ast.identifier_name name)
       | None -> ());
 
       let name' =

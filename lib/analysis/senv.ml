@@ -47,13 +47,13 @@ let pop_label_scope (se : t) =
 (** Look up an identifier in the current (innermost) scope only. *)
 let find_in_current_scope (se : t) (id : Ast.ident) =
   match se.ident_stack with
-  | scope :: _ -> Hashtbl.find_opt scope (Util.ident_name id)
+  | scope :: _ -> Hashtbl.find_opt scope (Ast.identifier_name id)
   | [] -> None
 
 (** Declare a new variable in the current scope. Generates a unique name (e.g.
     "x.3"). Raises if the variable already exists in the same scope. *)
 let declare_var (se : t) (id : Ast.ident) : Ast.ident =
-  let name = Util.get_identifier_name id in
+  let name = Ast.identifier_name id in
   let has_linkage = false in
   match se.ident_stack with
   | [] -> failwith "declare var: no active scope"
@@ -67,7 +67,7 @@ let declare_var (se : t) (id : Ast.ident) : Ast.ident =
 
 (** Declare a new file scope variable. These always have linkage (true). *)
 let declare_var_fscope (se : t) (id : Ast.ident) : Ast.ident =
-  let name = Util.get_identifier_name id in
+  let name = Ast.identifier_name id in
   let has_linkage = true in
   let entry = { unique = name; has_linkage } in
   match se.ident_stack with
@@ -84,7 +84,7 @@ let declare_var_fscope (se : t) (id : Ast.ident) : Ast.ident =
     Raises if a function with the same name already exists in the current scope
     and does not have linkage. *)
 let declare_fun (se : t) (id : Ast.ident) : Ast.ident =
-  let name = Util.get_identifier_name id in
+  let name = Ast.identifier_name id in
   let has_linkage = true in
   match se.ident_stack with
   | [] -> failwith "declare fun: no active scope"
@@ -99,7 +99,7 @@ let declare_fun (se : t) (id : Ast.ident) : Ast.ident =
 (** Resolve a variable by searching from innermost to outermost scope. Raises if
     the variable is not found. *)
 let resolve_var (se : t) (id : Ast.ident) : Ast.ident =
-  let name = Util.get_identifier_name id in
+  let name = Ast.identifier_name id in
   let rec find = function
     | [] -> failwith ("variable " ^ name ^ " is not defined")
     | scope :: rest -> (
@@ -112,7 +112,7 @@ let resolve_var (se : t) (id : Ast.ident) : Ast.ident =
 (** Resolve a function by searching from innermost to outermost scope. Raises if
     the function is not found. *)
 let resolve_fun (se : t) (id : Ast.ident) : Ast.ident =
-  let name = Util.get_identifier_name id in
+  let name = Ast.identifier_name id in
   let rec find = function
     | [] -> failwith ("function " ^ name ^ " is not defined")
     | scope :: rest -> (
@@ -125,7 +125,7 @@ let resolve_fun (se : t) (id : Ast.ident) : Ast.ident =
 (** Declare a label in the current scope. Labels must be unique within the same
     scope. *)
 let declare_lab (se : t) (id : Ast.ident) : Ast.ident =
-  let name = Util.get_identifier_name id in
+  let name = Ast.identifier_name id in
   match se.label_stack with
   | [] -> failwith "declare lab: no active scope"
   | top_scope :: _ ->
@@ -139,7 +139,7 @@ let declare_lab (se : t) (id : Ast.ident) : Ast.ident =
 (** Resolve a label by searching outward through the label stack. Raises if the
     label is not found. *)
 let resolve_lab (se : t) (id : Ast.ident) : Ast.ident =
-  let name = Util.get_identifier_name id in
+  let name = Ast.identifier_name id in
   let rec find = function
     | [] -> failwith ("label " ^ name ^ " is not defined")
     | scope :: rest -> (

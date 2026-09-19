@@ -272,3 +272,7 @@ let literal_to_int64 l =
   match l.e with
   | Constant c -> Ctype.const_to_int64 c
   | _ -> failwith "Expected constant"
+
+let identifier_name = function
+  | Identifier name -> name
+  | _ -> failwith "expected Identifier"

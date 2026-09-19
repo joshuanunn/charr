@@ -75,19 +75,19 @@ let make () : t = { typed_idents = Hashtbl.create 16 }
 
 (** Look up a typed identifier in the environment. *)
 let find (te : t) (id : Ast.ident) : type_entry option =
-  Hashtbl.find_opt te.typed_idents (Util.ident_name id)
+  Hashtbl.find_opt te.typed_idents (Ast.identifier_name id)
 
 (** Add a new typed identifier to the environment. Assumes the identifier has
     not already been declared. *)
 let add (te : t) (id : Ast.ident) (entry : type_entry) : unit =
-  let name = Util.ident_name id in
+  let name = Ast.identifier_name id in
   if Hashtbl.mem te.typed_idents name then
     failwith ("internal error: duplicate type entry for " ^ name);
   Hashtbl.add te.typed_idents name entry
 
 (** Insert or update a typed identifier in the environment. *)
 let replace (te : t) (id : Ast.ident) (entry : type_entry) : unit =
-  Hashtbl.replace te.typed_idents (Util.ident_name id) entry
+  Hashtbl.replace te.typed_idents (Ast.identifier_name id) entry
 
 (** Determine whether a function has external linkage. Looks up the function
     [id] in the type environment and returns [true] if the function has external
