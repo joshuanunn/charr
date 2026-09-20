@@ -22,19 +22,7 @@
           dst = (Asm.Stack -40)};
         Asm.Mov {typ = Asm.Quadword; src = (Asm.Stack -40);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "sign_extend";
-        counter = 3;
-        offset = -40;
-        stack slots = {
-          i.0               -> -4,
-          expected.1        -> -16,
-          sign_extend.tmp.0 -> -24,
-          sign_extend.tmp.1 -> -28,
-          sign_extend.tmp.2 -> -40,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -77,16 +65,5 @@
          Asm.Ret; (Asm.Label "main.if.en.7");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 11;
-         offset = -28;
-         stack slots = {
-           main.tmp.0 -> -8,
-           main.tmp.1 -> -12,
-           main.tmp.5 -> -24,
-           main.tmp.6 -> -28,
-         }}}
+         Asm.Ret]}
      ])

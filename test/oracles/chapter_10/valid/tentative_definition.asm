@@ -33,18 +33,7 @@
         (Asm.Jmp "loop.st.1"); (Asm.Label "loop.br.1");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Data "foo");
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 3;
-        offset = -16;
-        stack slots = {
-          i.0        -> -4,
-          main.tmp.0 -> -8,
-          main.tmp.1 -> -12,
-          main.tmp.2 -> -16,
-        }}};
+        Asm.Ret]};
      Asm.StaticVariable {name = "foo"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

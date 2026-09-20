@@ -7,15 +7,7 @@
           dst = (Asm.Stack -4)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 7;
-        offset = -4;
-        stack slots = {
-          flag.0 -> -4,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -27,15 +19,7 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           main.tmp.0 -> -4,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "x.1"; global = false; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

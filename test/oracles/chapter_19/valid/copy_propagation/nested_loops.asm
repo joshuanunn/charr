@@ -112,31 +112,7 @@
         Asm.Ret; (Asm.Label "inner_loop1.if.en.21");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "inner_loop1";
-        counter = 22;
-        offset = -68;
-        stack slots = {
-          a.0                -> -4,
-          b.1                -> -8,
-          c.2                -> -12,
-          d.3                -> -16,
-          e.4                -> -20,
-          f.5                -> -24,
-          inner_loop1.tmp.0  -> -28,
-          inner_loop1.tmp.1  -> -32,
-          inner_loop1.tmp.2  -> -36,
-          inner_loop1.tmp.5  -> -40,
-          inner_loop1.tmp.6  -> -44,
-          inner_loop1.tmp.9  -> -48,
-          inner_loop1.tmp.10 -> -52,
-          inner_loop1.tmp.13 -> -56,
-          inner_loop1.tmp.14 -> -60,
-          inner_loop1.tmp.17 -> -64,
-          inner_loop1.tmp.18 -> -68,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "inner_loop2"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 128L);
@@ -366,43 +342,7 @@
          (Asm.Label "inner_loop2.if.en.1");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "inner_loop2";
-         counter = 47;
-         offset = -116;
-         stack slots = {
-           a.6                -> -4,
-           b.7                -> -8,
-           c.8                -> -12,
-           d.9                -> -16,
-           e.10               -> -20,
-           f.11               -> -24,
-           inner_loop2.tmp.0  -> -28,
-           inner_loop2.tmp.3  -> -32,
-           inner_loop2.tmp.4  -> -36,
-           inner_loop2.tmp.5  -> -40,
-           inner_loop2.tmp.8  -> -44,
-           inner_loop2.tmp.9  -> -48,
-           inner_loop2.tmp.12 -> -52,
-           inner_loop2.tmp.13 -> -56,
-           inner_loop2.tmp.16 -> -60,
-           inner_loop2.tmp.17 -> -64,
-           inner_loop2.tmp.20 -> -68,
-           inner_loop2.tmp.21 -> -72,
-           inner_loop2.tmp.25 -> -76,
-           inner_loop2.tmp.26 -> -80,
-           inner_loop2.tmp.27 -> -84,
-           inner_loop2.tmp.30 -> -88,
-           inner_loop2.tmp.31 -> -92,
-           inner_loop2.tmp.34 -> -96,
-           inner_loop2.tmp.35 -> -100,
-           inner_loop2.tmp.38 -> -104,
-           inner_loop2.tmp.39 -> -108,
-           inner_loop2.tmp.42 -> -112,
-           inner_loop2.tmp.43 -> -116,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "inner_loop3"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 176L);
@@ -743,55 +683,7 @@
          (Asm.Label "inner_loop3.if.en.1");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "inner_loop3";
-         counter = 72;
-         offset = -164;
-         stack slots = {
-           a.12               -> -4,
-           b.13               -> -8,
-           c.14               -> -12,
-           d.15               -> -16,
-           e.16               -> -20,
-           f.17               -> -24,
-           inner_loop3.tmp.0  -> -28,
-           inner_loop3.tmp.3  -> -32,
-           inner_loop3.tmp.6  -> -36,
-           inner_loop3.tmp.7  -> -40,
-           inner_loop3.tmp.8  -> -44,
-           inner_loop3.tmp.11 -> -48,
-           inner_loop3.tmp.12 -> -52,
-           inner_loop3.tmp.15 -> -56,
-           inner_loop3.tmp.16 -> -60,
-           inner_loop3.tmp.19 -> -64,
-           inner_loop3.tmp.20 -> -68,
-           inner_loop3.tmp.23 -> -72,
-           inner_loop3.tmp.24 -> -76,
-           inner_loop3.tmp.28 -> -80,
-           inner_loop3.tmp.29 -> -84,
-           inner_loop3.tmp.30 -> -88,
-           inner_loop3.tmp.33 -> -92,
-           inner_loop3.tmp.34 -> -96,
-           inner_loop3.tmp.37 -> -100,
-           inner_loop3.tmp.38 -> -104,
-           inner_loop3.tmp.41 -> -108,
-           inner_loop3.tmp.42 -> -112,
-           inner_loop3.tmp.45 -> -116,
-           inner_loop3.tmp.46 -> -120,
-           inner_loop3.tmp.50 -> -124,
-           inner_loop3.tmp.51 -> -128,
-           inner_loop3.tmp.52 -> -132,
-           inner_loop3.tmp.55 -> -136,
-           inner_loop3.tmp.56 -> -140,
-           inner_loop3.tmp.59 -> -144,
-           inner_loop3.tmp.60 -> -148,
-           inner_loop3.tmp.63 -> -152,
-           inner_loop3.tmp.64 -> -156,
-           inner_loop3.tmp.67 -> -160,
-           inner_loop3.tmp.68 -> -164,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "inner_loop4"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 48L);
@@ -850,25 +742,7 @@
            src = (Asm.Reg Asm.R10); dst = (Asm.Stack -44)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -44);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "inner_loop4";
-         counter = 5;
-         offset = -44;
-         stack slots = {
-           a.18              -> -4,
-           b.19              -> -8,
-           c.20              -> -12,
-           d.21              -> -16,
-           e.22              -> -20,
-           f.23              -> -24,
-           inner_loop4.tmp.0 -> -28,
-           inner_loop4.tmp.1 -> -32,
-           inner_loop4.tmp.2 -> -36,
-           inner_loop4.tmp.3 -> -40,
-           inner_loop4.tmp.4 -> -44,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "validate"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 80L);
@@ -983,31 +857,7 @@
          Asm.Ret; (Asm.Label "validate.if.en.21");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "validate";
-         counter = 22;
-         offset = -68;
-         stack slots = {
-           a.24            -> -4,
-           b.25            -> -8,
-           c.26            -> -12,
-           d.27            -> -16,
-           e.28            -> -20,
-           f.29            -> -24,
-           validate.tmp.0  -> -28,
-           validate.tmp.1  -> -32,
-           validate.tmp.2  -> -36,
-           validate.tmp.5  -> -40,
-           validate.tmp.6  -> -44,
-           validate.tmp.9  -> -48,
-           validate.tmp.10 -> -52,
-           validate.tmp.13 -> -56,
-           validate.tmp.14 -> -60,
-           validate.tmp.17 -> -64,
-           validate.tmp.18 -> -68,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "target"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 96L);
@@ -1228,35 +1078,7 @@
          Asm.Ret; (Asm.Label "target.if.en.19");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 20;
-         offset = -84;
-         stack slots = {
-           a.30          -> -4,
-           b.31          -> -8,
-           c.32          -> -12,
-           d.33          -> -16,
-           e.34          -> -20,
-           target.tmp.0  -> -24,
-           target.tmp.1  -> -28,
-           target.tmp.2  -> -32,
-           target.tmp.3  -> -36,
-           target.tmp.5  -> -40,
-           target.tmp.6  -> -44,
-           target.tmp.7  -> -48,
-           target.tmp.9  -> -52,
-           target.tmp.10 -> -56,
-           target.tmp.11 -> -60,
-           target.tmp.13 -> -64,
-           target.tmp.14 -> -68,
-           target.tmp.15 -> -72,
-           target.tmp.16 -> -76,
-           target.tmp.17 -> -80,
-           target.tmp.18 -> -84,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -1266,15 +1088,7 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           main.tmp.0 -> -4,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "outer_flag"; global = false; alignment = 4;
        init = (Ctype.IntInit 0l)};
      Asm.StaticVariable {name = "inner_flag"; global = false; alignment = 4;

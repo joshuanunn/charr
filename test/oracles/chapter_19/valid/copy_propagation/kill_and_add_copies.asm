@@ -11,15 +11,7 @@
           dst = (Asm.Data "globvar")};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "set_globvar";
-        counter = 0;
-        offset = -4;
-        stack slots = {
-          i.0 -> -4,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "callee"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -38,17 +30,7 @@
            src = (Asm.Reg Asm.R10); dst = (Asm.Stack -12)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "callee";
-         counter = 1;
-         offset = -12;
-         stack slots = {
-           a.1          -> -4,
-           b.2          -> -8,
-           callee.tmp.0 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "target"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -69,17 +51,7 @@
            dst = (Asm.Stack -12)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           param.3      -> -4,
-           target.tmp.0 -> -8,
-           target.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -113,17 +85,7 @@
          Asm.Ret; (Asm.Label "main.if.en.4");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = -12;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.3 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "globvar"; global = false; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

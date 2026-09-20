@@ -26,15 +26,5 @@
         (Asm.JmpCC (Asm.NE, "loop.st.1"));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 2;
-        offset = -12;
-        stack slots = {
-          i.0        -> -4,
-          main.tmp.0 -> -8,
-          main.tmp.1 -> -12,
-        }}}
+        Asm.Ret]}
      ])

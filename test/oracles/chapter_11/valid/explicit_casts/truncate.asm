@@ -20,18 +20,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -20)));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "truncate";
-        counter = 2;
-        offset = -20;
-        stack slots = {
-          l.0            -> -8,
-          expected.1     -> -12,
-          truncate.tmp.0 -> -16,
-          truncate.tmp.1 -> -20,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -110,20 +99,5 @@
          Asm.Ret; (Asm.Label "main.if.en.15");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 19;
-         offset = -32;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.1  -> -8,
-           main.tmp.5  -> -12,
-           main.tmp.6  -> -16,
-           main.tmp.8  -> -20,
-           main.tmp.9  -> -24,
-           main.tmp.13 -> -28,
-           main.tmp.14 -> -32,
-         }}}
+         Asm.Ret]}
      ])

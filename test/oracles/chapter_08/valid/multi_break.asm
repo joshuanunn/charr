@@ -76,22 +76,5 @@
         (Asm.Label "main.and.en.11");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -40);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 12;
-        offset = -40;
-        stack slots = {
-          i.0        -> -4,
-          main.tmp.0 -> -8,
-          main.tmp.1 -> -12,
-          j.1        -> -16,
-          main.tmp.3 -> -20,
-          main.tmp.4 -> -24,
-          main.tmp.6 -> -28,
-          main.tmp.7 -> -32,
-          main.tmp.8 -> -36,
-          main.tmp.9 -> -40,
-        }}}
+        Asm.Ret]}
      ])

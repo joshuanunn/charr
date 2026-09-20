@@ -11,16 +11,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -12)));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "not";
-        counter = 1;
-        offset = -12;
-        stack slots = {
-          l.0       -> -8,
-          not.tmp.0 -> -12,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "if_cond"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -35,15 +26,7 @@
          Asm.Ret; (Asm.Label "if_cond.if.en.0");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "if_cond";
-         counter = 1;
-         offset = -8;
-         stack slots = {
-           l.1 -> -8,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "and"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -66,17 +49,7 @@
          (Asm.Label "and.and.en.2");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -16);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "and";
-         counter = 3;
-         offset = -16;
-         stack slots = {
-           l1.2      -> -8,
-           l2.3      -> -12,
-           and.tmp.0 -> -16,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "or"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -99,17 +72,7 @@
          (Asm.Label "or.or.en.2");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "or";
-         counter = 3;
-         offset = -20;
-         stack slots = {
-           l1.4     -> -4,
-           l2.5     -> -16,
-           or.tmp.0 -> -20,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 48L);
@@ -201,21 +164,5 @@
          Asm.Ret; (Asm.Label "main.if.en.14");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 15;
-         offset = -36;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.2  -> -8,
-           main.tmp.3  -> -12,
-           main.tmp.5  -> -16,
-           main.tmp.6  -> -20,
-           main.tmp.8  -> -24,
-           main.tmp.10 -> -28,
-           main.tmp.12 -> -32,
-           main.tmp.13 -> -36,
-         }}}
+         Asm.Ret]}
      ])

@@ -25,17 +25,7 @@
           dst = (Asm.Stack -12)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Data "total.1");
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "f";
-        counter = 3;
-        offset = -12;
-        stack slots = {
-          new_total.0 -> -4,
-          f.tmp.0     -> -8,
-          f.tmp.2     -> -12,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "indirect_update"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -47,15 +37,7 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "indirect_update";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           indirect_update.tmp.0 -> -4,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -67,15 +49,7 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           main.tmp.0 -> -4,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "total.1"; global = false; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

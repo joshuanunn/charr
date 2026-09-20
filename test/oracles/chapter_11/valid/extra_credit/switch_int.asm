@@ -37,18 +37,7 @@
         Asm.Ret; (Asm.Label "swit.df.1");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "switch_on_int";
-        counter = 3;
-        offset = -16;
-        stack slots = {
-          i.0                 -> -4,
-          switch_on_int.tmp.0 -> -8,
-          switch_on_int.tmp.1 -> -12,
-          switch_on_int.tmp.2 -> -16,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -119,20 +108,5 @@
          Asm.Ret; (Asm.Label "main.if.en.13");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 14;
-         offset = -32;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.1  -> -8,
-           main.tmp.3  -> -12,
-           main.tmp.4  -> -16,
-           main.tmp.7  -> -20,
-           main.tmp.8  -> -24,
-           main.tmp.11 -> -28,
-           main.tmp.12 -> -32,
-         }}}
+         Asm.Ret]}
      ])

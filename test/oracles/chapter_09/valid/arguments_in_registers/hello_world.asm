@@ -75,26 +75,5 @@
           dst = (Asm.Stack -56)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 14;
-        offset = -56;
-        stack slots = {
-          main.tmp.0  -> -4,
-          main.tmp.1  -> -8,
-          main.tmp.2  -> -12,
-          main.tmp.3  -> -16,
-          main.tmp.4  -> -20,
-          main.tmp.5  -> -24,
-          main.tmp.6  -> -28,
-          main.tmp.7  -> -32,
-          main.tmp.8  -> -36,
-          main.tmp.9  -> -40,
-          main.tmp.10 -> -44,
-          main.tmp.11 -> -48,
-          main.tmp.12 -> -52,
-          main.tmp.13 -> -56,
-        }}}
+        Asm.Ret]}
      ])

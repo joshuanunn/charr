@@ -59,26 +59,7 @@
         Asm.Ret; (Asm.Label "test_sum.if.en.4");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "test_sum";
-        counter = 5;
-        offset = -64;
-        stack slots = {
-          a.0            -> -8,
-          b.1            -> -16,
-          c.2            -> -20,
-          d.3            -> -24,
-          e.4            -> -28,
-          f.5            -> -32,
-          g.6            -> -36,
-          h.7            -> -40,
-          i.8            -> -48,
-          test_sum.tmp.0 -> -56,
-          test_sum.tmp.1 -> -60,
-          test_sum.tmp.3 -> -64,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -107,13 +88,5 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           main.tmp.0 -> -4,
-         }}}
+         Asm.Ret]}
      ])

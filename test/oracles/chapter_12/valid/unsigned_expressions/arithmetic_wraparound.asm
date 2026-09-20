@@ -16,16 +16,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -8)));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "addition";
-        counter = 2;
-        offset = -8;
-        stack slots = {
-          addition.tmp.0 -> -4,
-          addition.tmp.1 -> -8,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "subtraction"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -45,16 +36,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "subtraction";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           subtraction.tmp.0 -> -8,
-           subtraction.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "neg"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -71,16 +53,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "neg";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           neg.tmp.0 -> -8,
-           neg.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -139,20 +112,7 @@
          Asm.Ret; (Asm.Label "main.if.en.8");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 9;
-         offset = -24;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.3 -> -12,
-           main.tmp.4 -> -16,
-           main.tmp.6 -> -20,
-           main.tmp.7 -> -24,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "ul_b"; global = true; alignment = 8;
        init = (Ctype.ULongInit 0L)};
      Asm.StaticVariable {name = "ul_a"; global = true; alignment = 8;

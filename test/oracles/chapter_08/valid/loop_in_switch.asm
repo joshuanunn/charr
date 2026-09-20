@@ -63,20 +63,5 @@
         Asm.Ret; (Asm.Label "swit.df.1");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 7;
-        offset = -32;
-        stack slots = {
-          cond.0     -> -4,
-          main.tmp.0 -> -8,
-          main.tmp.1 -> -12,
-          i.1        -> -16,
-          main.tmp.2 -> -20,
-          main.tmp.3 -> -24,
-          main.tmp.4 -> -28,
-          main.tmp.6 -> -32,
-        }}}
+        Asm.Ret]}
      ])

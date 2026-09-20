@@ -37,18 +37,7 @@
         Asm.Ret; (Asm.Label "main.if.en.16");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 17;
-        offset = -16;
-        stack slots = {
-          main.tmp.9  -> -4,
-          main.tmp.11 -> -8,
-          main.tmp.13 -> -12,
-          main.tmp.15 -> -16,
-        }}};
+        Asm.Ret]};
      Asm.StaticVariable {name = "shiftcount.1"; global = false;
        alignment = 4; init = (Ctype.IntInit 5l)}
      ])

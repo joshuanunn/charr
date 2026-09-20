@@ -30,16 +30,5 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -16)));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -16);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 7;
-        offset = -16;
-        stack slots = {
-          i.0        -> -4,
-          main.tmp.3 -> -8,
-          main.tmp.4 -> -12,
-          main.tmp.6 -> -16,
-        }}}
+        Asm.Ret]}
      ])

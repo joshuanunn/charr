@@ -13,14 +13,5 @@
         (Asm.Label "main.cond.en.2");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 5;
-        offset = -8;
-        stack slots = {
-          x.0        -> -4,
-          main.tmp.1 -> -8,
-        }}}
+        Asm.Ret]}
      ])

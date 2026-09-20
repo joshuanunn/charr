@@ -61,23 +61,7 @@
           src = (Asm.Reg Asm.R10); dst = (Asm.Stack -36)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -36);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "fib";
-        counter = 12;
-        offset = -36;
-        stack slots = {
-          n.0        -> -4,
-          fib.tmp.0  -> -8,
-          fib.tmp.1  -> -12,
-          fib.tmp.2  -> -16,
-          fib.tmp.7  -> -20,
-          fib.tmp.8  -> -24,
-          fib.tmp.9  -> -28,
-          fib.tmp.10 -> -32,
-          fib.tmp.11 -> -36,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -89,13 +73,5 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           main.tmp.0 -> -4,
-         }}}
+         Asm.Ret]}
      ])

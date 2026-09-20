@@ -73,25 +73,7 @@
         Asm.Ret; (Asm.Label "g.if.en.13");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "g";
-        counter = 14;
-        offset = -44;
-        stack slots = {
-          w.0      -> -4,
-          x.1      -> -8,
-          y.2      -> -12,
-          z.3      -> -16,
-          g.tmp.0  -> -20,
-          g.tmp.1  -> -24,
-          g.tmp.2  -> -28,
-          g.tmp.5  -> -32,
-          g.tmp.6  -> -36,
-          g.tmp.9  -> -40,
-          g.tmp.10 -> -44,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "f"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 80L);
@@ -230,32 +212,7 @@
          (Asm.Label "f.and.en.21");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -72);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "f";
-         counter = 22;
-         offset = -72;
-         stack slots = {
-           a.4      -> -4,
-           b.5      -> -8,
-           c.6      -> -12,
-           d.7      -> -16,
-           f.tmp.0  -> -20,
-           f.tmp.1  -> -24,
-           f.tmp.2  -> -28,
-           f.tmp.3  -> -32,
-           f.tmp.4  -> -36,
-           f.tmp.5  -> -40,
-           f.tmp.6  -> -44,
-           f.tmp.7  -> -48,
-           f.tmp.10 -> -52,
-           f.tmp.11 -> -56,
-           f.tmp.14 -> -60,
-           f.tmp.15 -> -64,
-           f.tmp.18 -> -68,
-           f.tmp.19 -> -72,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -273,13 +230,5 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           main.tmp.0 -> -4,
-         }}}
+         Asm.Ret]}
      ])

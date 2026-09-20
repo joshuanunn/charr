@@ -66,22 +66,7 @@
         Asm.Ret; (Asm.Label "main.if.en.9");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 10;
-        offset = -32;
-        stack slots = {
-          main.tmp.0 -> -4,
-          main.tmp.3 -> -8,
-          counter.0  -> -12,
-          index.1    -> -16,
-          main.tmp.5 -> -20,
-          main.tmp.6 -> -24,
-          main.tmp.7 -> -28,
-          main.tmp.8 -> -32,
-        }}};
+        Asm.Ret]};
      Asm.StaticVariable {name = "i"; global = false; alignment = 4;
        init = (Ctype.IntInit 5l)};
      Asm.StaticVariable {name = "l"; global = true; alignment = 8;

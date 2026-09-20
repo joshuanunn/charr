@@ -3,14 +3,7 @@
       instructions =
       [Asm.Mov {typ = Asm.Longword; src = (Asm.Data "x");
          dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "get_x";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -24,15 +17,7 @@
            dst = (Asm.Data "x")};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = -4;
-         stack slots = {
-           main.tmp.0 -> -4,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "x"; global = true; alignment = 4;
        init = (Ctype.IntInit 100l)}
      ])

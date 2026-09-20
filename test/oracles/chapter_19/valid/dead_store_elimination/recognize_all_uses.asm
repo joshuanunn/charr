@@ -21,17 +21,7 @@
         (Asm.Label "test_jz.cond.en.2");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "test_jz";
-        counter = 4;
-        offset = -12;
-        stack slots = {
-          flag.0        -> -4,
-          arg.1         -> -8,
-          test_jz.tmp.1 -> -12,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "test_jnz"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -57,17 +47,7 @@
          (Asm.Label "test_jnz.or.en.3");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "test_jnz";
-         counter = 4;
-         offset = -12;
-         stack slots = {
-           flag.2         -> -4,
-           arg.3          -> -8,
-           test_jnz.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "test_binary"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -113,20 +93,7 @@
            dst = (Asm.Stack -24)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -24);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "test_binary";
-         counter = 6;
-         offset = -24;
-         stack slots = {
-           flag.4            -> -4,
-           arg1.5            -> -8,
-           arg2.6            -> -12,
-           test_binary.tmp.0 -> -16,
-           test_binary.tmp.3 -> -20,
-           test_binary.tmp.5 -> -24,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "test_unary"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -148,17 +115,7 @@
          Asm.Unary {op = Asm.Neg; typ = Asm.Longword; dst = (Asm.Stack -12)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "test_unary";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           flag.7           -> -4,
-           arg.8            -> -8,
-           test_unary.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "f"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -173,16 +130,7 @@
            dst = (Asm.Stack -8)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "f";
-         counter = 1;
-         offset = -8;
-         stack slots = {
-           arg.9   -> -4,
-           f.tmp.0 -> -8,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "test_funcall"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -204,17 +152,7 @@
            dst = (Asm.Stack -12)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "test_funcall";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           flag.10            -> -4,
-           arg.11             -> -8,
-           test_funcall.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 96L);
@@ -425,34 +363,5 @@
          Asm.Ret; (Asm.Label "main.if.en.34");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 35;
-         offset = -88;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.1  -> -8,
-           main.tmp.3  -> -12,
-           main.tmp.4  -> -16,
-           main.tmp.6  -> -20,
-           main.tmp.7  -> -24,
-           main.tmp.9  -> -28,
-           main.tmp.10 -> -32,
-           main.tmp.12 -> -36,
-           main.tmp.13 -> -40,
-           main.tmp.15 -> -44,
-           main.tmp.16 -> -48,
-           main.tmp.18 -> -52,
-           main.tmp.19 -> -56,
-           main.tmp.21 -> -60,
-           main.tmp.23 -> -64,
-           main.tmp.25 -> -68,
-           main.tmp.27 -> -72,
-           main.tmp.29 -> -76,
-           main.tmp.30 -> -80,
-           main.tmp.32 -> -84,
-           main.tmp.33 -> -88,
-         }}}
+         Asm.Ret]}
      ])

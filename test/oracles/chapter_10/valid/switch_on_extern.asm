@@ -37,31 +37,13 @@
         Asm.Ret; (Asm.Label "swit.df.1");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = -16;
-        stack slots = {
-          main.tmp.0 -> -4,
-          main.tmp.1 -> -8,
-          main.tmp.2 -> -12,
-          main.tmp.3 -> -16,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "update_x"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L); dst = (Asm.Data "x")};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "update_x";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "x"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

@@ -22,16 +22,7 @@
         Asm.Ret; (Asm.Label "main.if.en.3");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = -8;
-        stack slots = {
-          main.tmp.0 -> -4,
-          main.tmp.2 -> -8,
-        }}};
+        Asm.Ret]};
      Asm.StaticVariable {name = "i"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)};
      Asm.StaticVariable {name = "j"; global = true; alignment = 8;

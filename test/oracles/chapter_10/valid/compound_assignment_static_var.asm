@@ -105,24 +105,7 @@
         Asm.Ret; (Asm.Label "f.if.en.13");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "f";
-        counter = 14;
-        offset = -40;
-        stack slots = {
-          f.tmp.0  -> -4,
-          f.tmp.1  -> -8,
-          f.tmp.2  -> -12,
-          f.tmp.3  -> -16,
-          f.tmp.4  -> -20,
-          f.tmp.6  -> -24,
-          f.tmp.7  -> -28,
-          f.tmp.9  -> -32,
-          f.tmp.10 -> -36,
-          f.tmp.12 -> -40,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -138,17 +121,7 @@
            dst = (Asm.Stack -12)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 3;
-         offset = -12;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.2 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "l.3"; global = false; alignment = 4;
        init = (Ctype.IntInit 48l)};
      Asm.StaticVariable {name = "k.2"; global = false; alignment = 4;

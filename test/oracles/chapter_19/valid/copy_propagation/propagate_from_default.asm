@@ -56,20 +56,7 @@
         (Asm.Label "swit.df.1");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 5;
-        offset = -24;
-        stack slots = {
-          x.0          -> -4,
-          target.tmp.0 -> -8,
-          target.tmp.1 -> -12,
-          target.tmp.2 -> -16,
-          target.tmp.3 -> -20,
-          target.tmp.4 -> -24,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -103,17 +90,7 @@
          Asm.Ret; (Asm.Label "main.if.en.4");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = -12;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.3 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "globvar"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

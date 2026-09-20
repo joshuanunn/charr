@@ -19,43 +19,19 @@
           dst = (Asm.Stack -12)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 1;
-        offset = -12;
-        stack slots = {
-          a.0          -> -4,
-          b.1          -> -8,
-          callee.tmp.0 -> -12,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "f"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
           dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "f";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "set_globvar"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
           dst = (Asm.Data "globl")};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "set_globvar";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "target"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -95,21 +71,7 @@
            src = (Asm.Reg Asm.R10); dst = (Asm.Stack -28)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -28);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 5;
-         offset = -28;
-         stack slots = {
-           a.2          -> -4,
-           b.3          -> -8,
-           target.tmp.0 -> -12,
-           target.tmp.1 -> -16,
-           target.tmp.2 -> -20,
-           target.tmp.3 -> -24,
-           target.tmp.4 -> -28,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -145,17 +107,7 @@
          Asm.Ret; (Asm.Label "main.if.en.4");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = -12;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.3 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "globl"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

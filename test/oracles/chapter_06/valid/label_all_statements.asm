@@ -14,13 +14,5 @@
         (Asm.Jmp "label_if.0"); (Asm.Label "label_return.3");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 100L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret; (Asm.Label "label_empty.4"); (Asm.Jmp "label_goto.1")];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 3;
-        offset = -4;
-        stack slots = {
-          a.5 -> -4,
-        }}}
+        Asm.Ret; (Asm.Label "label_empty.4"); (Asm.Jmp "label_goto.1")]}
      ])

@@ -20,18 +20,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -20)));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "ulong_to_int";
-        counter = 2;
-        offset = -20;
-        stack slots = {
-          ul.0               -> -8,
-          expected.1         -> -12,
-          ulong_to_int.tmp.0 -> -16,
-          ulong_to_int.tmp.1 -> -20,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "ulong_to_uint"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -53,18 +42,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -20)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "ulong_to_uint";
-         counter = 2;
-         offset = -20;
-         stack slots = {
-           ul.3                -> -8,
-           expected.4          -> -12,
-           ulong_to_uint.tmp.0 -> -16,
-           ulong_to_uint.tmp.1 -> -20,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "long_to_uint"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -86,18 +64,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -20)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "long_to_uint";
-         counter = 2;
-         offset = -20;
-         stack slots = {
-           l.5                -> -8,
-           expected.6         -> -12,
-           long_to_uint.tmp.0 -> -16,
-           long_to_uint.tmp.1 -> -20,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 64L);
@@ -248,28 +215,5 @@
          Asm.Ret; (Asm.Label "main.if.en.27");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 32;
-         offset = -64;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.1  -> -8,
-           main.tmp.4  -> -12,
-           main.tmp.5  -> -16,
-           main.tmp.7  -> -20,
-           main.tmp.8  -> -24,
-           main.tmp.10 -> -28,
-           main.tmp.11 -> -32,
-           main.tmp.13 -> -36,
-           main.tmp.14 -> -40,
-           main.tmp.17 -> -44,
-           main.tmp.18 -> -48,
-           main.tmp.20 -> -52,
-           main.tmp.21 -> -56,
-           main.tmp.25 -> -60,
-           main.tmp.26 -> -64,
-         }}}
+         Asm.Ret]}
      ])

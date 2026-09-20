@@ -25,15 +25,5 @@
           dst = (Asm.Reg Asm.R10)};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Reg Asm.R10);
           dst = (Asm.Stack -4)};
-        (Asm.Jmp "loop.st.1")];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 3;
-        offset = -12;
-        stack slots = {
-          i.0        -> -4,
-          main.tmp.0 -> -8,
-          main.tmp.2 -> -12,
-        }}}
+        (Asm.Jmp "loop.st.1")]}
      ])
