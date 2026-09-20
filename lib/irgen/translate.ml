@@ -419,8 +419,8 @@ and convert_func (f : Ast.fun_decl) (te : Analysis.Tenv.t) : Ir.top_level =
         ("convert_func called on function declaration: "
         ^ identifier_to_string f.name)
   | Some (Block items) ->
-      (* Create a new environment for the function to track frame contents *)
       let func_name = identifier_to_string f.name in
+      (* A Namespace allows generation of unique variable names and labels *)
       let ns = Ir.Namespace.make func_name in
       let body =
         List.map
@@ -431,6 +431,9 @@ and convert_func (f : Ast.fun_decl) (te : Analysis.Tenv.t) : Ir.top_level =
           items
         |> List.flatten
       in
+      Debug.log (fun () ->
+          Format.eprintf "=== Namespace for %s ===\n%s\n\n" func_name
+            (Ir.Namespace.show ns));
       (* Append "return 0" to the function end, in case no return present. Note
          that C standard states that in such cases, the return value is
          undefined, so choose by convention to always return int type. *)

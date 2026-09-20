@@ -49,6 +49,7 @@ module Namespace = struct
     namespace : string;  (** Allow unique global labels using a namespace *)
     mutable counter : int;  (** Counter for generating unique names *)
   }
+  [@@deriving show]
 
   let make namespace = { namespace; counter = 0 }
 

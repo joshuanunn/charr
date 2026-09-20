@@ -78,20 +78,15 @@ module Frame = struct
     let max_name_len =
       List.fold_left (fun m (_, name) -> max m (String.length name)) 0 entries
     in
-    Format.fprintf fmt "@[<v>";
-    Format.fprintf fmt "Frame.t {@;<2 2>@[<v>";
-    Format.fprintf fmt "offset = %d;@," f.offset;
-    Format.fprintf fmt "@[<v>stack slots = {@,";
+    Format.fprintf fmt "Frame.t {\n";
+    Format.fprintf fmt "  offset = %d;\n" f.offset;
+    Format.fprintf fmt "  stack slots = {\n";
     List.iter
       (fun (offset, name) ->
-        Format.fprintf fmt "  %-*s -> %d,@," max_name_len name offset)
+        Format.fprintf fmt "    %-*s -> %d,\n" max_name_len name offset)
       entries;
-    Format.fprintf fmt "}}@]";
-    Format.fprintf fmt "@]";
-    Format.fprintf fmt "@]" (* close outer box *)
-
-  (** Pretty printer for t, as not fully supported by ppx_deriving show. *)
-  let show_frame f = Format.asprintf "%a" pp f
+    Format.fprintf fmt "  }\n";
+    Format.fprintf fmt "}"
 
   let make () = { offset = 0; stack_offsets = Hashtbl.create 16 }
 

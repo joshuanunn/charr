@@ -53,22 +53,17 @@ let pp_type_entry fmt (entry : type_entry) =
   Format.fprintf fmt "{ c_type = %s; attrs = %a }" (Ctype.show entry.c_type)
     pp_identifier_attrs entry.attrs
 
-let pp_t fmt (te : t) =
+let pp fmt (te : t) =
   let entries =
     Hashtbl.fold (fun name entry acc -> (name, entry) :: acc) te.typed_idents []
     |> List.sort (fun (name1, _) (name2, _) -> String.compare name1 name2)
   in
-  Format.fprintf fmt "@[<v>";
-  Format.fprintf fmt "Tenv.t {@;<2 2>@[<v>";
-  List.iteri
-    (fun i (name, entry) ->
-      if i > 0 then Format.fprintf fmt "@,";
-      Format.fprintf fmt "%s -> %a" name pp_type_entry entry)
+  Format.fprintf fmt "Tenv.t {\n";
+  List.iter
+    (fun (name, entry) ->
+      Format.fprintf fmt "  %s -> %a\n" name pp_type_entry entry)
     entries;
-  Format.fprintf fmt "@]@,}@]"
-
-(** Pretty printer for t, as not fully supported by ppx_deriving show. *)
-let show_t te = Format.asprintf "%a" pp_t te
+  Format.fprintf fmt "}"
 
 (** Create a new type environment with an empty global scope *)
 let make () : t = { typed_idents = Hashtbl.create 16 }

@@ -125,6 +125,9 @@ let lower_func (f : Asm.top_level) (ae : Symtab.t) : Asm.top_level =
         fn.instructions
         |> List.map (fun instr -> lower_instruction instr ae frame)
       in
+      Debug.log (fun () ->
+          Format.eprintf "=== Frame for %s ===\n%a\n\n" fn.name Asm.Frame.pp
+            frame);
       (* Align function stack size to nearest 16 bytes *)
       let stack_size = -frame.offset in
       let aligned_size_bytes = Int64.of_int ((stack_size + 15) / 16 * 16) in
