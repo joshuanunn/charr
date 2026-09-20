@@ -458,7 +458,7 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
+Tenv.t {
   check_int -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
   check_long -> { c_type = Ctype.FunType {params = [Ctype.Long; Ctype.Long]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
   check_ulong -> { c_type = Ctype.FunType {params = [Ctype.ULong; Ctype.ULong]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }

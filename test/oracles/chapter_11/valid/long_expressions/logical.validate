@@ -254,7 +254,7 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
+Tenv.t {
   and -> { c_type = Ctype.FunType {params = [Ctype.Long; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
   if_cond -> { c_type = Ctype.FunType {params = [Ctype.Long]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
   l.0 -> { c_type = Ctype.Long; attrs = LocalAttr }

@@ -156,7 +156,7 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
+Tenv.t {
   count.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
   fib -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
   i.4 -> { c_type = Ctype.Int; attrs = LocalAttr }

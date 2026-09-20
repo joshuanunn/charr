@@ -320,7 +320,7 @@
          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])
-Env.tenv {
+Tenv.t {
   a.0 -> { c_type = Ctype.ULong; attrs = LocalAttr }
   b.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
   c.2 -> { c_type = Ctype.Long; attrs = LocalAttr }

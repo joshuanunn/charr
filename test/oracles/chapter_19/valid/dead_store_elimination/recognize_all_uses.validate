@@ -660,7 +660,7 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
+Tenv.t {
   arg.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
   arg.11 -> { c_type = Ctype.Int; attrs = LocalAttr }
   arg.3 -> { c_type = Ctype.Int; attrs = LocalAttr }

@@ -169,7 +169,7 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
+Tenv.t {
   i.1 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 65l)); global = false } }
   i.2 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 97l)); global = false } }
   i.3 -> { c_type = Ctype.Int; attrs = LocalAttr }

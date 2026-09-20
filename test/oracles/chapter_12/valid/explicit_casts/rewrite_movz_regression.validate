@@ -1150,7 +1150,7 @@
             ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
+Tenv.t {
   a.38 -> { c_type = Ctype.Int; attrs = LocalAttr }
   b.39 -> { c_type = Ctype.Int; attrs = LocalAttr }
   c.40 -> { c_type = Ctype.Int; attrs = LocalAttr }

@@ -387,7 +387,7 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
+Tenv.t {
   flag.10 -> { c_type = Ctype.Int; attrs = LocalAttr }
   i.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
   i.11 -> { c_type = Ctype.Int; attrs = LocalAttr }

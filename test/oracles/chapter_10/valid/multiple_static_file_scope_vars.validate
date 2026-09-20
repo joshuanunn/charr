@@ -22,7 +22,7 @@
           (Some { Ast.e = (Ast.Constant (Ctype.ConstInt 4l)); typ = None });
           var_type = Ctype.Int; storage = (Some Ast.Static) })
      ])
-Env.tenv {
+Tenv.t {
   foo -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 4l)); global = false } }
   main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
 }
