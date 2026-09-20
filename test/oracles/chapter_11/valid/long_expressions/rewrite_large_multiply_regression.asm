@@ -288,45 +288,7 @@
         Asm.Ret; (Asm.Label "main.if.en.33");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 35;
-        offset = -140;
-        stack slots = {
-          main.tmp.0  -> -8,
-          main.tmp.2  -> -16,
-          main.tmp.3  -> -20,
-          main.tmp.4  -> -24,
-          main.tmp.5  -> -28,
-          main.tmp.6  -> -32,
-          main.tmp.7  -> -36,
-          main.tmp.8  -> -40,
-          main.tmp.9  -> -44,
-          main.tmp.10 -> -48,
-          main.tmp.11 -> -52,
-          main.tmp.12 -> -56,
-          main.tmp.13 -> -60,
-          main.tmp.14 -> -64,
-          main.tmp.15 -> -68,
-          main.tmp.17 -> -80,
-          main.tmp.18 -> -84,
-          main.tmp.19 -> -88,
-          main.tmp.20 -> -92,
-          main.tmp.21 -> -96,
-          main.tmp.22 -> -100,
-          main.tmp.23 -> -104,
-          main.tmp.24 -> -108,
-          main.tmp.25 -> -112,
-          main.tmp.26 -> -116,
-          main.tmp.27 -> -120,
-          main.tmp.28 -> -124,
-          main.tmp.29 -> -128,
-          main.tmp.30 -> -132,
-          main.tmp.31 -> -136,
-          main.tmp.32 -> -140,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "check_12_ints"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 160L);
@@ -601,51 +563,7 @@
          Asm.Ret; (Asm.Label "check_12_ints.if.en.35");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "check_12_ints";
-         counter = 36;
-         offset = -148;
-         stack slots = {
-           a.38                 -> -4,
-           b.39                 -> -8,
-           c.40                 -> -12,
-           d.41                 -> -16,
-           e.42                 -> -20,
-           f.43                 -> -24,
-           g.44                 -> -28,
-           h.45                 -> -32,
-           i.46                 -> -36,
-           j.47                 -> -40,
-           k.48                 -> -44,
-           l.49                 -> -48,
-           start.50             -> -52,
-           check_12_ints.tmp.0  -> -56,
-           check_12_ints.tmp.1  -> -60,
-           check_12_ints.tmp.3  -> -64,
-           check_12_ints.tmp.4  -> -68,
-           check_12_ints.tmp.6  -> -72,
-           check_12_ints.tmp.7  -> -76,
-           check_12_ints.tmp.9  -> -80,
-           check_12_ints.tmp.10 -> -84,
-           check_12_ints.tmp.12 -> -88,
-           check_12_ints.tmp.13 -> -92,
-           check_12_ints.tmp.15 -> -96,
-           check_12_ints.tmp.16 -> -100,
-           check_12_ints.tmp.18 -> -104,
-           check_12_ints.tmp.19 -> -108,
-           check_12_ints.tmp.21 -> -112,
-           check_12_ints.tmp.22 -> -116,
-           check_12_ints.tmp.24 -> -120,
-           check_12_ints.tmp.25 -> -124,
-           check_12_ints.tmp.27 -> -128,
-           check_12_ints.tmp.28 -> -132,
-           check_12_ints.tmp.30 -> -136,
-           check_12_ints.tmp.31 -> -140,
-           check_12_ints.tmp.33 -> -144,
-           check_12_ints.tmp.34 -> -148,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "glob"; global = true; alignment = 8;
        init = (Ctype.LongInit 5L)}
      ])

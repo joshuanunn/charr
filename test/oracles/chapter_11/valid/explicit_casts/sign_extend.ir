@@ -8,14 +8,7 @@
           src2 = (Ir.Var "expected.1"); dst = (Ir.Var "sign_extend.tmp.1")};
         Ir.SignExtend {src = (Ir.Var "sign_extend.tmp.1");
           dst = (Ir.Var "sign_extend.tmp.2")};
-        (Ir.Return (Ir.Var "sign_extend.tmp.2"))];
-      frame =
-      Env.lenv {
-        namespace = "sign_extend";
-        counter = 3;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "sign_extend.tmp.2"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "sign_extend";
@@ -40,12 +33,5 @@
            target = "main.if.en.7"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.7");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 11;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

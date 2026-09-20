@@ -1,33 +1,35 @@
-let parse lexbuf = Parser.prog Lexer.read lexbuf
+let parse lexbuf = Frontend.Parser.prog Frontend.Lexer.read lexbuf
 
 let validate lexbuf s_env t_env =
   let ast = parse lexbuf in
-  let ast = Ast_resolution.resolve_prog ast s_env in
-  let ast = Ast_type_check.type_prog ast t_env in
-  Ast_flow_label.label_prog ast
+  let ast = Analysis.Resolution.apply ast s_env in
+  let ast = Analysis.Typecheck.apply ast t_env in
+  Analysis.Label.apply ast
 
 let gen_ir lexbuf opts s_env t_env =
-  let ir = Irgen.convert_prog (validate lexbuf s_env t_env) t_env in
-  Passes.optimise_prog ir opts t_env
+  let ir = Irgen.Translate.apply (validate lexbuf s_env t_env) t_env in
+  Opt.Passes.apply ir opts t_env
 
 let gen_asm lexbuf opts s_env t_env =
   let asm, a_env =
-    Codegen.compile_prog (gen_ir lexbuf opts s_env t_env) t_env
+    Targets.X86_64.Codegen.Translate.apply
+      (gen_ir lexbuf opts s_env t_env)
+      t_env
   in
-  let asm = Codegen_lower.lower_prog asm a_env in
-  let asm = Codegen_fixup.fixup_prog asm in
+  let asm = Targets.X86_64.Codegen.Lower.apply asm a_env in
+  let asm = Targets.X86_64.Codegen.Fixup.apply asm in
   (asm, a_env)
 
 let report_errors ~stage lexbuf f =
   try f () with
-  | Lexer.Lexing_error msg ->
+  | Frontend.Lexer.Lexing_error msg ->
       let pos = lexbuf.Lexing.lex_curr_p in
       Printf.eprintf "Lexing error at line %d, column %d: %s\n"
         pos.Lexing.pos_lnum
         (pos.Lexing.pos_cnum - pos.Lexing.pos_bol)
         msg;
       exit 1
-  | Parser.Error ->
+  | Frontend.Parser.Error ->
       let pos = lexbuf.Lexing.lex_curr_p in
       Printf.eprintf "Parse error at line %d, column %d\n" pos.Lexing.pos_lnum
         (pos.Lexing.pos_cnum - pos.Lexing.pos_bol);
@@ -49,10 +51,10 @@ let with_input_file path f =
 let run_lexer lexbuf =
   let rec loop () =
     try
-      let tok = Lexer.read lexbuf in
-      print_endline (Lexer_pp.show_token tok);
-      if tok != Parser.EOF then loop ()
-    with Lexer.Lexing_error msg ->
+      let tok = Frontend.Lexer.read lexbuf in
+      print_endline (Frontend.Lexer_pp.show_token tok);
+      if tok != Frontend.Parser.EOF then loop ()
+    with Frontend.Lexer.Lexing_error msg ->
       let pos = lexbuf.Lexing.lex_curr_p in
       Printf.eprintf "Lexing error at line %d, column %d: %s\n"
         pos.Lexing.pos_lnum
@@ -70,7 +72,9 @@ let run_validator lexbuf s_env t_env =
   report_errors ~stage:"Semantic analysis" lexbuf (fun () ->
       let ast = validate lexbuf s_env t_env in
       print_endline (Ast.show_prog ast);
-      print_endline (Env.show_tenv t_env))
+      Debug.log (fun () ->
+          Format.eprintf "=== Type environment ===\n%a\n\n" Analysis.Tenv.pp
+            t_env))
 
 let run_irgen lexbuf opts s_env t_env =
   report_errors ~stage:"IR generation" lexbuf (fun () ->
@@ -79,17 +83,17 @@ let run_irgen lexbuf opts s_env t_env =
 let run_codegen lexbuf opts s_env t_env =
   report_errors ~stage:"Code generation" lexbuf (fun () ->
       let asm, _ = gen_asm lexbuf opts s_env t_env in
-      print_endline (Asm.show_prog asm))
+      print_endline (Targets.X86_64.Asm.show_prog asm))
 
 let run_emit lexbuf opts s_env t_env =
   report_errors ~stage:"Assembly emission" lexbuf (fun () ->
       let asm, _ = gen_asm lexbuf opts s_env t_env in
-      print_string (Emit.emit_prog asm))
+      print_string (Targets.X86_64.Emission.apply asm))
 
 let run_exe lexbuf opts output_path s_env t_env =
   report_errors ~stage:"Executable generation" lexbuf (fun () ->
       let asm, _ = gen_asm lexbuf opts s_env t_env in
-      let asm_text = Emit.emit_prog asm in
+      let asm_text = Targets.X86_64.Emission.apply asm in
       let oc = open_out output_path in
       Fun.protect
         ~finally:(fun () -> close_out oc)

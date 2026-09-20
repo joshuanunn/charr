@@ -272,19 +272,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  and -> { c_type = Ctype.FunType {params = [Ctype.ULong; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  i.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  if_cond -> { c_type = Ctype.FunType {params = [Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  not -> { c_type = Ctype.FunType {params = [Ctype.ULong]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  or -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  u.1 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  u.5 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  u.7 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  ul.0 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  ul.2 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  ul.6 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  zero.8 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-}

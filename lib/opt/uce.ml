@@ -1,3 +1,5 @@
+(** Unreachable code elimination pass *)
+
 let reachable_nodes (cfg : Cfg.graph) : Cfg.NodeIdSet.t =
   let visited = ref Cfg.NodeIdSet.empty in
 

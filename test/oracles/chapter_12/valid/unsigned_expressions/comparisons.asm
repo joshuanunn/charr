@@ -249,38 +249,7 @@
         Asm.Ret; (Asm.Label "main.if.en.39");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 40;
-        offset = -96;
-        stack slots = {
-          main.tmp.0  -> -4,
-          main.tmp.2  -> -8,
-          main.tmp.4  -> -12,
-          main.tmp.6  -> -16,
-          main.tmp.8  -> -20,
-          main.tmp.9  -> -24,
-          main.tmp.11 -> -28,
-          main.tmp.12 -> -32,
-          main.tmp.14 -> -36,
-          main.tmp.15 -> -40,
-          main.tmp.17 -> -44,
-          main.tmp.18 -> -48,
-          main.tmp.20 -> -52,
-          main.tmp.22 -> -56,
-          main.tmp.24 -> -60,
-          main.tmp.26 -> -64,
-          main.tmp.28 -> -68,
-          main.tmp.29 -> -72,
-          main.tmp.31 -> -76,
-          main.tmp.32 -> -80,
-          main.tmp.34 -> -84,
-          main.tmp.35 -> -88,
-          main.tmp.37 -> -92,
-          main.tmp.38 -> -96,
-        }}};
+        Asm.Ret]};
      Asm.StaticVariable {name = "one_hundred_ulong"; global = true;
        alignment = 8; init = (Ctype.ULongInit 100L)};
      Asm.StaticVariable {name = "large_ulong"; global = true; alignment = 8;

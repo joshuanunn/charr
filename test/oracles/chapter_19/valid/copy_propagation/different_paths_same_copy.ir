@@ -5,14 +5,7 @@
          target = "target.if.el.1"};
         Ir.Jump {target = "target.if.en.0"}; (Ir.Label "target.if.el.1");
         (Ir.Label "target.if.en.0");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -35,12 +28,5 @@
            target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

@@ -373,10 +373,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  large_uint -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Initial ((Ctype.UIntInit -2l)); global = true } }
-  large_ulong -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Initial ((Ctype.ULongInit 4294967294L)); global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  one_hundred -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Initial ((Ctype.UIntInit 100l)); global = true } }
-  one_hundred_ulong -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Initial ((Ctype.ULongInit 100L)); global = true } }
-}

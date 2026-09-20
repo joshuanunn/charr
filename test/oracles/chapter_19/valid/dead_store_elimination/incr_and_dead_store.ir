@@ -3,14 +3,7 @@
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x");
          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "x")};
-        (Ir.Return (Ir.Var "x"))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "x"))]};
      Ir.StaticVariable {name = "x"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 10l)}
      ])

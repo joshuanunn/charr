@@ -1,3 +1,5 @@
+(** Constant folding pass *)
+
 let fold_unop (op : Ir.unary_operator) (c : Ctype.const) : Ctype.const option =
   let n = Ctype.const_to_int64 c in
   match op with
@@ -50,7 +52,7 @@ let fold_binop (op : Ir.binary_operator) (c1 : Ctype.const) (c2 : Ctype.const) :
       | BwOr -> Some (Ctype.const_of_int64 t (Int64.logor n1 n2))
       | _ -> assert false)
 
-let apply (i : Ir.instruction) (te : Env.tenv) : Ir.instruction option =
+let apply (i : Ir.instruction) (te : Analysis.Tenv.t) : Ir.instruction option =
   match i with
   | Copy { src = Constant c; dst }
   | SignExtend { src = Constant c; dst }

@@ -114,14 +114,7 @@
           target = "main.if.en.39"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 16l)));
         (Ir.Label "main.if.en.39");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 40;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "one_hundred_ulong"; global = true;
        t = Ctype.ULong; init = (Ctype.ULongInit 100L)};
      Ir.StaticVariable {name = "large_ulong"; global = true; t = Ctype.ULong;

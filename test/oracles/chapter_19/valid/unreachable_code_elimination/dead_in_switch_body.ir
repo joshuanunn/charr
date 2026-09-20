@@ -1,13 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "callee"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -1l)))];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -1l)))]};
      Ir.Function {name = "target"; global = true; params = ["x.0"];
        body =
        [Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "x.0");
@@ -36,25 +29,11 @@
            dst = (Ir.Var "retval.1")};
          Ir.Jump {target = "swit.br.1"}; (Ir.Label "swit.df.1");
          (Ir.Return (Ir.Constant (Ctype.ConstInt -1l)));
-         (Ir.Label "swit.br.1"); (Ir.Return (Ir.Var "retval.1"))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Label "swit.br.1"); (Ir.Return (Ir.Var "retval.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
           args = [(Ir.Constant (Ctype.ConstInt 3l))];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.0"))]}
      ])

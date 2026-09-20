@@ -37,27 +37,13 @@
         Ir.JumpIfZero {condition = (Ir.Var "f.tmp.12"); target = "f.if.en.13"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
         (Ir.Label "f.if.en.13");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "f";
-        counter = 14;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "main.tmp.0")};
          Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "main.tmp.1")};
          Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "main.tmp.2")};
-         (Ir.Return (Ir.Var "main.tmp.2"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "main.tmp.2"))]};
      Ir.StaticVariable {name = "l.3"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 48l)};
      Ir.StaticVariable {name = "k.2"; global = false; t = Ctype.Int;

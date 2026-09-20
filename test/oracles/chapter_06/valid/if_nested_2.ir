@@ -8,12 +8,5 @@
           target = "main.if.en.3"};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 2l));
           dst = (Ir.Var "b.1")};
-        (Ir.Label "main.if.en.3"); (Ir.Return (Ir.Var "b.1"))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = 0;
-        stack slots = {
-        }}}
+        (Ir.Label "main.if.en.3"); (Ir.Return (Ir.Var "b.1"))]}
      ])

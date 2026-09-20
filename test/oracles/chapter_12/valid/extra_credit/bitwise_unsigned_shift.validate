@@ -174,8 +174,3 @@
          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])
-Env.tenv {
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  shiftcount.1 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 5l)); global = false } }
-  ui.0 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-}

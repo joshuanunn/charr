@@ -15,15 +15,7 @@
         (Asm.Label "incr_i.if.en.1");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "incr_i";
-        counter = 3;
-        offset = -4;
-        stack slots = {
-          incr_i.tmp.0 -> -4,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "decr_j"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -41,15 +33,7 @@
          (Asm.Label "decr_j.if.en.2");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "decr_j";
-         counter = 4;
-         offset = -4;
-         stack slots = {
-           decr_j.tmp.1 -> -4,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -100,19 +84,7 @@
          Asm.Ret; (Asm.Label "main.if.en.13");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 14;
-         offset = -20;
-         stack slots = {
-           main.tmp.1  -> -4,
-           main.tmp.4  -> -8,
-           main.tmp.5  -> -12,
-           main.tmp.10 -> -16,
-           main.tmp.12 -> -20,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "i"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)};
      Asm.StaticVariable {name = "j"; global = true; alignment = 4;

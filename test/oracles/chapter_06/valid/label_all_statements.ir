@@ -11,12 +11,5 @@
           dst = (Ir.Var "a.5")};
         Ir.Jump {target = "label_if.0"}; (Ir.Label "label_return.3");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 100l)));
-        (Ir.Label "label_empty.4"); Ir.Jump {target = "label_goto.1"}];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 3;
-        offset = 0;
-        stack slots = {
-        }}}
+        (Ir.Label "label_empty.4"); Ir.Jump {target = "label_goto.1"}]}
      ])

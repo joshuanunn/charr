@@ -34,29 +34,10 @@
         (Asm.Label "main.if.en.2");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = -20;
-        stack slots = {
-          main.tmp.0 -> -4,
-          x.0        -> -8,
-          main.tmp.1 -> -12,
-          foo.1      -> -16,
-          main.tmp.3 -> -20,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "foo"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 4L);
           dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "foo";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}}
+         Asm.Ret]}
      ])

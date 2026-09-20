@@ -16,35 +16,35 @@ let convert_to e t =
     Enforces C rules for external and internal linkage, constant initialisers,
     tentative definitions, and conflicting redeclarations. Updates the type
     environment with storage and initialisation information. *)
-let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
+let rec type_fscope_var_decl (v : Ast.var_decl) (te : Tenv.t) : Ast.var_decl =
   let storage = v.storage in
   let init = v.init in
   let init_val =
     match init with
     | Some { e = Ast.Constant c; _ } -> (
         match Ctype.const_convert v.var_type c with
-        | ConstInt i -> Env.Initial (Ctype.IntInit i)
-        | ConstLong l -> Env.Initial (Ctype.LongInit l)
-        | ConstUInt i -> Env.Initial (Ctype.UIntInit i)
-        | ConstULong l -> Env.Initial (Ctype.ULongInit l))
+        | ConstInt i -> Tenv.Initial (Ctype.IntInit i)
+        | ConstLong l -> Tenv.Initial (Ctype.LongInit l)
+        | ConstUInt i -> Tenv.Initial (Ctype.UIntInit i)
+        | ConstULong l -> Tenv.Initial (Ctype.ULongInit l))
     | None -> (
         match storage with
-        | Some Extern -> Env.NoInitialiser
-        | _ -> Env.Tentative)
+        | Some Extern -> Tenv.NoInitialiser
+        | _ -> Tenv.Tentative)
     | Some _ -> failwith "non-constant initialiser!"
   in
 
   let global = storage <> Some Static in
 
-  match Env.find te v.name with
+  match Tenv.find te v.name with
   | None ->
-      Env.add te v.name
+      Tenv.add te v.name
         {
           c_type = v.var_type;
-          attrs = Env.StaticAttr { init = init_val; global };
+          attrs = Tenv.StaticAttr { init = init_val; global };
         };
       v
-  | Some { c_type; attrs = Env.StaticAttr old } ->
+  | Some { c_type; attrs = Tenv.StaticAttr old } ->
       (* Check that the type of a redeclaration has not changed *)
       if not (Ctype.equal c_type v.var_type) then
         failwith "conflicting filescope variable declarations";
@@ -60,18 +60,19 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
       (* initialiser reconciliation *)
       let init =
         match (old.init, init_val) with
-        | Env.Initial _, Env.Initial _ ->
+        | Tenv.Initial _, Tenv.Initial _ ->
             failwith "conflicting file scope variable definitions"
-        | Env.Initial _, _ -> old.init
-        | _, Env.Initial _ -> init_val
-        | Env.Tentative, Env.Tentative -> Env.Tentative
-        | Env.NoInitialiser, Env.Tentative | Env.Tentative, Env.NoInitialiser ->
-            Env.Tentative
-        | Env.NoInitialiser, Env.NoInitialiser -> Env.NoInitialiser
+        | Tenv.Initial _, _ -> old.init
+        | _, Tenv.Initial _ -> init_val
+        | Tenv.Tentative, Tenv.Tentative -> Tenv.Tentative
+        | Tenv.NoInitialiser, Tenv.Tentative
+        | Tenv.Tentative, Tenv.NoInitialiser ->
+            Tenv.Tentative
+        | Tenv.NoInitialiser, Tenv.NoInitialiser -> Tenv.NoInitialiser
       in
 
-      Env.replace te v.name
-        { c_type = v.var_type; attrs = Env.StaticAttr { init; global } };
+      Tenv.replace te v.name
+        { c_type = v.var_type; attrs = Tenv.StaticAttr { init; global } };
       v
   | Some _ -> failwith "identifier redeclared with incompatible kind"
 
@@ -79,25 +80,26 @@ let rec type_fscope_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
 
     Handles [extern], [static], and automatic variables, enforcing initialiser
     rules and updating the type environment accordingly. Note that for [extern]
-    and [static], the AST is not mutated and only environment entries are added
-    in tenv. In contrast, the AST is mutated for automatic variables.*)
-and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
+    and [static], the AST is not mutated and only environment entries are added.
+    In contrast, the AST is mutated for automatic variables.*)
+and type_local_var_decl (v : Ast.var_decl) (te : Tenv.t) : Ast.var_decl =
   match v.storage with
   (* extern local variable *)
   | Some Extern ->
       if v.init <> None then
         failwith "initialiser on local extern variable declaration";
 
-      begin match Env.find te v.name with
+      begin match Tenv.find te v.name with
       | Some { c_type; _ } ->
           if not (Ctype.equal c_type v.var_type) then
             failwith "conflicting local variable declarations";
           v
       | None ->
-          Env.add te v.name
+          Tenv.add te v.name
             {
               c_type = v.var_type;
-              attrs = Env.StaticAttr { init = Env.NoInitialiser; global = true };
+              attrs =
+                Tenv.StaticAttr { init = Tenv.NoInitialiser; global = true };
             };
           v
       end
@@ -107,26 +109,29 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
         match v.init with
         | None -> (
             match v.var_type with
-            | Ctype.Int -> Env.Initial (Ctype.IntInit 0l)
-            | Ctype.Long -> Env.Initial (Ctype.LongInit 0L)
-            | Ctype.UInt -> Env.Initial (Ctype.UIntInit 0l)
-            | Ctype.ULong -> Env.Initial (Ctype.ULongInit 0L)
+            | Ctype.Int -> Tenv.Initial (Ctype.IntInit 0l)
+            | Ctype.Long -> Tenv.Initial (Ctype.LongInit 0L)
+            | Ctype.UInt -> Tenv.Initial (Ctype.UIntInit 0l)
+            | Ctype.ULong -> Tenv.Initial (Ctype.ULongInit 0L)
             | Ctype.FunType _ ->
                 failwith "internal error: variable with function type")
         | Some { e = Ast.Constant c; _ } -> (
             match Ctype.const_convert v.var_type c with
-            | ConstInt i -> Env.Initial (Ctype.IntInit i)
-            | ConstLong l -> Env.Initial (Ctype.LongInit l)
-            | ConstUInt i -> Env.Initial (Ctype.UIntInit i)
-            | ConstULong l -> Env.Initial (Ctype.ULongInit l))
+            | ConstInt i -> Tenv.Initial (Ctype.IntInit i)
+            | ConstLong l -> Tenv.Initial (Ctype.LongInit l)
+            | ConstUInt i -> Tenv.Initial (Ctype.UIntInit i)
+            | ConstULong l -> Tenv.Initial (Ctype.ULongInit l))
         | Some _ -> failwith "non-constant initialiser on local static variable"
       in
-      Env.add te v.name
-        { c_type = v.var_type; attrs = Env.StaticAttr { init; global = false } };
+      Tenv.add te v.name
+        {
+          c_type = v.var_type;
+          attrs = Tenv.StaticAttr { init; global = false };
+        };
       v
   (* automatic local variable *)
   | None ->
-      Env.add te v.name { c_type = v.var_type; attrs = Env.LocalAttr };
+      Tenv.add te v.name { c_type = v.var_type; attrs = Tenv.LocalAttr };
       (* typecheck initialiser AFTER declaration *)
       let init =
         Option.map (fun e -> convert_to (type_expr e te) v.var_type) v.init
@@ -137,16 +142,16 @@ and type_local_var_decl (v : Ast.var_decl) (te : Env.tenv) : Ast.var_decl =
 
     Adds the parameter as a local variable to the current type environment and
     rejects duplicate parameter names. *)
-and type_param_decl (id : Ast.ident) (t : Ctype.t) (te : Env.tenv) : unit =
-  match Env.find te id with
+and type_param_decl (id : Ast.ident) (t : Ctype.t) (te : Tenv.t) : unit =
+  match Tenv.find te id with
   | Some _ -> failwith "duplicate parameter name"
-  | None -> Env.add te id { c_type = t; attrs = Env.LocalAttr }
+  | None -> Tenv.add te id { c_type = t; attrs = Tenv.LocalAttr }
 
 (** Type check a [for] loop initialiser.
 
     Validates either a variable declaration (without storage-class specifiers)
     or an optional initialisation expression. *)
-and type_for_init (i : Ast.for_init) (te : Env.tenv) : Ast.for_init =
+and type_for_init (i : Ast.for_init) (te : Tenv.t) : Ast.for_init =
   match i with
   | InclDecl decl ->
       if decl.storage <> None then
@@ -158,13 +163,13 @@ and type_for_init (i : Ast.for_init) (te : Env.tenv) : Ast.for_init =
 
     Validates consistency with any previous declarations and records function
     type, linkage, and definition status in the type environment. *)
-and type_fun_decl (f : Ast.fun_decl) (te : Env.tenv) : Ast.fun_decl =
+and type_fun_decl (f : Ast.fun_decl) (te : Tenv.t) : Ast.fun_decl =
   let has_body = Option.is_some f.body in
   let fun_type = f.fun_type in
   let global = f.storage <> Some Static in
 
   let defined, global =
-    match Env.find te f.name with
+    match Tenv.find te f.name with
     | None -> (has_body, global)
     | Some { c_type; attrs = FunAttr a } ->
         if c_type <> fun_type then failwith "incompatible function declarations";
@@ -174,7 +179,7 @@ and type_fun_decl (f : Ast.fun_decl) (te : Env.tenv) : Ast.fun_decl =
         (a.defined || has_body, a.global)
     | Some _ -> failwith "variable redeclared as function"
   in
-  Env.replace te f.name
+  Tenv.replace te f.name
     { c_type = fun_type; attrs = FunAttr { defined; global } };
   f
 
@@ -182,7 +187,7 @@ and type_fun_decl (f : Ast.fun_decl) (te : Env.tenv) : Ast.fun_decl =
 
     Ensures variables and functions are used consistently with their declared
     types and recursively checks all subexpressions. *)
-and type_expr (e : Ast.expr) (te : Env.tenv) : Ast.expr =
+and type_expr (e : Ast.expr) (te : Tenv.t) : Ast.expr =
   match e.e with
   | Constant c -> (
       match c with
@@ -191,7 +196,7 @@ and type_expr (e : Ast.expr) (te : Env.tenv) : Ast.expr =
       | Ctype.ConstUInt _ -> Ast.set_type e Ctype.UInt
       | Ctype.ConstULong _ -> Ast.set_type e Ctype.ULong)
   | Var v -> (
-      match Env.find te v with
+      match Tenv.find te v with
       | Some { c_type = Ctype.FunType _; _ } ->
           failwith "Function name used as a variable"
       | Some { c_type; _ } -> Ast.set_type e c_type
@@ -264,7 +269,7 @@ and type_expr (e : Ast.expr) (te : Env.tenv) : Ast.expr =
            })
         common_type
   | FunctionCall { name; args } -> (
-      match Env.find te name with
+      match Tenv.find te name with
       | Some { c_type = Ctype.FunType { params; ret }; _ } ->
           if List.length params <> List.length args then
             failwith "function called with the wrong number of arguments";
@@ -282,7 +287,7 @@ and type_expr (e : Ast.expr) (te : Env.tenv) : Ast.expr =
         (Ast.get_type typed_right)
 
 (** Type check an optional expression, if present. *)
-and type_opt_expr (e : Ast.expr option) (te : Env.tenv) : Ast.expr option =
+and type_opt_expr (e : Ast.expr option) (te : Tenv.t) : Ast.expr option =
   Option.map (fun exp -> type_expr exp te) e
 
 (** Type check a statement.
@@ -290,7 +295,7 @@ and type_opt_expr (e : Ast.expr option) (te : Env.tenv) : Ast.expr option =
     Recursively validates all expressions and nested statements contained within
     the statement. *)
 and type_stmt (s : Ast.stmt) (ret : Ctype.t) (swt : Ctype.t option)
-    (te : Env.tenv) : Ast.stmt =
+    (te : Tenv.t) : Ast.stmt =
   match s with
   | Return expr ->
       (* Function return values are implicitly converted to return type *)
@@ -351,7 +356,7 @@ and type_stmt (s : Ast.stmt) (ret : Ctype.t) (swt : Ctype.t option)
 
     Dispatches to either file-scope or block-scope variable handling, or
     validates a function declaration. *)
-and type_decl ~(file_scope : bool) (d : Ast.decl) (te : Env.tenv) : Ast.decl =
+and type_decl ~(file_scope : bool) (d : Ast.decl) (te : Tenv.t) : Ast.decl =
   match d with
   | VarDecl v ->
       Ast.VarDecl
@@ -363,7 +368,7 @@ and type_decl ~(file_scope : bool) (d : Ast.decl) (te : Env.tenv) : Ast.decl =
 
     Records the function declaration and, if a definition is present, type
     checks parameters and the function body. *)
-and type_func (f : Ast.fun_decl) (te : Env.tenv) : Ast.fun_decl =
+and type_func (f : Ast.fun_decl) (te : Tenv.t) : Ast.fun_decl =
   let f = type_fun_decl f te in
   let param_types, ret =
     match f.fun_type with
@@ -381,7 +386,7 @@ and type_func (f : Ast.fun_decl) (te : Env.tenv) : Ast.fun_decl =
     Processes declarations and statements in sequence using the current type
     environment. *)
 and type_block (b : Ast.block) (ret : Ctype.t) (swt : Ctype.t option)
-    (te : Env.tenv) : Ast.block =
+    (te : Tenv.t) : Ast.block =
   let (Block item_list) = b in
   Ast.Block
     (List.map
@@ -394,7 +399,7 @@ and type_block (b : Ast.block) (ret : Ctype.t) (swt : Ctype.t option)
 
     Processes all top-level declarations and function definitions using a shared
     global type environment. *)
-and type_prog (Program p : Ast.prog) (te : Env.tenv) : Ast.prog =
+and apply (Program p : Ast.prog) (te : Tenv.t) : Ast.prog =
   Ast.Program
     (List.map
        (function

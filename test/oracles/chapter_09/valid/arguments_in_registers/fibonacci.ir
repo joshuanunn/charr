@@ -31,25 +31,11 @@
           dst = (Ir.Var "fib.tmp.10")};
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "fib.tmp.8");
           src2 = (Ir.Var "fib.tmp.10"); dst = (Ir.Var "fib.tmp.11")};
-        (Ir.Return (Ir.Var "fib.tmp.11"))];
-      frame =
-      Env.lenv {
-        namespace = "fib";
-        counter = 12;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "fib.tmp.11"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "fib";
           args = [(Ir.Constant (Ctype.ConstInt 6l))];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.0"))]}
      ])

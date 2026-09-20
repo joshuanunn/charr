@@ -4,14 +4,7 @@
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "y.2"); src2 = (Ir.Var "y.2");
          dst = (Ir.Var "target.tmp.2")};
-        (Ir.Return (Ir.Var "target.tmp.2"))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 3;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "target.tmp.2"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -20,12 +13,5 @@
             (Ir.Constant (Ctype.ConstInt 1l));
             (Ir.Constant (Ctype.ConstInt 10l))];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.0"))]}
      ])

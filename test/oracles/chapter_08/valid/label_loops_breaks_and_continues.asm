@@ -37,17 +37,5 @@
         (Asm.Jmp "loop.st.3"); (Asm.Label "loop.br.3");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = -20;
-        stack slots = {
-          sum.5      -> -4,
-          i.6        -> -8,
-          main.tmp.1 -> -12,
-          main.tmp.2 -> -16,
-          main.tmp.3 -> -20,
-        }}}
+        Asm.Ret]}
      ])

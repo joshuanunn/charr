@@ -1,13 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 25l)))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 8;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 25l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target"; args = [];
@@ -15,12 +8,5 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "main.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstInt 25l));
            dst = (Ir.Var "main.tmp.1")};
-         (Ir.Return (Ir.Var "main.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.1"))]}
      ])

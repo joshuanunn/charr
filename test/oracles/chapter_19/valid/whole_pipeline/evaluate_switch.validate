@@ -156,10 +156,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  callee -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  retval.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  switch_var.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  target -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}

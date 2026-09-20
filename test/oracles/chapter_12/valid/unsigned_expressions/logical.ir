@@ -3,27 +3,13 @@
       body =
       [Ir.Unary {op = Ir.Not; src = (Ir.Var "ul.0");
          dst = (Ir.Var "not.tmp.0")};
-        (Ir.Return (Ir.Var "not.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "not";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "not.tmp.0"))]};
      Ir.Function {name = "if_cond"; global = true; params = ["u.1"];
        body =
        [Ir.JumpIfZero {condition = (Ir.Var "u.1"); target = "if_cond.if.en.0"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "if_cond.if.en.0");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "if_cond";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "and"; global = true; params = ["ul.2"; "i.3"];
        body =
        [Ir.JumpIfZero {condition = (Ir.Var "ul.2"); target = "and.and.fl.1"};
@@ -33,14 +19,7 @@
          Ir.Jump {target = "and.and.en.2"}; (Ir.Label "and.and.fl.1");
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
            dst = (Ir.Var "and.tmp.0")};
-         (Ir.Label "and.and.en.2"); (Ir.Return (Ir.Var "and.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "and";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Label "and.and.en.2"); (Ir.Return (Ir.Var "and.tmp.0"))]};
      Ir.Function {name = "or"; global = true; params = ["i.4"; "u.5"];
        body =
        [Ir.JumpIfNotZero {condition = (Ir.Var "i.4"); target = "or.or.tr.1"};
@@ -50,14 +29,7 @@
          Ir.Jump {target = "or.or.en.2"}; (Ir.Label "or.or.tr.1");
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
            dst = (Ir.Var "or.tmp.0")};
-         (Ir.Label "or.or.en.2"); (Ir.Return (Ir.Var "or.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "or";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Label "or.or.en.2"); (Ir.Return (Ir.Var "or.tmp.0"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "not";
@@ -112,12 +84,5 @@
            target = "main.if.en.16"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
          (Ir.Label "main.if.en.16");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 17;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

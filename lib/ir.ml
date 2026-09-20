@@ -44,13 +44,34 @@ type instruction =
   | FunCall of { fun_name : string; args : value list; dst : value }
 [@@deriving show]
 
+module Namespace = struct
+  type t = {
+    namespace : string;  (** Allow unique global labels using a namespace *)
+    mutable counter : int;  (** Counter for generating unique names *)
+  }
+  [@@deriving show]
+
+  let make namespace = { namespace; counter = 0 }
+
+  let next_id t =
+    let id = t.counter in
+    t.counter <- t.counter + 1;
+    id
+
+  (** Generate a unique temporary variable name within namespace. *)
+  let generate_tmp t = t.namespace ^ ".tmp." ^ string_of_int (next_id t)
+
+  (** Generate a unique label name within namespace. *)
+  let generate_label t name =
+    t.namespace ^ "." ^ name ^ "." ^ string_of_int (next_id t)
+end
+
 type top_level =
   | Function of {
       name : string;
       global : bool;
       params : string list;
       body : instruction list;
-      frame : Env.lenv;
     }
   | StaticVariable of {
       name : string;
@@ -62,11 +83,11 @@ type top_level =
 
 type prog = Program of top_level list [@@deriving show]
 
-let get_value_type (o : value) (te : Env.tenv) : Ctype.t =
+let get_value_type (o : value) (te : Analysis.Tenv.t) : Ctype.t =
   match o with
   | Constant c -> Ctype.const_type c
   | Var i -> (
-      match Env.find te (Ast.Identifier i) with
+      match Analysis.Tenv.find te (Ast.Identifier i) with
       | Some ti -> ti.c_type
       | None ->
           failwith ("internal error: '" ^ i ^ "' not found in type environment")

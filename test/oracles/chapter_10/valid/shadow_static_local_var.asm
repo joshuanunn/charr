@@ -22,16 +22,7 @@
         (Asm.Label "update_static_or_global.if.en.0");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Data "i.2");
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "update_static_or_global";
-        counter = 2;
-        offset = -8;
-        stack slots = {
-          update_global.0 -> -4,
-          new_val.1       -> -8,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 48L);
@@ -136,24 +127,7 @@
          Asm.Ret; (Asm.Label "main.if.en.16");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 17;
-         offset = -40;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.2  -> -8,
-           main.tmp.3  -> -12,
-           main.tmp.5  -> -16,
-           main.tmp.7  -> -20,
-           main.tmp.8  -> -24,
-           main.tmp.10 -> -28,
-           main.tmp.12 -> -32,
-           main.tmp.13 -> -36,
-           main.tmp.15 -> -40,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "i"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)};
      Asm.StaticVariable {name = "i.2"; global = false; alignment = 4;

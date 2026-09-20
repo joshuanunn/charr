@@ -1,3 +1,5 @@
+(** Copy propagation pass *)
+
 (** Copies only propagate when src/dst same type or signedness. *)
 let should_copy_propagate src dst te =
   let src_typ = Ir.get_value_type src te in
@@ -5,7 +7,7 @@ let should_copy_propagate src dst te =
   Ctype.equal src_typ dst_typ
   || Ctype.is_signed src_typ = Ctype.is_signed dst_typ
 
-let get_block_copies (n : Cfg.node) (te : Env.tenv) : Cfg.CopySet.t =
+let get_block_copies (n : Cfg.node) (te : Analysis.Tenv.t) : Cfg.CopySet.t =
   match n with
   | Cfg.BasicBlock r ->
       List.fold_left
@@ -18,7 +20,7 @@ let get_block_copies (n : Cfg.node) (te : Env.tenv) : Cfg.CopySet.t =
   | Cfg.EntryNode _ | Cfg.ExitNode _ -> Cfg.CopySet.empty
 
 (** Construct a preliminary set of all copy instructions across all blocks. *)
-let find_all_copy_instructions (blocks : Cfg.node list) (te : Env.tenv) :
+let find_all_copy_instructions (blocks : Cfg.node list) (te : Analysis.Tenv.t) :
     Cfg.CopySet.t =
   List.fold_left
     (fun acc block ->
@@ -90,7 +92,7 @@ let meet (cfg : Cfg.graph) (id : Cfg.node_id) (all_copies : Cfg.CopySet.t) =
     before it and updating the current reaching copies. At the end of the block,
     records the set of copies that reach the block’s exit. *)
 let transfer (cfg : Cfg.graph) (id : Cfg.node_id) initial_reaching_copies
-    static_names instr_info (te : Env.tenv) =
+    static_names instr_info (te : Analysis.Tenv.t) =
   let current_reaching_copies = ref initial_reaching_copies in
   let block_instructions =
     Cfg.with_basicblock cfg id (fun r -> r.instructions)
@@ -227,7 +229,7 @@ let update_worklist (cfg : Cfg.graph) (id : Cfg.node_id) worklist =
     which are assumed to have reached the end of each block. Entry and Exit
     nodes are not annotated. *)
 let find_reaching_copies (cfg : Cfg.graph) (static_names : Cfg.StringSet.t)
-    (te : Env.tenv) =
+    (te : Analysis.Tenv.t) =
   let sorted_blocks = Cfg.blocks_sorted cfg.blocks in
   let all_copies = find_all_copy_instructions sorted_blocks te in
 
@@ -274,6 +276,7 @@ let find_reaching_copies (cfg : Cfg.graph) (static_names : Cfg.StringSet.t)
   done;
   !instr_info
 
-let apply (cfg : Cfg.graph) (statics : Cfg.StringSet.t) (te : Env.tenv) : unit =
+let apply (cfg : Cfg.graph) (statics : Cfg.StringSet.t) (te : Analysis.Tenv.t) :
+    unit =
   let reaching_copies = find_reaching_copies cfg statics te in
   rewrite_cfg cfg reaching_copies

@@ -3,35 +3,14 @@
       body =
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "a.0"); src2 = (Ir.Var "b.1");
          dst = (Ir.Var "callee.tmp.0")};
-        (Ir.Return (Ir.Var "callee.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "callee.tmp.0"))]};
      Ir.Function {name = "f"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];
-       frame =
-       Env.lenv {
-         namespace = "f";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))]};
      Ir.Function {name = "set_globvar"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l));
           dst = (Ir.Var "globl")};
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "set_globvar";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "target"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "target.tmp.0")};
@@ -47,14 +26,7 @@
            src2 = (Ir.Var "target.tmp.3"); dst = (Ir.Var "target.tmp.4")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Var "target.tmp.2");
            src2 = (Ir.Var "target.tmp.4"); dst = (Ir.Var "target.tmp.5")};
-         (Ir.Return (Ir.Var "target.tmp.5"))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "target.tmp.5"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target"; args = [];
@@ -73,14 +45,7 @@
            target = "main.if.en.4"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.4");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "globl"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

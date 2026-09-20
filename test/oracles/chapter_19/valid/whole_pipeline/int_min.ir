@@ -1,13 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "target"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -2147483648l)))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt -2147483648l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target"; args = [];
@@ -21,12 +14,5 @@
            target = "main.if.en.3"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.3");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 4;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

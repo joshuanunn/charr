@@ -49,21 +49,7 @@
         (Asm.JmpCC (Asm.NE, "loop.st.1"));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -20);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "fib";
-        counter = 3;
-        offset = -28;
-        stack slots = {
-          count.1   -> -4,
-          n0.2      -> -8,
-          n1.3      -> -12,
-          i.4       -> -16,
-          fib.tmp.0 -> -20,
-          fib.tmp.1 -> -24,
-          fib.tmp.2 -> -28,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -80,14 +66,5 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 2;
-         offset = -8;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-         }}}
+         Asm.Ret]}
      ])

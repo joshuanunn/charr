@@ -4,27 +4,13 @@
       body =
       [Ir.Truncate {src = (Ir.Var "l.0");
          dst = (Ir.Var "return_truncated_long.tmp.0")};
-        (Ir.Return (Ir.Var "return_truncated_long.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "return_truncated_long";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "return_truncated_long.tmp.0"))]};
      Ir.Function {name = "return_extended_int"; global = true;
        params = ["i.1"];
        body =
        [Ir.SignExtend {src = (Ir.Var "i.1");
           dst = (Ir.Var "return_extended_int.tmp.0")};
-         (Ir.Return (Ir.Var "return_extended_int.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "return_extended_int";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "return_extended_int.tmp.0"))]};
      Ir.Function {name = "truncate_on_assignment"; global = true;
        params = ["l.2"; "expected.3"];
        body =
@@ -34,14 +20,7 @@
            src1 = (Ir.Var "truncate_on_assignment.tmp.0");
            src2 = (Ir.Var "expected.3");
            dst = (Ir.Var "truncate_on_assignment.tmp.1")};
-         (Ir.Return (Ir.Var "truncate_on_assignment.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "truncate_on_assignment";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "truncate_on_assignment.tmp.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "return_truncated_long";
@@ -77,12 +56,5 @@
            target = "main.if.en.15"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.15");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 16;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

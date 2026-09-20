@@ -15,16 +15,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -8)));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "addition";
-        counter = 2;
-        offset = -8;
-        stack slots = {
-          addition.tmp.0 -> -4,
-          addition.tmp.1 -> -8,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "subtraction"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -44,16 +35,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "subtraction";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           subtraction.tmp.0 -> -8,
-           subtraction.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "multiplication"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -75,16 +57,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "multiplication";
-         counter = 2;
-         offset = -8;
-         stack slots = {
-           multiplication.tmp.0 -> -4,
-           multiplication.tmp.1 -> -8,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "division"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -103,16 +76,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "division";
-         counter = 3;
-         offset = -8;
-         stack slots = {
-           division.tmp.0 -> -4,
-           division.tmp.2 -> -8,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "division_large_dividend"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -131,16 +95,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "division_large_dividend";
-         counter = 3;
-         offset = -8;
-         stack slots = {
-           division_large_dividend.tmp.0 -> -4,
-           division_large_dividend.tmp.2 -> -8,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "division_by_literal"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -163,16 +118,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "division_by_literal";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           division_by_literal.tmp.0 -> -8,
-           division_by_literal.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "remaind"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -191,16 +137,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "remaind";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           remaind.tmp.0 -> -8,
-           remaind.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "complement"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -217,16 +154,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -8)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -8);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "complement";
-         counter = 3;
-         offset = -8;
-         stack slots = {
-           complement.tmp.0 -> -4,
-           complement.tmp.2 -> -8,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 64L);
@@ -373,30 +301,7 @@
          Asm.Ret; (Asm.Label "main.if.en.23");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 24;
-         offset = -64;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.1  -> -8,
-           main.tmp.3  -> -12,
-           main.tmp.4  -> -16,
-           main.tmp.6  -> -20,
-           main.tmp.7  -> -24,
-           main.tmp.9  -> -28,
-           main.tmp.10 -> -32,
-           main.tmp.12 -> -36,
-           main.tmp.13 -> -40,
-           main.tmp.15 -> -44,
-           main.tmp.16 -> -48,
-           main.tmp.18 -> -52,
-           main.tmp.19 -> -56,
-           main.tmp.21 -> -60,
-           main.tmp.22 -> -64,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "ui_b"; global = true; alignment = 4;
        init = (Ctype.UIntInit 0l)};
      Asm.StaticVariable {name = "ui_a"; global = true; alignment = 4;

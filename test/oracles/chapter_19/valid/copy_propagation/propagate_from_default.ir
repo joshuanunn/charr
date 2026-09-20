@@ -30,14 +30,7 @@
           dst = (Ir.Var "target.tmp.4")};
         Ir.Copy {src = (Ir.Var "target.tmp.4"); dst = (Ir.Var "globvar")};
         (Ir.Label "swit.df.1"); (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))
-        ];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 5;
-        offset = 0;
-        stack slots = {
-        }}};
+        ]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -57,14 +50,7 @@
            target = "main.if.en.4"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.4");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "globvar"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

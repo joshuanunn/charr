@@ -1,3 +1,5 @@
+(** Entrypoint for code optimisation passes *)
+
 type opts = {
   folding : bool;
   propagation : bool;
@@ -52,13 +54,13 @@ let cfg_to_instructions (cfg : Cfg.graph) : Ir.instruction list =
   |> List.concat_map (fun (_, node) -> Cfg.get_instructions node)
 
 let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
-    (te : Env.tenv) : Ir.instruction list =
+    (te : Analysis.Tenv.t) : Ir.instruction list =
   let rec loop body =
     if body = [] then body
     else
       let post_folding =
         if o.folding then
-          List.filter_map (fun b -> Constant_folding.apply b te) body
+          List.filter_map (fun b -> Constant_fold.apply b te) body
         else body
       in
 
@@ -67,19 +69,19 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
           Format.eprintf "=== Initial CFG ===\n%a\n" Cfg.pp_graph cfg);
 
       if o.unreachable then begin
-        Unreachable_code_elimination.apply cfg;
+        Uce.apply cfg;
         Debug.log (fun () ->
             Format.eprintf "=== After Unreachable Code Elimination ===\n%a\n"
               Cfg.pp_graph cfg)
       end;
       if o.propagation then begin
-        Copy_propagation.apply cfg statics te;
+        Copy_prop.apply cfg statics te;
         Debug.log (fun () ->
             Format.eprintf "=== After Copy Propagation ===\n%a\n" Cfg.pp_graph
               cfg)
       end;
       if o.deadstores then begin
-        Dead_store_elimination.apply cfg statics;
+        Dse.apply cfg statics;
         Debug.log (fun () ->
             Format.eprintf "=== After Dead Store Elimination ===\n%a\n"
               Cfg.pp_graph cfg)
@@ -90,23 +92,23 @@ let optimise (body : Ir.instruction list) (o : opts) (statics : Cfg.StringSet.t)
   loop body
 
 let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t)
-    (te : Env.tenv) : Ir.top_level =
+    (te : Analysis.Tenv.t) : Ir.top_level =
   (* only optimise function bodies *)
   match f with
-  | Function { name; global; params; body; frame } ->
+  | Function { name; global; params; body } ->
       let body_opt = optimise body o statics te in
-      Function { name; global; params; body = body_opt; frame }
+      Function { name; global; params; body = body_opt }
   | StaticVariable { name; global; t; init } ->
       StaticVariable { name; global; t; init }
 
 (** Construct a set of variable names whose storage is static and whose value
     may be observed across function boundaries or translation units. *)
-let collect_escaping_globals (te : Env.tenv) =
-  Env.static_vars te
+let collect_escaping_globals (te : Analysis.Tenv.t) =
+  Analysis.Tenv.static_vars te
   |> List.map (fun (name, _, _, _) -> name)
   |> Cfg.StringSet.of_list
 
-let optimise_prog (Program p : Ir.prog) (o : opts) (te : Env.tenv) : Ir.prog =
+let apply (Program p : Ir.prog) (o : opts) (te : Analysis.Tenv.t) : Ir.prog =
   let statics = collect_escaping_globals te in
   let compiled_funcs =
     List.map (function f -> optimise_func f o statics te) p

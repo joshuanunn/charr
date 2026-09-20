@@ -39,12 +39,5 @@
         Ir.Jump {target = "loop.st.4"}; (Ir.Label "loop.br.4");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 123l)));
         (Ir.Label "swit.df.1"); (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)))
-        ];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 7;
-        offset = 0;
-        stack slots = {
-        }}}
+        ]}
      ])

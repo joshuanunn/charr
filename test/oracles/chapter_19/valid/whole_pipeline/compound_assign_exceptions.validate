@@ -248,11 +248,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  w.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  x.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  y.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  z.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  zero -> { c_type = Ctype.Int; attrs = StaticAttr { init = Tentative; global = false } }
-}

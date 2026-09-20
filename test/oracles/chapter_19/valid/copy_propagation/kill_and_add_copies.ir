@@ -2,26 +2,12 @@
    [Ir.Function {name = "set_globvar"; global = true; params = ["i.0"];
       body =
       [Ir.Copy {src = (Ir.Var "i.0"); dst = (Ir.Var "globvar")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "set_globvar";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "callee"; global = true; params = ["a.1"; "b.2"];
        body =
        [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "a.1"); src2 = (Ir.Var "b.2");
           dst = (Ir.Var "callee.tmp.0")};
-         (Ir.Return (Ir.Var "callee.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "callee";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "callee.tmp.0"))]};
      Ir.Function {name = "target"; global = true; params = ["param.3"];
        body =
        [Ir.FunCall {fun_name = "set_globvar"; args = [(Ir.Var "param.3")];
@@ -29,14 +15,7 @@
          Ir.FunCall {fun_name = "callee";
            args = [(Ir.Constant (Ctype.ConstInt 10l)); (Ir.Var "param.3")];
            dst = (Ir.Var "target.tmp.1")};
-         (Ir.Return (Ir.Var "target.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "target.tmp.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -56,14 +35,7 @@
            target = "main.if.en.4"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.4");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "globvar"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

@@ -103,9 +103,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  count.1 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 0l)); global = false } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  print_alphabet -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  putchar -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = false; global = true } }
-}

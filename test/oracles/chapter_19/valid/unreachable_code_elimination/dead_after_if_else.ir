@@ -1,26 +1,12 @@
 (Ir.Program
    [Ir.Function {name = "callee"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 100l)))];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 100l)))]};
      Ir.Function {name = "target"; global = true; params = ["a.0"];
        body =
        [Ir.JumpIfZero {condition = (Ir.Var "a.0"); target = "target.if.el.1"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "target.if.el.1");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -43,12 +29,5 @@
            target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

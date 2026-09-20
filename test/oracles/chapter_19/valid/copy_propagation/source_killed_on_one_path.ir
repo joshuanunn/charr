@@ -8,14 +8,7 @@
         (Ir.Label "f.if.en.0");
         Ir.FunCall {fun_name = "putchar"; args = [(Ir.Var "src.1")];
           dst = (Ir.Var "f.tmp.1")};
-        (Ir.Return (Ir.Var "x.3"))];
-      frame =
-      Env.lenv {
-        namespace = "f";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "x.3"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
@@ -42,12 +35,5 @@
            target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

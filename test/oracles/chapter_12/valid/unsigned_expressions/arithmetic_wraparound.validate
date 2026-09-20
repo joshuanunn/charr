@@ -214,13 +214,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  addition -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  neg -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  subtraction -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  ui_a -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Tentative; global = true } }
-  ui_b -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Tentative; global = true } }
-  ul_a -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Tentative; global = true } }
-  ul_b -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Tentative; global = true } }
-}

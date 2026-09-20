@@ -3,62 +3,27 @@
       instructions =
       [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm -3L);
          dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "target_negate";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "target_negate_zero"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target_negate_zero";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "target_not"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target_not";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "target_not_zero"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
           dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target_not_zero";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "target_complement"; global = true;
        instructions =
        [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm -2L);
           dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target_complement";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 48L);
@@ -147,26 +112,7 @@
          Asm.Ret; (Asm.Label "main.if.en.16");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 17;
-         offset = -48;
-         stack slots = {
-           main.tmp.0  -> -4,
-           main.tmp.1  -> -8,
-           main.tmp.2  -> -12,
-           main.tmp.4  -> -16,
-           main.tmp.5  -> -20,
-           main.tmp.7  -> -24,
-           main.tmp.8  -> -28,
-           main.tmp.10 -> -32,
-           main.tmp.11 -> -36,
-           main.tmp.13 -> -40,
-           main.tmp.14 -> -44,
-           main.tmp.15 -> -48,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "two"; global = true; alignment = 4;
        init = (Ctype.IntInit 2l)};
      Asm.StaticVariable {name = "three"; global = true; alignment = 4;

@@ -105,31 +105,7 @@
         (Asm.Label "x.and.en.20");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -68);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "x";
-        counter = 21;
-        offset = -68;
-        stack slots = {
-          a.0      -> -4,
-          b.1      -> -8,
-          c.2      -> -12,
-          d.3      -> -16,
-          e.4      -> -20,
-          f.5      -> -24,
-          x.tmp.0  -> -28,
-          x.tmp.1  -> -32,
-          x.tmp.2  -> -36,
-          x.tmp.5  -> -40,
-          x.tmp.6  -> -44,
-          x.tmp.9  -> -48,
-          x.tmp.10 -> -52,
-          x.tmp.13 -> -56,
-          x.tmp.14 -> -60,
-          x.tmp.17 -> -64,
-          x.tmp.18 -> -68,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -151,13 +127,5 @@
            dst = (Asm.Stack -4)};
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 3;
-         offset = -4;
-         stack slots = {
-           main.tmp.2 -> -4,
-         }}}
+         Asm.Ret]}
      ])

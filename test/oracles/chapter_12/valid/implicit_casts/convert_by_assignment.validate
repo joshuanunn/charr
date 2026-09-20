@@ -458,27 +458,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  check_int -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  check_long -> { c_type = Ctype.FunType {params = [Ctype.Long; Ctype.Long]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  check_ulong -> { c_type = Ctype.FunType {params = [Ctype.ULong; Ctype.ULong]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  converted.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  converted.2 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  converted.4 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  expected.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  expected.10 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  expected.3 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  expected.5 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  extend_on_assignment -> { c_type = Ctype.FunType {params = [Ctype.UInt; Ctype.Long]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  i.13 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.7 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  l.12 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  result.11 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  return_extended_int -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.ULong}; attrs = FunAttr { defined = true; global = true } }
-  return_extended_uint -> { c_type = Ctype.FunType {params = [Ctype.UInt]; ret = Ctype.Long}; attrs = FunAttr { defined = true; global = true } }
-  return_truncated_ulong -> { c_type = Ctype.FunType {params = [Ctype.ULong]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  u.6 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  ui.9 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  ul.8 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-}

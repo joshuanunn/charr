@@ -90,23 +90,5 @@
         (Asm.Jmp "loop.st.1"); (Asm.Label "loop.br.1");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -4);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 10;
-        offset = -44;
-        stack slots = {
-          ans.0      -> -4,
-          i.1        -> -8,
-          main.tmp.0 -> -12,
-          j.2        -> -16,
-          main.tmp.1 -> -20,
-          main.tmp.2 -> -24,
-          main.tmp.3 -> -28,
-          main.tmp.4 -> -32,
-          main.tmp.7 -> -36,
-          main.tmp.8 -> -40,
-          main.tmp.9 -> -44,
-        }}}
+        Asm.Ret]}
      ])

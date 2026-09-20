@@ -128,9 +128,8 @@ let fixup_instruction (i : Asm.instruction) : Asm.instruction list =
   | _ -> [ i ]
 
 (** [fixup_func f] rewrites any invalid instructions in the function [f] by
-    applying [fixup_instruction] to each instruction. It also prepends a stack
-    allocation instruction based on the function frame, if necessary. This may
-    expand a single instruction into multiple valid ones. *)
+    applying [fixup_instruction] to each instruction. This may expand a single
+    instruction into multiple valid ones. *)
 let fixup_func (f : Asm.top_level) : Asm.top_level =
   match f with
   | Function fn ->
@@ -138,34 +137,13 @@ let fixup_func (f : Asm.top_level) : Asm.top_level =
         fn.instructions
         |> List.concat_map (fun instr -> fixup_instruction instr)
       in
-      (* Align function stack size to nearest 16 bytes *)
-      let stack_size = -fn.frame.offset in
-      let aligned_size_bytes = Int64.of_int ((stack_size + 15) / 16 * 16) in
-      let stack_alloc_instrs =
-        if fn.frame.offset <> 0 then
-          [
-            Asm.Binary
-              {
-                op = Asm.Sub;
-                typ = Asm.Quadword;
-                src = Imm aligned_size_bytes;
-                dst = Reg SP;
-              };
-          ]
-        else []
-      in
       Function
-        {
-          name = fn.name;
-          global = fn.global;
-          instructions = stack_alloc_instrs @ fixed_func_instrs;
-          frame = fn.frame;
-        }
+        { name = fn.name; global = fn.global; instructions = fixed_func_instrs }
   | StaticVariable v -> StaticVariable v
 
 (** [fixup_prog p] rewrites the assembly program [p] by fixing up any invalid
     instructions in each function and prepending stack allocation based on the
     function frame. *)
-let fixup_prog (Asm.Program p) : Asm.prog =
+let apply (Asm.Program p) : Asm.prog =
   let fixed_funcs = List.map fixup_func p in
   Program fixed_funcs

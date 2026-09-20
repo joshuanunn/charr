@@ -387,26 +387,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  flag.10 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.11 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  int_gt_uint -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  int_gt_ulong -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.ULong]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  l.5 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  l.8 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  long_gt_ulong -> { c_type = Ctype.FunType {params = [Ctype.Long; Ctype.ULong]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  result.13 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  ternary_int_uint -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.Int; Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  u.1 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  u.4 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  u.6 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  ui.12 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  uint_gt_long -> { c_type = Ctype.FunType {params = [Ctype.UInt; Ctype.Long]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  uint_lt_ulong -> { c_type = Ctype.FunType {params = [Ctype.UInt; Ctype.ULong]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  ul.3 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  ul.7 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  ul.9 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-}

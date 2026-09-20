@@ -21,12 +21,5 @@
           target = "main.if.en.3"};
         Ir.Jump {target = "loop.br.1"}; (Ir.Label "main.if.en.3");
         Ir.Jump {target = "lbl.0"}; (Ir.Label "loop.br.1");
-        (Ir.Return (Ir.Var "main.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = 0;
-        stack slots = {
-        }}}
+        (Ir.Return (Ir.Var "main.tmp.0"))]}
      ])

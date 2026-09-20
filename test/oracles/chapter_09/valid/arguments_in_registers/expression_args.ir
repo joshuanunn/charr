@@ -3,14 +3,7 @@
       body =
       [Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "a.0");
          src2 = (Ir.Var "b.1"); dst = (Ir.Var "sub.tmp.0")};
-        (Ir.Return (Ir.Var "sub.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "sub";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "sub.tmp.0"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "sub";
@@ -18,12 +11,5 @@
           [(Ir.Constant (Ctype.ConstInt 3l));
             (Ir.Constant (Ctype.ConstInt 1l))];
           dst = (Ir.Var "main.tmp.1")};
-         (Ir.Return (Ir.Var "main.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.1"))]}
      ])

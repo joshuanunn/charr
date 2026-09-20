@@ -6,7 +6,7 @@ let stack_size = function Asm.Longword -> 4 | Asm.Quadword -> 8
 let align_down (n : int) (alignment : int) : int =
   if n mod alignment = 0 then n else ((n / alignment) - 1) * alignment
 
-(** Look up the stack offset for pseudo-register [v] in [le], assigning one on
+(** Look up the stack offset for pseudo-register [v] in [fr], assigning one on
     first use. The slot size and alignment come from [typ], looked up in the
     assembly symbol table by the caller. This is based on its assembly type
     (Longword: 4 bytes; Quadword: 8 bytes, 8-byte aligned).
@@ -46,29 +46,29 @@ let align_down (n : int) (alignment : int) : int =
     values, leaving the 4-byte gap above it unused.
 
     **)
-let assign_stack_offset (le : Env.lenv) (v : string) (typ : Asm.assembly_type) :
-    int =
-  match Env.get_offset_opt le v with
+let assign_stack_offset (fr : Asm.Frame.t) (v : string)
+    (typ : Asm.assembly_type) : int =
+  match Asm.Frame.get_offset_opt fr v with
   | Some offset -> offset
   | None ->
-      let tentative = le.offset - stack_size typ in
+      let tentative = fr.offset - stack_size typ in
       let offset =
         if typ = Asm.Quadword then align_down tentative 8 else tentative
       in
-      Env.set_offset le v offset;
+      Asm.Frame.set_offset fr v offset;
       offset
 
 (** Resolve a pseudo operand to either a data-section reference (for static
     storage) or a stack slot (for automatic storage), leaving other operands
     unchanged. *)
-let lower_operand (o : Asm.operand) (ae : Asm_symtab.t) (le : Env.lenv) :
+let lower_operand (o : Asm.operand) (ae : Symtab.t) (fr : Asm.Frame.t) :
     Asm.operand =
   match o with
   | Pseudo v -> (
-      match Asm_symtab.find ae v with
+      match Symtab.find ae v with
       | Some (ObjEntry { typ; is_static }) ->
           if is_static then Asm.Data v
-          else Asm.Stack (assign_stack_offset le v typ)
+          else Asm.Stack (assign_stack_offset fr v typ)
       | Some (FunEntry _) ->
           failwith
             ("internal error: pseudo-register " ^ v
@@ -81,59 +81,79 @@ let lower_operand (o : Asm.operand) (ae : Asm_symtab.t) (le : Env.lenv) :
 
 (** Lowers any pseudo-registers in the instruction [i], replacing them with
     stack operands or data-section references. *)
-let lower_instruction (i : Asm.instruction) (ae : Asm_symtab.t) (le : Env.lenv)
-    : Asm.instruction =
+let lower_instruction (i : Asm.instruction) (ae : Symtab.t) (fr : Asm.Frame.t) :
+    Asm.instruction =
   match i with
   | Mov { typ; src; dst } ->
-      Mov { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
+      Mov { typ; src = lower_operand src ae fr; dst = lower_operand dst ae fr }
   | Movsx { src; dst } ->
-      Movsx { src = lower_operand src ae le; dst = lower_operand dst ae le }
+      Movsx { src = lower_operand src ae fr; dst = lower_operand dst ae fr }
   | MovZeroExtend { src; dst } ->
       MovZeroExtend
-        { src = lower_operand src ae le; dst = lower_operand dst ae le }
-  | Unary { op; typ; dst } -> Unary { op; typ; dst = lower_operand dst ae le }
+        { src = lower_operand src ae fr; dst = lower_operand dst ae fr }
+  | Unary { op; typ; dst } -> Unary { op; typ; dst = lower_operand dst ae fr }
   | Binary { op; typ; src; dst } ->
       Binary
         {
           op;
           typ;
-          src = lower_operand src ae le;
-          dst = lower_operand dst ae le;
+          src = lower_operand src ae fr;
+          dst = lower_operand dst ae fr;
         }
   | Cmp { typ; src; dst } ->
-      Cmp { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
+      Cmp { typ; src = lower_operand src ae fr; dst = lower_operand dst ae fr }
   | Shl { typ; src; dst } ->
-      Shl { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
+      Shl { typ; src = lower_operand src ae fr; dst = lower_operand dst ae fr }
   | Sar { typ; src; dst } ->
-      Sar { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
+      Sar { typ; src = lower_operand src ae fr; dst = lower_operand dst ae fr }
   | Shr { typ; src; dst } ->
-      Shr { typ; src = lower_operand src ae le; dst = lower_operand dst ae le }
-  | SetCC (cc, op) -> SetCC (cc, lower_operand op ae le)
-  | Idiv { typ; src } -> Idiv { typ; src = lower_operand src ae le }
-  | Div { typ; src } -> Div { typ; src = lower_operand src ae le }
-  | Push src -> Push (lower_operand src ae le)
+      Shr { typ; src = lower_operand src ae fr; dst = lower_operand dst ae fr }
+  | SetCC (cc, op) -> SetCC (cc, lower_operand op ae fr)
+  | Idiv { typ; src } -> Idiv { typ; src = lower_operand src ae fr }
+  | Div { typ; src } -> Div { typ; src = lower_operand src ae fr }
+  | Push src -> Push (lower_operand src ae fr)
   | _ -> i
 
 (** Lowers all pseudo operands in the function [f], where all variables have
     been resolved to stack locations or data-section references. *)
-let lower_func (f : Asm.top_level) (ae : Asm_symtab.t) : Asm.top_level =
+let lower_func (f : Asm.top_level) (ae : Symtab.t) : Asm.top_level =
   match f with
   | Function fn ->
+      (* Allocate a function stack frame to track stack offsets during lowering *)
+      let frame = Asm.Frame.make () in
       let lowered_instructions =
         fn.instructions
-        |> List.map (fun instr -> lower_instruction instr ae fn.frame)
+        |> List.map (fun instr -> lower_instruction instr ae frame)
+      in
+      Debug.log (fun () ->
+          Format.eprintf "=== Frame for %s ===\n%a\n\n" fn.name Asm.Frame.pp
+            frame);
+      (* Align function stack size to nearest 16 bytes *)
+      let stack_size = -frame.offset in
+      let aligned_size_bytes = Int64.of_int ((stack_size + 15) / 16 * 16) in
+      let stack_alloc_instrs =
+        if frame.offset <> 0 then
+          [
+            Asm.Binary
+              {
+                op = Asm.Sub;
+                typ = Asm.Quadword;
+                src = Imm aligned_size_bytes;
+                dst = Reg SP;
+              };
+          ]
+        else []
       in
       Function
         {
           name = fn.name;
           global = fn.global;
-          instructions = lowered_instructions;
-          frame = fn.frame;
+          instructions = stack_alloc_instrs @ lowered_instructions;
         }
   | StaticVariable v -> StaticVariable v
 
 (** Lowers all pseudo operands in the program [p], with pseudo registers
     replaced with stack-based addressing or data-section references. *)
-let lower_prog (Asm.Program p) (ae : Asm_symtab.t) : Asm.prog =
+let apply (Asm.Program p) (ae : Symtab.t) : Asm.prog =
   let lowered_funcs = List.map (fun func -> lower_func func ae) p in
   Program lowered_funcs

@@ -3,14 +3,7 @@
       instructions =
       [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 100L);
          dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "target"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -25,15 +18,7 @@
          Asm.Ret; (Asm.Label "target.if.el.1");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 2L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 3;
-         offset = -4;
-         stack slots = {
-           a.0 -> -4,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -72,16 +57,5 @@
          Asm.Ret; (Asm.Label "main.if.en.5");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = -16;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.3 -> -12,
-           main.tmp.4 -> -16,
-         }}}
+         Asm.Ret]}
      ])

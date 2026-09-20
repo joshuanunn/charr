@@ -25,25 +25,11 @@
         (Ir.Label "swit.cs.1.4");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
         (Ir.Label "swit.df.1"); (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)))
-        ];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = 0;
-        stack slots = {
-        }}};
+        ]};
      Ir.Function {name = "update_x"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "x")};
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "update_x";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

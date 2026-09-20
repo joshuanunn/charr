@@ -1,13 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "get_x"; global = true; params = [];
-      body = [(Ir.Return (Ir.Var "x"))];
-      frame =
-      Env.lenv {
-        namespace = "get_x";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Var "x"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 5l)); dst = (Ir.Var "x")};
@@ -15,14 +8,7 @@
            dst = (Ir.Var "main.tmp.0")};
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 10l));
            dst = (Ir.Var "x")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "main.tmp.0"))]};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 100l)}
      ])

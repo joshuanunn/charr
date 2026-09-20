@@ -88,8 +88,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Env.tenv {
-  a -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Initial ((Ctype.ULongInit 8589934580L)); global = true } }
-  b.0 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}

@@ -3,14 +3,7 @@
       instructions =
       [Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 1L);
          dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -31,14 +24,5 @@
          Asm.Ret; (Asm.Label "main.if.en.2");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 3;
-         offset = -8;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-         }}}
+         Asm.Ret]}
      ])

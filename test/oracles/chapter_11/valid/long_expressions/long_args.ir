@@ -19,14 +19,7 @@
           target = "test_sum.if.en.4"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
         (Ir.Label "test_sum.if.en.4");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "test_sum";
-        counter = 5;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "test_sum";
@@ -41,12 +34,5 @@
             (Ir.Constant (Ctype.ConstInt 0l));
             (Ir.Constant (Ctype.ConstLong 34359738368L))];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.0"))]}
      ])

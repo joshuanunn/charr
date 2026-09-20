@@ -4,12 +4,5 @@
       [(Asm.Jmp "main.if.en.0"); (Asm.Label "label.0");
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 5L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret; (Asm.Label "main.if.en.0"); (Asm.Jmp "label.0")];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}}
+        Asm.Ret; (Asm.Label "main.if.en.0"); (Asm.Jmp "label.0")]}
      ])

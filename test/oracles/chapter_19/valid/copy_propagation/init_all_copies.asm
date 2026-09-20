@@ -15,15 +15,7 @@
           dst = (Asm.Data "counter")};
         Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "increment_counter";
-        counter = 1;
-        offset = -4;
-        stack slots = {
-          increment_counter.tmp.0 -> -4,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "target"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -41,16 +33,7 @@
          (Asm.JmpCC (Asm.NE, "loop.st.1"));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 3L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 2;
-         offset = -8;
-         stack slots = {
-           target.tmp.0 -> -4,
-           target.tmp.1 -> -8,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -82,17 +65,7 @@
          Asm.Ret; (Asm.Label "main.if.en.4");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = -12;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.3 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "counter"; global = true; alignment = 4;
        init = (Ctype.IntInit 0l)}
      ])

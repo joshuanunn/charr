@@ -6,14 +6,7 @@
          dst = (Ir.Var "ulong_to_int.tmp.0")};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "ulong_to_int.tmp.0");
           src2 = (Ir.Var "expected.1"); dst = (Ir.Var "ulong_to_int.tmp.1")};
-        (Ir.Return (Ir.Var "ulong_to_int.tmp.1"))];
-      frame =
-      Env.lenv {
-        namespace = "ulong_to_int";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "ulong_to_int.tmp.1"))]};
      Ir.Function {name = "ulong_to_uint"; global = true;
        params = ["ul.3"; "expected.4"];
        body =
@@ -21,14 +14,7 @@
           dst = (Ir.Var "ulong_to_uint.tmp.0")};
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "ulong_to_uint.tmp.0");
            src2 = (Ir.Var "expected.4"); dst = (Ir.Var "ulong_to_uint.tmp.1")};
-         (Ir.Return (Ir.Var "ulong_to_uint.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "ulong_to_uint";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "ulong_to_uint.tmp.1"))]};
      Ir.Function {name = "long_to_uint"; global = true;
        params = ["l.5"; "expected.6"];
        body =
@@ -36,14 +22,7 @@
           dst = (Ir.Var "long_to_uint.tmp.0")};
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "long_to_uint.tmp.0");
            src2 = (Ir.Var "expected.6"); dst = (Ir.Var "long_to_uint.tmp.1")};
-         (Ir.Return (Ir.Var "long_to_uint.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "long_to_uint";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "long_to_uint.tmp.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "long_to_uint";
@@ -134,12 +113,5 @@
            target = "main.if.en.27"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 8l)));
          (Ir.Label "main.if.en.27");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 32;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

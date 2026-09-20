@@ -5,28 +5,14 @@
          src2 = (Ir.Constant (Ctype.ConstInt 2l));
          dst = (Ir.Var "callee.tmp.0")};
         Ir.Copy {src = (Ir.Var "callee.tmp.0"); dst = (Ir.Var "y")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))]};
      Ir.Function {name = "target"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "x")};
          Ir.FunCall {fun_name = "callee"; args = [];
            dst = (Ir.Var "target.tmp.0")};
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "x")};
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target"; args = [];
@@ -52,14 +38,7 @@
            target = "main.if.en.6"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
          (Ir.Label "main.if.en.6");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 7;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)};
      Ir.StaticVariable {name = "y"; global = true; t = Ctype.Int;

@@ -24,16 +24,7 @@
         (Asm.SetCC (Asm.E, (Asm.Stack -12)));
         Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
           dst = (Asm.Reg Asm.AX)};
-        Asm.Ret];
-      frame =
-      Env.lenv {
-        namespace = "add_large";
-        counter = 2;
-        offset = -12;
-        stack slots = {
-          add_large.tmp.0 -> -8,
-          add_large.tmp.1 -> -12,
-        }}};
+        Asm.Ret]};
      Asm.Function {name = "subtract_large"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -57,16 +48,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "subtract_large";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           subtract_large.tmp.0 -> -8,
-           subtract_large.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "multiply_by_large"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 16L);
@@ -96,16 +78,7 @@
          (Asm.SetCC (Asm.E, (Asm.Stack -12)));
          Asm.Mov {typ = Asm.Longword; src = (Asm.Stack -12);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "multiply_by_large";
-         counter = 2;
-         offset = -12;
-         stack slots = {
-           multiply_by_large.tmp.0 -> -8,
-           multiply_by_large.tmp.1 -> -12,
-         }}};
+         Asm.Ret]};
      Asm.Function {name = "main"; global = true;
        instructions =
        [Asm.Binary {op = Asm.Sub; typ = Asm.Quadword; src = (Asm.Imm 32L);
@@ -152,20 +125,7 @@
          Asm.Ret; (Asm.Label "main.if.en.8");
          Asm.Mov {typ = Asm.Longword; src = (Asm.Imm 0L);
            dst = (Asm.Reg Asm.AX)};
-         Asm.Ret];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 9;
-         offset = -24;
-         stack slots = {
-           main.tmp.0 -> -4,
-           main.tmp.1 -> -8,
-           main.tmp.3 -> -12,
-           main.tmp.4 -> -16,
-           main.tmp.6 -> -20,
-           main.tmp.7 -> -24,
-         }}};
+         Asm.Ret]};
      Asm.StaticVariable {name = "x"; global = true; alignment = 8;
        init = (Ctype.LongInit 5L)}
      ])

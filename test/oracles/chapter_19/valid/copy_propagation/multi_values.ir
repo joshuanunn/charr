@@ -6,14 +6,7 @@
           target = "multi_path.if.en.0"};
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l));
           dst = (Ir.Var "x.1")};
-        (Ir.Label "multi_path.if.en.0"); (Ir.Return (Ir.Var "x.1"))];
-      frame =
-      Env.lenv {
-        namespace = "multi_path";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Label "multi_path.if.en.0"); (Ir.Return (Ir.Var "x.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "multi_path";
@@ -36,12 +29,5 @@
            target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

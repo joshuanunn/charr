@@ -5,14 +5,7 @@
       [Ir.Copy {src = (Ir.Var "i.0"); dst = (Ir.Var "int_gt_uint.tmp.0")};
         Ir.Binary {op = Ir.GreaterThan; src1 = (Ir.Var "int_gt_uint.tmp.0");
           src2 = (Ir.Var "u.1"); dst = (Ir.Var "int_gt_uint.tmp.1")};
-        (Ir.Return (Ir.Var "int_gt_uint.tmp.1"))];
-      frame =
-      Env.lenv {
-        namespace = "int_gt_uint";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "int_gt_uint.tmp.1"))]};
      Ir.Function {name = "int_gt_ulong"; global = true;
        params = ["i.2"; "ul.3"];
        body =
@@ -21,14 +14,7 @@
          Ir.Binary {op = Ir.GreaterThan;
            src1 = (Ir.Var "int_gt_ulong.tmp.0"); src2 = (Ir.Var "ul.3");
            dst = (Ir.Var "int_gt_ulong.tmp.1")};
-         (Ir.Return (Ir.Var "int_gt_ulong.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "int_gt_ulong";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "int_gt_ulong.tmp.1"))]};
      Ir.Function {name = "uint_gt_long"; global = true;
        params = ["u.4"; "l.5"];
        body =
@@ -37,14 +23,7 @@
          Ir.Binary {op = Ir.GreaterThan;
            src1 = (Ir.Var "uint_gt_long.tmp.0"); src2 = (Ir.Var "l.5");
            dst = (Ir.Var "uint_gt_long.tmp.1")};
-         (Ir.Return (Ir.Var "uint_gt_long.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "uint_gt_long";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "uint_gt_long.tmp.1"))]};
      Ir.Function {name = "uint_lt_ulong"; global = true;
        params = ["u.6"; "ul.7"];
        body =
@@ -52,14 +31,7 @@
           dst = (Ir.Var "uint_lt_ulong.tmp.0")};
          Ir.Binary {op = Ir.LessThan; src1 = (Ir.Var "uint_lt_ulong.tmp.0");
            src2 = (Ir.Var "ul.7"); dst = (Ir.Var "uint_lt_ulong.tmp.1")};
-         (Ir.Return (Ir.Var "uint_lt_ulong.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "uint_lt_ulong";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "uint_lt_ulong.tmp.1"))]};
      Ir.Function {name = "long_gt_ulong"; global = true;
        params = ["l.8"; "ul.9"];
        body =
@@ -67,14 +39,7 @@
          Ir.Binary {op = Ir.GreaterThan;
            src1 = (Ir.Var "long_gt_ulong.tmp.0"); src2 = (Ir.Var "ul.9");
            dst = (Ir.Var "long_gt_ulong.tmp.1")};
-         (Ir.Return (Ir.Var "long_gt_ulong.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "long_gt_ulong";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "long_gt_ulong.tmp.1"))]};
      Ir.Function {name = "ternary_int_uint"; global = true;
        params = ["flag.10"; "i.11"; "ui.12"];
        body =
@@ -94,14 +59,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "ternary_int_uint.tmp.4");
            src2 = (Ir.Constant (Ctype.ConstLong 4294967295L));
            dst = (Ir.Var "ternary_int_uint.tmp.5")};
-         (Ir.Return (Ir.Var "ternary_int_uint.tmp.5"))];
-       frame =
-       Env.lenv {
-         namespace = "ternary_int_uint";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "ternary_int_uint.tmp.5"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "int_gt_uint";
@@ -171,12 +129,5 @@
            target = "main.if.en.22"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 6l)));
          (Ir.Label "main.if.en.22");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 23;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])
