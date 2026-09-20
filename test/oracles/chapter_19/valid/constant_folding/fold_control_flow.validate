@@ -633,23 +633,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  i.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.6 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  retval.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  retval.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  retval.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  retval.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  retval.5 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  target_conditional_false -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_conditional_true -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_do_loop -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_for_loop_false -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_for_loop_true -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_if -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_if_else_false -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_if_else_true -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_while_loop_false -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target_while_loop_true -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}

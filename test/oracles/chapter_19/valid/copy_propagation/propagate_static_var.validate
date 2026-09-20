@@ -154,13 +154,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  a.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  b.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  callee -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  sum.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  target -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  x.2 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 3l)); global = false } }
-  y.3 -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 0l)); global = false } }
-}

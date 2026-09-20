@@ -95,11 +95,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  flag.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  flag2.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target -> { c_type = Ctype.FunType {params = [Ctype.Int; Ctype.Int; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  x.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  y.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-}

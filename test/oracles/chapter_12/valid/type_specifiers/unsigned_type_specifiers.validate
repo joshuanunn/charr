@@ -207,10 +207,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  counter.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  index.1 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  u -> { c_type = Ctype.UInt; attrs = StaticAttr { init = Initial ((Ctype.UIntInit 6l)); global = true } }
-  ul -> { c_type = Ctype.ULong; attrs = StaticAttr { init = Initial ((Ctype.ULongInit 4L)); global = true } }
-}

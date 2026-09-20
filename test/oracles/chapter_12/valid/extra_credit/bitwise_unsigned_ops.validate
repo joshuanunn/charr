@@ -171,9 +171,3 @@
          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])
-Tenv.t {
-  i.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  ui.0 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  ul.1 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-}

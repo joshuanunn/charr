@@ -115,9 +115,3 @@
          fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
          storage = None })
      ])
-Tenv.t {
-  count.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  limit.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}

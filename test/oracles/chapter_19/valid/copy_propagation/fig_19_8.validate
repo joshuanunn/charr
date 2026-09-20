@@ -277,13 +277,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  called_counter -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 0l)); global = false } }
-  callee -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  i.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  keep_looping.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  result.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  target -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  y.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-}

@@ -200,10 +200,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  counter.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 5l)); global = false } }
-  index.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  l -> { c_type = Ctype.Long; attrs = StaticAttr { init = Initial ((Ctype.LongInit 7L)); global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}

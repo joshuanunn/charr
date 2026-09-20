@@ -240,16 +240,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  expected.3 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  i.6 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  l.0 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  l.2 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  result.4 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  result.5 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  return_extended_int -> { c_type = Ctype.FunType {params = [Ctype.Int]; ret = Ctype.Long}; attrs = FunAttr { defined = true; global = true } }
-  return_truncated_long -> { c_type = Ctype.FunType {params = [Ctype.Long]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  truncate_on_assignment -> { c_type = Ctype.FunType {params = [Ctype.Long; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}

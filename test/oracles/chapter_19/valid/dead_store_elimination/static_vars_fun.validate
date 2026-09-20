@@ -57,9 +57,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  get_x -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  result.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  x -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 100l)); global = true } }
-}

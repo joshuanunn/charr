@@ -19,7 +19,3 @@
         { Ast.name = (Ast.Identifier "foo"); init = None;
           var_type = Ctype.Int; storage = (Some Ast.Extern) })
      ])
-Tenv.t {
-  foo -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 3l)); global = false } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}

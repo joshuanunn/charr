@@ -54,10 +54,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  a -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 1l)); global = true } }
-  b -> { c_type = Ctype.Int; attrs = StaticAttr { init = Initial ((Ctype.IntInit 2l)); global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  target -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  unused.0 -> { c_type = Ctype.Int; attrs = LocalAttr }
-}

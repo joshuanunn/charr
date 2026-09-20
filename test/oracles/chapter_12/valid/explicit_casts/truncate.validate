@@ -387,17 +387,3 @@
           fun_type = Ctype.FunType {params = []; ret = Ctype.Int};
           storage = None })
      ])
-Tenv.t {
-  expected.1 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  expected.4 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  expected.6 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  l.5 -> { c_type = Ctype.Long; attrs = LocalAttr }
-  long_to_uint -> { c_type = Ctype.FunType {params = [Ctype.Long; Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  main -> { c_type = Ctype.FunType {params = []; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  result.2 -> { c_type = Ctype.Int; attrs = LocalAttr }
-  ui.7 -> { c_type = Ctype.UInt; attrs = LocalAttr }
-  ul.0 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  ul.3 -> { c_type = Ctype.ULong; attrs = LocalAttr }
-  ulong_to_int -> { c_type = Ctype.FunType {params = [Ctype.ULong; Ctype.Int]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-  ulong_to_uint -> { c_type = Ctype.FunType {params = [Ctype.ULong; Ctype.UInt]; ret = Ctype.Int}; attrs = FunAttr { defined = true; global = true } }
-}
