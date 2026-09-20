@@ -47,7 +47,6 @@ type top_level =
       name : string;
       global : bool;
       instructions : instruction list;
-      frame : Ir.Frame.t;
     }
   | StaticVariable of {
       name : string;
@@ -58,3 +57,49 @@ type top_level =
 [@@deriving show]
 
 type prog = Program of top_level list [@@deriving show]
+
+module Frame = struct
+  (** Tracks stack offsets to assign concrete stack slots. *)
+
+  type t = {
+    mutable offset : int;  (** Current top-of-stack offset *)
+    stack_offsets : (string, int) Hashtbl.t;
+        (** Map from variable names to stack offsets *)
+  }
+
+  let pp fmt (f : t) =
+    (* Convert and sort entries by offset *)
+    let entries =
+      Hashtbl.fold
+        (fun name offset acc -> (offset, name) :: acc)
+        f.stack_offsets []
+      |> List.sort (fun (o1, _) (o2, _) -> compare o2 o1)
+    in
+    let max_name_len =
+      List.fold_left (fun m (_, name) -> max m (String.length name)) 0 entries
+    in
+    Format.fprintf fmt "@[<v>";
+    Format.fprintf fmt "Frame.t {@;<2 2>@[<v>";
+    Format.fprintf fmt "offset = %d;@," f.offset;
+    Format.fprintf fmt "@[<v>stack slots = {@,";
+    List.iter
+      (fun (offset, name) ->
+        Format.fprintf fmt "  %-*s -> %d,@," max_name_len name offset)
+      entries;
+    Format.fprintf fmt "}}@]";
+    Format.fprintf fmt "@]";
+    Format.fprintf fmt "@]" (* close outer box *)
+
+  (** Pretty printer for t, as not fully supported by ppx_deriving show. *)
+  let show_frame f = Format.asprintf "%a" pp f
+
+  let make = { offset = 0; stack_offsets = Hashtbl.create 16 }
+
+  (** Look up the stack offset for a variable name. *)
+  let get_offset_opt f name = Hashtbl.find_opt f.stack_offsets name
+
+  (** Set the stack offset for a variable name, using create or replace. *)
+  let set_offset f name offset =
+    Hashtbl.replace f.stack_offsets name offset;
+    f.offset <- offset
+end

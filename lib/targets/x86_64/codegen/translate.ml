@@ -395,8 +395,7 @@ let compile_func (f : Ir.top_level) (te : Analysis.Tenv.t) : Asm.top_level =
       in
       let instructions = args_ins @ body_ins in
       (* let stack_size = 4 * List.length fn.params in *)
-      Function
-        { name = fn.name; global = fn.global; instructions; frame = fn.frame }
+      Function { name = fn.name; global = fn.global; instructions }
   | StaticVariable { name; global; t; init } ->
       StaticVariable
         { name; global; alignment = get_assembly_alignment t; init }

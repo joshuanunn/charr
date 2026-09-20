@@ -46,22 +46,22 @@ let align_down (n : int) (alignment : int) : int =
     values, leaving the 4-byte gap above it unused.
 
     **)
-let assign_stack_offset (fr : Ir.Frame.t) (v : string) (typ : Asm.assembly_type)
-    : int =
-  match Ir.Frame.get_offset_opt fr v with
+let assign_stack_offset (fr : Asm.Frame.t) (v : string)
+    (typ : Asm.assembly_type) : int =
+  match Asm.Frame.get_offset_opt fr v with
   | Some offset -> offset
   | None ->
       let tentative = fr.offset - stack_size typ in
       let offset =
         if typ = Asm.Quadword then align_down tentative 8 else tentative
       in
-      Ir.Frame.set_offset fr v offset;
+      Asm.Frame.set_offset fr v offset;
       offset
 
 (** Resolve a pseudo operand to either a data-section reference (for static
     storage) or a stack slot (for automatic storage), leaving other operands
     unchanged. *)
-let lower_operand (o : Asm.operand) (ae : Symtab.t) (fr : Ir.Frame.t) :
+let lower_operand (o : Asm.operand) (ae : Symtab.t) (fr : Asm.Frame.t) :
     Asm.operand =
   match o with
   | Pseudo v -> (
@@ -81,7 +81,7 @@ let lower_operand (o : Asm.operand) (ae : Symtab.t) (fr : Ir.Frame.t) :
 
 (** Lowers any pseudo-registers in the instruction [i], replacing them with
     stack operands or data-section references. *)
-let lower_instruction (i : Asm.instruction) (ae : Symtab.t) (fr : Ir.Frame.t) :
+let lower_instruction (i : Asm.instruction) (ae : Symtab.t) (fr : Asm.Frame.t) :
     Asm.instruction =
   match i with
   | Mov { typ; src; dst } ->
@@ -119,16 +119,33 @@ let lower_instruction (i : Asm.instruction) (ae : Symtab.t) (fr : Ir.Frame.t) :
 let lower_func (f : Asm.top_level) (ae : Symtab.t) : Asm.top_level =
   match f with
   | Function fn ->
+      (* Allocate a function stack frame to track stack offsets during lowering *)
+      let frame = Asm.Frame.make in
       let lowered_instructions =
         fn.instructions
-        |> List.map (fun instr -> lower_instruction instr ae fn.frame)
+        |> List.map (fun instr -> lower_instruction instr ae frame)
+      in
+      (* Align function stack size to nearest 16 bytes *)
+      let stack_size = -frame.offset in
+      let aligned_size_bytes = Int64.of_int ((stack_size + 15) / 16 * 16) in
+      let stack_alloc_instrs =
+        if frame.offset <> 0 then
+          [
+            Asm.Binary
+              {
+                op = Asm.Sub;
+                typ = Asm.Quadword;
+                src = Imm aligned_size_bytes;
+                dst = Reg SP;
+              };
+          ]
+        else []
       in
       Function
         {
           name = fn.name;
           global = fn.global;
-          instructions = lowered_instructions;
-          frame = fn.frame;
+          instructions = stack_alloc_instrs @ lowered_instructions;
         }
   | StaticVariable v -> StaticVariable v
 

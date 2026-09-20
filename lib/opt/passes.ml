@@ -95,9 +95,9 @@ let optimise_func (f : Ir.top_level) (o : opts) (statics : Cfg.StringSet.t)
     (te : Analysis.Tenv.t) : Ir.top_level =
   (* only optimise function bodies *)
   match f with
-  | Function { name; global; params; body; frame } ->
+  | Function { name; global; params; body } ->
       let body_opt = optimise body o statics te in
-      Function { name; global; params; body = body_opt; frame }
+      Function { name; global; params; body = body_opt }
   | StaticVariable { name; global; t; init } ->
       StaticVariable { name; global; t; init }
 
