@@ -120,7 +120,7 @@ let lower_func (f : Asm.top_level) (ae : Symtab.t) : Asm.top_level =
   match f with
   | Function fn ->
       (* Allocate a function stack frame to track stack offsets during lowering *)
-      let frame = Asm.Frame.make in
+      let frame = Asm.Frame.make () in
       let lowered_instructions =
         fn.instructions
         |> List.map (fun instr -> lower_instruction instr ae frame)

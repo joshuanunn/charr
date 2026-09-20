@@ -93,7 +93,7 @@ module Frame = struct
   (** Pretty printer for t, as not fully supported by ppx_deriving show. *)
   let show_frame f = Format.asprintf "%a" pp f
 
-  let make = { offset = 0; stack_offsets = Hashtbl.create 16 }
+  let make () = { offset = 0; stack_offsets = Hashtbl.create 16 }
 
   (** Look up the stack offset for a variable name. *)
   let get_offset_opt f name = Hashtbl.find_opt f.stack_offsets name
