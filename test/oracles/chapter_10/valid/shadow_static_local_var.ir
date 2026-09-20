@@ -9,14 +9,7 @@
         (Ir.Label "update_static_or_global.if.el.1");
         Ir.Copy {src = (Ir.Var "new_val.1"); dst = (Ir.Var "i.2")};
         (Ir.Label "update_static_or_global.if.en.0");
-        (Ir.Return (Ir.Var "i.2"))];
-      frame =
-      Env.lenv {
-        namespace = "update_static_or_global";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "i.2"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "i");
@@ -83,14 +76,7 @@
            target = "main.if.en.16"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)));
          (Ir.Label "main.if.en.16");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 17;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "i"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)};
      Ir.StaticVariable {name = "i.2"; global = false; t = Ctype.Int;

@@ -19,26 +19,12 @@
           target = "print_alphabet.if.en.4"};
         Ir.FunCall {fun_name = "print_alphabet"; args = [];
           dst = (Ir.Var "print_alphabet.tmp.5")};
-        (Ir.Label "print_alphabet.if.en.4"); (Ir.Return (Ir.Var "count.1"))];
-      frame =
-      Env.lenv {
-        namespace = "print_alphabet";
-        counter = 6;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Label "print_alphabet.if.en.4"); (Ir.Return (Ir.Var "count.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "print_alphabet"; args = [];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "count.1"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

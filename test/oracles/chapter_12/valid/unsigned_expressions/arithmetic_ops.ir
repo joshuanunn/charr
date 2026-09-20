@@ -7,14 +7,7 @@
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "addition.tmp.0");
           src2 = (Ir.Constant (Ctype.ConstUInt -2147483633l));
           dst = (Ir.Var "addition.tmp.1")};
-        (Ir.Return (Ir.Var "addition.tmp.1"))];
-      frame =
-      Env.lenv {
-        namespace = "addition";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "addition.tmp.1"))]};
      Ir.Function {name = "subtraction"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "ul_a");
@@ -22,14 +15,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "subtraction.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstULong -1073742824L));
            dst = (Ir.Var "subtraction.tmp.1")};
-         (Ir.Return (Ir.Var "subtraction.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "subtraction";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "subtraction.tmp.1"))]};
      Ir.Function {name = "multiplication"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "ui_a");
@@ -37,14 +23,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "multiplication.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstUInt -1073741824l));
            dst = (Ir.Var "multiplication.tmp.1")};
-         (Ir.Return (Ir.Var "multiplication.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "multiplication";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "multiplication.tmp.1"))]};
      Ir.Function {name = "division"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.Divide; src1 = (Ir.Var "ui_a");
@@ -52,14 +31,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "division.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstUInt 0l));
            dst = (Ir.Var "division.tmp.2")};
-         (Ir.Return (Ir.Var "division.tmp.2"))];
-       frame =
-       Env.lenv {
-         namespace = "division";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "division.tmp.2"))]};
      Ir.Function {name = "division_large_dividend"; global = true;
        params = [];
        body =
@@ -70,14 +42,7 @@
            src1 = (Ir.Var "division_large_dividend.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstUInt 2l));
            dst = (Ir.Var "division_large_dividend.tmp.2")};
-         (Ir.Return (Ir.Var "division_large_dividend.tmp.2"))];
-       frame =
-       Env.lenv {
-         namespace = "division_large_dividend";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "division_large_dividend.tmp.2"))]};
      Ir.Function {name = "division_by_literal"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.Divide; src1 = (Ir.Var "ul_a");
@@ -87,14 +52,7 @@
            src1 = (Ir.Var "division_by_literal.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstULong 219902325555L));
            dst = (Ir.Var "division_by_literal.tmp.1")};
-         (Ir.Return (Ir.Var "division_by_literal.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "division_by_literal";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "division_by_literal.tmp.1"))]};
      Ir.Function {name = "remaind"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.Remainder; src1 = (Ir.Var "ul_b");
@@ -102,14 +60,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "remaind.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstULong 5L));
            dst = (Ir.Var "remaind.tmp.1")};
-         (Ir.Return (Ir.Var "remaind.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "remaind";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "remaind.tmp.1"))]};
      Ir.Function {name = "complement"; global = true; params = [];
        body =
        [Ir.Unary {op = Ir.BwNot; src = (Ir.Var "ui_a");
@@ -117,14 +68,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "complement.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstUInt 0l));
            dst = (Ir.Var "complement.tmp.2")};
-         (Ir.Return (Ir.Var "complement.tmp.2"))];
-       frame =
-       Env.lenv {
-         namespace = "complement";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "complement.tmp.2"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstUInt 10l));
@@ -217,14 +161,7 @@
            target = "main.if.en.23"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 8l)));
          (Ir.Label "main.if.en.23");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 24;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "ui_b"; global = true; t = Ctype.UInt;
        init = (Ctype.UIntInit 0l)};
      Ir.StaticVariable {name = "ui_a"; global = true; t = Ctype.UInt;

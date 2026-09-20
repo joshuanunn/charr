@@ -8,14 +8,7 @@
           src2 = (Ir.Var "z.5"); dst = (Ir.Var "my_function.tmp.1")};
         Ir.Truncate {src = (Ir.Var "my_function.tmp.1");
           dst = (Ir.Var "my_function.tmp.2")};
-        (Ir.Return (Ir.Var "my_function.tmp.2"))];
-      frame =
-      Env.lenv {
-        namespace = "my_function";
-        counter = 3;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "my_function.tmp.2"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstLong 4L)); dst = (Ir.Var "a")};
@@ -84,14 +77,7 @@
            target = "main.if.en.19"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
          (Ir.Label "main.if.en.19");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 20;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "a"; global = false; t = Ctype.Long;
        init = (Ctype.LongInit 0L)}
      ])

@@ -97,14 +97,7 @@
           target = "main.if.en.32"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt -1l)));
         (Ir.Label "main.if.en.32");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 34;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "check_12_ints"; global = true;
        params =
        ["a.38"; "b.39"; "c.40"; "d.41"; "e.42"; "f.43"; "g.44"; "h.45";
@@ -230,14 +223,7 @@
            target = "check_12_ints.if.en.35"};
          (Ir.Return (Ir.Var "check_12_ints.tmp.33"));
          (Ir.Label "check_12_ints.if.en.35");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "check_12_ints";
-         counter = 36;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "glob"; global = true; t = Ctype.UInt;
        init = (Ctype.UIntInit 5000l)}
      ])

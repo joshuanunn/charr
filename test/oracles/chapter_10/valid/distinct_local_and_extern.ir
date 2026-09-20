@@ -1,13 +1,6 @@
 (Ir.Program
    [Ir.Function {name = "return_a"; global = true; params = [];
-      body = [(Ir.Return (Ir.Var "a"))];
-      frame =
-      Env.lenv {
-        namespace = "return_a";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Var "a"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.NotEqual; src1 = (Ir.Var "a");
@@ -22,14 +15,7 @@
            dst = (Ir.Var "main.tmp.2")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Constant (Ctype.ConstInt 3l));
            src2 = (Ir.Var "main.tmp.2"); dst = (Ir.Var "main.tmp.3")};
-         (Ir.Return (Ir.Var "main.tmp.3"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 4;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "main.tmp.3"))]};
      Ir.StaticVariable {name = "a"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 5l)}
      ])

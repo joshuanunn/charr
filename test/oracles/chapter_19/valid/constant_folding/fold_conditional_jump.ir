@@ -1,40 +1,12 @@
 (Ir.Program
    [Ir.Function {name = "target_jz_to_jmp"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "target_jz_to_jmp";
-        counter = 3;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "target_remove_jz"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
-       frame =
-       Env.lenv {
-         namespace = "target_remove_jz";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))]};
      Ir.Function {name = "target_jnz_to_jmp"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
-       frame =
-       Env.lenv {
-         namespace = "target_jnz_to_jmp";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))]};
      Ir.Function {name = "target_remove_jnz"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
-       frame =
-       Env.lenv {
-         namespace = "target_remove_jnz";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target_jz_to_jmp"; args = [];
@@ -73,12 +45,5 @@
            target = "main.if.en.11"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.11");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 12;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

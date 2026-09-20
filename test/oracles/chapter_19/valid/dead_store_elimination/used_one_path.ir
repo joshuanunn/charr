@@ -5,14 +5,7 @@
          src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "f.tmp.0")};
         Ir.JumpIfZero {condition = (Ir.Var "flag.1"); target = "f.if.en.1"};
         (Ir.Return (Ir.Var "f.tmp.0")); (Ir.Label "f.if.en.1");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "f";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
@@ -39,12 +32,5 @@
            target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

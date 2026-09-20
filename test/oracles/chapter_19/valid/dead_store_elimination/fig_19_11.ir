@@ -1,22 +1,8 @@
 (Ir.Program
    [Ir.Function {name = "callee"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 4l)))];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 4l)))]};
      Ir.Function {name = "callee2"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))];
-       frame =
-       Env.lenv {
-         namespace = "callee2";
-         counter = 0;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))]};
      Ir.Function {name = "target"; global = true; params = ["flag.0"];
        body =
        [Ir.JumpIfZero {condition = (Ir.Var "flag.0");
@@ -28,14 +14,7 @@
          Ir.FunCall {fun_name = "callee2"; args = [];
            dst = (Ir.Var "target.tmp.3")};
          Ir.Copy {src = (Ir.Var "target.tmp.3"); dst = (Ir.Var "x.1")};
-         (Ir.Label "target.if.en.0"); (Ir.Return (Ir.Var "x.1"))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 4;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Label "target.if.en.0"); (Ir.Return (Ir.Var "x.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -58,12 +37,5 @@
            target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

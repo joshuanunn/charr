@@ -15,14 +15,7 @@
         (Ir.Label "test_jz.cond.el.3");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 2l));
           dst = (Ir.Var "test_jz.tmp.1")};
-        (Ir.Label "test_jz.cond.en.2"); (Ir.Return (Ir.Var "test_jz.tmp.1"))];
-      frame =
-      Env.lenv {
-        namespace = "test_jz";
-        counter = 4;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Label "test_jz.cond.en.2"); (Ir.Return (Ir.Var "test_jz.tmp.1"))]};
      Ir.Function {name = "test_jnz"; global = true;
        params = ["flag.2"; "arg.3"];
        body =
@@ -40,14 +33,7 @@
          Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 1l));
            dst = (Ir.Var "test_jnz.tmp.1")};
          (Ir.Label "test_jnz.or.en.3"); (Ir.Return (Ir.Var "test_jnz.tmp.1"))
-         ];
-       frame =
-       Env.lenv {
-         namespace = "test_jnz";
-         counter = 4;
-         offset = 0;
-         stack slots = {
-         }}};
+         ]};
      Ir.Function {name = "test_binary"; global = true;
        params = ["flag.4"; "arg1.5"; "arg2.6"];
        body =
@@ -70,14 +56,7 @@
          (Ir.Label "test_binary.if.en.4"); (Ir.Label "test_binary.if.en.1");
          Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "arg1.5");
            src2 = (Ir.Var "arg2.6"); dst = (Ir.Var "test_binary.tmp.5")};
-         (Ir.Return (Ir.Var "test_binary.tmp.5"))];
-       frame =
-       Env.lenv {
-         namespace = "test_binary";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "test_binary.tmp.5"))]};
      Ir.Function {name = "test_unary"; global = true;
        params = ["flag.7"; "arg.8"];
        body =
@@ -88,26 +67,12 @@
          (Ir.Label "test_unary.if.en.0");
          Ir.Unary {op = Ir.Negate; src = (Ir.Var "arg.8");
            dst = (Ir.Var "test_unary.tmp.1")};
-         (Ir.Return (Ir.Var "test_unary.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "test_unary";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "test_unary.tmp.1"))]};
      Ir.Function {name = "f"; global = true; params = ["arg.9"];
        body =
        [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "arg.9");
           src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "f.tmp.0")};
-         (Ir.Return (Ir.Var "f.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "f";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "f.tmp.0"))]};
      Ir.Function {name = "test_funcall"; global = true;
        params = ["flag.10"; "arg.11"];
        body =
@@ -118,14 +83,7 @@
          (Ir.Label "test_funcall.if.en.0");
          Ir.FunCall {fun_name = "f"; args = [(Ir.Var "arg.11")];
            dst = (Ir.Var "test_funcall.tmp.1")};
-         (Ir.Return (Ir.Var "test_funcall.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "test_funcall";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "test_funcall.tmp.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "test_jz";
@@ -263,12 +221,5 @@
            target = "main.if.en.34"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 11l)));
          (Ir.Label "main.if.en.34");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 35;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

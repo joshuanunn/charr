@@ -4,12 +4,5 @@
       [Ir.Jump {target = "other_if.1"}; (Ir.Label "first_if.0");
         Ir.Jump {target = "main.if.en.2"}; (Ir.Label "other_if.1");
         Ir.Jump {target = "first_if.0"}; (Ir.Label "main.if.en.2");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 11l)))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 4;
-        offset = 0;
-        stack slots = {
-        }}}
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 11l)))]}
      ])

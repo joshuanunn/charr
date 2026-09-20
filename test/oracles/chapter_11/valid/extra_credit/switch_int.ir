@@ -23,14 +23,7 @@
         (Ir.Label "swit.cs.1.4");
         (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
         (Ir.Label "swit.df.1"); (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))
-        ];
-      frame =
-      Env.lenv {
-        namespace = "switch_on_int";
-        counter = 3;
-        offset = 0;
-        stack slots = {
-        }}};
+        ]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "switch_on_int";
@@ -73,12 +66,5 @@
            target = "main.if.en.13"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.13");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 14;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

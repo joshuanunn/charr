@@ -94,14 +94,7 @@
         Ir.Jump {target = "foo.and.en.28"}; (Ir.Label "foo.and.fl.27");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "foo.tmp.26")};
-        (Ir.Label "foo.and.en.28"); (Ir.Return (Ir.Var "foo.tmp.26"))];
-      frame =
-      Env.lenv {
-        namespace = "foo";
-        counter = 29;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Label "foo.and.en.28"); (Ir.Return (Ir.Var "foo.tmp.26"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "foo";
@@ -115,12 +108,5 @@
             (Ir.Constant (Ctype.ConstInt 7l));
             (Ir.Constant (Ctype.ConstInt 8l))];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.0"))]}
      ])

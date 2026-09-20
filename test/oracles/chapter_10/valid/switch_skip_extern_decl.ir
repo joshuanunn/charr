@@ -11,14 +11,7 @@
           target = "main.if.en.5"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
         (Ir.Label "main.if.en.5");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 6;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)))]};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 15l)}
      ])

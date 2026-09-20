@@ -16,14 +16,7 @@
         Ir.FunCall {fun_name = "putchar";
           args = [(Ir.Constant (Ctype.ConstInt 10l))];
           dst = (Ir.Var "print_letters.tmp.4")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "print_letters";
-        counter = 5;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
@@ -41,14 +34,7 @@
            dst = (Ir.Var "main.tmp.2")};
          Ir.Copy {src = (Ir.Var "main.tmp.2"); dst = (Ir.Var "i.3")};
          Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "i.1"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 65l)};
      Ir.StaticVariable {name = "i.2"; global = false; t = Ctype.Int;

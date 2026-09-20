@@ -4,12 +4,5 @@
       [Ir.FunCall {fun_name = "putchar";
          args = [(Ir.Constant (Ctype.ConstInt 67l))];
          dst = (Ir.Var "main.tmp.0")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}}
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

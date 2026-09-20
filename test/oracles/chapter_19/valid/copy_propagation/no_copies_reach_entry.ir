@@ -4,14 +4,7 @@
       [Ir.JumpIfZero {condition = (Ir.Var "flag.1");
          target = "target.if.en.0"};
         (Ir.Return (Ir.Var "a.0")); (Ir.Label "target.if.en.0");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 10l)))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 10l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -19,12 +12,5 @@
           [(Ir.Constant (Ctype.ConstInt 4l));
             (Ir.Constant (Ctype.ConstInt 1l))];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "main.tmp.0"))]}
      ])

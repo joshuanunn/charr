@@ -47,14 +47,7 @@
         (Ir.Label "callee.if.en.11");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt -1l));
           dst = (Ir.Var "called_counter")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "callee";
-        counter = 13;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "target"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 3l));
@@ -66,14 +59,7 @@
            dst = (Ir.Var "y.1")};
          Ir.JumpIfNotZero {condition = (Ir.Var "target.tmp.0");
            target = "loop.st.1"};
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target"; args = [];
@@ -92,14 +78,7 @@
            target = "main.if.en.4"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.4");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "called_counter"; global = false;
        t = Ctype.Int; init = (Ctype.IntInit 0l)}
      ])

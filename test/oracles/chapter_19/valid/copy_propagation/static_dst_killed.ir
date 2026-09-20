@@ -2,27 +2,13 @@
    [Ir.Function {name = "update_x"; global = true; params = [];
       body =
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 4l)); dst = (Ir.Var "x")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "update_x";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "target"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 3l)); dst = (Ir.Var "x")};
          Ir.FunCall {fun_name = "update_x"; args = [];
            dst = (Ir.Var "target.tmp.0")};
-         (Ir.Return (Ir.Var "x"))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "x"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target"; args = [];
@@ -41,14 +27,7 @@
            target = "main.if.en.4"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.4");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "x"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

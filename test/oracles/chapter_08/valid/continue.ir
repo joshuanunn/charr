@@ -46,12 +46,5 @@
         Ir.Jump {target = "main.and.en.10"}; (Ir.Label "main.and.fl.9");
         Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "main.tmp.8")};
-        (Ir.Label "main.and.en.10"); (Ir.Return (Ir.Var "main.tmp.8"))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 11;
-        offset = 0;
-        stack slots = {
-        }}}
+        (Ir.Label "main.and.en.10"); (Ir.Return (Ir.Var "main.tmp.8"))]}
      ])

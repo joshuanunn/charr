@@ -5,14 +5,7 @@
       [Ir.Truncate {src = (Ir.Var "l.0"); dst = (Ir.Var "truncate.tmp.0")};
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "truncate.tmp.0");
           src2 = (Ir.Var "expected.1"); dst = (Ir.Var "truncate.tmp.1")};
-        (Ir.Return (Ir.Var "truncate.tmp.1"))];
-      frame =
-      Env.lenv {
-        namespace = "truncate";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "truncate.tmp.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "truncate";
@@ -59,12 +52,5 @@
            target = "main.if.en.15"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.15");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 19;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

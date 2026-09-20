@@ -6,14 +6,7 @@
          dst = (Ir.Var "increment_counter.tmp.0")};
         Ir.Copy {src = (Ir.Var "increment_counter.tmp.0");
           dst = (Ir.Var "counter")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "increment_counter";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "target"; global = true; params = [];
        body =
        [(Ir.Label "loop.st.1");
@@ -24,14 +17,7 @@
            dst = (Ir.Var "target.tmp.1")};
          Ir.JumpIfNotZero {condition = (Ir.Var "target.tmp.1");
            target = "loop.st.1"};
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];
-       frame =
-       Env.lenv {
-         namespace = "target";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target"; args = [];
@@ -50,14 +36,7 @@
            target = "main.if.en.4"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.4");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 5;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "counter"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

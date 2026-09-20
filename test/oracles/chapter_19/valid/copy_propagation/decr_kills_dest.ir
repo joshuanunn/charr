@@ -124,14 +124,7 @@
           target = "target.if.en.41"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)));
         (Ir.Label "target.if.en.41");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 42;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 1l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -148,12 +141,5 @@
            target = "main.if.en.3"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.3");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 4;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

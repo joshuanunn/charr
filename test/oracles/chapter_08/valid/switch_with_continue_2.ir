@@ -31,12 +31,5 @@
           dst = (Ir.Var "main.tmp.4")};
         Ir.Copy {src = (Ir.Var "main.tmp.4"); dst = (Ir.Var "i.1")};
         Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
-        (Ir.Return (Ir.Var "sum.0"))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 5;
-        offset = 0;
-        stack slots = {
-        }}}
+        (Ir.Return (Ir.Var "sum.0"))]}
      ])

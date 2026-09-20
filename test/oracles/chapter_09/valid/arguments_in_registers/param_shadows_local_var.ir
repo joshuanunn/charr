@@ -4,24 +4,10 @@
       [Ir.FunCall {fun_name = "f";
          args = [(Ir.Constant (Ctype.ConstInt 10l))];
          dst = (Ir.Var "main.tmp.0")};
-        (Ir.Return (Ir.Var "main.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "main.tmp.0"))]};
      Ir.Function {name = "f"; global = true; params = ["a.2"];
        body =
        [Ir.Binary {op = Ir.Multiply; src1 = (Ir.Var "a.2");
           src2 = (Ir.Constant (Ctype.ConstInt 2l)); dst = (Ir.Var "f.tmp.0")};
-         (Ir.Return (Ir.Var "f.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "f";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Var "f.tmp.0"))]}
      ])

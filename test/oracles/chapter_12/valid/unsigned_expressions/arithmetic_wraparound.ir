@@ -6,14 +6,7 @@
         Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "addition.tmp.0");
           src2 = (Ir.Constant (Ctype.ConstUInt 0l));
           dst = (Ir.Var "addition.tmp.1")};
-        (Ir.Return (Ir.Var "addition.tmp.1"))];
-      frame =
-      Env.lenv {
-        namespace = "addition";
-        counter = 2;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "addition.tmp.1"))]};
      Ir.Function {name = "subtraction"; global = true; params = [];
        body =
        [Ir.Binary {op = Ir.Subtract; src1 = (Ir.Var "ul_a");
@@ -21,14 +14,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "subtraction.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstULong -10L));
            dst = (Ir.Var "subtraction.tmp.1")};
-         (Ir.Return (Ir.Var "subtraction.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "subtraction";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "subtraction.tmp.1"))]};
      Ir.Function {name = "neg"; global = true; params = [];
        body =
        [Ir.Unary {op = Ir.Negate; src = (Ir.Var "ul_a");
@@ -36,14 +22,7 @@
          Ir.Binary {op = Ir.Equal; src1 = (Ir.Var "neg.tmp.0");
            src2 = (Ir.Constant (Ctype.ConstULong -1L));
            dst = (Ir.Var "neg.tmp.1")};
-         (Ir.Return (Ir.Var "neg.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "neg";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "neg.tmp.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstUInt -3l));
@@ -79,14 +58,7 @@
            target = "main.if.en.8"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 3l)));
          (Ir.Label "main.if.en.8");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 9;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "ul_b"; global = true; t = Ctype.ULong;
        init = (Ctype.ULongInit 0L)};
      Ir.StaticVariable {name = "ul_a"; global = true; t = Ctype.ULong;

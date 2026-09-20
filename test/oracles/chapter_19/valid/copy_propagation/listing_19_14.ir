@@ -12,40 +12,19 @@
           dst = (Ir.Var "total.1")};
         Ir.FunCall {fun_name = "indirect_update"; args = [];
           dst = (Ir.Var "f.tmp.2")};
-        (Ir.Return (Ir.Var "total.1"))];
-      frame =
-      Env.lenv {
-        namespace = "f";
-        counter = 3;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "total.1"))]};
      Ir.Function {name = "indirect_update"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
           args = [(Ir.Constant (Ctype.ConstInt 101l))];
           dst = (Ir.Var "indirect_update.tmp.0")};
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "indirect_update";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "f";
           args = [(Ir.Constant (Ctype.ConstInt 1l))];
           dst = (Ir.Var "main.tmp.0")};
-         (Ir.Return (Ir.Var "main.tmp.0"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "main.tmp.0"))]};
      Ir.StaticVariable {name = "total.1"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

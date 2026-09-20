@@ -4,14 +4,7 @@
       [Ir.Binary {op = Ir.Add; src1 = (Ir.Var "x.0");
          src2 = (Ir.Constant (Ctype.ConstInt 1l)); dst = (Ir.Var "foo.tmp.0")};
         Ir.Copy {src = (Ir.Var "foo.tmp.0"); dst = (Ir.Var "x.0")};
-        (Ir.Return (Ir.Var "foo.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "foo";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "foo.tmp.0"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
@@ -29,14 +22,7 @@
            dst = (Ir.Var "main.tmp.2")};
          Ir.Copy {src = (Ir.Var "main.tmp.2"); dst = (Ir.Var "i.2")};
          Ir.Jump {target = "loop.st.1"}; (Ir.Label "loop.br.1");
-         (Ir.Return (Ir.Var "ret.1"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 3;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "ret.1"))]};
      Ir.StaticVariable {name = "x.0"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

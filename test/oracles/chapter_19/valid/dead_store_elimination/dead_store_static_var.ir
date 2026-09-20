@@ -5,14 +5,7 @@
         Ir.Binary {op = Ir.Add; src1 = (Ir.Var "arg.0");
           src2 = (Ir.Constant (Ctype.ConstInt 1l));
           dst = (Ir.Var "target.tmp.0")};
-        (Ir.Return (Ir.Var "target.tmp.0"))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "target.tmp.0"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -49,14 +42,7 @@
            target = "main.if.en.11"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
          (Ir.Label "main.if.en.11");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 12;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "i"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 0l)}
      ])

@@ -8,14 +8,7 @@
           dst = (Ir.Var "i.1")};
         (Ir.Label "target.if.en.0");
         Ir.Copy {src = (Ir.Var "i.1"); dst = (Ir.Var "i.1")};
-        (Ir.Return (Ir.Var "i.1"))];
-      frame =
-      Env.lenv {
-        namespace = "target";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Var "i.1"))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target";
@@ -38,12 +31,5 @@
            target = "main.if.en.5"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 2l)));
          (Ir.Label "main.if.en.5");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 6;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

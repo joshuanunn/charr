@@ -21,14 +21,7 @@
           target = "main.if.en.16"};
         (Ir.Return (Ir.Constant (Ctype.ConstInt 4l)));
         (Ir.Label "main.if.en.16");
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "main";
-        counter = 17;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.StaticVariable {name = "shiftcount.1"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 5l)}
      ])

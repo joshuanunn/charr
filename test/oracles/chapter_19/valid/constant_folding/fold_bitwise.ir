@@ -1,49 +1,14 @@
 (Ir.Program
    [Ir.Function {name = "target_and"; global = true; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 983055l)))];
-      frame =
-      Env.lenv {
-        namespace = "target_and";
-        counter = 1;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 983055l)))]};
      Ir.Function {name = "target_or"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 268374015l)))];
-       frame =
-       Env.lenv {
-         namespace = "target_or";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 268374015l)))]};
      Ir.Function {name = "target_xor"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 267390960l)))];
-       frame =
-       Env.lenv {
-         namespace = "target_xor";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 267390960l)))]};
      Ir.Function {name = "target_shift_left"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 76283904l)))];
-       frame =
-       Env.lenv {
-         namespace = "target_shift_left";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 76283904l)))]};
      Ir.Function {name = "target_shift_right"; global = true; params = [];
-       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 493447l)))];
-       frame =
-       Env.lenv {
-         namespace = "target_shift_right";
-         counter = 1;
-         offset = 0;
-         stack slots = {
-         }}};
+       body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 493447l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "target_and"; args = [];
@@ -91,12 +56,5 @@
            target = "main.if.en.14"};
          (Ir.Return (Ir.Constant (Ctype.ConstInt 5l)));
          (Ir.Label "main.if.en.14");
-         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 15;
-         offset = 0;
-         stack slots = {
-         }}}
+         (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]}
      ])

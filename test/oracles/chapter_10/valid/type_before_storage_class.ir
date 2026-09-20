@@ -1,26 +1,12 @@
 (Ir.Program
    [Ir.Function {name = "foo"; global = false; params = [];
-      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))];
-      frame =
-      Env.lenv {
-        namespace = "foo";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+      body = [(Ir.Return (Ir.Constant (Ctype.ConstInt 3l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.FunCall {fun_name = "foo"; args = []; dst = (Ir.Var "main.tmp.0")};
          Ir.Binary {op = Ir.Add; src1 = (Ir.Var "main.tmp.0");
            src2 = (Ir.Var "bar"); dst = (Ir.Var "main.tmp.1")};
-         (Ir.Return (Ir.Var "main.tmp.1"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Return (Ir.Var "main.tmp.1"))]};
      Ir.StaticVariable {name = "bar"; global = false; t = Ctype.Int;
        init = (Ctype.IntInit 4l)}
      ])

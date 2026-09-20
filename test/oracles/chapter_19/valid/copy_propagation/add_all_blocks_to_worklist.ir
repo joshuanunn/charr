@@ -3,28 +3,14 @@
       body =
       [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 100l));
          dst = (Ir.Var "global")};
-        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))];
-      frame =
-      Env.lenv {
-        namespace = "f";
-        counter = 0;
-        offset = 0;
-        stack slots = {
-        }}};
+        (Ir.Return (Ir.Constant (Ctype.ConstInt 0l)))]};
      Ir.Function {name = "main"; global = true; params = [];
        body =
        [Ir.Copy {src = (Ir.Constant (Ctype.ConstInt 0l));
           dst = (Ir.Var "global")};
          Ir.JumpIfZero {condition = (Ir.Var "flag"); target = "main.if.en.0"};
          Ir.FunCall {fun_name = "f"; args = []; dst = (Ir.Var "main.tmp.1")};
-         (Ir.Label "main.if.en.0"); (Ir.Return (Ir.Var "global"))];
-       frame =
-       Env.lenv {
-         namespace = "main";
-         counter = 2;
-         offset = 0;
-         stack slots = {
-         }}};
+         (Ir.Label "main.if.en.0"); (Ir.Return (Ir.Var "global"))]};
      Ir.StaticVariable {name = "flag"; global = true; t = Ctype.Int;
        init = (Ctype.IntInit 1l)};
      Ir.StaticVariable {name = "global"; global = true; t = Ctype.Int;
