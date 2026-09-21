@@ -53,7 +53,7 @@ let fixup_instruction (i : Asm.instruction) : Asm.instruction list =
       ]
   (* movzeroextend where destination is a register *)
   | MovZeroExtend { src; dst } when is_reg_operand dst ->
-      [ Mov { typ = Longword; src; dst = Reg AX } ]
+      [ Mov { typ = Longword; src; dst } ]
   (* movzeroextend where destination is in memory *)
   | MovZeroExtend { src; dst } when is_mem_operand dst ->
       [
@@ -111,8 +111,15 @@ let fixup_instruction (i : Asm.instruction) : Asm.instruction list =
   | Binary { op; typ; src; dst } when is_mem_operand src && is_mem_operand dst
     ->
       binary_mem_mem_fix op typ src dst
-  (* addq/subq (quadword) cannot use an out-of-range immediate as a source *)
-  | Binary { op = (Add | Sub) as op; typ = Quadword; src = Imm n; dst }
+  (* addq/subq/andq/orq/xorq (quadword) cannot use an out-of-range immediate
+     as a source *)
+  | Binary
+      {
+        op = (Add | Sub | BwAnd | BwOr | BwXor) as op;
+        typ = Quadword;
+        src = Imm n;
+        dst;
+      }
     when not (fits_int32 n) ->
       [
         Mov { typ = Quadword; src = Imm n; dst = Reg R10 };
