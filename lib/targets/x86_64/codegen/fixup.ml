@@ -53,7 +53,7 @@ let fixup_instruction (i : Asm.instruction) : Asm.instruction list =
       ]
   (* movzeroextend where destination is a register *)
   | MovZeroExtend { src; dst } when is_reg_operand dst ->
-      [ Mov { typ = Longword; src; dst = Reg AX } ]
+      [ Mov { typ = Longword; src; dst } ]
   (* movzeroextend where destination is in memory *)
   | MovZeroExtend { src; dst } when is_mem_operand dst ->
       [
