@@ -20,19 +20,21 @@ Usage: $(basename "${BASH_SOURCE[0]}") [options] sourcefile(s)
 charr compiler driver.
 
 Stages [mutually exclusive]:
-     --lex                Stop after lexing; write to stdout
-     --parse              Stop after parsing; write to stdout
-     --validate           Stop after semantic analysis; write to stdout
-     --irgen              Stop after IR generation; write to stdout
-     --codegen            Stop after code generation; write to stdout
-     --emit               Emit assembly to stdout
+      --lex               Stop after lexing; write to stdout
+      --parse             Stop after parsing; write to stdout
+      --validate          Stop after semantic analysis; write to stdout
+      --irgen             Stop after IR generation; write to stdout
+      --codegen           Stop after code generation; write to stdout
+      --emit              Emit assembly to stdout
 
-Optimisations [stackable]:
- -O, --opt-all            Enable all
-     --opt-folding        Enable constant folding
-     --opt-propagation    Enable copy propagation
-     --opt-unreachable    Enable unreachable code elimination
-     --opt-deadstores     Enable dead store elimination
+Optimisations [stackable; applied left to right, default: none]:
+ -O0, --opt-none          Disable all
+ -O,  --opt-all           Enable all
+      --opt-folding       Enable constant folding
+      --opt-propagation   Enable copy propagation
+      --opt-unreachable   Enable unreachable code elimination
+      --opt-deadstores    Enable dead store elimination
+      --no-opt-<pass>     Disable a single pass (e.g. --no-opt-folding)
 
 Output:
  -S                       Emit assembly only (no assembler, no linker)
@@ -40,8 +42,8 @@ Output:
  -o <file>                Emit executable binary to <file> (default: a.out)
 
 Help:
- -h, --help               Print this help and exit
- -d, --debug              Print script debug info
+ -h,  --help               Print this help and exit
+ -d,  --debug              Print script debug info
 EOF
   exit
 }
@@ -109,11 +111,17 @@ parse_params() {
     --emit)      ((modes+=1)); phase=6; assy_link=0 ;;
 
     # Optimisations [stackable]
-    -O | --opt-all)     opt_flags=$OPT_ALL ;;
-    --opt-folding)      ((opt_flags |= OPT_FOLDING)) ;;
-    --opt-propagation)  ((opt_flags |= OPT_PROPAGATION)) ;;
-    --opt-unreachable)  ((opt_flags |= OPT_UNREACHABLE)) ;;
-    --opt-deadstores)   ((opt_flags |= OPT_DEADSTORES)) ;;
+    -O0 | --opt-none)     opt_flags=$OPT_NONE ;;
+    -O | --opt-all)       opt_flags=$OPT_ALL ;;
+    --opt-folding)        opt_flags=$((opt_flags | OPT_FOLDING)) ;;
+    --opt-propagation)    opt_flags=$((opt_flags | OPT_PROPAGATION)) ;;
+    --opt-unreachable)    opt_flags=$((opt_flags | OPT_UNREACHABLE)) ;;
+    --opt-deadstores)     opt_flags=$((opt_flags | OPT_DEADSTORES)) ;;
+
+    --no-opt-folding)     opt_flags=$((opt_flags & ~OPT_FOLDING)) ;;
+    --no-opt-propagation) opt_flags=$((opt_flags & ~OPT_PROPAGATION)) ;;
+    --no-opt-unreachable) opt_flags=$((opt_flags & ~OPT_UNREACHABLE)) ;;
+    --no-opt-deadstores)  opt_flags=$((opt_flags & ~OPT_DEADSTORES)) ;;
 
     # Output modes
     -S) ((modes+=1)); phase=7; assy_link=0; keep_asm=1 ;;
