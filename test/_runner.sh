@@ -94,54 +94,60 @@ for chapter in "${CHAPTERS[@]}"; do
 
         # Exit status test
         if [[ "$phase" == "exe" ]]; then
-          # Compile executable
-          charr "$test_file" -O -o "$binary_file"
 
-          # Capture stdout and exit status
-          program_stdout="$("$binary_file" 2>&1)"
-          program_status=$?
-          rm -f "$binary_file"
+          # Run exe tests using both unoptimised and optimised modes
+          for opt_flag in "--opt-none" "--opt-all"; do
 
-          # Compare exit status
-          read -r line < "$oracle_file"
-          if [[ "$line" =~ ^-?[0-9]+$ ]]; then
-            expected_status=$((line))
-          else
-            echo "Error: $oracle_file does not contain a valid integer"
-            exit 1
-          fi
+            # Compile executable
+            charr "$test_file" "$opt_flag" -o "$binary_file"
 
-          # Exit status mismatch?
-          if [[ $program_status -ne $expected_status ]]; then
-            echo "[FAIL] $rel_path ($phase)"
-            echo "  charr exited with status $program_status, expected $expected_status"
-            ((failed++))
-            ((total++))
-            continue
-          fi
+            # Capture stdout and exit status
+            program_stdout="$("$binary_file" 2>&1)"
+            program_status=$?
+            rm -f "$binary_file"
 
-          # Compare stdout if stdout oracle exists
-          stdout_oracle="${oracle_file%.exit_status}.stdout"
-          if [[ -f "$stdout_oracle" ]]; then
-            expected_stdout=$(<"$stdout_oracle")
-
-            if diff -u <(echo "$expected_stdout") <(echo "$program_stdout") >/dev/null; then
-              echo "[PASS] $rel_path ($phase)"
-              ((passed++))
+            # Compare exit status
+            read -r line < "$oracle_file"
+            if [[ "$line" =~ ^-?[0-9]+$ ]]; then
+              expected_status=$((line))
             else
-              echo "[FAIL] $rel_path ($phase)"
-              echo "  stdout mismatch:"
-              diff -u <(echo "$expected_stdout") <(echo "$program_stdout") || true
-              ((failed++))
+              echo "Error: $oracle_file does not contain a valid integer"
+              exit 1
             fi
 
-          else
-            # No stdout oracle, so ignore stdout
-            echo "[PASS] $rel_path ($phase)"
-            ((passed++))
-          fi
+            # Exit status mismatch?
+            if [[ $program_status -ne $expected_status ]]; then
+              echo "[FAIL] $rel_path ($phase, $opt_flag)"
+              echo "  charr exited with status $program_status, expected $expected_status"
+              ((failed++))
+              ((total++))
+              continue
+            fi
 
-          ((total++))
+            # Compare stdout if stdout oracle exists
+            stdout_oracle="${oracle_file%.exit_status}.stdout"
+            if [[ -f "$stdout_oracle" ]]; then
+              expected_stdout=$(<"$stdout_oracle")
+
+              if diff -u <(echo "$expected_stdout") <(echo "$program_stdout") >/dev/null; then
+                echo "[PASS] $rel_path ($phase, $opt_flag)"
+                ((passed++))
+              else
+                echo "[FAIL] $rel_path ($phase, $opt_flag)"
+                echo "  stdout mismatch:"
+                diff -u <(echo "$expected_stdout") <(echo "$program_stdout") || true
+                ((failed++))
+              fi
+
+            else
+              # No stdout oracle, so ignore stdout
+              echo "[PASS] $rel_path ($phase, $opt_flag)"
+              ((passed++))
+            fi
+
+            ((total++))
+          done
+
           continue
         fi
 
