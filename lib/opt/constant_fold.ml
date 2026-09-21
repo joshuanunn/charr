@@ -19,9 +19,12 @@ let fold_binop (op : Ir.binary_operator) (c1 : Ctype.const) (c2 : Ctype.const) :
         (Ctype.const_of_int64 (Ctype.const_type c1)
            (Int64.shift_left n1 (Int64.to_int n2)))
   | BwRightShift ->
-      Some
-        (Ctype.const_of_int64 (Ctype.const_type c1)
-           (Int64.shift_right n1 (Int64.to_int n2)))
+      let c1_typ = Ctype.const_type c1 in
+      let result =
+        if Ctype.is_signed c1_typ then Int64.shift_right n1 (Int64.to_int n2)
+        else Int64.shift_right_logical n1 (Int64.to_int n2)
+      in
+      Some (Ctype.const_of_int64 c1_typ result)
   | Equal | NotEqual | LessOrEqual | GreaterOrEqual | LessThan | GreaterThan ->
       let b =
         match op with
