@@ -32,20 +32,25 @@ let () =
         exit 1
   in
 
+  (* Read C source file into string *)
+  let source = Charr.Io.read_file source_path in
+
   (* Initialise new environments *)
   let s_env = Charr.Analysis.Senv.make () in
   let t_env = Charr.Analysis.Tenv.make () in
-  Charr.Io.with_input_file source_path (fun lexbuf ->
-      match phase with
-      | 1 -> Charr.Io.run_lexer lexbuf
-      | 2 -> Charr.Io.run_parser lexbuf
-      | 3 -> Charr.Io.run_validator lexbuf s_env t_env
-      | 4 -> Charr.Io.run_irgen lexbuf enabled_opts s_env t_env
-      | 5 -> Charr.Io.run_codegen lexbuf enabled_opts s_env t_env
-      | 6 -> Charr.Io.run_emit lexbuf enabled_opts s_env t_env
-      | 7 -> Charr.Io.run_exe lexbuf enabled_opts target_path s_env t_env
-      | _ ->
-          prerr_endline
-            "Unknown phase. Supported: 1=lex, 2=parse, 3=validate, 4=irgen, \
-             5=codegen, 6=emit, 7=exe";
-          exit 1)
+
+  match phase with
+  | 0 -> Charr.Io.run_pp_lexer source
+  | 1 -> Charr.Io.run_preprocess source
+  | 2 -> Charr.Io.run_lexer source
+  | 3 -> Charr.Io.run_parser source
+  | 4 -> Charr.Io.run_validator source s_env t_env
+  | 5 -> Charr.Io.run_irgen source enabled_opts s_env t_env
+  | 6 -> Charr.Io.run_codegen source enabled_opts s_env t_env
+  | 7 -> Charr.Io.run_emit source enabled_opts s_env t_env
+  | 8 -> Charr.Io.run_exe source enabled_opts target_path s_env t_env
+  | _ ->
+      prerr_endline
+        "Unknown phase. Supported: 0=pp-lex 1=preprocess 2=lex, 3=parse, \
+         4=validate, 5=irgen, 6=codegen, 7=emit, 8=exe";
+      exit 1
