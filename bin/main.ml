@@ -40,15 +40,15 @@ let () =
   let t_env = Charr.Analysis.Tenv.make () in
 
   match phase with
-  | 0 -> Charr.Io.run_pp_lexer source
-  | 1 -> Charr.Io.run_preprocess source
-  | 2 -> Charr.Io.run_lexer source
-  | 3 -> Charr.Io.run_parser source
-  | 4 -> Charr.Io.run_validator source s_env t_env
-  | 5 -> Charr.Io.run_irgen source enabled_opts s_env t_env
-  | 6 -> Charr.Io.run_codegen source enabled_opts s_env t_env
-  | 7 -> Charr.Io.run_emit source enabled_opts s_env t_env
-  | 8 -> Charr.Io.run_exe source enabled_opts target_path s_env t_env
+  | 0 -> Charr.Driver.run_pp_lexer source
+  | 1 -> Charr.Driver.run_preprocess source
+  | 2 -> Charr.Driver.run_lexer source
+  | 3 -> Charr.Driver.run_parser source
+  | 4 -> Charr.Driver.run_validator source s_env t_env
+  | 5 -> Charr.Driver.run_irgen source enabled_opts s_env t_env
+  | 6 -> Charr.Driver.run_codegen source enabled_opts s_env t_env
+  | 7 -> Charr.Driver.run_emit source enabled_opts s_env t_env
+  | 8 -> Charr.Driver.run_exe source enabled_opts target_path s_env t_env
   | _ ->
       prerr_endline
         "Unknown phase. Supported: 0=pp-lex 1=preprocess 2=lex, 3=parse, \
