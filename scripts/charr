@@ -28,6 +28,9 @@ Stages [mutually exclusive]:
       --codegen           Stop after code generation; write to stdout
       --emit              Emit assembly to stdout
 
+Preprocessor [stackable, optional]:
+ -D<name>                 Define a preprocessor macro
+
 Optimisations [stackable; applied left to right, default: none]:
  -O0, --opt-none          Disable all
  -O,  --opt-all           Enable all
@@ -91,12 +94,20 @@ parse_params() {
   OPT_ALL=$((OPT_FOLDING | OPT_PROPAGATION | OPT_UNREACHABLE | OPT_DEADSTORES))
   opt_flags=$OPT_NONE
 
+  defines=()
   args=()
 
   while [[ $# -gt 0 ]]; do
     case "${1-}" in
     -h | --help) usage ;;
     -d | --debug) debug=1 ;;
+
+    # Preprocessor defines
+    -D*)
+      define="${1#-D}"
+      [[ -n "$define" ]] || die "ERROR: missing macro name after -D"
+      defines+=("$define")
+      ;;
 
     # Compilation stages [mutually exclusive]
     --pp-lex)     ((modes+=1)); phase=0; assy_link=0 ;;
@@ -162,7 +173,12 @@ for source_file in "${args[@]}"; do
   object_files+=("$object_file")
 
   # run charr compiler on C source
-  $CHARR "$source_file" $phase $opt_flags $debug
+  if [[ ${#defines[@]} -gt 0 ]]; then
+    define_arg=$(IFS=,; echo "${defines[*]}")
+    $CHARR "$source_file" "$phase" "$opt_flags" "$debug" "$define_arg"
+  else
+    $CHARR "$source_file" "$phase" "$opt_flags" "$debug"
+  fi
 
   # output object files if assembling
   if [[ $assy_link -ge 1 ]]; then
