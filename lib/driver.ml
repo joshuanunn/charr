@@ -7,8 +7,6 @@ let report_errors ~stage f =
       prerr_endline (stage ^ " error: " ^ Printexc.to_string e);
       exit 1
 
-let run_pp_lexer source = print_string (Preprocessor.Comment.strip source)
-
 let run_preprocess defines source =
   print_string (Pipeline.preprocess defines source)
 

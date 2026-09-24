@@ -19,7 +19,6 @@ Usage: $(basename "${BASH_SOURCE[0]}") [options] sourcefile(s)
 charr compiler driver.
 
 Stages [mutually exclusive]:
-      --pp-lex            Stop after preprocess lexing; write to stdout
       --preprocess        Stop after preprocessing; write to stdout
       --lex               Stop after lexing; write to stdout
       --parse             Stop after parsing; write to stdout
@@ -46,8 +45,8 @@ Output:
  -o <file>                Emit executable binary to <file> (default: a.out)
 
 Help:
- -h,  --help               Print this help and exit
- -d,  --debug              Print script debug info
+ -h,  --help              Print this help and exit
+ -d,  --debug             Print script debug info
 EOF
   exit
 }
@@ -110,7 +109,6 @@ parse_params() {
       ;;
 
     # Compilation stages [mutually exclusive]
-    --pp-lex)     ((modes+=1)); phase=0; assy_link=0 ;;
     --preprocess) ((modes+=1)); phase=1; assy_link=0 ;;
     --lex)        ((modes+=1)); phase=2; assy_link=0 ;;
     --parse)      ((modes+=1)); phase=3; assy_link=0 ;;
@@ -148,7 +146,7 @@ parse_params() {
 
   # check required params and arguments
   [[ ${#args[@]} -eq 0 ]] && die "ERROR: missing input C sourcefile path(s)."
-  [[ modes -gt 1 ]] && die "ERROR: flags [ --pp-lex | --preprocess | --lex | --parse | --validate | --irgen | --codegen | --emit | -S | -c ] are mutually exclusive."
+  [[ modes -gt 1 ]] && die "ERROR: flags [ --preprocess | --lex | --parse | --validate | --irgen | --codegen | --emit | -S | -c ] are mutually exclusive."
 
   return 0
 }
