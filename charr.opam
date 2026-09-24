@@ -16,6 +16,8 @@ depends: [
   "ppx_deriving"
   "ppx_expect"
   "ppx_inline_test"
+  "js_of_ocaml"
+  "js_of_ocaml-ppx"
   "odoc" {with-doc}
 ]
 build: [
