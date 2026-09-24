@@ -10,6 +10,10 @@ type context = LoopCtx of Ast.ident | SwitchCtx of switch_ctx
 (* Declare static counter for unique loop and switch labeling. *)
 let counter = ref 0
 
+(** [reset] restarts label numbering from zero. Needed for the long-lived web
+    build compiling many programs in sequence. *)
+let reset () = counter := 0
+
 (** [loop_label] generates a new unique identifier for a loop. *)
 let loop_label () : Ast.ident =
   incr counter;
