@@ -68,10 +68,10 @@ A compiler for a large subset of the C programming language, implemented in OCam
 ## Preprocessor
 
 Charr includes a C preprocessor, implemented in OCaml. This currently supports:
-- comment removal: `/* */` and `//`
-- command-line macro definitions with `-D`
-- conditional compilation: `#if`, `#ifdef`, `#ifndef`, `#elif`, `#else`, `#endif`
-- expression evaluation: `defined`, `!`, `&&`, `||`, `()`
+- Comment removal: `/* */` and `//`
+- Command-line macro definitions with `-D`
+- Conditional compilation: `#if`, `#ifdef`, `#ifndef`, `#elif`, `#else`, `#endif`
+- Expression evaluation: `defined`, `!`, `&&`, `||`, `()`
 
 ## In Progress Features
 
@@ -138,21 +138,19 @@ Check that the compiler executable works using `charr --help` or run the full re
 ```mermaid
 flowchart LR
     src("C source<br/>.c")
-    pp("Preprocessed<br/>source")
     asm("Assembly<br/>.s")
     obj("Object<br/>.o")
     exe("Executable")
 
-    src -->|charr preprocessor| pp
-    pp -->|charr compiler| asm
+    src -->|charr| asm
     asm -->|Assembler| obj
     obj -->|Linker| exe
 
     classDef stage fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
     classDef out fill:#FCEBE0,stroke:#E2622B,stroke-width:2px,color:#2E3D48;
     class src,obj,exe stage;
-    class pp,asm out;
-    linkStyle 0,1 stroke:#E2622B,stroke-width:3px;
+    class asm out;
+    linkStyle 0 stroke:#E2622B,stroke-width:3px;
 ```
 
 Within `charr`, preprocessing is followed by lexing, parsing, semantic analysis, IR generation, optimisation, and code generation:
