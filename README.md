@@ -148,8 +148,8 @@ flowchart LR
 
     classDef stage fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
     classDef out fill:#FCEBE0,stroke:#E2622B,stroke-width:2px,color:#2E3D48;
-    class src,obj,exe stage;
-    class asm out;
+    class obj,exe stage;
+    class src,asm out;
     linkStyle 0 stroke:#E2622B,stroke-width:3px;
 ```
 
@@ -166,8 +166,7 @@ flowchart LR
     oir("Optimised<br/>IR")
     asm("Assembly<br/>.s")
 
-    src -->|Preprocessor| pp
-    pp --> tok --> ast --> vast --> ir --> oir --> asm
+    src --> pp --> tok --> ast --> vast --> ir --> oir --> asm
 
     classDef irc fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
     classDef endpt fill:#FCEBE0,stroke:#E2622B,stroke-width:2.5px,color:#2E3D48;
