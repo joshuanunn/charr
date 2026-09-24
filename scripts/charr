@@ -6,7 +6,6 @@ keep_asm=0
 keep_obj=0
 output_file="a.out"
 
-preprocessed_files=()
 assembly_files=()
 object_files=()
 
@@ -20,12 +19,16 @@ Usage: $(basename "${BASH_SOURCE[0]}") [options] sourcefile(s)
 charr compiler driver.
 
 Stages [mutually exclusive]:
+      --preprocess        Stop after preprocessing; write to stdout
       --lex               Stop after lexing; write to stdout
       --parse             Stop after parsing; write to stdout
       --validate          Stop after semantic analysis; write to stdout
       --irgen             Stop after IR generation; write to stdout
       --codegen           Stop after code generation; write to stdout
       --emit              Emit assembly to stdout
+
+Preprocessor [stackable, optional]:
+ -D<name>                 Define a preprocessor macro
 
 Optimisations [stackable; applied left to right, default: none]:
  -O0, --opt-none          Disable all
@@ -42,19 +45,14 @@ Output:
  -o <file>                Emit executable binary to <file> (default: a.out)
 
 Help:
- -h,  --help               Print this help and exit
- -d,  --debug              Print script debug info
+ -h,  --help              Print this help and exit
+ -d,  --debug             Print script debug info
 EOF
   exit
 }
 
 cleanup() {
   trap - SIGINT SIGTERM ERR EXIT
-
-  for f in "${preprocessed_files[@]}"; do
-    [[ -f $f ]] && rm -f "$f";
-  done
-
   if [[ $keep_asm -eq 0 ]]; then
     for f in "${assembly_files[@]}"; do
       [[ -f $f ]] && rm -f "$f";
@@ -81,7 +79,7 @@ die() {
 
 parse_params() {
   # compiler defaults to code emission, assembly and linking
-  phase=7
+  phase=8
   assy_link=2
   modes=0
   debug=0
@@ -95,6 +93,7 @@ parse_params() {
   OPT_ALL=$((OPT_FOLDING | OPT_PROPAGATION | OPT_UNREACHABLE | OPT_DEADSTORES))
   opt_flags=$OPT_NONE
 
+  defines=()
   args=()
 
   while [[ $# -gt 0 ]]; do
@@ -102,13 +101,21 @@ parse_params() {
     -h | --help) usage ;;
     -d | --debug) debug=1 ;;
 
+    # Preprocessor defines
+    -D*)
+      define="${1#-D}"
+      [[ -n "$define" ]] || die "ERROR: missing macro name after -D"
+      defines+=("$define")
+      ;;
+
     # Compilation stages [mutually exclusive]
-    --lex)       ((modes+=1)); phase=1; assy_link=0 ;;
-    --parse)     ((modes+=1)); phase=2; assy_link=0 ;;
-    --validate)  ((modes+=1)); phase=3; assy_link=0 ;;
-    --irgen)     ((modes+=1)); phase=4; assy_link=0 ;;
-    --codegen)   ((modes+=1)); phase=5; assy_link=0 ;;
-    --emit)      ((modes+=1)); phase=6; assy_link=0 ;;
+    --preprocess) ((modes+=1)); phase=1; assy_link=0 ;;
+    --lex)        ((modes+=1)); phase=2; assy_link=0 ;;
+    --parse)      ((modes+=1)); phase=3; assy_link=0 ;;
+    --validate)   ((modes+=1)); phase=4; assy_link=0 ;;
+    --irgen)      ((modes+=1)); phase=5; assy_link=0 ;;
+    --codegen)    ((modes+=1)); phase=6; assy_link=0 ;;
+    --emit)       ((modes+=1)); phase=7; assy_link=0 ;;
 
     # Optimisations [stackable]
     -O0 | --opt-none)     opt_flags=$OPT_NONE ;;
@@ -124,8 +131,8 @@ parse_params() {
     --no-opt-deadstores)  opt_flags=$((opt_flags & ~OPT_DEADSTORES)) ;;
 
     # Output modes
-    -S) ((modes+=1)); phase=7; assy_link=0; keep_asm=1 ;;
-    -c) ((modes+=1)); phase=7; assy_link=1; keep_obj=1 ;;
+    -S) ((modes+=1)); phase=8; assy_link=0; keep_asm=1 ;;
+    -c) ((modes+=1)); phase=8; assy_link=1; keep_obj=1 ;;
     -o)
       shift
       [[ $# -eq 0 ]] && die "ERROR: missing filename after -o"
@@ -139,7 +146,7 @@ parse_params() {
 
   # check required params and arguments
   [[ ${#args[@]} -eq 0 ]] && die "ERROR: missing input C sourcefile path(s)."
-  [[ modes -gt 1 ]] && die "ERROR: flags [ --lex | --parse | --validate | --irgen | --codegen | --emit | -S | -c ] are mutually exclusive."
+  [[ modes -gt 1 ]] && die "ERROR: flags [ --preprocess | --lex | --parse | --validate | --irgen | --codegen | --emit | -S | -c ] are mutually exclusive."
 
   return 0
 }
@@ -157,20 +164,19 @@ parse_params "$@"
 for source_file in "${args[@]}"; do
   [[ "${source_file##*.}" != "c" ]] && die "ERROR: C sourcefile does not have a .c file extension."
 
-  preprocessed_file="${source_file%.*}.i"
   assembly_file="${source_file%.*}.s"
   object_file="${source_file%.*}.o"
 
-  preprocessed_files+=("$preprocessed_file")
   assembly_files+=("$assembly_file")
   object_files+=("$object_file")
 
-  # run C preprocessor (omit linemarkers)
-  $CC -E -P "$source_file" -o "$preprocessed_file"
-
-  # run charr compiler on preprocessed input
-  $CHARR "$preprocessed_file" $phase $opt_flags $debug
-  #$CC -S -O -fno-asynchronous-unwind-tables -fcf-protection=none $preprocessed_file
+  # run charr compiler on C source
+  if [[ ${#defines[@]} -gt 0 ]]; then
+    define_arg=$(IFS=,; echo "${defines[*]}")
+    $CHARR "$source_file" "$phase" "$opt_flags" "$debug" "$define_arg"
+  else
+    $CHARR "$source_file" "$phase" "$opt_flags" "$debug"
+  fi
 
   # output object files if assembling
   if [[ $assy_link -ge 1 ]]; then

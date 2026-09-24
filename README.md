@@ -65,6 +65,14 @@ A compiler for a large subset of the C programming language, implemented in OCam
   - Unreachable code elimination
   - Copy propagation
 
+## Preprocessor
+
+Charr includes a C preprocessor, implemented in OCaml. This currently supports:
+- Comment removal: `/* */` and `//`
+- Command-line macro definitions with `-D`
+- Conditional compilation: `#if`, `#ifdef`, `#ifndef`, `#elif`, `#else`, `#endif`
+- Expression evaluation: `defined`, `!`, `&&`, `||`, `()`
+
 ## In Progress Features
 
 ### Types
@@ -79,6 +87,12 @@ A compiler for a large subset of the C programming language, implemented in OCam
 - Register allocation
   - graph colouring
   - Register coalescing
+
+### Preprocessor
+- Macro expansion and function-like macros
+- `#define`, `#undef`
+- `#include`
+- Full C preprocessor expression evaluation
 
 ## Unplanned Features
 
@@ -119,33 +133,32 @@ Check that the compiler executable works using `charr --help` or run the full re
 
 ## Compilation Overview
 
-`charr` occupies the source-to-assembly stage of compilation (highlighted); preprocessing, assembling, and linking are delegated to the system toolchain.
+`charr` handles preprocessing and the source-to-assembly stages of compilation (highlighted); assembling and linking are delegated to the system toolchain.
 
 ```mermaid
 flowchart LR
     src("C source<br/>.c")
-    pp("Preprocessed<br/>source<br/>.i")
     asm("Assembly<br/>.s")
     obj("Object<br/>.o")
     exe("Executable")
 
-    src -->|Preprocessor| pp
-    pp -->|charr| asm
+    src -->|charr| asm
     asm -->|Assembler| obj
     obj -->|Linker| exe
 
     classDef stage fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
     classDef out fill:#FCEBE0,stroke:#E2622B,stroke-width:2px,color:#2E3D48;
-    class src,obj,exe stage;
-    class pp,asm out;
-    linkStyle 1 stroke:#E2622B,stroke-width:3px;
+    class obj,exe stage;
+    class src,asm out;
+    linkStyle 0 stroke:#E2622B,stroke-width:3px;
 ```
 
-In this compilation stage, `charr` lowers preprocessed source to assembly through lexing, parsing, semantic analysis, IR generation, optimisation, and code generation:
+Within `charr`, preprocessing is followed by lexing, parsing, semantic analysis, IR generation, optimisation, and code generation:
 
 ```mermaid
 flowchart LR
-    i("Preprocessed<br/>source<br/>.i")
+    src("C source<br/>.c")
+    pp("Preprocessed<br/>source")
     tok("Tokens")
     ast("AST")
     vast("Validated<br/>AST")
@@ -153,12 +166,12 @@ flowchart LR
     oir("Optimised<br/>IR")
     asm("Assembly<br/>.s")
 
-    i --> tok --> ast --> vast --> ir --> oir --> asm
+    src --> pp --> tok --> ast --> vast --> ir --> oir --> asm
 
     classDef irc fill:#EFF2F4,stroke:#4A6273,stroke-width:1px,color:#2E3D48;
     classDef endpt fill:#FCEBE0,stroke:#E2622B,stroke-width:2.5px,color:#2E3D48;
-    class tok,ast,vast,ir,oir irc;
-    class i,asm endpt;
+    class src,asm endpt;
+    class pp,tok,ast,vast,ir,oir irc;
     linkStyle default stroke:#E2622B,stroke-width:2.5px;
 ```
 
