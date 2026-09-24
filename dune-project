@@ -37,6 +37,8 @@
   menhir
   ppx_deriving
   ppx_expect
-  ppx_inline_test))
+  ppx_inline_test
+  js_of_ocaml
+  js_of_ocaml-ppx))
 
 ; See the complete stanza docs at https://dune.readthedocs.io/en/stable/reference/dune-project/index.html

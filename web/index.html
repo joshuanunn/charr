@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Charr: a small C compiler.</title>
+<meta name="description" content="Compile a subset of C in your browser and inspect pipeline stages: preprocessing, tokens, AST, IR and x86-64 assembly.">
+<style>
+:root {
+  --bg: #eff2f4;
+  --surface: #ffffff;
+  --ink: #2e3d48;
+  --muted: #4a6273;
+  --line: #cfd8de;
+  --accent: #e2622b;
+  --accent-ink: #1b2329;
+  --error: #b3261e;
+  --error-bg: #fbe9e7;
+  --code-bg: #f7f9fa;
+  --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #1b2329;
+    --surface: #232d35;
+    --ink: #e6ecef;
+    --muted: #9db0bd;
+    --line: #3a4852;
+    --accent: #f0743a;
+    --error: #ff8a80;
+    --error-bg: #3a2422;
+    --code-bg: #1e272d;
+  }
+}
+* { box-sizing: border-box; }
+html { height: 100%; }
+body {
+  margin: 0; min-height: 100%;
+  background: var(--bg); color: var(--ink);
+  font: 16px/1.5 var(--sans);
+  display: flex; flex-direction: column;
+}
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+header {
+  display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap;
+  padding: .9rem clamp(.75rem, 3vw, 1.5rem) .5rem;
+}
+header h1 { margin: 0; font-size: 1.6rem; letter-spacing: -.02em; }
+header h1 span { color: var(--accent); }
+header p { margin: 0; color: var(--muted); flex: 1 1 18rem; }
+
+main {
+  flex: 1; display: grid; gap: .9rem;
+  padding: .5rem clamp(.75rem, 3vw, 1.5rem) 1rem;
+  grid-template-columns: minmax(0, 1fr);
+}
+@media (min-width: 60rem) {
+  main { grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); }
+}
+.pane {
+  background: var(--surface); border: 1px solid var(--line); border-radius: 6px;
+  display: flex; flex-direction: column; min-width: 0;
+}
+.pane-head {
+  display: flex; align-items: center; gap: .6rem; flex-wrap: wrap;
+  padding: .55rem .75rem; border-bottom: 1px solid var(--line);
+}
+.pane-head h2 { margin: 0; font-size: 1rem; flex: 1 1 auto; }
+
+label.inline { display: flex; align-items: center; gap: .35rem; font-size: .85rem; color: var(--muted); }
+input[type="text"] {
+  font: inherit; font-family: var(--mono); font-size: .85rem; color: inherit; background: var(--code-bg);
+  border: 1px solid var(--line); border-radius: 4px; padding: .3rem .5rem; width: 11rem;
+}
+select, button {
+  font: inherit; color: inherit; background: var(--surface);
+  border: 1px solid var(--line); border-radius: 4px; padding: .3rem .65rem;
+  min-height: 2.1rem; cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--muted); }
+button:disabled { opacity: .5; cursor: default; }
+
+textarea#src {
+  flex: 1; width: 100%; min-height: 14rem; resize: vertical;
+  border: 0; border-radius: 0 0 6px 6px; padding: .75rem;
+  background: var(--code-bg); color: var(--ink);
+  font: 14px/1.5 var(--mono); tab-size: 4;
+}
+.opts { display: flex; gap: .9rem; flex-wrap: wrap; padding: .5rem .75rem; font-size: .85rem; color: var(--muted); border-top: 1px solid var(--line); }
+.opts label { display: flex; align-items: center; gap: .3rem; cursor: pointer; }
+
+.tabs { display: flex; flex-wrap: wrap; gap: .25rem; padding: .5rem .5rem 0; list-style: none; margin: 0; }
+.tabs button {
+  border: 1px solid transparent; border-bottom: none; border-radius: 5px 5px 0 0;
+  padding: .4rem .7rem; font-size: .85rem; min-height: 0; background: transparent;
+}
+.tabs button[aria-selected="true"] { background: var(--code-bg); border-color: var(--line); font-weight: 600; }
+.tabs button[data-status="error"]::after { content: " \25CF"; color: var(--error); }
+.tabs button[data-status="skipped"] { opacity: .5; }
+
+pre#out {
+  flex: 1; margin: 0; padding: .9rem; overflow: auto; min-height: 14rem;
+  background: var(--code-bg); font: 13px/1.55 var(--mono); white-space: pre-wrap; word-break: break-word;
+}
+pre#out.error { background: var(--error-bg); color: var(--error); }
+.note { padding: 0 .9rem .8rem; font-size: .82rem; color: var(--muted); }
+.note code { font-family: var(--mono); }
+
+footer { padding: .5rem clamp(.75rem, 3vw, 1.5rem) 1rem; font-size: .8rem; color: var(--muted); }
+footer a { color: inherit; }
+</style>
+</head>
+<body>
+<header>
+  <h1>cha<span>rr</span></h1>
+  <p>A small C compiler written in OCaml, running in the browser.</p>
+</header>
+<main>
+  <section class="pane">
+    <div class="pane-head">
+      <h2>C Source</h2>
+      <label class="inline">-D <input type="text" id="defines" placeholder="DEBUG" spellcheck="false"></label>
+    </div>
+    <textarea id="src" spellcheck="false"></textarea>
+    <div class="opts">
+      <label><input type="checkbox" class="opt" data-bit="1"> constant folding</label>
+      <label><input type="checkbox" class="opt" data-bit="2"> copy propagation</label>
+      <label><input type="checkbox" class="opt" data-bit="4"> unreachable code elim.</label>
+      <label><input type="checkbox" class="opt" data-bit="8"> dead store elim.</label>
+    </div>
+  </section>
+  <section class="pane">
+    <div class="pane-head">
+      <h2 id="status">Ready</h2>
+      <button id="copy" disabled>Copy</button>
+      <button id="download" disabled>Download .s</button>
+    </div>
+    <ul class="tabs" id="tabs" role="tablist"></ul>
+    <pre id="out" tabindex="0"></pre>
+    <p class="note" id="note"></p>
+  </section>
+</main>
+<footer>
+  <a href="https://github.com/joshuanunn/charr">charr on GitHub</a> &middot; x86-64 System V assembly (Linux) &middot; assemble and link the <code>asm</code> tab's output with <code>gcc charr.s -o prog</code>.
+</footer>
+<script src="charr_web.bc.js"></script>
+<script>
+"use strict";
+const STAGES = [
+  { name: "preprocess", label: "preprocess" },
+  { name: "tokens", label: "tokens" },
+  { name: "ast", label: "ast" },
+  { name: "validated_ast", label: "validated" },
+  { name: "ir", label: "ir" },
+  { name: "asm_ir", label: "asm ir" },
+  { name: "asm", label: "asm" },
+];
+const $ = (id) => document.getElementById(id);
+const srcEl = $("src"), definesEl = $("defines"), tabsEl = $("tabs"), outEl = $("out"),
+      statusEl = $("status"), noteEl = $("note"), optEls = [...document.querySelectorAll(".opt")];
+
+let results = null;
+let tab = "asm";
+let debounceId;
+
+function currentOptFlags() {
+  return optEls.reduce((acc, el) => acc | (el.checked ? Number(el.dataset.bit) : 0), 0);
+}
+
+function scheduleCompile() {
+  clearTimeout(debounceId);
+  debounceId = setTimeout(compile, 200);
+}
+
+function compile() {
+  if (!window.charr) return showFatal("The compiler failed to load.");
+  statusEl.textContent = "Compiling\u2026";
+  try {
+    const stages = charr.compile(srcEl.value, definesEl.value, currentOptFlags());
+    results = Object.fromEntries(stages.map((s) => [s.name, s]));
+    render();
+  } catch (err) {
+    showFatal("Internal compiler error: " + (err && err.message ? err.message : err));
+  }
+}
+
+function buildTabs() {
+  tabsEl.innerHTML = "";
+  for (const s of STAGES) {
+    const li = document.createElement("li");
+    li.setAttribute("role", "presentation");
+    const b = document.createElement("button");
+    b.type = "button"; b.id = "tab-" + s.name; b.setAttribute("role", "tab");
+    b.dataset.stage = s.name; b.textContent = s.label;
+    b.addEventListener("click", () => { tab = s.name; render(); });
+    li.appendChild(b); tabsEl.appendChild(li);
+  }
+}
+
+function hasPreprocessorLines() { return /^\s*#/m.test(srcEl.value); }
+
+function render() {
+  outEl.classList.remove("error");
+  for (const b of tabsEl.querySelectorAll("button")) {
+    const st = results ? results[b.dataset.stage] : null;
+    b.dataset.status = st ? st.status : "skipped";
+    b.setAttribute("aria-selected", String(b.dataset.stage === tab));
+  }
+  const st = results && results[tab];
+  let note = "";
+  statusEl.textContent = results ? "Compiled" : "Ready";
+  if (!st) {
+    outEl.textContent = "";
+  } else if (st.status === "done") {
+    outEl.textContent = st.output;
+  } else if (st.status === "error") {
+    outEl.classList.add("error");
+    outEl.textContent = st.output;
+  } else {
+    const failed = STAGES.find((s) => results[s.name] && results[s.name].status === "error");
+    outEl.textContent = failed ? `Not reached: the "${failed.label}" stage reported an error.` : "";
+  }
+  noteEl.textContent = note;
+  const asm = results && results.asm;
+  $("download").disabled = !(asm && asm.status === "done");
+  $("copy").disabled = !(st && st.status === "done");
+}
+
+function showFatal(message) {
+  results = null; render();
+  statusEl.textContent = "Error";
+  outEl.classList.add("error"); outEl.textContent = message;
+}
+
+async function copyText(text, button, done) {
+  const old = button.textContent;
+  try { await navigator.clipboard.writeText(text); button.textContent = done; }
+  catch (_) { button.textContent = "Copy failed"; }
+  setTimeout(() => (button.textContent = old), 1200);
+}
+$("copy").addEventListener("click", () => results && results[tab] && copyText(results[tab].output, $("copy"), "Copied"));
+$("download").addEventListener("click", () => {
+  const asm = results && results.asm;
+  if (!asm || asm.status !== "done") return;
+  const url = URL.createObjectURL(new Blob([asm.output], { type: "text/plain" }));
+  const a = Object.assign(document.createElement("a"), { href: url, download: "charr.s" });
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+
+srcEl.addEventListener("input", scheduleCompile);
+definesEl.addEventListener("input", scheduleCompile);
+optEls.forEach((el) => el.addEventListener("change", scheduleCompile));
+
+srcEl.value =
+`/*
+ * Computes the nth Fibonacci number recursively and returns
+ * the result for n = 6 from main().
+ */
+
+int fib(int n) {
+    if (n == 0 || n == 1) {
+        return n;
+    } else {
+        return fib(n - 1) + fib(n - 2);
+    }
+}
+
+int main(void) {
+    int n = 6;
+    return fib(n);
+}
+`;
+buildTabs();
+compile();
+</script>
+</body>
+</html>
