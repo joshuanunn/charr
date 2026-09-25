@@ -33,6 +33,8 @@ web_deploy: web_build
 	rm -rf _site
 	mkdir -p _site
 	install -m 644 web/index.html _site/
+	install -m 644 web/GitHub_Invertocat_Black.svg _site/
+	install -m 644 web/GitHub_Invertocat_White.svg _site/
 	install -m 644 _build/default/web/charr_web.bc.js _site/
 
 web_serve: web_deploy

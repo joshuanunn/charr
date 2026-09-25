@@ -101,6 +101,33 @@ header nav a:hover {
   text-decoration: underline;
 }
 
+.github-link {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  border-radius: 4px;
+}
+
+.github-logo {
+  display: block;
+  width: 28px;
+  height: 28px;
+}
+
+.github-logo-dark {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  .github-logo-light {
+    display: none;
+  }
+
+  .github-logo-dark {
+    display: block;
+  }
+}
+
 main {
   flex: 1;
   min-height: 0;
@@ -358,7 +385,26 @@ pre#out.error {
   <h1>cha<span>rr</span></h1>
   <p>A small C compiler written in OCaml.</p>
   <nav>
-    <a href="https://github.com/joshuanunn/charr">GitHub</a>
+    <a
+      href="https://github.com/joshuanunn/charr"
+      class="github-link"
+      aria-label="View Charr on GitHub"
+    >
+      <img
+        class="github-logo github-logo-light"
+        src="GitHub_Invertocat_Black.svg"
+        alt=""
+        width="28"
+        height="28"
+      >
+      <img
+        class="github-logo github-logo-dark"
+        src="GitHub_Invertocat_White.svg"
+        alt=""
+        width="28"
+        height="28"
+      >
+    </a>
   </nav>
 </header>
 

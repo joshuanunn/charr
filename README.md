@@ -177,8 +177,11 @@ flowchart LR
 
 ## License
 
-This software is released under the MIT license [MIT](LICENSE).
+This software is released under the MIT license [MIT](LICENSE). See [Third-party Content](#third-party-content) for details of third-party content that is not covered by this license.
 
 ## Third-party Content
 
-This project includes test cases derived from [github.com/nlsandler/writing-a-c-compiler-tests](https://github.com/nlsandler/writing-a-c-compiler-tests), licensed under the MIT License. See [test/tests/LICENSE.third_party](test_e2e/tests/LICENSE.third_party) for details.
+This project includes third-party content that is not covered by this repository's MIT License:
+
+- Test cases derived from [github.com/nlsandler/writing-a-c-compiler-tests](https://github.com/nlsandler/writing-a-c-compiler-tests), licensed under the MIT License. See [test/tests/LICENSE.third_party](test/tests/LICENSE.third_party) for details.
+- Logo files `web/GitHub_Invertocat_Black.svg` and `web/GitHub_Invertocat_White.svg` are GitHub, Inc. trademarks/assets and are used as a link to this project's GitHub repository in accordance with [GitHub's brand guidelines](https://brand.github.com/foundations/logo).
