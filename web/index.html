@@ -244,17 +244,23 @@ textarea#src:focus-visible {
 
 /* Optimisations */
 
-fieldset {
-  border: 0;
-  margin: 0;
-  padding: .55rem .75rem .7rem;
+.optimisations {
   border-top: 1px solid var(--line);
+  padding: .55rem .75rem .7rem;
 }
 
-legend {
-  padding: 0;
+.optimisations summary {
+  cursor: pointer;
   font-weight: 600;
   font-size: .95rem;
+}
+
+.optimisations summary::marker {
+  color: var(--muted);
+}
+
+.optimisations .opts {
+  margin-top: .4rem;
 }
 
 .opts {
@@ -424,8 +430,8 @@ pre#out.error {
 
     <textarea id="src" spellcheck="false"></textarea>
 
-    <fieldset>
-      <legend>Optimisations</legend>
+  <details class="optimisations">
+    <summary>Optimisations</summary>
       <div class="opts">
         <label>
           <input type="checkbox" class="opt" data-bit="1">
@@ -444,7 +450,7 @@ pre#out.error {
           Dead store elim.
         </label>
       </div>
-    </fieldset>
+    </details>
   </section>
 
   <section class="pane">
