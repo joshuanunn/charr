@@ -279,6 +279,25 @@ textarea#src:focus-visible {
   }
 }
 
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+}
+
+.icon-button svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* Optimisations */
 
 .optimisations {
@@ -503,8 +522,28 @@ pre#out.error {
 
     <div class="pane-head output-head">
       <ol class="pipeline" id="tabs" role="tablist" aria-label="Compiler stages"></ol>
-      <button id="copy" disabled>Copy</button>
-      <button id="download" class="primary" disabled>Download .s</button>
+      
+      <button id="copy" class="icon-button" disabled aria-label="Copy output" title="Copy output">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="9" y="9" width="10" height="10" rx="1.5"></rect>
+          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path>
+        </svg>
+      </button>
+
+      <button
+        id="download"
+        class="icon-button primary"
+        disabled
+        aria-label="Download assembly"
+        title="Download assembly"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 3v12"></path>
+          <path d="m7 10 5 5 5-5"></path>
+          <path d="M5 20h14"></path>
+        </svg>
+      </button>
+
     </div>
 
     <div class="output-wrap">
@@ -678,19 +717,21 @@ function showFatal(message) {
 }
 
 async function copyText(text, button, done) {
-  const old = button.textContent;
+  const old = button.getAttribute("aria-label");
 
   try {
     await navigator.clipboard.writeText(text);
-    button.textContent = done;
+    button.setAttribute("aria-label", done);
+    button.setAttribute("title", done);
   } catch (_) {
-    button.textContent = "Copy failed";
+    button.setAttribute("aria-label", "Copy failed");
+    button.setAttribute("title", "Copy failed");
   }
 
-  setTimeout(
-    () => (button.textContent = old),
-    1200
-  );
+  setTimeout(() => {
+    button.setAttribute("aria-label", old);
+    button.setAttribute("title", old);
+  }, 1200);
 }
 
 $("copy").addEventListener("click", () => {
