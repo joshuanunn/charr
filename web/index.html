@@ -165,6 +165,23 @@ main {
   main.show-output .source-pane {
     display: none;
   }
+
+  .pipeline {
+    padding: 0;
+  }
+
+  .pipeline li + li::before {
+    width: .6rem;
+  }
+
+  .pipeline .stage {
+    padding: .25rem .55rem;
+    min-width: 0;
+  }
+
+  .pipeline .stage::after {
+    font-size: .9rem;
+  }
 }
 
 @media (min-width: 60rem) {
@@ -200,11 +217,17 @@ main {
   flex: 1 1 auto;
 }
 
+.output-head {
+  flex-wrap: nowrap;
+}
+
 .output-head .pipeline {
   border: 0;
   padding: 0;
   min-width: 0;
-  flex: 1 1 auto;
+  flex: 1 1 0;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 label.inline {
@@ -425,15 +448,26 @@ pre#out.error {
   border-top: 1px solid var(--line);
   font-size: .82rem;
   color: var(--muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+}
+
+.note-text {
+  min-width: 0;
+}
+
+.note-actions {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex: 0 0 auto;
 }
 
 .note code {
   font-family: var(--mono);
   color: var(--ink);
-}
-
-.note:empty {
-  display: none;
 }
 
 .note[hidden] {
@@ -520,33 +554,36 @@ pre#out.error {
 
     <div class="pane-head output-head">
       <ol class="pipeline" id="tabs" role="tablist" aria-label="Compiler stages"></ol>
-
-      <button id="copy" class="icon-button" disabled aria-label="Copy output" title="Copy output">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <rect x="9" y="9" width="10" height="10" rx="1.5"></rect>
-          <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path>
-        </svg>
-      </button>
-
-      <button
-        id="download"
-        class="icon-button primary"
-        disabled
-        aria-label="Download assembly"
-        title="Download assembly"
-      >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="M12 3v12"></path>
-          <path d="m7 10 5 5 5-5"></path>
-          <path d="M5 20h14"></path>
-        </svg>
-      </button>
-
     </div>
 
     <div class="output-wrap">
       <pre id="out" role="tabpanel" tabindex="0"></pre>
-      <p class="note" id="note"></p>
+      <div class="note" id="note">
+        <span class="note-text"></span>
+
+        <span class="note-actions">
+          <button id="copy" class="icon-button" disabled aria-label="Copy output" title="Copy output">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="9" y="9" width="10" height="10" rx="1.5"></rect>
+              <path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"></path>
+            </svg>
+          </button>
+
+          <button
+            id="download"
+            class="icon-button primary"
+            disabled
+            aria-label="Download assembly"
+            title="Download assembly"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 3v12"></path>
+              <path d="m7 10 5 5 5-5"></path>
+              <path d="M5 20h14"></path>
+            </svg>
+          </button>
+        </span>
+      </div>
     </div>
 
   </section>
@@ -564,8 +601,8 @@ const STAGES = [
   { name: "ast",           label: "AST",           mobile: "AT" },
   { name: "validated_ast", label: "Typed AST",     mobile: "TY" },
   { name: "ir",            label: "IR",            mobile: "IR" },
-  { name: "asm_ir",        label: "Asm IR",   mobile: "AI" },
-  { name: "asm",           label: "Asm",      mobile: "AS" },
+  { name: "asm_ir",        label: "Assembly IR",   mobile: "AI" },
+  { name: "asm",           label: "Assembly",      mobile: "AS" },
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -691,6 +728,10 @@ function render() {
   );
 
   const st = results && results[tab];
+  const asm = results && results.asm;
+  const isAsm = tab === "asm";
+  const hasAsm = asm && asm.status === "done";
+
   let note = "";
 
   const selectedStage = STAGES.find((s) => s.name === tab);
@@ -705,8 +746,9 @@ function render() {
   } else if (st.status === "done") {
     outEl.textContent = st.output;
 
-    if (tab === "asm") {
-      note = "x86-64 System V assembly (Linux). Assemble and link it with <code>gcc charr.s -o prog</code>.";
+    if (isAsm) {
+      note =
+        "x86-64 System V assembly (Linux). Assemble and link it with <code>gcc charr.s -o prog</code>.";
     }
 
   } else if (st.status === "error") {
@@ -725,16 +767,11 @@ function render() {
       : "";
   }
 
-  noteEl.innerHTML = note;
-  noteEl.hidden = !note;
+  noteEl.querySelector(".note-text").innerHTML = note;
+  noteEl.hidden = !(isAsm && hasAsm);
 
-  const asm = results && results.asm;
-
-  $("download").disabled =
-    !(asm && asm.status === "done");
-
-  $("copy").disabled =
-    !(st && st.status === "done");
+  $("download").disabled = !hasAsm;
+  $("copy").disabled = !(st && st.status === "done");
 }
 
 function showFatal(message) {
