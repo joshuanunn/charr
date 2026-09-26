@@ -158,11 +158,12 @@ main {
     font-weight: 600;
   }
 
-  .mobile-stage {
-    display: block;
-    font-weight: 600;
-    flex: 1 1 auto;
-    min-width: 0;
+  main.show-source .output-pane {
+    display: none;
+  }
+
+  main.show-output .source-pane {
+    display: none;
   }
 }
 
@@ -204,10 +205,6 @@ main {
   padding: 0;
   min-width: 0;
   flex: 1 1 auto;
-}
-
-.mobile-stage {
-  display: none;
 }
 
 label.inline {
@@ -278,16 +275,6 @@ textarea#src {
 
 textarea#src:focus-visible {
   outline-offset: -3px;
-}
-
-@media (max-width: 59.999rem) {
-  main.show-source .output-pane {
-    display: none;
-  }
-
-  main.show-output .source-pane {
-    display: none;
-  }
 }
 
 .icon-button {
@@ -577,8 +564,8 @@ const STAGES = [
   { name: "ast",           label: "AST",           mobile: "AT" },
   { name: "validated_ast", label: "Typed AST",     mobile: "TY" },
   { name: "ir",            label: "IR",            mobile: "IR" },
-  { name: "asm_ir",        label: "Assembly IR",   mobile: "AI" },
-  { name: "asm",           label: "Assembly",      mobile: "AS" },
+  { name: "asm_ir",        label: "Asm IR",   mobile: "AI" },
+  { name: "asm",           label: "Asm",      mobile: "AS" },
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -594,6 +581,10 @@ const optEls = [...document.querySelectorAll(".opt")];
 let results = null;
 let tab = "asm";
 let debounceId;
+
+const mobileMedia = window.matchMedia(
+  "(max-width: 59.999rem)"
+);
 
 function currentOptFlags() {
   return optEls.reduce(
@@ -645,8 +636,8 @@ function buildTabs() {
     b.className = "stage";
     b.id = "tab-" + s.name;
     b.setAttribute("role", "tab");
+    b.setAttribute("aria-label", s.label);
     b.dataset.stage = s.name;
-    b.textContent = s.label;
 
     b.addEventListener("click", () => {
       tab = s.name;
@@ -655,6 +646,26 @@ function buildTabs() {
 
     li.appendChild(b);
     tabsEl.appendChild(li);
+  }
+
+  updateStageTabLabels();
+}
+
+function updateStageTabLabels() {
+  const mobile = mobileMedia.matches;
+
+  for (const s of STAGES) {
+    const button = document.getElementById("tab-" + s.name);
+
+    if (!button) continue;
+
+    button.textContent = mobile ? s.mobile : s.label;
+    button.setAttribute("aria-label", s.label);
+    button.title = s.label;
+    button.setAttribute(
+      "aria-selected",
+      String(s.name === tab)
+    );
   }
 }
 
@@ -790,6 +801,11 @@ $("download").addEventListener("click", () => {
     1000
   );
 });
+
+mobileMedia.addEventListener(
+  "change",
+  updateStageTabLabels
+);
 
 srcEl.addEventListener("input", scheduleCompile);
 definesEl.addEventListener("input", scheduleCompile);
