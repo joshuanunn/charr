@@ -488,7 +488,7 @@ pre#out.error {
   <button type="button" aria-selected="true" data-pane="source">
     Source
   </button>
-  <button type="button" aria-selected="false" data-pane="output">
+  <button type="button" aria-selected="false" data-pane="output" id="mobile-output-tab">
     Compiled
   </button>
 </div>
@@ -532,8 +532,6 @@ pre#out.error {
   <section class="pane output-pane">
 
     <div class="pane-head output-head">
-      <span class="mobile-stage" id="mobile-stage">Preprocessed</span>
-
       <ol class="pipeline" id="tabs" role="tablist" aria-label="Compiler stages"></ol>
 
       <button id="copy" class="icon-button" disabled aria-label="Copy output" title="Copy output">
@@ -589,7 +587,7 @@ const srcEl = $("src");
 const definesEl = $("defines");
 const tabsEl = $("tabs");
 const outEl = $("out");
-const mobileStageEl = $("mobile-stage");
+const mobileOutputTabEl = $("mobile-output-tab");
 const noteEl = $("note");
 const optEls = [...document.querySelectorAll(".opt")];
 
@@ -687,7 +685,7 @@ function render() {
   const selectedStage = STAGES.find((s) => s.name === tab);
 
   if (selectedStage) {
-    mobileStageEl.textContent = selectedStage.label;
+    mobileOutputTabEl.textContent = selectedStage.label;
   }
 
   if (!st) {
