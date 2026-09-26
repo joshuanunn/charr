@@ -157,6 +157,13 @@ main {
     box-shadow: inset 0 0 0 1px var(--accent);
     font-weight: 600;
   }
+
+  .mobile-stage {
+    display: block;
+    font-weight: 600;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
 }
 
 @media (min-width: 60rem) {
@@ -197,6 +204,10 @@ main {
   padding: 0;
   min-width: 0;
   flex: 1 1 auto;
+}
+
+.mobile-stage {
+  display: none;
 }
 
 label.inline {
@@ -521,8 +532,10 @@ pre#out.error {
   <section class="pane output-pane">
 
     <div class="pane-head output-head">
+      <span class="mobile-stage" id="mobile-stage">Preprocessed</span>
+
       <ol class="pipeline" id="tabs" role="tablist" aria-label="Compiler stages"></ol>
-      
+
       <button id="copy" class="icon-button" disabled aria-label="Copy output" title="Copy output">
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <rect x="9" y="9" width="10" height="10" rx="1.5"></rect>
@@ -561,13 +574,13 @@ pre#out.error {
 "use strict";
 
 const STAGES = [
-  { name: "preprocess", label: "preprocess" },
-  { name: "tokens", label: "tokens" },
-  { name: "ast", label: "ast" },
-  { name: "validated_ast", label: "validated" },
-  { name: "ir", label: "ir" },
-  { name: "asm_ir", label: "asm ir" },
-  { name: "asm", label: "asm" },
+  { name: "preprocess",    label: "Preprocessed", mobile: "PP" },
+  { name: "tokens",        label: "Tokens",       mobile: "TK" },
+  { name: "ast",           label: "AST",           mobile: "AT" },
+  { name: "validated_ast", label: "Typed AST",     mobile: "TY" },
+  { name: "ir",            label: "IR",            mobile: "IR" },
+  { name: "asm_ir",        label: "Assembly IR",   mobile: "AI" },
+  { name: "asm",           label: "Assembly",      mobile: "AS" },
 ];
 
 const $ = (id) => document.getElementById(id);
@@ -576,6 +589,7 @@ const srcEl = $("src");
 const definesEl = $("defines");
 const tabsEl = $("tabs");
 const outEl = $("out");
+const mobileStageEl = $("mobile-stage");
 const noteEl = $("note");
 const optEls = [...document.querySelectorAll(".opt")];
 
@@ -669,6 +683,12 @@ function render() {
 
   const st = results && results[tab];
   let note = "";
+
+  const selectedStage = STAGES.find((s) => s.name === tab);
+
+  if (selectedStage) {
+    mobileStageEl.textContent = selectedStage.label;
+  }
 
   if (!st) {
     outEl.textContent = "";
