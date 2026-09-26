@@ -182,12 +182,20 @@ main {
   gap: .6rem;
   flex-wrap: wrap;
   padding: .55rem .75rem;
+  min-height: 3.4rem;
   border-bottom: 1px solid var(--line);
 }
 
 .pane-head h2 {
   margin: 0;
   font-size: 1rem;
+  flex: 1 1 auto;
+}
+
+.output-head .pipeline {
+  border: 0;
+  padding: 0;
+  min-width: 0;
   flex: 1 1 auto;
 }
 
@@ -493,13 +501,11 @@ pre#out.error {
 
   <section class="pane output-pane">
 
-    <div class="pane-head">
-      <h2 id="status">Ready</h2>
+    <div class="pane-head output-head">
+      <ol class="pipeline" id="tabs" role="tablist" aria-label="Compiler stages"></ol>
       <button id="copy" disabled>Copy</button>
       <button id="download" class="primary" disabled>Download .s</button>
     </div>
-
-    <ol class="pipeline" id="tabs" role="tablist" aria-label="Compiler stages"></ol>
 
     <div class="output-wrap">
       <pre id="out" role="tabpanel" tabindex="0"></pre>
@@ -531,7 +537,6 @@ const srcEl = $("src");
 const definesEl = $("defines");
 const tabsEl = $("tabs");
 const outEl = $("out");
-const statusEl = $("status");
 const noteEl = $("note");
 const optEls = [...document.querySelectorAll(".opt")];
 
@@ -555,8 +560,6 @@ function compile() {
   if (!window.charr) {
     return showFatal("The compiler failed to load.");
   }
-
-  statusEl.textContent = "Compiling\u2026";
 
   try {
     const stages = charr.compile(
@@ -628,10 +631,6 @@ function render() {
   const st = results && results[tab];
   let note = "";
 
-  statusEl.textContent = results
-    ? "Compiled"
-    : "Ready";
-
   if (!st) {
     outEl.textContent = "";
 
@@ -674,7 +673,6 @@ function showFatal(message) {
   results = null;
   render();
 
-  statusEl.textContent = "Error";
   outEl.classList.add("error");
   outEl.textContent = message;
 }
