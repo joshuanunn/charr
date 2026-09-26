@@ -182,6 +182,10 @@ main {
   .pipeline .stage::after {
     font-size: .9rem;
   }
+
+  .source-head h2 {
+    display: none;
+  }
 }
 
 @media (min-width: 60rem) {
@@ -319,35 +323,39 @@ textarea#src:focus-visible {
   stroke-linejoin: round;
 }
 
-/* Optimisations */
-
-.optimisations {
-  border-top: 1px solid var(--line);
-  padding: .55rem .75rem .7rem;
+.source-head {
+  position: relative;
 }
 
-.optimisations summary {
-  cursor: pointer;
-  font-weight: 600;
-  font-size: .95rem;
+.optimise-button {
+  flex: 0 0 auto;
 }
 
-.optimisations summary::marker {
-  color: var(--muted);
+.optimise-menu {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + .35rem);
+  right: .75rem;
+  width: min(19rem, calc(100vw - 2rem));
+  padding: .65rem .75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgb(0 0 0 / .12);
+  display: grid;
+  gap: .35rem;
 }
 
-.optimisations .opts {
-  margin-top: .4rem;
+.optimise-menu[hidden] {
+  display: none;
 }
 
-.opts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: .25rem 1.25rem;
-  margin-top: .3rem;
+.optimise-menu strong {
+  margin-bottom: .2rem;
+  font-size: .9rem;
 }
 
-.opts label {
+.optimise-menu label {
   display: flex;
   align-items: center;
   gap: .45rem;
@@ -356,7 +364,7 @@ textarea#src:focus-visible {
   font-size: .9rem;
 }
 
-.opts input {
+.optimise-menu input {
   width: 1.1rem;
   height: 1.1rem;
   accent-color: var(--accent);
@@ -517,37 +525,56 @@ pre#out.error {
 <main>
 
   <section class="pane source-pane">
-    <div class="pane-head">
+    
+    <div class="pane-head source-head">
       <h2>Source</h2>
+
       <label class="inline">
         -D
         <input type="text" id="defines" placeholder="DEBUG" spellcheck="false">
       </label>
-    </div>
 
-    <textarea id="src" spellcheck="false"></textarea>
+      <button
+        type="button"
+        id="optimise-button"
+        class="optimise-button"
+        aria-expanded="false"
+        aria-controls="optimise-menu"
+      >
+        Optimise
+      </button>
 
-  <details class="optimisations">
-    <summary>Optimisations</summary>
-      <div class="opts">
+      <div
+        id="optimise-menu"
+        class="optimise-menu"
+        hidden
+      >
+        <strong>Optimisations</strong>
+
         <label>
           <input type="checkbox" class="opt" data-bit="1">
           Constant folding
         </label>
+
         <label>
           <input type="checkbox" class="opt" data-bit="2">
           Copy propagation
         </label>
+
         <label>
           <input type="checkbox" class="opt" data-bit="4">
           Unreachable code elim.
         </label>
+
         <label>
           <input type="checkbox" class="opt" data-bit="8">
           Dead store elim.
         </label>
       </div>
-    </details>
+    </div>
+
+    <textarea id="src" spellcheck="false"></textarea>
+
   </section>
 
   <section class="pane output-pane">
@@ -613,7 +640,13 @@ const tabsEl = $("tabs");
 const outEl = $("out");
 const mobileOutputTabEl = $("mobile-output-tab");
 const noteEl = $("note");
+const optimiseButton = $("optimise-button");
+const optimiseMenu = $("optimise-menu");
 const optEls = [...document.querySelectorAll(".opt")];
+
+optEls.forEach((el) => {
+  el.checked = false;
+});
 
 let results = null;
 let tab = "asm";
@@ -870,6 +903,27 @@ int main(void) {
     return fib(n);
 }
 `;
+
+optimiseButton.addEventListener("click", () => {
+  const open = optimiseMenu.hidden;
+
+  optimiseMenu.hidden = !open;
+  optimiseButton.setAttribute(
+    "aria-expanded",
+    String(open)
+  );
+});
+
+document.addEventListener("click", (event) => {
+  if (
+    !optimiseMenu.hidden &&
+    !optimiseMenu.contains(event.target) &&
+    !optimiseButton.contains(event.target)
+  ) {
+    optimiseMenu.hidden = true;
+    optimiseButton.setAttribute("aria-expanded", "false");
+  }
+});
 
 const mobileTabs = document.querySelectorAll(".mobile-tabs button");
 
