@@ -482,7 +482,7 @@ pre#out.error {
   display: none;
 }
 
-/* Typed AST tree view */
+/* AST tree view (shared by the "AST" and "Typed AST" tabs) */
 
 :root {
   --ast-ctor: #a8500a;
@@ -594,6 +594,10 @@ pre#out.error {
 .ast-lbl.ast-ident.ast-hi {
   background: var(--ast-hi-bg);
   color: var(--ast-hi-text);
+}
+
+.ast-tree[data-highlight-idents="false"] .ast-lbl.ast-ident {
+  cursor: default;
 }
 
 .ast-badge {
@@ -931,8 +935,9 @@ function renderAstNode(node, depth) {
   return row;
 }
 
-function buildAstTree(root) {
+function buildAstTree(root, highlightIdents) {
   astTreeEl.innerHTML = "";
+  astTreeEl.dataset.highlightIdents = String(!!highlightIdents);
   astTreeEl.appendChild(renderAstNode(root, 0));
 }
 
@@ -945,6 +950,8 @@ astTreeEl.addEventListener("click", (e) => {
   const identEl = e.target.closest(".ast-lbl.ast-ident");
 
   if (identEl) {
+    if (astTreeEl.dataset.highlightIdents !== "true") return;
+
     const name = identEl.dataset.ident;
     const turningOn = !identEl.classList.contains("ast-hi");
 
@@ -1018,7 +1025,8 @@ function render() {
   const asm = results && results.asm;
   const isAsm = tab === "asm";
   const hasAsm = asm && asm.status === "done";
-  const hasTree = tab === "validated_ast" && st && st.status === "done" && st.tree;
+  const hasTree =
+    (tab === "ast" || tab === "validated_ast") && st && st.status === "done" && st.tree;
 
   let note = "";
 
@@ -1060,7 +1068,7 @@ function render() {
   outEl.hidden = !!hasTree;
 
   if (hasTree) {
-    buildAstTree(st.tree);
+    buildAstTree(st.tree, tab === "validated_ast");
   }
 
   noteEl.querySelector(".note-text").innerHTML = note;

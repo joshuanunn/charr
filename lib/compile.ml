@@ -7,7 +7,12 @@ type status =
   | Skipped
 
 type stage = { name : string; status : status }
-type result = { stages : stage list; vast : Ast.prog option }
+
+type result = {
+  stages : stage list;
+  ast : Ast.prog option;  (** the ast stage raw value, pre validation *)
+  vast : Ast.prog option;  (** the validated_ast stage raw value *)
+}
 
 let error_message = function
   | Diagnostics.Error (loc, msg) ->
@@ -76,4 +81,8 @@ let run ~defines ~opt_flags source =
       (fun (a, _) -> Targets.X86_64.Emission.apply a)
       Fun.id
   in
-  { stages = [ preprocess; tokens; ast; vast; ir; asm_ir; asm ]; vast = vast_v }
+  {
+    stages = [ preprocess; tokens; ast; vast; ir; asm_ir; asm ];
+    ast = ast_v;
+    vast = vast_v;
+  }

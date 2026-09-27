@@ -2,13 +2,7 @@
     UI display. *)
 
 type cls = Ctor | Field | Leaf | Ident
-
-type node = {
-  cls : cls;
-  label : string;
-  sub : string option;
-  kids : node list;
-}
+type node = { cls : cls; label : string; sub : string option; kids : node list }
 
 let leaf ?sub label = { cls = Leaf; label; sub; kids = [] }
 let ident ?sub label = { cls = Ident; label; sub; kids = [] }

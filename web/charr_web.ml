@@ -51,13 +51,17 @@ let compile (source : Js.js_string Js.t) (defines_csv : Js.js_string Js.t)
     (opt_flags : int) =
   let defines = parse_defines (Js.to_string defines_csv) in
   let result = Charr.Compile.run ~defines ~opt_flags (Js.to_string source) in
-  let tree =
-    Option.map (fun p -> js_of_node (Ast_tree.node_of_prog p)) result.vast
+  let tree_of prog =
+    Option.map (fun p -> js_of_node (Ast_tree.node_of_prog p)) prog
   in
+  let ast_tree = tree_of result.ast in
+  let vast_tree = tree_of result.vast in
   result.stages
   |> List.map (fun (st : Charr.Compile.stage) ->
-      if String.equal st.name "validated_ast" then js_stage ?tree st
-      else js_stage st)
+      match st.name with
+      | "ast" -> js_stage ?tree:ast_tree st
+      | "validated_ast" -> js_stage ?tree:vast_tree st
+      | _ -> js_stage st)
   |> Array.of_list |> Js.array
 
 let () =
