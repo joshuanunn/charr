@@ -481,6 +481,133 @@ pre#out.error {
 .note[hidden] {
   display: none;
 }
+
+/* Typed AST tree view */
+
+:root {
+  --ast-ctor: #a8500a;
+  --ast-field: #35588a;
+  --ast-leaf: #1c7a4d;
+  --ast-badge-bg: #e7eef0;
+  --ast-badge-text: #2c6e77;
+  --ast-hi-bg: #ffe8a3;
+  --ast-hi-text: #5a4400;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ast-ctor: #e3a008;
+    --ast-field: #7fa8d9;
+    --ast-leaf: #6fcf97;
+    --ast-badge-bg: #1f3a3d;
+    --ast-badge-text: #6fd0da;
+    --ast-hi-bg: #4a3b12;
+    --ast-hi-text: #ffd479;
+  }
+}
+
+.ast-toolbar {
+  margin: 0;
+  padding: .5rem .9rem;
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.ast-toolbar[hidden] {
+  display: none;
+}
+
+.ast-tree {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: .6rem 0;
+  background: var(--code-bg);
+  font-family: var(--mono);
+  font-size: .86rem;
+  line-height: 1.65;
+}
+
+.ast-tree[hidden] {
+  display: none;
+}
+
+.ast-row-head {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .05rem .9rem .05rem 0;
+  white-space: nowrap;
+}
+
+.ast-row-head[data-has-kids] {
+  cursor: pointer;
+}
+
+.ast-row-head[data-has-kids]:hover {
+  background: color-mix(in srgb, var(--ast-field) 8%, transparent);
+}
+
+.ast-row-head:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.ast-tri {
+  width: 1em;
+  text-align: center;
+  color: var(--muted);
+  transition: transform .12s ease;
+  flex: none;
+}
+
+.ast-row:not(.ast-collapsed) > .ast-row-head .ast-tri {
+  transform: rotate(90deg);
+}
+
+.ast-row.ast-collapsed > .ast-kids {
+  display: none;
+}
+
+.ast-lbl.ast-ctor {
+  color: var(--ast-ctor);
+  font-weight: 600;
+}
+
+.ast-lbl.ast-field {
+  color: var(--ast-field);
+}
+
+.ast-lbl.ast-leaf {
+  color: var(--ast-leaf);
+}
+
+.ast-lbl.ast-ident {
+  color: var(--ast-leaf);
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0 .15em;
+}
+
+.ast-lbl.ast-ident.ast-hi {
+  background: var(--ast-hi-bg);
+  color: var(--ast-hi-text);
+}
+
+.ast-badge {
+  font-size: .72rem;
+  color: var(--ast-badge-text);
+  background: var(--ast-badge-bg);
+  border-radius: 4px;
+  padding: .05rem .4rem;
+}
+
+.ast-kids {
+  border-left: 1px solid var(--line);
+  margin-left: .5em;
+}
 </style>
 </head>
 
@@ -585,6 +712,13 @@ pre#out.error {
 
     <div class="output-wrap">
       <pre id="out" role="tabpanel" tabindex="0"></pre>
+      <div class="ast-tree" id="astTree" role="tabpanel" tabindex="0" hidden></div>
+
+      <div class="ast-toolbar" id="astToolbar" hidden>
+        <button type="button" id="astExpandAll">Expand all</button>
+        <button type="button" id="astCollapseAll">Collapse all</button>
+      </div>
+
       <div class="note" id="note">
         <span class="note-text"></span>
 
@@ -638,6 +772,10 @@ const srcEl = $("src");
 const definesEl = $("defines");
 const tabsEl = $("tabs");
 const outEl = $("out");
+const astTreeEl = $("astTree");
+const astToolbarEl = $("astToolbar");
+const astExpandAllEl = $("astExpandAll");
+const astCollapseAllEl = $("astCollapseAll");
 const mobileOutputTabEl = $("mobile-output-tab");
 const noteEl = $("note");
 const optimiseButton = $("optimise-button");
@@ -739,6 +877,117 @@ function updateStageTabLabels() {
   }
 }
 
+function astRowHasKids(node) {
+  return !!(node.kids && node.kids.length);
+}
+
+function renderAstNode(node, depth) {
+  const hasKids = astRowHasKids(node);
+  const collapsedByDefault = hasKids && depth === 1;
+
+  const row = document.createElement("div");
+  row.className = "ast-row" + (collapsedByDefault ? " ast-collapsed" : "");
+
+  const head = document.createElement("div");
+  head.className = "ast-row-head";
+  head.style.paddingLeft = depth * 16 + "px";
+
+  if (hasKids) {
+    head.dataset.hasKids = "1";
+    head.tabIndex = 0;
+    head.setAttribute("role", "button");
+    head.setAttribute("aria-expanded", String(!collapsedByDefault));
+  }
+
+  const tri = document.createElement("span");
+  tri.className = "ast-tri";
+  tri.textContent = hasKids ? "\u25b8" : "";
+  head.appendChild(tri);
+
+  const lbl = document.createElement("span");
+  lbl.className = "ast-lbl ast-" + node.cls;
+  lbl.textContent = node.label;
+  if (node.cls === "ident") {
+    lbl.dataset.ident = node.label;
+  }
+  head.appendChild(lbl);
+
+  if (node.sub) {
+    const badge = document.createElement("span");
+    badge.className = "ast-badge";
+    badge.textContent = node.sub;
+    head.appendChild(badge);
+  }
+
+  row.appendChild(head);
+
+  if (hasKids) {
+    const kids = document.createElement("div");
+    kids.className = "ast-kids";
+    node.kids.forEach((k) => kids.appendChild(renderAstNode(k, depth + 1)));
+    row.appendChild(kids);
+  }
+
+  return row;
+}
+
+function buildAstTree(root) {
+  astTreeEl.innerHTML = "";
+  astTreeEl.appendChild(renderAstNode(root, 0));
+}
+
+function toggleAstRow(head) {
+  const collapsed = head.parentElement.classList.toggle("ast-collapsed");
+  head.setAttribute("aria-expanded", String(!collapsed));
+}
+
+astTreeEl.addEventListener("click", (e) => {
+  const identEl = e.target.closest(".ast-lbl.ast-ident");
+
+  if (identEl) {
+    const name = identEl.dataset.ident;
+    const turningOn = !identEl.classList.contains("ast-hi");
+
+    astTreeEl.querySelectorAll(".ast-lbl.ast-ident").forEach((el) => {
+      el.classList.toggle("ast-hi", turningOn && el.dataset.ident === name);
+    });
+
+    return;
+  }
+
+  const head = e.target.closest(".ast-row-head[data-has-kids]");
+  if (head) {
+    toggleAstRow(head);
+  }
+});
+
+astTreeEl.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+
+  const head = e.target.closest(".ast-row-head[data-has-kids]");
+  if (head) {
+    e.preventDefault();
+    toggleAstRow(head);
+  }
+});
+
+astExpandAllEl.addEventListener("click", () => {
+  astTreeEl.querySelectorAll(".ast-row").forEach((r) => {
+    r.classList.remove("ast-collapsed");
+  });
+
+  astTreeEl.querySelectorAll(".ast-row-head[data-has-kids]").forEach((h) => {
+    h.setAttribute("aria-expanded", "true");
+  });
+});
+
+astCollapseAllEl.addEventListener("click", () => {
+  astTreeEl.querySelectorAll(".ast-row-head[data-has-kids]").forEach((h) => {
+    h.parentElement.classList.add("ast-collapsed");
+    h.setAttribute("aria-expanded", "false");
+  });
+});
+
 function render() {
   outEl.classList.remove("error");
 
@@ -760,10 +1009,16 @@ function render() {
     "tab-" + tab
   );
 
+  astTreeEl.setAttribute(
+    "aria-labelledby",
+    "tab-" + tab
+  );
+
   const st = results && results[tab];
   const asm = results && results.asm;
   const isAsm = tab === "asm";
   const hasAsm = asm && asm.status === "done";
+  const hasTree = tab === "validated_ast" && st && st.status === "done" && st.tree;
 
   let note = "";
 
@@ -798,6 +1053,14 @@ function render() {
     outEl.textContent = failed
       ? `Not reached: the "${failed.label}" stage reported an error.`
       : "";
+  }
+
+  astToolbarEl.hidden = !hasTree;
+  astTreeEl.hidden = !hasTree;
+  outEl.hidden = !!hasTree;
+
+  if (hasTree) {
+    buildAstTree(st.tree);
   }
 
   noteEl.querySelector(".note-text").innerHTML = note;

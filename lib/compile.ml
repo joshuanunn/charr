@@ -1,5 +1,5 @@
-(** Whole-pipeline entry point that returns every intermediate representation as
-    text, which is used by the web build. *)
+(** Whole-pipeline entry point that returns every intermediate representation in
+    a form suitable for the web build. *)
 
 type status =
   | Done of string  (** contains serialised output. *)
@@ -7,6 +7,7 @@ type status =
   | Skipped
 
 type stage = { name : string; status : status }
+type result = { stages : stage list; vast : Ast.prog option }
 
 let error_message = function
   | Diagnostics.Error (loc, msg) ->
@@ -75,4 +76,4 @@ let run ~defines ~opt_flags source =
       (fun (a, _) -> Targets.X86_64.Emission.apply a)
       Fun.id
   in
-  [ preprocess; tokens; ast; vast; ir; asm_ir; asm ]
+  { stages = [ preprocess; tokens; ast; vast; ir; asm_ir; asm ]; vast = vast_v }
