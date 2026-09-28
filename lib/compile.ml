@@ -10,6 +10,7 @@ type stage = { name : string; status : status }
 
 type result = {
   stages : stage list;
+  tokens : Frontend.Parser.token list option;  (** the tokens stage raw value *)
   ast : Ast.prog option;  (** the ast stage raw value, pre validation *)
   vast : Ast.prog option;  (** the validated_ast stage raw value *)
 }
@@ -29,15 +30,16 @@ let run_stage name prev f show =
 
 let lex_tokens preprocessed =
   let lexbuf = Lexing.from_string preprocessed in
-  let buf = Buffer.create 256 in
-  let rec loop () =
+  let rec loop acc =
     let tok = Frontend.Lexer.read lexbuf in
-    Buffer.add_string buf (Frontend.Lexer_pp.show_token tok);
-    Buffer.add_char buf '\n';
-    if tok <> Frontend.Parser.EOF then loop ()
+    if tok = Frontend.Parser.EOF then List.rev (tok :: acc)
+    else loop (tok :: acc)
   in
-  loop ();
-  Buffer.contents buf
+  loop []
+
+let show_tokens toks =
+  String.concat ""
+    (List.map (fun tok -> Frontend.Lexer_pp.show_token tok ^ "\n") toks)
 
 let parse_preprocessed preprocessed =
   let lexbuf = Lexing.from_string preprocessed in
@@ -57,7 +59,9 @@ let run ~defines ~opt_flags source =
   let preprocess, preprocess_v =
     run_stage "preprocess" (Some source) (Pipeline.preprocess defines) Fun.id
   in
-  let tokens, _ = run_stage "tokens" preprocess_v lex_tokens Fun.id in
+  let tokens, tokens_v =
+    run_stage "tokens" preprocess_v lex_tokens show_tokens
+  in
   let ast, ast_v =
     run_stage "ast" preprocess_v parse_preprocessed Ast.show_prog
   in
@@ -83,6 +87,7 @@ let run ~defines ~opt_flags source =
   in
   {
     stages = [ preprocess; tokens; ast; vast; ir; asm_ir; asm ];
+    tokens = tokens_v;
     ast = ast_v;
     vast = vast_v;
   }

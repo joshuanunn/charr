@@ -612,6 +612,51 @@ pre#out.error {
   border-left: 1px solid var(--line);
   margin-left: .5em;
 }
+
+/* Token chip list (Tokens tab) */
+
+.tok-list {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  padding: .9rem;
+  background: var(--code-bg);
+  font: 13px var(--mono);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+}
+
+.tok-list[hidden] {
+  display: none;
+}
+
+.tok-chip {
+  padding: 1px .45em 0px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  line-height: 1.35;
+  white-space: pre;
+}
+
+.tok-chip.tok-keyword {
+  color: var(--ast-ctor);
+  font-weight: 600;
+}
+
+.tok-chip.tok-ident {
+  color: var(--ast-leaf);
+}
+
+.tok-chip.tok-literal {
+  color: var(--ast-field);
+}
+
+.tok-chip.tok-punct {
+  color: var(--muted);
+}
 </style>
 </head>
 
@@ -717,6 +762,7 @@ pre#out.error {
     <div class="output-wrap">
       <pre id="out" role="tabpanel" tabindex="0"></pre>
       <div class="ast-tree" id="astTree" role="tabpanel" tabindex="0" hidden></div>
+      <div class="tok-list" id="tokList" role="tabpanel" tabindex="0" hidden></div>
 
       <div class="ast-toolbar" id="astToolbar" hidden>
         <button type="button" id="astExpandAll">Expand all</button>
@@ -777,6 +823,7 @@ const definesEl = $("defines");
 const tabsEl = $("tabs");
 const outEl = $("out");
 const astTreeEl = $("astTree");
+const tokListEl = $("tokList");
 const astToolbarEl = $("astToolbar");
 const astExpandAllEl = $("astExpandAll");
 const astCollapseAllEl = $("astCollapseAll");
@@ -995,6 +1042,20 @@ astCollapseAllEl.addEventListener("click", () => {
   });
 });
 
+// tokens: [{ cat, label }] from Token_view, cat is keyword|ident|literal|punct.
+function buildTokenList(tokens) {
+  const frag = document.createDocumentFragment();
+
+  for (const tok of tokens) {
+    const chip = document.createElement("div");
+    chip.className = "tok-chip tok-" + tok.cat;
+    chip.textContent = tok.label;
+    frag.appendChild(chip);
+  }
+
+  tokListEl.replaceChildren(frag);
+}
+
 function render() {
   outEl.classList.remove("error");
 
@@ -1021,12 +1082,19 @@ function render() {
     "tab-" + tab
   );
 
+  tokListEl.setAttribute(
+    "aria-labelledby",
+    "tab-" + tab
+  );
+
   const st = results && results[tab];
   const asm = results && results.asm;
   const isAsm = tab === "asm";
   const hasAsm = asm && asm.status === "done";
   const hasTree =
     (tab === "ast" || tab === "validated_ast") && st && st.status === "done" && st.tree;
+  const hasTokens =
+    tab === "tokens" && st && st.status === "done" && st.tokens;
 
   let note = "";
 
@@ -1065,10 +1133,15 @@ function render() {
 
   astToolbarEl.hidden = !hasTree;
   astTreeEl.hidden = !hasTree;
-  outEl.hidden = !!hasTree;
+  tokListEl.hidden = !hasTokens;
+  outEl.hidden = !!(hasTree || hasTokens);
 
   if (hasTree) {
     buildAstTree(st.tree, tab === "validated_ast");
+  }
+
+  if (hasTokens) {
+    buildTokenList(st.tokens);
   }
 
   noteEl.querySelector(".note-text").innerHTML = note;

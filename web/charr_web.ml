@@ -28,7 +28,25 @@ let rec js_of_node (n : Ast_tree.node) : ast_node Js.t =
       | ks -> Js.Opt.return (Js.array (Array.of_list (List.map js_of_node ks)))
   end
 
-let js_stage ?tree (st : Charr.Compile.stage) =
+class type token = object
+  method cat : Js.js_string Js.t Js.readonly_prop
+  method label : Js.js_string Js.t Js.readonly_prop
+end
+
+let js_of_token (t : Token_view.t) : token Js.t =
+  let cat_str =
+    match t.cat with
+    | Token_view.Keyword -> "keyword"
+    | Token_view.Ident -> "ident"
+    | Token_view.Literal -> "literal"
+    | Token_view.Punct -> "punct"
+  in
+  object%js
+    val cat = Js.string cat_str
+    val label = Js.string t.label
+  end
+
+let js_stage ?tree ?tokens (st : Charr.Compile.stage) =
   let status_str, output_str =
     match st.status with
     | Charr.Compile.Done s -> ("done", s)
@@ -40,6 +58,7 @@ let js_stage ?tree (st : Charr.Compile.stage) =
     val status = Js.string status_str
     val output = Js.string output_str
     val tree = Js.Opt.option tree
+    val tokens = Js.Opt.option tokens
   end
 
 let parse_defines csv =
@@ -54,11 +73,20 @@ let compile (source : Js.js_string Js.t) (defines_csv : Js.js_string Js.t)
   let tree_of prog =
     Option.map (fun p -> js_of_node (Ast_tree.node_of_prog p)) prog
   in
+  let tokens_js =
+    Option.map
+      (fun toks ->
+        Js.array
+          (Array.of_list
+             (List.map (fun t -> js_of_token (Token_view.of_token t)) toks)))
+      result.tokens
+  in
   let ast_tree = tree_of result.ast in
   let vast_tree = tree_of result.vast in
   result.stages
   |> List.map (fun (st : Charr.Compile.stage) ->
       match st.name with
+      | "tokens" -> js_stage ?tokens:tokens_js st
       | "ast" -> js_stage ?tree:ast_tree st
       | "validated_ast" -> js_stage ?tree:vast_tree st
       | _ -> js_stage st)
