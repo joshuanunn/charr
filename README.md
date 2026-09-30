@@ -5,6 +5,10 @@
 
 A compiler for a large subset of the C programming language, implemented in OCaml. Inspired by the book [Writing a C Compiler](https://nostarch.com/writing-c-compiler), written by Nora Sandler.
 
+**[Try it in your browser at charr.dev](https://charr.dev)**
+
+Charr also runs entirely in the browser (compiled to JavaScript with `js_of_ocaml`). Edit some C and visualise every stage of the compilation pipeline: preprocessed source, tokens, AST, typed AST, IR, assembly IR and x86-64 assembly. You can set `-D` defines, toggle individual optimisation passes, and download the generated assembly to assemble and link locally with `gcc`.
+
 ## Supported C Language Features
 
 ### Types
