@@ -13,6 +13,8 @@ type result = {
   tokens : Frontend.Parser.token list option;  (** the tokens stage raw value *)
   ast : Ast.prog option;  (** the ast stage raw value, pre validation *)
   vast : Ast.prog option;  (** the validated_ast stage raw value *)
+  ir : Ir.prog option;  (** the ir stage raw value *)
+  asm_ir : Targets.X86_64.Asm.prog option;  (** the asm_ir stage raw value *)
 }
 
 let error_message = function
@@ -90,4 +92,6 @@ let run ~defines ~opt_flags source =
     tokens = tokens_v;
     ast = ast_v;
     vast = vast_v;
+    ir = ir_v;
+    asm_ir = Option.map fst asm_ir_v;
   }

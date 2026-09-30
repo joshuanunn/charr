@@ -13,27 +13,6 @@ let field_or_none label = function
   | [] -> field label [ leaf "(none)" ]
   | kids -> field label kids
 
-let type_str (t : Charr.Ctype.t) =
-  let rec go = function
-    | Charr.Ctype.Int -> "int"
-    | Charr.Ctype.Long -> "long"
-    | Charr.Ctype.UInt -> "unsigned int"
-    | Charr.Ctype.ULong -> "unsigned long"
-    | Charr.Ctype.FunType { params; ret } ->
-        "(" ^ String.concat ", " (List.map go params) ^ ") -> " ^ go ret
-  in
-  go t
-
-let type_str_opt = function None -> None | Some t -> Some (type_str t)
-
-let const_str (c : Charr.Ctype.const) =
-  let v = Charr.Ctype.const_to_int64 c in
-  match c with
-  | Charr.Ctype.ConstInt _ -> Int64.to_string v
-  | Charr.Ctype.ConstLong _ -> Int64.to_string v ^ "L"
-  | Charr.Ctype.ConstUInt _ -> Int64.to_string v ^ "U"
-  | Charr.Ctype.ConstULong _ -> Int64.to_string v ^ "UL"
-
 let storage_str = function
   | Charr.Ast.Static -> "static"
   | Charr.Ast.Extern -> "extern"
@@ -83,12 +62,13 @@ let ident_node (id : Charr.Ast.ident) = ident (ident_label id)
 let rec node_of_expr (e : Charr.Ast.expr) = node_of_expr_kind e.typ e.e
 
 and node_of_expr_kind (typ : Charr.Ctype.t option) (ek : Charr.Ast.expr_kind) =
-  let sub = type_str_opt typ in
+  let sub = Ctype_view.type_str_opt typ in
   match ek with
-  | Constant c -> leaf ?sub (const_str c)
+  | Constant c -> leaf ?sub (Ctype_view.const_str c)
   | Var id -> ident ?sub (ident_label id)
   | Cast { target_type; exp } ->
-      ctor ?sub "Cast" [ leaf ("as " ^ type_str target_type); node_of_expr exp ]
+      ctor ?sub "Cast"
+        [ leaf ("as " ^ Ctype_view.type_str target_type); node_of_expr exp ]
   | Unary { op; exp } -> ctor ?sub ("Unary " ^ unop_str op) [ node_of_expr exp ]
   | Binary { op; left; right } ->
       ctor ?sub
@@ -207,7 +187,7 @@ and node_of_var_decl (vd : Charr.Ast.var_decl) =
         (match vd.init with
         | Some e -> [ node_of_expr e ]
         | None -> [ leaf "(none)" ]);
-      field "var_type" [ leaf (type_str vd.var_type) ];
+      field "var_type" [ leaf (Ctype_view.type_str vd.var_type) ];
       field "storage" [ leaf (storage_str_opt vd.storage) ];
     ]
 
@@ -229,10 +209,11 @@ and node_of_fun_type (t : Charr.Ctype.t) =
   | Charr.Ctype.FunType { params; ret } ->
       ctor "FunType"
         [
-          field_or_none "params" (List.map (fun p -> leaf (type_str p)) params);
-          field "ret" [ leaf (type_str ret) ];
+          field_or_none "params"
+            (List.map (fun p -> leaf (Ctype_view.type_str p)) params);
+          field "ret" [ leaf (Ctype_view.type_str ret) ];
         ]
-  | t -> leaf (type_str t)
+  | t -> leaf (Ctype_view.type_str t)
 
 let node_of_prog (Charr.Ast.Program decls : Charr.Ast.prog) =
   ctor "Program"

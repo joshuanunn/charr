@@ -657,6 +657,123 @@ pre#out.error {
 .tok-chip.tok-punct {
   color: var(--muted);
 }
+
+/* Listing view (shared by the "IR" and "Asm IR" tabs) */
+
+:root {
+  --listing-reg: #8b3fa0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --listing-reg: #d79ae8;
+  }
+}
+
+.listing-view {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  background: var(--code-bg);
+  font-family: var(--mono);
+  font-size: 13px;
+}
+
+.listing-view[hidden] {
+  display: none;
+}
+
+.listing-block {
+  border-bottom: 1px solid var(--line);
+}
+
+.listing-block:last-child {
+  border-bottom: none;
+}
+
+.listing-block-head {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .4rem .9rem;
+  cursor: pointer;
+}
+
+.listing-block-head:hover {
+  background: color-mix(in srgb, var(--ast-field) 8%, transparent);
+}
+
+.listing-block-head:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+.listing-block-name {
+  font-weight: 600;
+  color: var(--ast-ctor);
+}
+
+.listing-tri {
+  width: 1em;
+  text-align: center;
+  color: var(--muted);
+  transition: transform .12s ease;
+  flex: none;
+}
+
+.listing-block:not(.listing-collapsed) .listing-tri {
+  transform: rotate(90deg);
+}
+
+.listing-block.listing-collapsed .listing-rows {
+  display: none;
+}
+
+.listing-rows {
+  padding: .3rem 0 .6rem;
+}
+
+.listing-row {
+  padding: .05rem 0 .05rem 2.1rem;
+  white-space: pre;
+  line-height: 1.5;
+}
+
+.listing-row.listing-label {
+  padding-left: .9rem;
+  color: var(--ast-ctor);
+  font-weight: 600;
+}
+
+.listing-row.listing-flash {
+  background: var(--ast-hi-bg);
+  transition: background .2s ease;
+}
+
+.listing-mnemonic {
+  font-weight: 600;
+}
+
+.listing-op {
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 0 .1em;
+}
+
+.listing-op.imm { color: var(--ast-field); }
+.listing-op.var { color: var(--ast-leaf); }
+.listing-op.reg { color: var(--listing-reg); }
+.listing-op.mem { color: var(--muted); }
+
+.listing-op.label_ref {
+  color: var(--ast-ctor);
+  text-decoration: underline dotted;
+}
+
+.listing-op.hi {
+  background: var(--ast-hi-bg);
+  color: var(--ast-hi-text);
+}
 </style>
 </head>
 
@@ -763,6 +880,7 @@ pre#out.error {
       <pre id="out" role="tabpanel" tabindex="0"></pre>
       <div class="ast-tree" id="astTree" role="tabpanel" tabindex="0" hidden></div>
       <div class="tok-list" id="tokList" role="tabpanel" tabindex="0" hidden></div>
+      <div class="listing-view" id="listingView" role="tabpanel" tabindex="0" hidden></div>
 
       <div class="ast-toolbar" id="astToolbar" hidden>
         <button type="button" id="astExpandAll">Expand all</button>
@@ -824,6 +942,7 @@ const tabsEl = $("tabs");
 const outEl = $("out");
 const astTreeEl = $("astTree");
 const tokListEl = $("tokList");
+const listingEl = $("listingView");
 const astToolbarEl = $("astToolbar");
 const astExpandAllEl = $("astExpandAll");
 const astCollapseAllEl = $("astCollapseAll");
@@ -1056,6 +1175,173 @@ function buildTokenList(tokens) {
   tokListEl.replaceChildren(frag);
 }
 
+// blocks: [{ name, global, params, badge, rows }] from Listing_view, shared
+// by the IR and Asm IR tabs. rows: [{ rowKind: "instr"|"label", mnemonic,
+// badge, ops, result, text }]. ops/params: [{ kind, text }], kind is
+// imm|var|reg|mem|label_ref.
+function renderListingOp(op) {
+  const span = document.createElement("span");
+  span.className = "listing-op " + op.kind;
+  span.dataset.opKind = op.kind;
+
+  if (op.kind === "label_ref") {
+    span.textContent = "." + op.text;
+    span.dataset.jump = op.text;
+  } else {
+    span.textContent = op.text;
+    span.dataset.name = op.text;
+  }
+
+  return span;
+}
+
+function appendOps(container, ops, sep) {
+  ops.forEach((op, i) => {
+    if (i > 0) container.appendChild(document.createTextNode(sep));
+    container.appendChild(renderListingOp(op));
+  });
+}
+
+function appendBadge(container, text) {
+  container.appendChild(document.createTextNode(" "));
+  const badge = document.createElement("span");
+  badge.className = "ast-badge";
+  badge.textContent = text;
+  container.appendChild(badge);
+}
+
+function renderListingRow(row) {
+  const div = document.createElement("div");
+
+  if (row.rowKind === "label") {
+    div.className = "listing-row listing-label";
+    div.textContent = "." + row.text + ":";
+    div.dataset.label = row.text;
+    return div;
+  }
+
+  div.className = "listing-row";
+
+  const mnem = document.createElement("span");
+  mnem.className = "listing-mnemonic";
+  mnem.textContent = row.mnemonic;
+  div.appendChild(mnem);
+
+  if (row.badge) appendBadge(div, row.badge);
+
+  if (row.ops && row.ops.length) {
+    div.appendChild(document.createTextNode("  "));
+    appendOps(div, row.ops, ", ");
+  }
+
+  if (row.result) {
+    div.appendChild(
+      document.createTextNode(row.ops && row.ops.length ? " -> " : "  -> ")
+    );
+    div.appendChild(renderListingOp(row.result));
+  }
+
+  return div;
+}
+
+function renderListingBlock(block) {
+  const wrap = document.createElement("div");
+  wrap.className = "listing-block";
+
+  const head = document.createElement("div");
+  head.className = "listing-block-head";
+  head.tabIndex = 0;
+  head.setAttribute("role", "button");
+  head.setAttribute("aria-expanded", "true");
+
+  const tri = document.createElement("span");
+  tri.className = "listing-tri";
+  tri.textContent = "\u25b8";
+  head.appendChild(tri);
+
+  const name = document.createElement("span");
+  name.className = "listing-block-name";
+  name.textContent = block.name;
+  head.appendChild(name);
+
+  if (block.params.length) {
+    head.appendChild(document.createTextNode("("));
+    appendOps(head, block.params, ", ");
+    head.appendChild(document.createTextNode(")"));
+  }
+
+  if (block.global) appendBadge(head, "global");
+  if (block.badge) appendBadge(head, block.badge);
+
+  wrap.appendChild(head);
+
+  const rows = document.createElement("div");
+  rows.className = "listing-rows";
+  block.rows.forEach((r) => rows.appendChild(renderListingRow(r)));
+  wrap.appendChild(rows);
+
+  return wrap;
+}
+
+function buildListing(blocks) {
+  listingEl.replaceChildren(...blocks.map(renderListingBlock));
+}
+
+function toggleListingBlock(head) {
+  const collapsed = head.parentElement.classList.toggle("listing-collapsed");
+  head.setAttribute("aria-expanded", String(!collapsed));
+}
+
+listingEl.addEventListener("click", (e) => {
+  const jumpEl = e.target.closest(".listing-op.label_ref");
+
+  if (jumpEl) {
+    const block = jumpEl.closest(".listing-block");
+    const label = block.querySelector(
+      `.listing-row.listing-label[data-label="${CSS.escape(jumpEl.dataset.jump)}"]`
+    );
+
+    if (label) {
+      label.scrollIntoView({ block: "center" });
+      label.classList.add("listing-flash");
+      setTimeout(() => label.classList.remove("listing-flash"), 700);
+    }
+
+    return;
+  }
+
+  const opEl = e.target.closest(".listing-op[data-name]");
+
+  if (opEl) {
+    const block = opEl.closest(".listing-block");
+    const kind = opEl.dataset.opKind;
+    const name = opEl.dataset.name;
+    const turningOn = !opEl.classList.contains("hi");
+
+    block.querySelectorAll(".listing-op[data-name]").forEach((el) => {
+      el.classList.toggle(
+        "hi",
+        turningOn && el.dataset.opKind === kind && el.dataset.name === name
+      );
+    });
+
+    return;
+  }
+
+  const head = e.target.closest(".listing-block-head");
+  if (head) toggleListingBlock(head);
+});
+
+listingEl.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+
+  const head = e.target.closest(".listing-block-head");
+  if (head) {
+    e.preventDefault();
+    toggleListingBlock(head);
+  }
+});
+
 function render() {
   outEl.classList.remove("error");
 
@@ -1087,6 +1373,11 @@ function render() {
     "tab-" + tab
   );
 
+  listingEl.setAttribute(
+    "aria-labelledby",
+    "tab-" + tab
+  );
+
   const st = results && results[tab];
   const asm = results && results.asm;
   const isAsm = tab === "asm";
@@ -1095,6 +1386,8 @@ function render() {
     (tab === "ast" || tab === "validated_ast") && st && st.status === "done" && st.tree;
   const hasTokens =
     tab === "tokens" && st && st.status === "done" && st.tokens;
+  const hasListing =
+    (tab === "ir" || tab === "asm_ir") && st && st.status === "done" && st.listing;
 
   let note = "";
 
@@ -1134,7 +1427,8 @@ function render() {
   astToolbarEl.hidden = !hasTree;
   astTreeEl.hidden = !hasTree;
   tokListEl.hidden = !hasTokens;
-  outEl.hidden = !!(hasTree || hasTokens);
+  listingEl.hidden = !hasListing;
+  outEl.hidden = !!(hasTree || hasTokens || hasListing);
 
   if (hasTree) {
     buildAstTree(st.tree, tab === "validated_ast");
@@ -1142,6 +1436,10 @@ function render() {
 
   if (hasTokens) {
     buildTokenList(st.tokens);
+  }
+
+  if (hasListing) {
+    buildListing(st.listing);
   }
 
   noteEl.querySelector(".note-text").innerHTML = note;
