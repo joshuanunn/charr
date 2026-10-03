@@ -774,6 +774,23 @@ pre#out.error {
   background: var(--ast-hi-bg);
   color: var(--ast-hi-text);
 }
+
+select {
+  font: inherit;
+  color: inherit;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: .3rem .4rem;
+  min-height: 2.1rem;
+  width: 7.5rem;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+select:hover {
+  border-color: var(--muted);
+}
 </style>
 </head>
 
@@ -821,6 +838,10 @@ pre#out.error {
     
     <div class="pane-head source-head">
       <h2>Source</h2>
+
+      <select id="examples" aria-label="Load an example program">
+        <option value="">Examples</option>
+      </select>
 
       <label class="inline">
         -D
@@ -1526,10 +1547,11 @@ optEls.forEach((el) =>
   el.addEventListener("change", scheduleCompile)
 );
 
-srcEl.value =
-`/*
- * Computes the nth Fibonacci number recursively and returns
- * the result for n = 6 from main().
+const EXAMPLES = [
+  { label: "Fibonacci", code: `/*
+ * Computes the nth Fibonacci number recursively.
+ *
+ * Example returns the result for n = 6 from main().
  */
 
 int fib(int n) {
@@ -1541,10 +1563,169 @@ int fib(int n) {
 }
 
 int main(void) {
-    int n = 6;
-    return fib(n);
+    return fib(6);  // Returns 8
 }
-`;
+` },
+  { label: "GCD (Euclid's algorithm)", code: `/*
+ * Greatest common divisor of two positive integers, using Euclid's
+ * algorithm.
+ * 
+ * Example returns the result for (a = 1071, b = 462) from main().
+ */
+
+int gcd(int a, int b) {
+    if (a < 0) a = -a;
+    if (b < 0) b = -b;
+
+    while (b != 0) {
+        int t = b;
+        b = a % b;
+        a = t;
+    }
+    return a;
+}
+
+int main(void) {
+    return gcd(1071, 462);  // Returns 21
+}
+` },
+  { label: "Optimisation", code: `/*
+ * Try the Optimise menu and watch the IR/Assembly output simplify.
+ */
+
+int main(void) {
+    int a = 3 + 6 * 3;
+    int b = a / 21;
+    int unused = a * 100;
+
+    if (b - 1) {
+        return 7;  // Should never return
+    }
+    return 2 * a;  // Returns 42
+}
+` },
+  { label: "Popcount", code: `/*
+ * Population count: count the number of bits set in a 64-bit value.
+ *
+ * Each pass adds the lowest bit of x to count, then shifts x right
+ * by one, until x is 0. Example of ~0ul is all 64 bits set.
+ */
+
+int popcount(unsigned long x) {
+    int count = 0;
+    while (x) {
+        count += (int) (x & 1);
+        x >>= 1;
+    }
+    return count;
+}
+
+int main(void) {
+    return popcount(~0ul);  // Returns 64
+}
+` },
+  { label: "Function arguments", code: `/*
+ * The System V AMD64 calling convention.
+ *
+ * The rules defining how Linux expects function arguments and return
+ * values to be passed in function calls, so separately compiled code
+ * can interoperate.
+ *
+ * Integer arguments:
+ *   - The first six (here: a-f) go in registers, in this order:
+ *         rdi, rsi, rdx, rcx, r8, r9
+ *     (an int uses the low 32 bits: edi, esi, edx, ecx, r8d, r9d).
+ *   - The seventh (here: g) and later go on the stack, pushed right
+ *     to left, so the seventh argument is at the lowest address.
+ *
+ * Look in the Assembly tab:
+ *   - In main: the six register arguments are loaded (edi ... r9d),
+ *     then 7 is pushed, then a call.
+ *   - In main: you should see "subq $8, %rsp" before the arguments,
+ *     which is padding to satisfy the alignment rule below.
+ *   - In sum: the register arguments are first copied to stack slots
+ *     (-4(%rbp), -8(%rbp), ..). The stack argument g is read from
+ *     16(%rbp). The saved rbp is stored at offset 0 (from rbp), the
+ *     return address at offset 8 and stack arguments from offset 16.
+ *
+ * Other points:
+ *   - Return value: an int returns in eax (rax for larger values).
+ *   - rsp must be a multiple of 16 bytes before a call. For a single
+ *     8-byte arg passed via stack (pushq), the compiler first pads
+ *     by 8 bytes. Even numbers of stack arguments need no padding.
+ *   - Caller removes stack arguments after return. Here main adds 16
+ *     to rsp, which discards the 8-byte argument and 8-byte padding.
+ *
+ * Try:
+ *   - Add an eighth argument and the padding should disappear.
+ *   - Drop to six or fewer arguments and nothing should be pushed.
+ */
+
+int sum(int a, int b, int c, int d, int e, int f, int g) {
+    return a + b + c + d + e + f + g;
+}
+
+int main(void) {
+    return sum(1, 2, 3, 4, 5, 6, 7);  // Returns 28
+}
+` },
+  { label: "Linkage and storage", code: `/*
+ * Linkage and storage duration (extern and static storage-class
+ * specifiers).
+ *
+ * Linkage (name visibility in other translation units):
+ *   - External (default at file scope): total, limit and main. Here
+ *     limit is declared extern before its definition later on.
+ *   - Internal ("static" at file scope): scale and add.
+ *
+ * Storage duration (object lifetime):
+ *   - Static: total, scale, limit and runs exist for the lifetime of
+ *     the program. Here runs is a static local, so it retains its
+ *     value between calls, but is only visible inside add.
+ *   - Automatic: x and n exist only during the call (on the stack).
+ */
+
+extern int limit;
+
+int total = 10;
+static int scale = 2;
+
+static int add(int x) {
+    static int runs = 0;
+    runs += 1;
+    total += x * scale;
+    return runs;
+}
+
+int main(void) {
+    int n;
+    add(1);
+    add(2);
+    n = add(3);
+    return n + total + limit;  // Returns 29
+}
+
+int limit = 4;
+` },
+];
+
+const examplesEl = $("examples");
+let loadedExample = EXAMPLES[0].code;
+srcEl.value = loadedExample;
+
+EXAMPLES.forEach((ex, i) => examplesEl.add(new Option(ex.label, i)));
+
+examplesEl.addEventListener("change", () => {
+  const ex = EXAMPLES[Number(examplesEl.value)];
+  examplesEl.value = "";
+  if (!ex) return;
+
+  const dirty = srcEl.value.trim() && srcEl.value !== loadedExample;
+  if (dirty && !confirm("Replace your code with this example?")) return;
+
+  srcEl.value = loadedExample = ex.code;
+  compile();
+});
 
 optimiseButton.addEventListener("click", () => {
   const open = optimiseMenu.hidden;
