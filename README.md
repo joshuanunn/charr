@@ -3,11 +3,11 @@
   <img alt="charr" src="assets/charr-light.svg" width="200">
 </picture>
 
-A compiler for a large subset of the C programming language, implemented in OCaml. Inspired by the book [Writing a C Compiler](https://nostarch.com/writing-c-compiler), written by Nora Sandler.
+A compiler for a large subset of the C programming language, implemented in OCaml. Run as a command-line tool targeting x86-64 Linux, or as an interactive demo in your browser.
 
 **[Try it in your browser at charr.dev](https://charr.dev)**
 
-Charr also runs entirely in the browser (compiled to JavaScript with `js_of_ocaml`). Edit some C and visualise every stage of the compilation pipeline: preprocessed source, tokens, AST, typed AST, IR, assembly IR and x86-64 assembly. You can set `-D` defines, toggle individual optimisation passes, and download the generated assembly to assemble and link locally with `gcc`.
+The demo is the same compiler compiled to JavaScript with `js_of_ocaml`, running client-side. Edit some C and visualise every stage of the compilation pipeline: preprocessed source, tokens, AST, typed AST, IR, assembly IR and x86-64 assembly. You can set `-D` defines, toggle individual optimisation passes, and download the generated assembly to assemble and link locally with `gcc`. To build the command-line compiler yourself, see [Build and Installation](#build-and-installation).
 
 ## Supported C Language Features
 
@@ -178,6 +178,10 @@ flowchart LR
     class pp,tok,ast,vast,ir,oir irc;
     linkStyle default stroke:#E2622B,stroke-width:2.5px;
 ```
+
+## Acknowledgements
+
+Charr is inspired by the book [Writing a C Compiler](https://nostarch.com/writing-c-compiler) by Nora Sandler, and its regression tests are derived from the book's accompanying test suite (see [Third-party Content](#third-party-content)).
 
 ## License
 
