@@ -298,6 +298,8 @@ textarea#src {
   color: var(--ink);
   font: 14px/1.5 var(--mono);
   tab-size: 4;
+  white-space: pre;
+  overflow: auto;
 }
 
 textarea#src:focus-visible {
@@ -904,7 +906,7 @@ select:hover {
       </div>
     </div>
 
-    <textarea id="src" spellcheck="false"></textarea>
+    <textarea id="src" spellcheck="false" wrap="off"></textarea>
 
   </section>
 
