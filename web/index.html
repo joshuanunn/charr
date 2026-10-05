@@ -482,6 +482,23 @@ pre#out.error {
   display: none;
 }
 
+.hint {
+  margin: 0;
+  padding: .6rem .9rem;
+  border-top: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  font-size: .85rem;
+}
+
+.hint[hidden] {
+  display: none;
+}
+
+.hint code {
+  font-family: var(--mono);
+}
+
 /* AST tree view (shared by the "AST" and "Typed AST" tabs) */
 
 :root {
@@ -908,6 +925,13 @@ select:hover {
         <button type="button" id="astCollapseAll">Collapse all</button>
       </div>
 
+      <div class="hint" id="hint" role="status" hidden>
+        <strong>Charr compiles a subset of C.</strong>
+        <span id="hint-text"></span>
+        <a href="https://github.com/joshuanunn/charr#supported-c-language-features"
+           target="_blank" rel="noopener">See what is supported</a>
+      </div>
+
       <div class="note" id="note">
         <span class="note-text"></span>
 
@@ -969,6 +993,8 @@ const astExpandAllEl = $("astExpandAll");
 const astCollapseAllEl = $("astCollapseAll");
 const mobileOutputTabEl = $("mobile-output-tab");
 const noteEl = $("note");
+const hintEl = $("hint");
+const hintTextEl = $("hint-text");
 const optimiseButton = $("optimise-button");
 const optimiseMenu = $("optimise-menu");
 const optEls = [...document.querySelectorAll(".opt")];
@@ -1363,6 +1389,44 @@ listingEl.addEventListener("keydown", (e) => {
   }
 });
 
+// C features not yet supported. Used to construct contextual hint text for a
+// failed compile. Will update as features are added (see README).
+const UNSUPPORTED = [
+  { re: /^\s*#\s*include\b/m,                             what: "#include" },
+  { re: /^\s*#\s*(define|undef)\b/m,                      what: "#define/#undef (try the -D box)" },
+  { re: /\b(double|float)\b/,                             what: "floating-point types" },
+  { re: /\bshort\b/,                                      what: "short (only int and long exist)" },
+  { re: /\bchar\b|"[^"\n]*"|'[^'\n]+'/,                   what: "characters and strings" },
+  { re: /\bstruct\b|->/,                                  what: "structs" },
+  { re: /\bsizeof\b/,                                     what: "sizeof" },
+  { re: /\b(int|long|unsigned|signed|void|char)\s*\*/,    what: "pointers" },
+  { re: /\w\s*\[[^\]]*\]/,                                what: "arrays" },
+  { re: /\bvoid\s+[A-Za-z_]\w*\s*\(/,                     what: "void functions" },
+  { re: /\b(printf|scanf|malloc|free)\s*\(/,              what: "standard library calls" },
+  { re: /\btypedef\b/,                                    what: "typedef" },
+  { re: /\bconst\b|\bvolatile\b/,                         what: "type qualifiers" },
+  { re: /\.\.\./,                                         what: "variadic arguments" },
+];
+
+function matchUnsupported(code) {
+  return UNSUPPORTED.filter((u) => u.re.test(code)).map((u) => u.what);
+}
+
+function diagnose(source, errorText) {
+  // Blank out comments but keep newlines so line numbers still line up.
+  const code = source
+    .replace(/\/\*[\s\S]*?\*\//g, (m) => m.replace(/[^\n]/g, " "))
+    .replace(/\/\/.*$/gm, "");
+
+  const m = /line (\d+)/.exec(errorText || "");
+  if (m) {
+    const here = matchUnsupported(code.split("\n")[Number(m[1]) - 1] || "");
+    if (here.length) return { line: Number(m[1]), features: here };
+  }
+
+  return { line: null, features: matchUnsupported(code) };
+}
+
 function render() {
   outEl.classList.remove("error");
 
@@ -1410,6 +1474,10 @@ function render() {
   const hasListing =
     (tab === "ir" || tab === "asm_ir") && st && st.status === "done" && st.listing;
 
+  const failedStage = results
+    ? STAGES.find((s) => results[s.name] && results[s.name].status === "error")
+    : null;
+
   let note = "";
 
   const selectedStage = STAGES.find((s) => s.name === tab);
@@ -1433,16 +1501,14 @@ function render() {
     outEl.classList.add("error");
     outEl.textContent = st.output;
 
-  } else {
-    const failed = STAGES.find(
-      (s) =>
-        results[s.name] &&
-        results[s.name].status === "error"
-    );
+  } else if (failedStage) {
+    outEl.classList.add("error");
+    outEl.textContent =
+      `Not reached: the "${failedStage.label}" stage reported an error.\n\n` +
+      results[failedStage.name].output;
 
-    outEl.textContent = failed
-      ? `Not reached: the "${failed.label}" stage reported an error.`
-      : "";
+  } else {
+    outEl.textContent = "";
   }
 
   astToolbarEl.hidden = !hasTree;
@@ -1462,6 +1528,17 @@ function render() {
   if (hasListing) {
     buildListing(st.listing);
   }
+
+  const diag = failedStage
+    ? diagnose(srcEl.value, results[failedStage.name].output)
+    : { line: null, features: [] };
+
+  hintEl.hidden = diag.features.length === 0;
+  hintTextEl.textContent = !diag.features.length
+    ? ""
+    : diag.line
+      ? `Line ${diag.line} uses ${diag.features.join(", ")}, which Charr does not support yet.`
+      : `Your code appears to use ${diag.features.join(", ")}, which Charr does not support yet.`;
 
   noteEl.querySelector(".note-text").innerHTML = note;
   noteEl.hidden = !(isAsm && hasAsm);
