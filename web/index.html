@@ -240,6 +240,8 @@ label.inline {
   gap: .35rem;
   font-size: .85rem;
   color: var(--muted);
+  min-width: 0;
+  white-space: nowrap;
 }
 
 input[type="text"] {
@@ -251,7 +253,8 @@ input[type="text"] {
   border: 1px solid var(--line);
   border-radius: 4px;
   padding: .3rem .5rem;
-  width: 11rem;
+  width: 8rem;
+  min-width: 0;
 }
 
 button {
@@ -327,6 +330,7 @@ textarea#src:focus-visible {
 
 .source-head {
   position: relative;
+  flex-wrap: nowrap;
 }
 
 .optimise-button {
@@ -802,9 +806,10 @@ select {
   border-radius: 4px;
   padding: .3rem .4rem;
   min-height: 2.1rem;
-  width: 7.5rem;
+  width: 6.5rem;
   flex: 0 0 auto;
   cursor: pointer;
+  text-overflow: ellipsis;
 }
 
 select:hover {
