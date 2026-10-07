@@ -1,9 +1,9 @@
 let show_token = function
   | Parser.IDENTIFIER s -> "IDENTIFIER(" ^ s ^ ")"
-  | Parser.LITERAL_INT i -> "LITERAL_INT(" ^ Int64.to_string i ^ ")"
-  | Parser.LITERAL_UINT i -> "LITERAL_UINT(" ^ Printf.sprintf "%Lu" i ^ ")"
-  | Parser.LITERAL_LONG i -> "LITERAL_LONG(" ^ Int64.to_string i ^ ")"
-  | Parser.LITERAL_ULONG i -> "LITERAL_ULONG(" ^ Printf.sprintf "%Lu" i ^ ")"
+  | Parser.LITERAL_INT i -> Printf.sprintf "LITERAL_INT(%Ld)" i
+  | Parser.LITERAL_UINT i -> Printf.sprintf "LITERAL_UINT(%Lu)" i
+  | Parser.LITERAL_LONG i -> Printf.sprintf "LITERAL_LONG(%Ld)" i
+  | Parser.LITERAL_ULONG i -> Printf.sprintf "LITERAL_ULONG(%Lu)" i
   | Parser.LITERAL_DOUBLE f -> Printf.sprintf "LITERAL_DOUBLE(%.17g)" f
   | Parser.KW_STATIC -> "KW_STATIC"
   | Parser.KW_EXTERN -> "KW_EXTERN"
