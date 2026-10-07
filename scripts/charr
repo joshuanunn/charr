@@ -39,6 +39,9 @@ Optimisations [stackable; applied left to right, default: none]:
       --opt-deadstores    Enable dead store elimination
       --no-opt-<pass>     Disable a single pass (e.g. --no-opt-folding)
 
+Linker [stackable, optional]:
+ -l<name>                 Link against shared library lib<name> (e.g. -lm)
+
 Output:
  -S                       Emit assembly only (no assembler, no linker)
  -c                       Emit object file (no linker)
@@ -94,6 +97,7 @@ parse_params() {
   opt_flags=$OPT_NONE
 
   defines=()
+  lib_flags=()
   args=()
 
   while [[ $# -gt 0 ]]; do
@@ -106,6 +110,13 @@ parse_params() {
       define="${1#-D}"
       [[ -n "$define" ]] || die "ERROR: missing macro name after -D"
       defines+=("$define")
+      ;;
+
+    # Link shared libraries
+    -l*)
+      lib="${1#-l}"
+      [[ -n "$lib" ]] || die "ERROR: missing shared library name after -l"
+      lib_flags+=("-l$lib")
       ;;
 
     # Compilation stages [mutually exclusive]
@@ -186,5 +197,5 @@ done
 
 # link all object files into one executable
 if [[ $assy_link -eq 2 && ${#object_files[@]} -gt 0 ]]; then
-  $CC "${object_files[@]}" -o "$output_file"
+  $CC "${object_files[@]}" "${lib_flags[@]}" -o "$output_file"
 fi
