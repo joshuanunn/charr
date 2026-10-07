@@ -34,19 +34,30 @@ let convert_ulong s =
   (* Remove trailing 'ul', 'uL', 'Ul', 'UL', 'lu', 'lU', 'Lu', 'LU' from
      literal unsigned long before conversion *)
   convert_unsigned (String.sub s 0 (String.length s - 2))
+
+let convert_double s =
+  let f = float_of_string s in
+  if Float.is_finite f then f
+  else raise (Lexing_error ("floating-point constant " ^ s ^ " out of range"))
 }
 
 let whitespace = [' ' '\t' '\r']+
 let newline = '\n'
 let alpha = ['a'-'z' 'A'-'Z' '_']
 let alphanum = ['a'-'z' 'A'-'Z' '0'-'9' '_']
+let alphanum_or_dot = ['a'-'z' 'A'-'Z' '0'-'9' '_' '.']
 let identifier = alpha alphanum*
 let digit = ['0'-'9']
 let unsigned_long_integer = digit+ (['l' 'L'] ['u' 'U'] | ['u' 'U'] ['l' 'L'])
 let long_integer = digit+ ['l' 'L']
 let unsigned_integer = digit+ ['u' 'U']
 let integer = digit+
-let invalid_integer = digit+ alphanum*
+let invalid_integer = digit+ alphanum_or_dot *
+let fractional_constant = (digit* '.' digit+ | digit+ '.')
+let significand = (digit* '.' digit+ | digit+ '.' ?)
+let exponent = ['E' 'e'] ['+' '-'] ? digit +
+let float = significand exponent | fractional_constant
+let invalid_float = float alphanum_or_dot *
 
 rule read =
   parse
@@ -58,6 +69,7 @@ rule read =
   | "unsigned" { Parser.KW_UNSIGNED }
   | "int" { Parser.KW_INT }
   | "long" { Parser.KW_LONG }
+  | "double" { Parser.KW_DOUBLE }
   | "void" { Parser.KW_VOID }
   | "return" { Parser.KW_RETURN }
   | "if" { Parser.KW_IF }
@@ -116,6 +128,8 @@ rule read =
   | long_integer { Parser.LITERAL_LONG (convert_long (Lexing.lexeme lexbuf)) }
   | unsigned_integer { Parser.LITERAL_UINT (convert_uint (Lexing.lexeme lexbuf)) }
   | integer { Parser.LITERAL_INT (convert_int (Lexing.lexeme lexbuf)) }
+  | float { Parser.LITERAL_DOUBLE (convert_double (Lexing.lexeme lexbuf)) }
+  | invalid_float { raise (Lexing_error ("Invalid floating point constant: " ^ Lexing.lexeme lexbuf)) }
   | invalid_integer { raise (Lexing_error ("Invalid integer: " ^ Lexing.lexeme lexbuf)) }
   | identifier { Parser.IDENTIFIER (Lexing.lexeme lexbuf) }
   | eof { Parser.EOF }

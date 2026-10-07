@@ -98,12 +98,14 @@ let mk_ulong_const i = Ast.suffixed_ulong_const i
 %token <int64> LITERAL_UINT
 %token <int64> LITERAL_LONG
 %token <int64> LITERAL_ULONG
+%token <float> LITERAL_DOUBLE
 %token KW_STATIC
 %token KW_EXTERN
 %token KW_SIGNED
 %token KW_UNSIGNED
 %token KW_INT
 %token KW_LONG
+%token KW_DOUBLE
 %token KW_VOID
 %token KW_RETURN
 %token KW_IF
